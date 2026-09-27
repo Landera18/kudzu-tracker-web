@@ -22111,8 +22111,8 @@
       },
       {
        "index": 6,
-       "species": "SPECIES_PONYTA",
-       "speciesId": 77,
+       "species": "SPECIES_POOCHYENA",
+       "speciesId": 261,
        "minLevel": 5,
        "maxLevel": 11,
        "ratePercent": 10.0
@@ -22180,19 +22180,14 @@
        "percent": 10.0
       },
       {
-       "species": "SPECIES_PONYTA",
-       "speciesId": 77,
-       "percent": 10.0
+       "species": "SPECIES_POOCHYENA",
+       "speciesId": 261,
+       "percent": 15.0
       },
       {
        "species": "SPECIES_MEOWTH_ALOLA",
        "speciesId": 965,
        "percent": 10.0
-      },
-      {
-       "species": "SPECIES_POOCHYENA",
-       "speciesId": 261,
-       "percent": 5.0
       },
       {
        "species": "SPECIES_ABRA",
