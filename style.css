@@ -910,3 +910,123 @@ details.locations > summary { cursor: pointer; font-weight: 600; color: var(--in
 .loc-head { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .loc-name { font-weight: 600; margin-right: 4px; }
 .loc-head a.pill { cursor: pointer; }
+
+/* ══════════════════════════════════════════════════════════════════
+   Phones. Everything above is a desktop window: three panes side by side
+   in a frame that never scrolls as a whole. Below 940px (a phone either way up, a small
+   tablet) there is room for one pane, so every page becomes a single scrolling column - the sidebar
+   folds behind a button at the top (mobile.js adds it), a list and its
+   detail take turns (mobile.js flips .show-detail), and the five sections
+   move to a tab bar at the bottom where a thumb can reach them.
+   ══════════════════════════════════════════════════════════════════ */
+.pane-toggle, .pane-back { display: none; }
+
+@media (max-width: 940px) {
+  html, body { height: 100dvh; }
+  body { font-size: 14px; }
+
+  /* the bar: one line - brand, cap, save, status dot */
+  #bar { height: 48px; padding: 0 10px; gap: 8px; }
+  .brand span, #hackver, #status-text { display: none; }
+  #bar .cap { padding: 4px 7px; }
+
+  /* the sections: a tab bar along the bottom */
+  #groups {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    display: flex; gap: 0; margin: 0; padding: 4px 4px 6px;
+    overflow: visible; background: #151820; border-top: 1px solid var(--line);
+    box-shadow: 0 -6px 18px rgba(0,0,0,.35);
+  }
+  #groups button { flex: 1 1 0; min-width: 0; padding: 11px 2px; font-size: 13px; text-align: center; }
+  #groups button.on::after { top: -5px; bottom: auto; left: 22%; right: 22%; }
+  #groups button::before { top: 6px; right: 12%; }
+  main { padding-bottom: 56px; }
+
+  #subbar { height: 42px; padding: 0 8px; }
+  #tabs button, #tabs button.on { padding: 8px 12px; font-size: 13.5px; }
+
+  /* every page: one column that scrolls as a whole */
+  .tab.on, .tab.wide.on, .tab.pc.on { display: block; overflow-y: auto; overscroll-behavior: contain; }
+  .tab.on > .filters, .tab.on > .list, .tab.on > .detail, .tab.on > .main { overflow: visible; border-right: 0; }
+  .tab.on > .filters { border-bottom: 1px solid var(--line); padding: 10px 12px 12px; }
+  .tab.on > .main { padding: 12px 12px 20px; }
+  .tab.on > .detail { padding: 12px 14px 24px; }
+
+  /* the sidebar, folded */
+  .pane-toggle {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    padding: 10px 12px; border-radius: 8px; cursor: pointer;
+    background: var(--panel-2); border: 1px solid var(--line);
+    color: var(--ink); font: inherit; font-weight: 600; text-align: left;
+  }
+  .pane-toggle .pane-sub { flex: 1; min-width: 0; color: var(--ink-dim); font-weight: 400;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pane-toggle .pane-chev { color: var(--ink-faint); transition: transform .15s; }
+  .filters:not(.collapsed) .pane-chev { transform: rotate(180deg); }
+  .filters.collapsed > :not(.pane-toggle) { display: none !important; }
+  .filters .count { margin-top: 0; }
+
+  /* list and detail take turns */
+  .tab.on:not(.show-detail) > .detail { display: none; }
+  .tab.on.show-detail > .filters,
+  .tab.on.show-detail > .list,
+  .tab.pc.on.show-detail > .main { display: none; }
+  .tab.on.show-detail > .pane-back {
+    display: flex; align-items: center; width: 100%;
+    position: sticky; top: 0; z-index: 4;
+    padding: 11px 14px; border: 0; border-bottom: 1px solid var(--line);
+    background: var(--panel); color: var(--link); font: inherit; font-weight: 600;
+    text-align: left; cursor: pointer;
+  }
+
+  /* the calculator: its own phone layout, given the whole screen */
+  .tab.calc.on, .tab.calc.on.wide { display: flex; flex-direction: column; overflow: hidden; }
+  .tab.calc.on > .filters { flex: none; max-height: 55%; overflow-y: auto; }
+  .tab.calc.on > .calc-stage { flex: 1 1 auto; min-height: 0; }
+
+  /* touch: room to tap, and 16px fields so iOS does not zoom in on focus */
+  .row-item { padding: 10px 12px; }
+  .btn { padding: 8px 13px; }
+  input, select, textarea, .f input, .f select, .row input, .row select, .entry input, .entry select,
+  table.grid select, .wipebar .wipecause, .boxactions .boxcause { font-size: 16px; }
+  .chk { padding: 3px 0; }
+
+  /* content that was laid out for a wide pane */
+  .mon .mv { grid-template-columns: 1fr; }
+  .kv { gap: 3px 10px; }
+  .main table.grid, .detail table.grid { display: block; overflow-x: auto; max-width: 100%; }
+  .items-grid { table-layout: auto; }
+  .main table.grid:has(tr:first-child > th:nth-child(2):last-child),
+  .main table.grid:has(tr:first-child > th:nth-child(3):last-child) { min-width: 0; }
+  .homehead { flex-wrap: wrap; }
+  .capsum .cs { min-width: 0; flex: 1 1 88px; padding: 9px 12px; }
+  .bossrow .who { min-width: 0; }
+  .bossrow .where { min-width: 0; }
+  .area .caught .info { min-width: 0; }
+  .entry input.sp { width: 100%; }
+  .modal-card { width: 94vw; }
+  .dialog-card { width: calc(100vw - 20px); }
+  #web-reconnect, #web-update { padding: 8px 12px; }
+
+  /* Items: five columns cannot share 350px - each item becomes a small card:
+     tick, name and what you have on one line, then what it does, then where. */
+  .main table.grid.items-grid { display: block; overflow: visible; }
+  .items-grid thead, .items-grid tr:has(> th) { display: none; }
+  .items-grid tbody { display: block; }
+  .items-grid tr {
+    display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 3px 8px;
+    padding: 9px 2px; border-bottom: 1px solid var(--line);
+  }
+  .main table.grid.items-grid td { display: block; padding: 0; border: 0; }
+  .items-grid td.chk-cell { grid-column: 1; grid-row: 1; }
+  .items-grid td.nm { grid-column: 2; grid-row: 1; font-size: 14.5px; }
+  .items-grid td:nth-child(4) { grid-column: 3; grid-row: 1; }
+  .items-grid td.desc { grid-column: 2 / 4; grid-row: 2; }
+  .items-grid td.where { grid-column: 2 / 4; grid-row: 3; }
+}
+/* A tap leaves :hover stuck on the last button touched; on a touch screen the
+   highlight belongs to the page that is open, nothing else. */
+@media (max-width: 940px) and (hover: none) {
+  #groups button:hover:not(.on), #tabs button:hover:not(.on) { background: none; color: var(--ink-dim); }
+  .row-item:hover:not(.on) { background: none; }
+}

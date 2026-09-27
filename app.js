@@ -613,7 +613,8 @@ function renderSpecies(s) {
   add('Abilities', [a.primary, a.secondary].filter(Boolean).map((x) => abilityName(x.constant)).join(', ') || '—');
   add('Hidden', a.hidden ? abilityName(a.hidden.constant) : '—');
   add('Egg groups', (s.eggGroups || []).map((g) => pretty(g.constant)).join(', ') || '—');
-  add('Growth rate', pretty(s.growthRate));
+  // {constant, id} since the species extract carries ids; a bare string before.
+  add('Growth rate', pretty(s.growthRate?.constant || s.growthRate));
   add('Gender', s.genderRatio?.label ?? dash(s.genderRatio?.raw));
   add('Catch rate', dash(s.catchRate));
   add('EXP yield', dash(s.expYield));

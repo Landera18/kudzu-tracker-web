@@ -602,7 +602,7 @@ function renderSav() {
     const st = (typeof SYNC !== 'undefined' && SYNC.status) || null;
     box.innerHTML = st && st.exists
       ? 'The save has not been read yet. It is read on its own a moment after the file changes.'
-      : 'Choose the emulator\'s <b>.sav</b> on the left and the run will follow the game. '
+      : 'Press <b>Browse…</b> and choose the emulator\'s <b>.sav</b>, and the run will follow the game. '
         + 'Nothing is changed until it is read.';
     main.append(box);
     return;

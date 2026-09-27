@@ -231,7 +231,10 @@
     return new Promise((resolve) => {
       const input = document.createElement('input');
       input.type = 'file';
-      input.accept = '.sav,.sa1,.sa2,.srm,.fla,application/octet-stream';
+      // Android's picker greys out a file whose extension it has no MIME type
+      // for - which is .sav - so a touch device gets every file offered; a
+      // file that is not a save is refused by the reader anyway.
+      if (!(navigator.maxTouchPoints > 0)) input.accept = '.sav,.sa1,.sa2,.srm,.fla,application/octet-stream';
       input.addEventListener('change', async () => {
         const f = input.files && input.files[0];
         if (!f) return resolve(false);
@@ -441,6 +444,11 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     reconnectBar();
+    // Same Android picker problem for the one-off import (see pickOnce).
+    if (navigator.maxTouchPoints > 0) {
+      const once = document.getElementById('sav-file');
+      if (once) once.removeAttribute('accept');
+    }
     if (typeof window.renderSavSettings === 'function') {
       const orig = window.renderSavSettings;
       window.renderSavSettings = function () {
