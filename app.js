@@ -809,6 +809,40 @@ const sightPartners = (t) => (t.sightPairs || []).filter((p) => !p.moving);
 const isAnyDouble = (t) => (t.battleFormat && t.battleFormat !== 'single') || !!t.doubleBattle
   || sightPartners(t).length > 0;
 
+/**
+ * Everyone fought in the same battle as `t`, `t` included, in party-file order:
+ * the other side of a scripted two-trainer or tag battle, or the other half of
+ * a sight double. That is one fight, so the lists show it as one entry, named
+ * by its first trainer (the "lead"). In this ROM every such fight is a pair and
+ * the links run both ways, so the group is the same whichever member asks.
+ */
+function fightGroup(t) {
+  if (!t) return [];
+  const out = [t];
+  for (const c of [...coOpponents(t), ...sightPartners(t).map((p) => p.with)]) {
+    const o = D.trainerBy[c];
+    if (o && o.reachable !== false && !out.includes(o)) out.push(o);
+  }
+  return out.sort((a, b) => (a.sourceLine || 0) - (b.sourceLine || 0));
+}
+const fightLead = (c) => (fightGroup(D.trainerBy[c])[0] || {}).constant || c;
+const fightNames = (g) => g.map((o) => o.name || pretty(o.constant)).join(' & ');
+const fightClasses = (g) => [...new Set(g.map(trainerClassName).filter(Boolean))].join(' & ');
+
+/** Trainers grouped into fights, keeping the order the trainers came in. */
+function groupFights(trainers) {
+  const seen = new Set();
+  const out = [];
+  for (const t of trainers) {
+    const g = fightGroup(t);
+    const lead = g[0].constant;
+    if (seen.has(lead)) continue;
+    seen.add(lead);
+    out.push(g);
+  }
+  return out;
+}
+
 /** "Tag battle", "Two trainers", "Double battle", or "May pair up" - one short tag. */
 function formatPill(t) {
   const f = t.battleFormat && t.battleFormat !== 'single' ? t.battleFormat : (t.doubleBattle ? 'double' : null);
@@ -965,7 +999,6 @@ function renderTrainers() {
   const rows = trFilters();
   const list = $('#tr-list');
   list.textContent = '';
-  $('#tr-count').textContent = `${rows.length} of ${D.trainers.trainers.length} trainers`;
 
   // Run order: split, then location, then the party file's own order within a
   // location (it follows the route), with the unplaced last.
@@ -978,9 +1011,16 @@ function renderTrainers() {
   });
   const next = typeof nextBoss === 'function' ? nextBoss() : null;
 
+  // Two trainers fought in one battle are one row, at the place of whichever
+  // of them the filters let through first.
+  const fights = groupFights(placed.map((x) => x.t))
+    .map((g) => ({ g, p: placed.find((x) => g.includes(x.t)).p }));
+  $('#tr-count').textContent = `${rows.length} of ${D.trainers.trainers.length} trainers`
+    + (fights.length !== rows.length ? ` · ${fights.length} fights` : '');
+
   const frag = document.createDocumentFragment();
   let lastHead = null;
-  for (const { t, p } of placed) {
+  for (const { g, p } of fights) {
     const headText = p
       ? `${p.splitLabel || 'Unordered'} · ${p.locationLabel || p.label || ''}`
       : 'Not on any map — never fought';
@@ -993,37 +1033,95 @@ function renderTrainers() {
       if (gp) h.append(' ', gp);
       frag.append(h);
     }
-    const r = el('div', 'row-item');
-    r.dataset.k = t.constant;
-    if (trState.sel === t.constant) r.classList.add('on');
-    if (isDefeated(t.constant)) r.classList.add('dim');
-    if (next && next.trainer.constant === t.constant) r.classList.add('next');
-    r.append(el('span', 'num', t.gymNumber ? `GYM${t.gymNumber}` : (t.isBoss ? '★' : '')));
-    const nm = el('span', 'nm', t.name || pretty(t.constant));
-    nm.title = `${t.name || ''} — ${trainerClassName(t)}${p && p.label ? ` · ${p.label}` : ''}`;
-    r.append(nm);
-    r.append(el('span', 'cls', trainerClassName(t)));
-    if (t.reachable === false) r.append(el('span', 'pill bad', 'unreachable'));
-    else if (t.isPool) r.append(el('span', 'pill warn', 'pool'));
-    const fp = formatPill(t);
-    if (fp) r.append(fp);
-    for (const mp of megaPills(t)) r.append(mp);
-    if (next && next.trainer.constant === t.constant) {
-      const np = el('span', 'pill next', 'next');
-      np.title = 'The first boss in run order the save has not beaten';
-      r.append(np);
-    }
-    const strip = el('span', 'party-strip');
-    for (const m of t.party.slice(0, 6)) strip.append(spr(m.speciesConstant));
-    strip.title = `${t.party.length} Pokémon`;
-    r.append(strip);
-    r.addEventListener('click', () => selectTrainer(t.constant));
-    frag.append(r);
+    frag.append(g.length > 1 ? fightRow(g, p, next) : trainerRow(g[0], p, next));
   }
   list.append(frag);
 }
 
+/** One list row for a battle against two trainers: both names, both teams. */
+function fightRow(g, p, next) {
+  const lead = g[0];
+  const r = el('div', 'row-item fight');
+  r.dataset.k = lead.constant;
+  if (trState.sel === lead.constant) r.classList.add('on');
+  if (g.every((o) => isDefeated(o.constant))) r.classList.add('dim');
+  const isNext = next && g.some((o) => o.constant === next.trainer.constant);
+  if (isNext) r.classList.add('next');
+  r.append(el('span', 'num', g.some((o) => o.isBoss) ? '★' : ''));
+  const nm = el('span', 'nm', fightNames(g));
+  nm.title = `${g.map((o) => `${o.name || ''} — ${trainerClassName(o)}`).join('\n')}${p && p.label ? `\n${p.label}` : ''}`;
+  r.append(nm);
+  r.append(el('span', 'cls', fightClasses(g)));
+  const fp = fightPill(g);
+  if (fp) r.append(fp);
+  const seen = new Set();
+  for (const o of g) {
+    for (const mp of megaPills(o)) {
+      if (!seen.has(mp.textContent)) { seen.add(mp.textContent); r.append(mp); }
+    }
+  }
+  if (isNext) {
+    const np = el('span', 'pill next', 'next');
+    np.title = 'The first boss in run order the save has not beaten';
+    r.append(np);
+  }
+  const strip = el('span', 'party-strip');
+  g.forEach((o, i) => {
+    if (i) strip.append(el('span', 'strip-sep', '|'));
+    for (const m of (o.party || []).slice(0, 6)) strip.append(spr(m.speciesConstant));
+  });
+  strip.title = g.map((o) => `${o.name}: ${(o.party || []).map((m) => `${m.species} L${m.level ?? '?'}`).join(', ')}`).join('\n');
+  r.append(strip);
+  r.addEventListener('click', () => selectTrainer(lead.constant));
+  return r;
+}
+
+/** The format tag for a fight row: what kind of battle the pair makes. */
+function fightPill(g) {
+  const lead = g[0];
+  const f = lead.battleFormat;
+  if (f === 'tag') return formatPill(lead);
+  const sight = sightPartners(lead).some((x) => g.some((o) => o.constant === x.with));
+  const p = el('span', 'pill', 'Two trainers');
+  p.title = sight
+    ? 'Two separate trainers who both see you from the same tile: the game starts one double battle against both'
+    : 'One double battle, one trainer on each side';
+  return p;
+}
+
+/** One list row for a trainer fought on their own. */
+function trainerRow(t, p, next) {
+  const r = el('div', 'row-item');
+  r.dataset.k = t.constant;
+  if (trState.sel === t.constant) r.classList.add('on');
+  if (isDefeated(t.constant)) r.classList.add('dim');
+  if (next && next.trainer.constant === t.constant) r.classList.add('next');
+  r.append(el('span', 'num', t.gymNumber ? `GYM${t.gymNumber}` : (t.isBoss ? '★' : '')));
+  const nm = el('span', 'nm', t.name || pretty(t.constant));
+  nm.title = `${t.name || ''} — ${trainerClassName(t)}${p && p.label ? ` · ${p.label}` : ''}`;
+  r.append(nm);
+  r.append(el('span', 'cls', trainerClassName(t)));
+  if (t.reachable === false) r.append(el('span', 'pill bad', 'unreachable'));
+  else if (t.isPool) r.append(el('span', 'pill warn', 'pool'));
+  const fp = formatPill(t);
+  if (fp) r.append(fp);
+  for (const mp of megaPills(t)) r.append(mp);
+  if (next && next.trainer.constant === t.constant) {
+    const np = el('span', 'pill next', 'next');
+    np.title = 'The first boss in run order the save has not beaten';
+    r.append(np);
+  }
+  const strip = el('span', 'party-strip');
+  for (const m of t.party.slice(0, 6)) strip.append(spr(m.speciesConstant));
+  strip.title = `${t.party.length} Pokémon`;
+  r.append(strip);
+  r.addEventListener('click', () => selectTrainer(t.constant));
+  return r;
+}
+
+/** Open a trainer - or, for one half of a pair, the fight they are part of. */
 function selectTrainer(k) {
+  k = fightLead(k);
   trState.sel = k;
   $$('#tr-list .row-item').forEach((r) => r.classList.toggle('on', r.dataset.k === k));
   renderTrainer(D.trainers.trainers.find((t) => t.constant === k));
@@ -1033,6 +1131,8 @@ function renderTrainer(t) {
   const d = $('#tr-detail');
   d.textContent = '';
   if (!t) { d.append(el('div', 'empty', 'Select a trainer')); return; }
+  const group = fightGroup(t);
+  if (group.length > 1) { renderFight(group, d); return; }
 
   const head = el('div');
   head.append(el('h2', null, `${t.name || pretty(t.constant)}${t.class ? ` — ${trainerClassName(t)}` : ''}`));
@@ -1098,6 +1198,12 @@ function renderTrainer(t) {
     d.append(w);
   }
 
+  appendTeam(d, t);
+  d.scrollTop = 0;
+}
+
+/** One trainer's team read-out, AI and party, appended to `d`. */
+function appendTeam(d, t) {
   /* computed team read-out — the thing you actually want before a fight */
   const party = t.party || [];
   const teamTypes = new Set();
@@ -1131,7 +1237,9 @@ function renderTrainer(t) {
   else {
     const ul = el('div');
     for (const f of flags) {
-      const gloss = D.trainers.aiFlagGlossary?.[f];
+      // Entries are {bit, gloss, composite, expands}; an older extract had bare strings.
+      const entry = D.trainers.aiFlagGlossary?.[f];
+      const gloss = typeof entry === 'string' ? entry : entry?.gloss;
       const row = el('div');
       row.innerHTML = `<span class="pill">${esc(f.replace('AI_FLAG_', ''))}</span> <span style="color:var(--ink-dim)">${esc(gloss || '')}</span>`;
       ul.append(row);
@@ -1178,6 +1286,110 @@ function renderTrainer(t) {
     }
     card.append(mv);
     d.append(card);
+  }
+}
+
+/**
+ * The detail panel for a battle against two trainers: the fight once - its
+ * kind, where, whether it is won - then each trainer's team in turn.
+ */
+function renderFight(g, d) {
+  const lead = g[0];
+  const head = el('div');
+  head.append(el('h2', null, fightNames(g)));
+  for (const o of g) head.append(el('div', 'const', `${trainerClassName(o)} ${o.name} · ${o.constant}`));
+  d.append(head);
+
+  const tags = el('div', 'chips');
+  if (g.some((o) => o.bossKind && o.bossKind !== 'normal')) {
+    tags.append(el('span', 'pill', pretty(g.find((o) => o.bossKind && o.bossKind !== 'normal').bossKind)));
+  }
+  tags.append(fightPill(g));
+  const seen = new Set();
+  for (const o of g) {
+    for (const mp of megaPills(o)) {
+      if (!seen.has(mp.textContent)) { seen.add(mp.textContent); tags.append(mp); }
+    }
+  }
+  d.append(tags);
+
+  // One battle, so one box: beating it sets both trainers' flags in the game.
+  const chk = el('label', 'chk');
+  const box = el('input'); box.type = 'checkbox';
+  box.checked = g.every((o) => isDefeated(o.constant));
+  box.addEventListener('change', () => {
+    for (const o of g) setDefeatedManual(o.constant, box.checked);
+    renderTrainers(); renderTrainer(lead);
+    if (typeof renderProgressSummary === 'function') renderProgressSummary();
+  });
+  chk.append(box, document.createTextNode(' Defeated'));
+  if (g.every((o) => defeatedSource(o.constant) === 'save')) {
+    const p = el('span', 'pill good', 'from save');
+    p.title = 'The save\'s trainer flags say this battle is won';
+    p.style.marginLeft = '6px';
+    chk.append(p);
+  }
+  chk.style.marginTop = '10px';
+  d.append(chk);
+
+  /* the battle */
+  d.append(el('h3', null, 'Battle'));
+  const others = fightNames(g.slice(1));
+  if (lead.battleFormat === 'tag') {
+    const ally = tagPartner(lead);
+    d.append(el('div', null, `Tag battle: you and ${ally ? ally.name : 'an ally'} against ${fightNames(g)}.`));
+    d.append(el('div', 'const', 'You pick which of your Pokémon go in; the ally brings its own team.'));
+    if (ally && ally.party?.length) {
+      const sg = el('div', 'slotgrid');
+      for (const m of ally.party) {
+        const r = el('div', 's');
+        r.append(spr(m.speciesConstant));
+        r.append(speciesLink(m.speciesConstant, '', m.nickname ? ` (${m.nickname})` : ''));
+        r.append(el('span', 'l', `L${m.level ?? '?'}${m.heldItem ? ` @ ${m.heldItem}` : ''}`));
+        sg.append(r);
+      }
+      d.append(el('div', 'const', `${ally.name}'s team`));
+      d.append(sg);
+    }
+  } else {
+    const pair = sightPartners(lead).find((x) => g.some((o) => o.constant === x.with));
+    if (pair) {
+      const line = el('div', null, pair.seenTogether
+        ? `Two separate trainers who both see you from ${pair.tiles} tile${pair.tiles === 1 ? '' : 's'}, so the game starts one double battle against both - ${lead.name}'s team on one side, ${others}'s on the other.`
+        : `Listed as a double, but as they stand now their sight lines never reach the same tile, so the game starts them one at a time.`);
+      if (!pair.seenTogether) line.classList.add('warn-text');
+      d.append(line);
+    } else {
+      d.append(el('div', null, `One double battle, one trainer on each side: ${lead.name} and ${others}.`));
+    }
+  }
+  const lines = [];
+  for (const o of g) {
+    for (const mg of o.guardsMega || []) {
+      lines.push(mg.how === 'reward' ? `Beating it gives ${mg.itemName}.`
+        : `Guards a mega stone: ${o.name} ${mg.how === 'beside' ? 'stands right beside' : 'watches the way to'} the ${mg.itemName}.`);
+    }
+  }
+  for (const s of [...new Set(lines)]) d.append(el('div', null, s));
+
+  /* where */
+  const where = D.mapOfTrainer[lead.constant] || [];
+  d.append(el('h3', null, 'Location'));
+  if (!where.length) d.append(el('div', 'const', 'no map script references this trainer'));
+  else {
+    const w = el('div');
+    for (const m of where) {
+      w.append(el('div', null, `${m.label || m.folder}${m.splitLabel ? ` · ${m.splitLabel}` : ''}`));
+    }
+    d.append(w);
+  }
+
+  /* each side's team */
+  for (const o of g) {
+    const sec = el('div', 'fight-member');
+    sec.append(el('h2', null, `${o.name || pretty(o.constant)}${o.class ? ` — ${trainerClassName(o)}` : ''}`));
+    appendTeam(sec, o);
+    d.append(sec);
   }
   d.scrollTop = 0;
 }

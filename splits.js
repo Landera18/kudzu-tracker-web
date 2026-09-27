@@ -285,10 +285,13 @@ function renderLocations(s, body) {
       head.append(p);
     }
     if (l.trainers.length) {
-      const beaten = l.trainers.filter((t) => isDefeated(t.constant)).length;
-      const p = el('span', `pill${beaten === l.trainers.length ? ' good' : ''}`,
-        `${beaten}/${l.trainers.length} trainer${l.trainers.length === 1 ? '' : 's'}`);
-      p.title = l.trainers.map((t) => `${isDefeated(t.constant) ? '✓ ' : ''}${t.name} (${trainerClassName(t)})`).join('\n');
+      // Two trainers fought in one battle count, and are named, as one fight.
+      const fights = groupFights(l.trainers);
+      const won = (g) => g.every((t) => isDefeated(t.constant));
+      const beaten = fights.filter(won).length;
+      const p = el('span', `pill${beaten === fights.length ? ' good' : ''}`,
+        `${beaten}/${fights.length} trainer${fights.length === 1 ? '' : 's'}`);
+      p.title = fights.map((g) => `${won(g) ? '✓ ' : ''}${fightNames(g)} (${fightClasses(g)})`).join('\n');
       head.append(p);
       // Fights that stand between you and a mega stone.
       const guarded = {};

@@ -432,6 +432,17 @@ td img.spr.icon { vertical-align: middle; margin-right: 5px; }
 .party-strip { display: inline-flex; gap: 1px; margin-left: auto; }
 .party-strip img.spr.icon { width: 20px; height: 20px; margin: -3px 0; }
 .party-strip .strip-sep { color: var(--ink-faint); margin: 0 4px; }
+/* A battle against two trainers: one list row, and in the detail pane one
+   section per side under the fight's own heading. */
+.fight-member { margin-top: 22px; padding-top: 12px; border-top: 1px solid #2a2f37; }
+/* Two teams are twice as wide as one: the names keep their room and the teams
+   drop to a line of their own when the list is too narrow for both. */
+.row-item.fight { flex-wrap: wrap; row-gap: 3px; }
+.row-item.fight .nm { flex: 1 1 110px; min-width: 110px; }
+/* A single trainer's six sprites could squeeze its name to nothing too. */
+#tr-list .row-item { flex-wrap: wrap; row-gap: 3px; }
+#tr-list .row-item .nm { min-width: 70px; }
+.fight-member > h2 { font-size: 16px; }
 .pill.mega { color: #d9a2ff; border-color: #5a3a73; }
 .warn-text { color: var(--warn); }
 

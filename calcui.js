@@ -166,6 +166,7 @@ function renderCalc() { /* the calculator renders itself now */ }
 
 /** Open the Calc tab with this trainer's team loaded, from anywhere. */
 async function openCalcFor(constant) {
+  constant = fightLead(constant);
   const loc = $('#calc-location');
   const sel = $('#calc-trainer');
   if (loc && loc.value) { loc.value = ''; fillCalcTrainers(null); }
@@ -200,21 +201,26 @@ function fillCalcTrainers(allowed) {
   none.value = '';
   sel.append(none);
 
-  const usable = D.trainers.trainers.filter((t) => t.reachable !== false
-    && (!allowed || allowed.has(t.constant)));
-  const rank = (t) => (t.gymNumber ? 0 : t.isBoss ? 1 : 2);
-  usable.sort((x, y) => rank(x) - rank(y)
-    || (x.gymNumber || 0) - (y.gymNumber || 0)
-    || (x.name || '').localeCompare(y.name || ''));
-  for (const t of usable) {
-    const tag = t.gymNumber ? `Gym ${t.gymNumber} — ` : t.isBoss ? '★ ' : '';
-    const o = el('option', null, `${tag}${t.name}${t.class ? ` (${t.class})` : ''}`);
+  // A battle against two trainers is one entry, named for both and keyed by its
+  // lead; the calc loads the other as the lead's partner (Doubles) by itself.
+  const fights = groupFights(D.trainers.trainers.filter((t) => t.reachable !== false
+    && (!allowed || allowed.has(t.constant))));
+  const rank = (g) => (g[0].gymNumber ? 0 : g.some((t) => t.isBoss) ? 1 : 2);
+  fights.sort((x, y) => rank(x) - rank(y)
+    || (x[0].gymNumber || 0) - (y[0].gymNumber || 0)
+    || fightNames(x).localeCompare(fightNames(y)));
+  for (const g of fights) {
+    const t = g[0];
+    const tag = t.gymNumber ? `Gym ${t.gymNumber} — ` : g.some((x) => x.isBoss) ? '★ ' : '';
+    const cls = g.length > 1 ? fightClasses(g) : t.class;
+    const o = el('option', null, `${tag}${fightNames(g)}${cls ? ` (${cls})` : ''}`);
     o.value = t.constant;
     sel.append(o);
   }
   // Keep the selection if it survived the filter; otherwise clear it so the
   // matrix does not keep showing a trainer the list no longer offers.
-  if (calcTrainer && usable.some((t) => t.constant === calcTrainer)) sel.value = calcTrainer;
+  if (calcTrainer) calcTrainer = fightLead(calcTrainer);
+  if (calcTrainer && fights.some((g) => g[0].constant === calcTrainer)) sel.value = calcTrainer;
   else { calcTrainer = null; calcCell = null; }
 }
 
@@ -481,6 +487,7 @@ function initCalc() {
   if (first && !calcTrainer) {
     let kept = null;
     try { kept = localStorage.getItem(CALC_TRAINER_KEY); } catch { /* ignore */ }
+    if (kept) kept = fightLead(kept);     // one half of a pair was remembered by an older build
     const stillOpen = kept && [...sel.options].some((o) => o.value === kept)
       && !(typeof isDefeated === 'function' && isDefeated(kept));
     if (stillOpen) { sel.value = kept; calcTrainer = kept; }
@@ -531,9 +538,10 @@ function initCalc() {
       // be offered again, and nothing re-picks once an opponent is set.
       if (typeof firstSaveRead === 'function') await firstSaveRead(4000);
       const nb = calcTrainer ? null : nextBossFight();
-      if (nb && [...sel.options].some((o) => o.value === nb.trainer.constant)) {
-        sel.value = nb.trainer.constant;
-        calcTrainer = nb.trainer.constant;
+      const nbKey = nb ? fightLead(nb.trainer.constant) : null;
+      if (nbKey && [...sel.options].some((o) => o.value === nbKey)) {
+        sel.value = nbKey;
+        calcTrainer = nbKey;
         rememberCalcTrainer(calcTrainer);
         try { await handoffTrainer(calcTrainer); } catch { /* the calc opens without it */ }
       }
