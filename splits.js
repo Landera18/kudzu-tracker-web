@@ -163,6 +163,7 @@ function bossRow(b, opts) {
       }
     }
   }
+  if (typeof fieldPills === 'function') for (const fx of fieldPills(opponents)) who.append(fx);
   if (b.ally) {
     const a = el('span', 'pill good', `with ${b.ally.name}`);
     a.title = `Your ally: ${(b.ally.party || []).map((m) => `${m.species} L${m.level ?? '?'}`).join(', ')}`;

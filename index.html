@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kudzu Nuzlocke Tracker</title>
-<link rel="stylesheet" href="style.css?v=20260927190707">
-<link rel="stylesheet" href="web.css?v=20260927190707">
+<link rel="stylesheet" href="style.css?v=20260927192846">
+<link rel="stylesheet" href="web.css?v=20260927192846">
 </head>
 <body>
 
@@ -46,6 +46,7 @@
     <button data-tab="sandbox" hidden>Sandbox</button>
     <button data-tab="calc" hidden>Calc</button>
     <button data-tab="dex" hidden>Pokédex</button>
+    <button data-tab="glossary" hidden>Glossary</button>
   </nav>
 </div>
 
@@ -71,6 +72,23 @@
   </section>
 
   <!-- ─────────────────────────── Pokédex ─────────────────────────── -->
+  <!-- ─────────────────────────── Glossary ─────────────────────────── -->
+  <section id="tab-glossary" class="tab wide">
+    <aside class="filters">
+      <label class="f">
+        <span>Search</span>
+        <input id="gl-q" type="search" placeholder="a rule, a field effect, an AI flag" autocomplete="off">
+      </label>
+      <h4>Sections</h4>
+      <div id="gl-nav" class="gl-nav"></div>
+      <div class="count">
+        How Kudzu differs from FireRed, what each field effect does, and how the
+        AI decides. Written from the ROM's own code.
+      </div>
+    </aside>
+    <div class="main" id="gl-main"></div>
+  </section>
+
   <section id="tab-dex" class="tab">
     <aside class="filters">
       <label class="f">
@@ -273,6 +291,7 @@
         <span>Opposing trainer</span>
         <select id="calc-trainer"></select>
       </label>
+      <div id="calc-field-note" class="calc-field" hidden></div>
       <div class="count">
         Picking a trainer loads their team into the calculator. Everything else
         - field, items, boosts - is set in the calculator itself, which is
@@ -489,25 +508,26 @@
   </div>
 </div>
 
-<script src="web.js?v=20260927190707" data-build="20260927190707"></script>
-<script src="app.js?v=20260927190707"></script>
-<script src="tracker.js?v=20260927190707"></script>
-<script src="nav.js?v=20260927190707"></script>
-<script src="progress.js?v=20260927190707"></script>
-<script src="box.js?v=20260927190707"></script>
-<script src="items.js?v=20260927190707"></script>
-<script src="caps.js?v=20260927190707"></script>
-<script src="splits.js?v=20260927190707"></script>
-<script src="frags.js?v=20260927190707"></script>
-<script src="sav.js?v=20260927190707"></script>
-<script src="savui.js?v=20260927190707"></script>
-<script src="savwrite.js?v=20260927190707"></script>
-<script src="sandbox.js?v=20260927190707"></script>
-<script src="ending.js?v=20260927190707"></script>
-<script src="runs.js?v=20260927190707"></script>
-<script src="calc.js?v=20260927190707"></script>
-<script src="calcui.js?v=20260927190707"></script>
-<script src="home.js?v=20260927190707"></script>
-<script src="mobile.js?v=20260927190707"></script>
+<script src="web.js?v=20260927192846" data-build="20260927192846"></script>
+<script src="app.js?v=20260927192846"></script>
+<script src="tracker.js?v=20260927192846"></script>
+<script src="nav.js?v=20260927192846"></script>
+<script src="progress.js?v=20260927192846"></script>
+<script src="box.js?v=20260927192846"></script>
+<script src="items.js?v=20260927192846"></script>
+<script src="caps.js?v=20260927192846"></script>
+<script src="splits.js?v=20260927192846"></script>
+<script src="frags.js?v=20260927192846"></script>
+<script src="sav.js?v=20260927192846"></script>
+<script src="savui.js?v=20260927192846"></script>
+<script src="savwrite.js?v=20260927192846"></script>
+<script src="sandbox.js?v=20260927192846"></script>
+<script src="ending.js?v=20260927192846"></script>
+<script src="runs.js?v=20260927192846"></script>
+<script src="calc.js?v=20260927192846"></script>
+<script src="calcui.js?v=20260927192846"></script>
+<script src="home.js?v=20260927192846"></script>
+<script src="glossary.js?v=20260927192846"></script>
+<script src="mobile.js?v=20260927192846"></script>
 </body>
 </html>

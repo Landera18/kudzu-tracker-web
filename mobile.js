@@ -33,6 +33,7 @@
     frags: ['About', false],
     caps: ['Options', false],
     trainers: ['Filters', false],
+    glossary: ['Search & sections', false],
     sandbox: ['Filters', false],
   };
 
@@ -61,7 +62,12 @@
   function calcSummary() {
     const sel = document.getElementById('calc-trainer');
     const o = sel && sel.selectedOptions && sel.selectedOptions[0];
-    return o && o.value ? o.textContent.replace(/\s*\(.*\)\s*$/, '') : '';
+    if (!o || !o.value) return '';
+    const who = o.textContent.replace(/\s*\(.*\)\s*$/, '');
+    // D is app.js's top-level const: shared by the page's scripts, not on window.
+    const t = typeof D !== 'undefined' && D.trainerBy && D.trainerBy[o.value];
+    const fx = t && typeof fieldEffectsOf === 'function' ? fieldEffectsOf(fightGroup(t)).map(fieldName) : [];
+    return fx.length ? `${who} · ${fx.join(', ')}` : who;
   }
 
   function refreshToggle(sec) {

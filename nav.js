@@ -44,12 +44,12 @@ const NAV_SECTIONS = [
   { id: 'route', label: 'Route', pages: ['enc', 'trainers'] },
   { id: 'team', label: 'Team', pages: ['box', 'items', 'caps', 'frags'] },
   { id: 'battle', label: 'Calc', pages: ['calc'] },
-  { id: 'dex', label: 'Pokédex', pages: ['dex'] },
+  { id: 'dex', label: 'Pokédex', pages: ['dex', 'glossary'] },
 ];
 /* What a page is called in the second row, where that differs from its id's
    old tab name: "Run > Run" reads as a stutter, and Runs / Save say more with
    one more word. Ids, section ids and 'kudzu.tab' values are unchanged. */
-const NAV_PAGE_LABEL = { home: 'Overview', runs: 'All runs', sav: 'Save file' };
+const NAV_PAGE_LABEL = { home: 'Overview', runs: 'All runs', sav: 'Save file', glossary: 'Glossary' };
 
 const NAV_LAST_KEY = 'kudzu.nav.last';      // { sectionId: pageId } - the page each section reopens on
 let navLast = {};

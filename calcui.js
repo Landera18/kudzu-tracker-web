@@ -150,6 +150,28 @@ function autoStageTeam() {
   return true;
 }
 
+/* The calc does not simulate a trainer's starting field effect (Magnetic Field,
+   Trick Room, hazards on your side...), so say what the chosen fight starts
+   with, and what it does, where the fight is picked. */
+function renderCalcFieldNote() {
+  const box = $('#calc-field-note');
+  if (!box) return;
+  const t = calcTrainer && D.trainerBy && D.trainerBy[calcTrainer];
+  const fx = t && typeof fieldEffectsOf === 'function' ? fieldEffectsOf(fightGroup(t)) : [];
+  box.textContent = '';
+  box.hidden = !fx.length;
+  if (!fx.length) return;
+  box.append(el('div', 'calc-field-head', 'Starts with - not in the calc:'));
+  for (const e of fx) {
+    const row = el('div', 'calc-field-row');
+    row.append(el('b', null, fieldName(e)));
+    const when = fieldWhen(e);
+    if (when) row.append(el('span', 'fx-when', ` ${when}`));
+    if (e.text) row.append(el('div', 'fx-text', e.text));
+    box.append(row);
+  }
+}
+
 async function handoffTrainer(constant) {
   const frame = $('#calc-frame');
   const t = constant && D.trainers.trainers.find((x) => x.constant === constant);
@@ -173,6 +195,7 @@ async function openCalcFor(constant) {
   if (sel && [...sel.options].some((o) => o.value === constant)) sel.value = constant;
   calcTrainer = constant;
   rememberCalcTrainer(constant);
+  renderCalcFieldNote();
   showTab('calc');
   try { await handoffTrainer(constant); } catch { /* the calc opens without it */ }
   showCalcFrame();
@@ -480,6 +503,7 @@ function initCalc() {
   on(sel, 'change', () => {
     calcTrainer = sel.value || null;
     rememberCalcTrainer(calcTrainer);
+    renderCalcFieldNote();
     handoffTrainer(calcTrainer);
   });
   // Back on the opponent that was being prepared for - unless the save has
@@ -491,6 +515,7 @@ function initCalc() {
     const stillOpen = kept && [...sel.options].some((o) => o.value === kept)
       && !(typeof isDefeated === 'function' && isDefeated(kept));
     if (stillOpen) { sel.value = kept; calcTrainer = kept; }
+    renderCalcFieldNote();
   }
 
   on($('#calc-send-team'), 'click', sendTeamToCalc);
@@ -543,6 +568,7 @@ function initCalc() {
         sel.value = nbKey;
         calcTrainer = nbKey;
         rememberCalcTrainer(calcTrainer);
+        renderCalcFieldNote();
         try { await handoffTrainer(calcTrainer); } catch { /* the calc opens without it */ }
       }
     }

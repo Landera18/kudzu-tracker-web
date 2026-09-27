@@ -1,0 +1,1014 @@
+{
+ "source": {
+  "definitions": "include/constants/battle.h",
+  "text": "src/data/glossary.json"
+ },
+ "fieldEffects": [
+  {
+   "enum": "STARTING_STATUS_ELECTRIC_TERRAIN",
+   "field": "electricTerrain",
+   "key": "ELECTRIC_TERRAIN",
+   "name": "Electric Terrain",
+   "side": null,
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Electric Terrain (Permanent)",
+   "text": "Grounded Pokémon can't fall asleep, and Electric-type moves used by grounded Pokémon are 30% stronger.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_ELECTRIC_TERRAIN_TEMPORARY",
+   "field": "electricTerrainTemporary",
+   "key": "ELECTRIC_TERRAIN",
+   "name": "Electric Terrain",
+   "side": null,
+   "permanent": false,
+   "turns": 5,
+   "layers": null,
+   "sourceNote": "Electric Terrain Temporary (5 turns)",
+   "text": "Grounded Pokémon can't fall asleep, and Electric-type moves used by grounded Pokémon are 30% stronger.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_MISTY_TERRAIN",
+   "field": "mistyTerrain",
+   "key": "MISTY_TERRAIN",
+   "name": "Misty Terrain",
+   "side": null,
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Misty Terrain (Permanent)",
+   "text": "Grounded Pokémon can't be given a status condition or confused, and Dragon-type moves do half damage to grounded Pokémon.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_MISTY_TERRAIN_TEMPORARY",
+   "field": "mistyTerrainTemporary",
+   "key": "MISTY_TERRAIN",
+   "name": "Misty Terrain",
+   "side": null,
+   "permanent": false,
+   "turns": 5,
+   "layers": null,
+   "sourceNote": "Misty Terrain Temporary (5 turns)",
+   "text": "Grounded Pokémon can't be given a status condition or confused, and Dragon-type moves do half damage to grounded Pokémon.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_GRASSY_TERRAIN",
+   "field": "grassyTerrain",
+   "key": "GRASSY_TERRAIN",
+   "name": "Grassy Terrain",
+   "side": null,
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Grassy Terrain (Permanent)",
+   "text": "Grounded Pokémon recover 1/16 of their max HP each turn, Grass-type moves used by grounded Pokémon are 30% stronger, and Earthquake, Bulldoze and Magnitude do half damage to grounded Pokémon.",
+   "trainers": [
+    "TRAINER_LEADER_ERIKA"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_GRASSY_TERRAIN_TEMPORARY",
+   "field": "grassyTerrainTemporary",
+   "key": "GRASSY_TERRAIN",
+   "name": "Grassy Terrain",
+   "side": null,
+   "permanent": false,
+   "turns": 5,
+   "layers": null,
+   "sourceNote": "Grassy Terrain Temporary (5 turns)",
+   "text": "Grounded Pokémon recover 1/16 of their max HP each turn, Grass-type moves used by grounded Pokémon are 30% stronger, and Earthquake, Bulldoze and Magnitude do half damage to grounded Pokémon.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_PSYCHIC_TERRAIN",
+   "field": "psychicTerrain",
+   "key": "PSYCHIC_TERRAIN",
+   "name": "Psychic Terrain",
+   "side": null,
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Psychic Terrain (Permanent)",
+   "text": "Grounded Pokémon can't be hit by priority moves, and Psychic-type moves used by grounded Pokémon are 30% stronger.",
+   "trainers": [
+    "TRAINER_PSYCHIC_VINCENT",
+    "TRAINER_SILPH_CO_11F_SABRINA"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_PSYCHIC_TERRAIN_TEMPORARY",
+   "field": "psychicTerrainTemporary",
+   "key": "PSYCHIC_TERRAIN",
+   "name": "Psychic Terrain",
+   "side": null,
+   "permanent": false,
+   "turns": 5,
+   "layers": null,
+   "sourceNote": "Psychic Terrain Temporary (5 turns)",
+   "text": "Grounded Pokémon can't be hit by priority moves, and Psychic-type moves used by grounded Pokémon are 30% stronger.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_TRICK_ROOM",
+   "field": "trickRoom",
+   "key": "TRICK_ROOM",
+   "name": "Trick Room",
+   "side": null,
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Trick Room (Permanent)",
+   "text": "Slower Pokémon move first (within the same priority bracket) - the speed order is reversed.",
+   "trainers": [
+    "TRAINER_BURGLAR_LEWIS",
+    "TRAINER_SCIENTIST_IVAN",
+    "TRAINER_TEAM_ROCKET_ARCHER_MANSION"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_TRICK_ROOM_TEMPORARY",
+   "field": "trickRoomTemporary",
+   "key": "TRICK_ROOM",
+   "name": "Trick Room",
+   "side": null,
+   "permanent": false,
+   "turns": 5,
+   "layers": null,
+   "sourceNote": "Trick Room Temporary (5 turns)",
+   "text": "Slower Pokémon move first (within the same priority bracket) - the speed order is reversed.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_MAGIC_ROOM",
+   "field": "magicRoom",
+   "key": "MAGIC_ROOM",
+   "name": "Magic Room",
+   "side": null,
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Magic Room (Permanent)",
+   "text": "Held items do nothing.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_MAGIC_ROOM_TEMPORARY",
+   "field": "magicRoomTemporary",
+   "key": "MAGIC_ROOM",
+   "name": "Magic Room",
+   "side": null,
+   "permanent": false,
+   "turns": 5,
+   "layers": null,
+   "sourceNote": "Magic Room Temporary (5 turns)",
+   "text": "Held items do nothing.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_WONDER_ROOM",
+   "field": "wonderRoom",
+   "key": "WONDER_ROOM",
+   "name": "Wonder Room",
+   "side": null,
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Wonder Room (Permanent)",
+   "text": "Every Pokémon's Defense and Sp. Def are swapped.",
+   "trainers": [
+    "TRAINER_BURGLAR_ARNIE",
+    "TRAINER_SCIENTIST_TED",
+    "TRAINER_YOUNGSTER_JOHNSON"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_WONDER_ROOM_TEMPORARY",
+   "field": "wonderRoomTemporary",
+   "key": "WONDER_ROOM",
+   "name": "Wonder Room",
+   "side": null,
+   "permanent": false,
+   "turns": 5,
+   "layers": null,
+   "sourceNote": "Wonder Room Temporary (5 turns)",
+   "text": "Every Pokémon's Defense and Sp. Def are swapped.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_TAILWIND_PLAYER",
+   "field": "tailwindPlayer",
+   "key": "TAILWIND",
+   "name": "Tailwind",
+   "side": "player",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Tailwind Player (Permanent)",
+   "text": "That side's Pokémon have their Speed doubled.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_TAILWIND_PLAYER_TEMPORARY",
+   "field": "tailwindPlayerTemporary",
+   "key": "TAILWIND",
+   "name": "Tailwind",
+   "side": "player",
+   "permanent": false,
+   "turns": 4,
+   "layers": null,
+   "sourceNote": "Tailwind Player Temporary (4/3 turns)",
+   "text": "That side's Pokémon have their Speed doubled.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_TAILWIND_OPPONENT",
+   "field": "tailwindOpponent",
+   "key": "TAILWIND",
+   "name": "Tailwind",
+   "side": "opponent",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Tailwind Opponent (Permanent)",
+   "text": "That side's Pokémon have their Speed doubled.",
+   "trainers": [
+    "TRAINER_COOLTRAINER_JONAH",
+    "TRAINER_BEAUTY_DALIA",
+    "TRAINER_PICNICKER_MARCY",
+    "TRAINER_PALACE_MAVEN_SPENSER"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_TAILWIND_OPPONENT_TEMPORARY",
+   "field": "tailwindOpponentTemporary",
+   "key": "TAILWIND",
+   "name": "Tailwind",
+   "side": "opponent",
+   "permanent": false,
+   "turns": 4,
+   "layers": null,
+   "sourceNote": "Tailwind Opponent Temporary (4/3 turns)",
+   "text": "That side's Pokémon have their Speed doubled.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_RAINBOW_PLAYER",
+   "field": "rainbowPlayer",
+   "key": "RAINBOW",
+   "name": "Rainbow",
+   "side": "player",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Rainbow Player (Permanent)",
+   "text": "The chance of that side's moves' added effects (a burn, a flinch, a stat drop) is doubled.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_RAINBOW_PLAYER_TEMPORARY",
+   "field": "rainbowPlayerTemporary",
+   "key": "RAINBOW",
+   "name": "Rainbow",
+   "side": "player",
+   "permanent": false,
+   "turns": 4,
+   "layers": null,
+   "sourceNote": "Rainbow Player Temporary (4 turns)",
+   "text": "The chance of that side's moves' added effects (a burn, a flinch, a stat drop) is doubled.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_RAINBOW_OPPONENT",
+   "field": "rainbowOpponent",
+   "key": "RAINBOW",
+   "name": "Rainbow",
+   "side": "opponent",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Rainbow Opponent (Permanent)",
+   "text": "The chance of that side's moves' added effects (a burn, a flinch, a stat drop) is doubled.",
+   "trainers": [
+    "TRAINER_FISHERMAN_NED",
+    "TRAINER_FISHERMAN_ELLIOT",
+    "TRAINER_FISHERMAN_ANDREW",
+    "TRAINER_ROCKER_LUCA",
+    "TRAINER_FILTHY_CHEATER"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_RAINBOW_OPPONENT_TEMPORARY",
+   "field": "rainbowOpponentTemporary",
+   "key": "RAINBOW",
+   "name": "Rainbow",
+   "side": "opponent",
+   "permanent": false,
+   "turns": 4,
+   "layers": null,
+   "sourceNote": "Rainbow Opponent Temporary (4 turns)",
+   "text": "The chance of that side's moves' added effects (a burn, a flinch, a stat drop) is doubled.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SEA_OF_FIRE_PLAYER",
+   "field": "seaOfFirePlayer",
+   "key": "SEA_OF_FIRE",
+   "name": "Sea Of Fire",
+   "side": "player",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Sea Of Fire Player (Permanent)",
+   "text": "That side's Pokémon that aren't Fire type lose 1/8 of their max HP at the end of each turn.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SEA_OF_FIRE_PLAYER_TEMPORARY",
+   "field": "seaOfFirePlayerTemporary",
+   "key": "SEA_OF_FIRE",
+   "name": "Sea Of Fire",
+   "side": "player",
+   "permanent": false,
+   "turns": 4,
+   "layers": null,
+   "sourceNote": "Sea Of Fire Player Temporary (4 turns)",
+   "text": "That side's Pokémon that aren't Fire type lose 1/8 of their max HP at the end of each turn.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SEA_OF_FIRE_OPPONENT",
+   "field": "seaOfFireOpponent",
+   "key": "SEA_OF_FIRE",
+   "name": "Sea Of Fire",
+   "side": "opponent",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Sea Of Fire Opponent (Permanent)",
+   "text": "That side's Pokémon that aren't Fire type lose 1/8 of their max HP at the end of each turn.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SEA_OF_FIRE_OPPONENT_TEMPORARY",
+   "field": "seaOfFireOpponentTemporary",
+   "key": "SEA_OF_FIRE",
+   "name": "Sea Of Fire",
+   "side": "opponent",
+   "permanent": false,
+   "turns": 4,
+   "layers": null,
+   "sourceNote": "Sea Of Fire Opponent Temporary (4 turns)",
+   "text": "That side's Pokémon that aren't Fire type lose 1/8 of their max HP at the end of each turn.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SWAMP_PLAYER",
+   "field": "swampPlayer",
+   "key": "SWAMP",
+   "name": "Swamp",
+   "side": "player",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Swamp Player (Permanent)",
+   "text": "That side's Pokémon have their Speed cut to a quarter.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SWAMP_PLAYER_TEMPORARY",
+   "field": "swampPlayerTemporary",
+   "key": "SWAMP",
+   "name": "Swamp",
+   "side": "player",
+   "permanent": false,
+   "turns": 4,
+   "layers": null,
+   "sourceNote": "Swamp Player Temporary (4 turns)",
+   "text": "That side's Pokémon have their Speed cut to a quarter.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SWAMP_OPPONENT",
+   "field": "swampOpponent",
+   "key": "SWAMP",
+   "name": "Swamp",
+   "side": "opponent",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Swamp Opponent (Permanent)",
+   "text": "That side's Pokémon have their Speed cut to a quarter.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SWAMP_OPPONENT_TEMPORARY",
+   "field": "swampOpponentTemporary",
+   "key": "SWAMP",
+   "name": "Swamp",
+   "side": "opponent",
+   "permanent": false,
+   "turns": 4,
+   "layers": null,
+   "sourceNote": "Swamp Opponent Temporary (4 turns)",
+   "text": "That side's Pokémon have their Speed cut to a quarter.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_AURORA_VEIL_PLAYER",
+   "field": "auroraVeilPlayer",
+   "key": "AURORA_VEIL",
+   "name": "Aurora Veil",
+   "side": "player",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Aurora Veil Player (Permanent)",
+   "text": "Damage that side takes from physical and special moves is halved (cut to two-thirds in a double battle).",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_AURORA_VEIL_PLAYER_TEMPORARY",
+   "field": "auroraVeilPlayerTemporary",
+   "key": "AURORA_VEIL",
+   "name": "Aurora Veil",
+   "side": "player",
+   "permanent": false,
+   "turns": 5,
+   "layers": null,
+   "sourceNote": "Aurora Veil Player Temporary (5 turns)",
+   "text": "Damage that side takes from physical and special moves is halved (cut to two-thirds in a double battle).",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_AURORA_VEIL_OPPONENT",
+   "field": "auroraVeilOpponent",
+   "key": "AURORA_VEIL",
+   "name": "Aurora Veil",
+   "side": "opponent",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Aurora Veil Opponent (Permanent)",
+   "text": "Damage that side takes from physical and special moves is halved (cut to two-thirds in a double battle).",
+   "trainers": [
+    "TRAINER_ICEFALL_CAVE_ROCKET_GRUNT_1",
+    "TRAINER_TEAM_ROCKET_PROTON_ICEFALL_CAVE",
+    "TRAINER_ICEFALL_CAVE_ROCKET_GRUNT_4",
+    "TRAINER_ICEFALL_CAVE_ROCKET_GRUNT_5",
+    "TRAINER_ICEFALL_CAVE_ROCKET_GRUNT_3",
+    "TRAINER_ICEFALL_CAVE_ROCKET_GRUNT_2"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_AURORA_VEIL_OPPONENT_TEMPORARY",
+   "field": "auroraVeilOpponentTemporary",
+   "key": "AURORA_VEIL",
+   "name": "Aurora Veil",
+   "side": "opponent",
+   "permanent": false,
+   "turns": 5,
+   "layers": null,
+   "sourceNote": "Aurora Veil Opponent Temporary (5 turns)",
+   "text": "Damage that side takes from physical and special moves is halved (cut to two-thirds in a double battle).",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_MAGMA_STORM_PLAYER",
+   "field": "magmaStormPlayer",
+   "key": "MAGMA_STORM",
+   "name": "Magma Storm",
+   "side": "player",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Magma Storm Player (Permanent)",
+   "text": "Every Pokémon on that side loses 1/8 of its max HP at the end of each turn and can't switch out (Ghost types, Shed Shell and Run Away excepted). Court Change can't pass it back.",
+   "trainers": [
+    "TRAINER_TEAM_ROCKET_ARIANA_MT_EMBER",
+    "TRAINER_MT_EMBER_INTERIOR_ROCKET_GRUNT_4",
+    "TRAINER_MT_EMBER_INTERIOR_ROCKET_GRUNT_3",
+    "TRAINER_MT_EMBER_INTERIOR_ROCKET_GRUNT_2",
+    "TRAINER_MT_EMBER_INTERIOR_ROCKET_GRUNT_1"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_MAGMA_STORM_PLAYER_TEMPORARY",
+   "field": "magmaStormPlayerTemporary",
+   "key": "MAGMA_STORM",
+   "name": "Magma Storm",
+   "side": "player",
+   "permanent": false,
+   "turns": 4,
+   "layers": null,
+   "sourceNote": "Magma Storm Player Temporary (4 turns)",
+   "text": "Every Pokémon on that side loses 1/8 of its max HP at the end of each turn and can't switch out (Ghost types, Shed Shell and Run Away excepted). Court Change can't pass it back.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_MAGMA_STORM_OPPONENT",
+   "field": "magmaStormOpponent",
+   "key": "MAGMA_STORM",
+   "name": "Magma Storm",
+   "side": "opponent",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Magma Storm Opponent (Permanent)",
+   "text": "Every Pokémon on that side loses 1/8 of its max HP at the end of each turn and can't switch out (Ghost types, Shed Shell and Run Away excepted). Court Change can't pass it back.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_MAGMA_STORM_OPPONENT_TEMPORARY",
+   "field": "magmaStormOpponentTemporary",
+   "key": "MAGMA_STORM",
+   "name": "Magma Storm",
+   "side": "opponent",
+   "permanent": false,
+   "turns": 4,
+   "layers": null,
+   "sourceNote": "Magma Storm Opponent Temporary (4 turns)",
+   "text": "Every Pokémon on that side loses 1/8 of its max HP at the end of each turn and can't switch out (Ghost types, Shed Shell and Run Away excepted). Court Change can't pass it back.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SPIKES_PLAYER_L1",
+   "field": "spikesPlayerL1",
+   "key": "SPIKES",
+   "name": "Spikes",
+   "side": "player",
+   "permanent": false,
+   "turns": null,
+   "layers": 1,
+   "sourceNote": "Spikes Player Layer 1",
+   "text": "A grounded Pokémon switching in on that side loses max HP: 1/8 with one layer, 1/6 with two, 1/4 with three.",
+   "trainers": [
+    "TRAINER_FILTHY_CHEATER"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_SPIKES_PLAYER_L2",
+   "field": "spikesPlayerL2",
+   "key": "SPIKES",
+   "name": "Spikes",
+   "side": "player",
+   "permanent": false,
+   "turns": null,
+   "layers": 2,
+   "sourceNote": "Spikes Player Layer 2",
+   "text": "A grounded Pokémon switching in on that side loses max HP: 1/8 with one layer, 1/6 with two, 1/4 with three.",
+   "trainers": [
+    "TRAINER_FILTHY_CHEATER"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_SPIKES_PLAYER_L3",
+   "field": "spikesPlayerL3",
+   "key": "SPIKES",
+   "name": "Spikes",
+   "side": "player",
+   "permanent": false,
+   "turns": null,
+   "layers": 3,
+   "sourceNote": "Spikes Player Layer 3",
+   "text": "A grounded Pokémon switching in on that side loses max HP: 1/8 with one layer, 1/6 with two, 1/4 with three.",
+   "trainers": [
+    "TRAINER_FILTHY_CHEATER"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_SPIKES_OPPONENT_L1",
+   "field": "spikesOpponentL1",
+   "key": "SPIKES",
+   "name": "Spikes",
+   "side": "opponent",
+   "permanent": false,
+   "turns": null,
+   "layers": 1,
+   "sourceNote": "Spikes Opponent Layer 1",
+   "text": "A grounded Pokémon switching in on that side loses max HP: 1/8 with one layer, 1/6 with two, 1/4 with three.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SPIKES_OPPONENT_L2",
+   "field": "spikesOpponentL2",
+   "key": "SPIKES",
+   "name": "Spikes",
+   "side": "opponent",
+   "permanent": false,
+   "turns": null,
+   "layers": 2,
+   "sourceNote": "Spikes Opponent Layer 2",
+   "text": "A grounded Pokémon switching in on that side loses max HP: 1/8 with one layer, 1/6 with two, 1/4 with three.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SPIKES_OPPONENT_L3",
+   "field": "spikesOpponentL3",
+   "key": "SPIKES",
+   "name": "Spikes",
+   "side": "opponent",
+   "permanent": false,
+   "turns": null,
+   "layers": 3,
+   "sourceNote": "Spikes Opponent Layer 3",
+   "text": "A grounded Pokémon switching in on that side loses max HP: 1/8 with one layer, 1/6 with two, 1/4 with three.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_TOXIC_SPIKES_PLAYER_L1",
+   "field": "toxicSpikesPlayerL1",
+   "key": "TOXIC_SPIKES",
+   "name": "Toxic Spikes",
+   "side": "player",
+   "permanent": false,
+   "turns": null,
+   "layers": 1,
+   "sourceNote": "Toxic Spikes Player Layer 1",
+   "text": "A grounded Pokémon switching in on that side is poisoned - badly poisoned with two layers. A grounded Poison type switching in absorbs them.",
+   "trainers": [
+    "TRAINER_FILTHY_CHEATER"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_TOXIC_SPIKES_PLAYER_L2",
+   "field": "toxicSpikesPlayerL2",
+   "key": "TOXIC_SPIKES",
+   "name": "Toxic Spikes",
+   "side": "player",
+   "permanent": false,
+   "turns": null,
+   "layers": 2,
+   "sourceNote": "Toxic Spikes Player Layer 2",
+   "text": "A grounded Pokémon switching in on that side is poisoned - badly poisoned with two layers. A grounded Poison type switching in absorbs them.",
+   "trainers": [
+    "TRAINER_FILTHY_CHEATER"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_TOXIC_SPIKES_OPPONENT_L1",
+   "field": "toxicSpikesOpponentL1",
+   "key": "TOXIC_SPIKES",
+   "name": "Toxic Spikes",
+   "side": "opponent",
+   "permanent": false,
+   "turns": null,
+   "layers": 1,
+   "sourceNote": "Toxic Spikes Opponent Layer 1",
+   "text": "A grounded Pokémon switching in on that side is poisoned - badly poisoned with two layers. A grounded Poison type switching in absorbs them.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_TOXIC_SPIKES_OPPONENT_L2",
+   "field": "toxicSpikesOpponentL2",
+   "key": "TOXIC_SPIKES",
+   "name": "Toxic Spikes",
+   "side": "opponent",
+   "permanent": false,
+   "turns": null,
+   "layers": 2,
+   "sourceNote": "Toxic Spikes Opponent Layer 2",
+   "text": "A grounded Pokémon switching in on that side is poisoned - badly poisoned with two layers. A grounded Poison type switching in absorbs them.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_STICKY_WEB_PLAYER",
+   "field": "stickyWebPlayer",
+   "key": "STICKY_WEB",
+   "name": "Sticky Web",
+   "side": "player",
+   "permanent": false,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Sticky Web Player",
+   "text": "A grounded Pokémon switching in on that side has its Speed lowered by one stage.",
+   "trainers": [
+    "TRAINER_FILTHY_CHEATER"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_STICKY_WEB_OPPONENT",
+   "field": "stickyWebOpponent",
+   "key": "STICKY_WEB",
+   "name": "Sticky Web",
+   "side": "opponent",
+   "permanent": false,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Sticky Web Opponent",
+   "text": "A grounded Pokémon switching in on that side has its Speed lowered by one stage.",
+   "trainers": [
+    "TRAINER_SILPH_CO_11F_ROCKET_GRUNT_1"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_STEALTH_ROCK_PLAYER",
+   "field": "stealthRockPlayer",
+   "key": "STEALTH_ROCK",
+   "name": "Stealth Rock",
+   "side": "player",
+   "permanent": false,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Stealth Rock Player",
+   "text": "A Pokémon switching in on that side loses max HP by how well Rock hits it: 1/8 at neutral, up to 1/2 for a 4x weakness.",
+   "trainers": [
+    "TRAINER_FILTHY_CHEATER"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_STEALTH_ROCK_OPPONENT",
+   "field": "stealthRockOpponent",
+   "key": "STEALTH_ROCK",
+   "name": "Stealth Rock",
+   "side": "opponent",
+   "permanent": false,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Stealth Rock Opponent",
+   "text": "A Pokémon switching in on that side loses max HP by how well Rock hits it: 1/8 at neutral, up to 1/2 for a 4x weakness.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SHARP_STEEL_PLAYER",
+   "field": "sharpSteelPlayer",
+   "key": "SHARP_STEEL",
+   "name": "Sharp Steel",
+   "side": "player",
+   "permanent": false,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Sharp Steel Player",
+   "text": "Like Stealth Rock, but Steel type: a Pokémon switching in on that side loses max HP by how well Steel hits it.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_SHARP_STEEL_OPPONENT",
+   "field": "sharpSteelOpponent",
+   "key": "SHARP_STEEL",
+   "name": "Sharp Steel",
+   "side": "opponent",
+   "permanent": false,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Sharp Steel Opponent",
+   "text": "Like Stealth Rock, but Steel type: a Pokémon switching in on that side loses max HP by how well Steel hits it.",
+   "trainers": []
+  },
+  {
+   "enum": "STARTING_STATUS_MAGNETIC_FIELD",
+   "field": "magneticField",
+   "key": "MAGNETIC_FIELD",
+   "name": "Magnetic Field",
+   "side": null,
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Magnetic Field (Permanent) - Steel-types trapped on player side, Magnet Rise on opponent side",
+   "text": "Your Steel-type Pokémon can't switch out (Shed Shell and Run Away still get out), and the opponent's Pokémon float as if under a permanent Magnet Rise: Ground-type moves miss them, and terrain and grounded-only effects don't touch them - unless Gravity, Smack Down or Ingrain pulls them down. Lasts the whole battle and can't be removed.",
+   "trainers": [
+    "TRAINER_JUGGLER_DALTON",
+    "TRAINER_SCIENTIST_CONNOR",
+    "TRAINER_SCIENTIST_JERRY",
+    "TRAINER_SCIENTIST_JOSE",
+    "TRAINER_SCIENTIST_RODNEY",
+    "TRAINER_SCIENTIST_BEAU",
+    "TRAINER_SCIENTIST_TAYLOR",
+    "TRAINER_SCIENTIST_JOSHUA",
+    "TRAINER_SCIENTIST_PARKER",
+    "TRAINER_SCIENTIST_ED",
+    "TRAINER_SCIENTIST_TRAVIS",
+    "TRAINER_BOSS_GIOVANNI_2",
+    "TRAINER_SILPH_CO_2F_ROCKET_GRUNT_1",
+    "TRAINER_SILPH_CO_2F_ROCKET_GRUNT_2",
+    "TRAINER_SILPH_CO_3F_ROCKET_GRUNT_1",
+    "TRAINER_SILPH_CO_4F_ROCKET_GRUNT_1",
+    "TRAINER_SILPH_CO_4F_ROCKET_GRUNT_2",
+    "TRAINER_SILPH_CO_5F_ROCKET_GRUNT_1",
+    "TRAINER_SILPH_CO_5F_ROCKET_GRUNT_2",
+    "TRAINER_SILPH_CO_6F_ROCKET_GRUNT_1",
+    "TRAINER_SILPH_CO_6F_ROCKET_GRUNT_2",
+    "TRAINER_SILPH_CO_8F_ROCKET_GRUNT_1",
+    "TRAINER_SILPH_CO_7F_ROCKET_GRUNT_1",
+    "TRAINER_SILPH_CO_7F_ROCKET_GRUNT_2",
+    "TRAINER_SILPH_CO_7F_ROCKET_GRUNT_3",
+    "TRAINER_SILPH_CO_8F_ROCKET_GRUNT_2",
+    "TRAINER_SILPH_CO_9F_ROCKET_GRUNT_1",
+    "TRAINER_SILPH_CO_9F_ROCKET_GRUNT_2",
+    "TRAINER_SILPH_CO_10F_ROCKET_GRUNT_1",
+    "TRAINER_SILPH_CO_11F_ROCKET_GRUNT_1"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_TWISTED_VINES_PLAYER",
+   "field": "twistedVinesPlayer",
+   "key": "TWISTED_VINES",
+   "name": "Twisted Vines",
+   "side": "player",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Twisted Vines Player (Permanent) - non-Grass/Bug types trapped on player side, residual damage each turn (more if weak to Grass)",
+   "text": "Your Pokémon that aren't Grass or Bug type can't switch out (Shed Shell and Run Away still get out). Every Pokémon on your side loses 1/8 of its max HP at the end of each turn - 1/6 if it is Water, Ground or Rock type. Lasts the whole battle; Rapid Spin, Defog and Court Change can't remove it.",
+   "trainers": [
+    "TRAINER_PKMN_BREEDER_BETHANY",
+    "TRAINER_PKMN_BREEDER_ALLISON",
+    "TRAINER_BUG_CATCHER_GARRET",
+    "TRAINER_BUG_CATCHER_VANCE",
+    "TRAINER_YOUNGSTER_NASH",
+    "TRAINER_YOUNGSTER_CORDELL",
+    "TRAINER_LASS_JOANA",
+    "TRAINER_CAMPER_RILEY",
+    "TRAINER_RUIN_MANIAC_LAYTON"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_RIPTIDE_PLAYER",
+   "field": "riptidePlayer",
+   "key": "RIPTIDE",
+   "name": "Riptide",
+   "side": "player",
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Riptide Player (Permanent) - non-Water/Ghost types trapped on player side, residual damage each turn (more if weak to Water), Grudges the player's KO'ing move",
+   "text": "Your Pokémon that aren't Water or Ghost type can't switch out (Shed Shell and Run Away still get out). Every Pokémon on your side loses 1/8 of its max HP at the end of each turn - 1/6 if it is Fire, Ground or Rock type. And like Grudge, whenever one of your Pokémon knocks out a foe, the move it used loses all its PP. Lasts the whole battle and can't be removed.",
+   "trainers": [
+    "TRAINER_FISHERMAN_TYLOR",
+    "TRAINER_SWIMMER_MALE_MYMO",
+    "TRAINER_SWIMMER_FEMALE_NICOLE",
+    "TRAINER_SIS_AND_BRO_AVA_GEB"
+   ]
+  },
+  {
+   "enum": "STARTING_STATUS_HAUNTED_SPIRITS",
+   "field": "hauntedSpirits",
+   "key": "HAUNTED_SPIRITS",
+   "name": "Haunted Spirits",
+   "side": null,
+   "permanent": true,
+   "turns": null,
+   "layers": null,
+   "sourceNote": "Haunted Spirits (Permanent) - Pokemon Tower: non-Ghost types trapped on player side (Mean Look; Shed Shell / Run Away / pivot moves still work), Grudges the player's KO'ing move, no residual damage",
+   "text": "The Pokémon Tower curse. Your Pokémon that aren't Ghost type can't switch out, as if hit by Mean Look (Shed Shell, Run Away and pivot moves like U-turn still get out). Like Grudge, whenever one of your Pokémon knocks out a foe, the move it used loses all its PP. No damage over time. Lasts the whole battle and can't be removed.",
+   "trainers": [
+    "TRAINER_POKEMON_TOWER_ROCKET_GRUNT_1",
+    "TRAINER_POKEMON_TOWER_ROCKET_GRUNT_2",
+    "TRAINER_POKEMON_TOWER_ROCKET_GRUNT_3",
+    "TRAINER_CHANNELER_PATRICIA",
+    "TRAINER_CHANNELER_CARLY",
+    "TRAINER_CHANNELER_HOPE",
+    "TRAINER_CHANNELER_PAULA",
+    "TRAINER_CHANNELER_LAUREL",
+    "TRAINER_CHANNELER_JODY",
+    "TRAINER_CHANNELER_TAMMY",
+    "TRAINER_CHANNELER_RUTH",
+    "TRAINER_CHANNELER_KARINA",
+    "TRAINER_CHANNELER_JANAE",
+    "TRAINER_CHANNELER_ANGELICA",
+    "TRAINER_CHANNELER_EMILIA",
+    "TRAINER_CHANNELER_JENNIFER",
+    "TRAINER_TEAM_ROCKET_PROTON_POKEMON_TOWER"
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "id": "rules",
+   "title": "How Kudzu plays differently",
+   "intro": "The rules that differ from the FireRed you remember. The battle engine is Gen 9 (Scarlet/Violet) apart from what is listed here.",
+   "entries": [
+    {
+     "term": "Level cap",
+     "text": "A hard cap that rises as you go: a Pokémon at the cap gains no EXP at all, and Rare Candy can't take it past the cap. The current cap is in the top bar."
+    },
+    {
+     "term": "No EVs",
+     "text": "Pokémon never gain EVs, from battles or anything else. Stats come from level, base stats, IVs and nature only."
+    },
+    {
+     "term": "Held items are never lost",
+     "text": "An item only goes away if it was actually used up in battle - a Berry eaten, a Focus Sash triggered, an item thrown with Fling, an Air Balloon popped. Anything merely taken away comes back after the battle: Knock Off, Trick and Switcheroo, Pickpocket and Magician, Corrosive Gas, Incinerate. Thief and Covet are plain attacks here and steal nothing."
+    },
+    {
+     "term": "Tera Blast is a better Hidden Power",
+     "text": "80 power, and its type comes from the user's IVs by the Hidden Power formula (a Pokémon with perfect IVs gets Dark). It is special, but becomes physical when the user's Attack is higher than its Sp. Atk."
+    },
+    {
+     "term": "Explosion and Self-Destruct",
+     "text": "They halve the target's Defense for the hit, as in Gen 3-4, which makes them hit twice as hard as in modern games."
+    },
+    {
+     "term": "Weather abilities",
+     "text": "Weather set by an ability (Drizzle, Drought, Sand Stream, Snow Warning) lasts the whole battle rather than five turns."
+    },
+    {
+     "term": "No Sleep Clause",
+     "text": "The opponent can put more than one of your Pokémon to sleep."
+    },
+    {
+     "term": "Field effects",
+     "text": "Some trainers start the battle with a field effect already up - a terrain, Trick Room, hazards on your side, or one of Kudzu's own: Magnetic Field, Twisted Vines, Riptide and Haunted Spirits. The trainer's page says which and what it does; they are all listed under Field effects below."
+    },
+    {
+     "term": "Two trainers at once",
+     "text": "Two trainers who both spot you from the same tile fight you together in one double battle, and a few story fights are tag battles with an ally. The Trainers list shows each such pair as one entry."
+    },
+    {
+     "term": "Opponent HP as a percentage",
+     "text": "The opponent's health box shows its HP as a percentage. In double battles, Start switches the opponents' boxes between the bar and the number."
+    }
+   ]
+  },
+  {
+   "id": "ai",
+   "title": "How the AI plays",
+   "intro": "Every trainer runs the same AI (Smart Trainer), modelled on Pokémon Run & Bun and Pokémon Null. Knowing how it decides makes most fights predictable - the Calc tab scores every opposing move for you and shows who comes in next.",
+   "entries": [
+    {
+     "term": "It knows everything",
+     "text": "The AI sees your whole party: species, moves, abilities, held items and exact stats. It does not have to guess."
+    },
+    {
+     "term": "Scoring moves",
+     "text": "Every turn each of its moves starts at the same score and gains or loses points by rules; the highest score is used, and a tie is broken at random. Moves that would fail or do nothing are scored down and effectively never chosen."
+    },
+    {
+     "term": "Picking an attack",
+     "text": "It rolls damage for each of its attacks - a random roll between 85% and 100%, fresh every turn - and gives the one that rolled highest a bonus (+6, or +8 a quarter of the time). Any attack that would knock you out counts as the highest. So when two attacks are close, which one it picks changes from turn to turn."
+    },
+    {
+     "term": "Status and setup moves",
+     "text": "Status moves have their own rules, and most of them reach the same +6 as the best attack when they are useful - so a Pokémon with a good status move and a good attack can go either way. Setup moves are judged by whether it can safely set up against what you have out."
+    },
+    {
+     "term": "Knockouts",
+     "text": "It goes for the kill: an attack that knocks out your Pokémon always counts as its best attack. It also assumes a critical hit when its crit rate is at stage 3 or higher."
+    },
+    {
+     "term": "Who comes in after a KO",
+     "text": "It checks every Pokémon left in its party against yours, in this order of preference: one that can trap yours; one that outspeeds and knocks yours out and wins the one-on-one; one that knocks yours out but is slower; one that 2-hits yours (faster first, then slower); one that resists your best attack and hits yours super-effectively; one that only resists; one that gains from healing waiting for it; a Baton Pass user; any that wins the one-on-one; and finally the one that does the most damage without being knocked out in one hit. When several Pokémon fit the matchup rules or the damage rule it takes the best of them; for the other rules it takes the one furthest down its party. A Pokémon switched in after a KO gets a free turn, so \"wins the one-on-one\" counts that."
+    },
+    {
+     "term": "When it switches out",
+     "text": "Mid-battle it switches out when staying in is bad: all its moves are useless against yours, it is walled, badly statused, locked into a bad Choice move or an Encore, its attacking stats have been dropped, or it has a Pokémon that is immune to or absorbs the move you are likely to use. It won't switch into entry hazards that would knock the incoming Pokémon out."
+    },
+    {
+     "term": "Tera",
+     "text": "Trainers that can Terastallize choose when it is worth it instead of doing it as soon as they can."
+    },
+    {
+     "term": "Its lead",
+     "text": "The first Pokémon in its party leads - except for the few trainers whose party order is shuffled every battle (RANDOMIZE_PARTY_INDICES under AI on the trainer's page)."
+    },
+    {
+     "term": "Switch-stalling",
+     "text": "It keeps track of you switching in a Pokémon that is immune to the move it chose, and stops falling for it."
+    },
+    {
+     "term": "Double battles",
+     "text": "In doubles the scoring is the same, and it avoids hitting its own partner with spread moves. The Calc tab's AI preview scores doubles as if they were singles, so treat its numbers as a guide there."
+    }
+   ]
+  },
+  {
+   "id": "tracker",
+   "title": "Words the tracker uses",
+   "intro": "",
+   "entries": [
+    {
+     "term": "Split",
+     "text": "One stretch of the run, from one badge to the next. Each split has its locations in the order you reach them, its boss fights and its level cap."
+    },
+    {
+     "term": "Encounter / area",
+     "text": "Your one catch per area, the Nuzlocke rule. An area is one route, floor or fishing spot; the save file fills most of them in by itself from where each Pokémon was met."
+    },
+    {
+     "term": "Graveyard",
+     "text": "Where fainted Pokémon go - boxes 13 and 14 in the game. The living PC is boxes 1 to 3."
+    },
+    {
+     "term": "Frags",
+     "text": "How many opposing Pokémon each of yours has knocked out, read straight from the save."
+    },
+    {
+     "term": "Gauntlet",
+     "text": "A run of trainers back to back. The Multi Menu is switched off when you enter, so there is no healing and no box until the far end."
+    },
+    {
+     "term": "Guards a mega stone",
+     "text": "A trainer who stands between you and a mega stone: beating them gives it, or they watch or stand beside the spot where it lies."
+    },
+    {
+     "term": "Bottle Caps",
+     "text": "What you spend on Hyper Training; the Bottle Caps page tracks how many the run has found and used."
+    }
+   ]
+  }
+ ]
+}

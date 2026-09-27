@@ -925,6 +925,67 @@ function battleSection(t) {
   return wrap;
 }
 
+/* ── field effects: what a trainer's battle starts with ────────────────
+   A trainer's `Starting Status:` (trainers.json startingStatusFields) is one of
+   the X-macro's struct fields; glossary.json explains each. Spikes L1, L2 and
+   L3 are three statuses for one effect, so they fold into "Spikes ×3". */
+const FIELD_SIDE = { player: 'your side', opponent: 'their side' };
+
+function fieldEffectsOf(trainers) {
+  const out = [];
+  const seen = new Map();
+  for (const t of [].concat(trainers || [])) {
+    (t.startingStatusFields || []).forEach((f, i) => {
+      const e = D.fieldByField?.[f];
+      const rec = e ? { ...e } : {
+        key: f, field: f, side: null, permanent: false, layers: null, text: null,
+        // No glossary: the .party file's own text, "MAGNETIC_FIELD" or "Magnetic Field".
+        name: String((t.startingStatus || [])[i] || f).replace(/_/g, ' ').toLowerCase()
+          .replace(/\b\w/g, (m) => m.toUpperCase()),
+      };
+      const k = `${rec.key}:${rec.side || ''}`;
+      const prev = seen.get(k);
+      if (prev) { prev.layers = Math.max(prev.layers || 0, rec.layers || 0) || null; return; }
+      seen.set(k, rec);
+      out.push(rec);
+    });
+  }
+  return out;
+}
+const fieldName = (e) => `${e.name}${e.layers > 1 ? ` ×${e.layers}` : ''}`;
+function fieldWhen(e) {
+  return [e.side ? `on ${FIELD_SIDE[e.side]}` : null,
+    e.permanent ? 'the whole battle' : e.turns ? `${e.turns} turns` : null].filter(Boolean).join(', ');
+}
+
+/** Short tags for a list row; the explanation rides in the tooltip. */
+function fieldPills(trainers) {
+  return fieldEffectsOf(trainers).map((e) => {
+    const p = el('span', 'pill field', fieldName(e));
+    p.title = [fieldWhen(e), e.text].filter(Boolean).join(' - ') || 'Starts the battle with this in effect';
+    return p;
+  });
+}
+
+/** The detail pane's "Field effect" block: each effect, whose side, how long, what it does. */
+function fieldBlock(trainers) {
+  const fx = fieldEffectsOf(trainers);
+  if (!fx.length) return null;
+  const wrap = el('div', 'fieldfx');
+  wrap.append(el('h3', null, fx.length > 1 ? 'Field effects' : 'Field effect'));
+  for (const e of fx) {
+    const row = el('div', 'fx');
+    const head = el('div', 'fx-head');
+    head.append(el('b', null, fieldName(e)));
+    const when = fieldWhen(e);
+    if (when) head.append(el('span', 'fx-when', when));
+    row.append(head);
+    row.append(el('div', 'fx-text', e.text || 'The battle starts with this in effect.'));
+    wrap.append(row);
+  }
+  return wrap;
+}
+
 /** "Guards Raichunite X": the mega stones a fight stands between you and. */
 function megaPills(t) {
   return (t.guardsMega || []).map((g) => {
@@ -989,7 +1050,9 @@ function trFilters() {
     if (!incUnplaced && !place) return false;
     if (split && !(place && place.split === split)) return false;
     if (q) {
-      const hay = `${t.name} ${t.class || ''} ${t.constant} ${place ? `${place.label || ''} ${place.locationLabel || ''}` : ''}`.toLowerCase();
+      // Field effects too, so "Magnetic Field" finds every trainer that starts with it.
+      const hay = (`${t.name} ${t.class || ''} ${t.constant} ${place ? `${place.label || ''} ${place.locationLabel || ''}` : ''} `
+        + fieldEffectsOf(t).map((e) => e.name).join(' ')).toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -1061,6 +1124,7 @@ function fightRow(g, p, next) {
       if (!seen.has(mp.textContent)) { seen.add(mp.textContent); r.append(mp); }
     }
   }
+  for (const fx of fieldPills(g)) r.append(fx);
   if (isNext) {
     const np = el('span', 'pill next', 'next');
     np.title = 'The first boss in run order the save has not beaten';
@@ -1107,6 +1171,7 @@ function trainerRow(t, p, next) {
   const fp = formatPill(t);
   if (fp) r.append(fp);
   for (const mp of megaPills(t)) r.append(mp);
+  for (const fp2 of fieldPills(t)) r.append(fp2);
   if (next && next.trainer.constant === t.constant) {
     const np = el('span', 'pill next', 'next');
     np.title = 'The first boss in run order the save has not beaten';
@@ -1186,6 +1251,8 @@ function renderTrainer(t) {
 
   const bs = battleSection(t);
   if (bs) d.append(bs);
+  const fx = fieldBlock(t);
+  if (fx) d.append(fx);
 
   /* where */
   const where = D.mapOfTrainer[t.constant] || [];
@@ -1225,11 +1292,6 @@ function appendTeam(d, t) {
   addro('Levels', document.createTextNode(lv.length ? `${Math.min(...lv)}–${Math.max(...lv)}` : '—'));
   d.append(ro);
 
-  if (t.startingStatus?.length) {
-    const n = el('div', 'note');
-    n.innerHTML = `<b>Starting status:</b> ${esc([].concat(t.startingStatus).join(', '))}`;
-    d.append(n);
-  }
 
   /* AI, in English */
   d.append(el('h3', null, 'AI'));
@@ -1372,6 +1434,8 @@ function renderFight(g, d) {
     }
   }
   for (const s of [...new Set(lines)]) d.append(el('div', null, s));
+  const fx = fieldBlock(g);
+  if (fx) d.append(fx);
 
   /* where */
   const where = D.mapOfTrainer[lead.constant] || [];
@@ -1416,6 +1480,10 @@ async function boot(isRefresh) {
     names.forEach((n, i) => { D[n] = loaded[i]; });
     // Optional: a data folder extracted before marts existed must still boot.
     D.marts = await load('marts').catch(() => null);
+    // Optional too: field-effect explanations and the Glossary page.
+    D.glossary = await load('glossary').catch(() => null);
+    D.fieldByField = {};
+    for (const e of D.glossary?.fieldEffects || []) D.fieldByField[e.field] = e;
   } catch (e) {
     setStatus('bad', 'data missing');
     showBanner('bad', `Could not load datasets: ${esc(e.message)}. Press <b>Refresh data</b>.`);
@@ -1458,7 +1526,8 @@ async function boot(isRefresh) {
   safeInit('renderDex', renderDex);
   safeInit('renderTrainers', renderTrainers);
   for (const name of ['initNav', 'initEncounters', 'initItems', 'initCaps', 'initSplits', 'initFrags',
-    'initCalc', 'initSav', 'initRuns', 'initBox', 'initHome', 'initSandbox', 'initProgress']) {
+    'initCalc', 'initSav', 'initRuns', 'initBox', 'initHome', 'initSandbox', 'initProgress',
+    'initGlossary']) {
     // A missing init used to be skipped in silence, which is exactly how the
     // Calc tab came up blank without a single error to point at. Every name
     // here is expected to exist; say so when one does not.
