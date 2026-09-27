@@ -1,0 +1,1308 @@
+{
+ "source": "include/pokemon.h",
+ "substructOrderNote": "The four substructs are stored in an order given by personality % 24; decrypt the 48-byte block with (personality ^ otId) before applying these offsets.",
+ "substructSizeBytes": 12,
+ "structs": {
+  "PokemonSubstruct0": {
+   "name": "PokemonSubstruct0",
+   "sizeBytes": 12,
+   "fields": [
+    {
+     "name": "species",
+     "type": "u16",
+     "byteOffset": 0,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 11
+    },
+    {
+     "name": "teraType",
+     "type": "enum Type",
+     "byteOffset": 0,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 5
+    },
+    {
+     "name": "heldItem",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 10
+    },
+    {
+     "name": "unused_02",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 10,
+     "bitWidth": 6
+    },
+    {
+     "name": "experience",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 21
+    },
+    {
+     "name": "nickname11",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 21,
+     "bitWidth": 8
+    },
+    {
+     "name": "unused_04",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 29,
+     "bitWidth": 3
+    },
+    {
+     "name": "ppBonuses",
+     "type": "u8",
+     "byteOffset": 8,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "friendship",
+     "type": "u8",
+     "byteOffset": 9,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "pokeball",
+     "type": "u16",
+     "byteOffset": 10,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 6
+    },
+    {
+     "name": "nickname12",
+     "type": "u16",
+     "byteOffset": 10,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 6,
+     "bitWidth": 8
+    },
+    {
+     "name": "unused_0A",
+     "type": "u16",
+     "byteOffset": 10,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 14,
+     "bitWidth": 2
+    }
+   ],
+   "byName": {
+    "species": {
+     "name": "species",
+     "type": "u16",
+     "byteOffset": 0,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 11
+    },
+    "teraType": {
+     "name": "teraType",
+     "type": "enum Type",
+     "byteOffset": 0,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 5
+    },
+    "heldItem": {
+     "name": "heldItem",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 10
+    },
+    "unused_02": {
+     "name": "unused_02",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 10,
+     "bitWidth": 6
+    },
+    "experience": {
+     "name": "experience",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 21
+    },
+    "nickname11": {
+     "name": "nickname11",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 21,
+     "bitWidth": 8
+    },
+    "unused_04": {
+     "name": "unused_04",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 29,
+     "bitWidth": 3
+    },
+    "ppBonuses": {
+     "name": "ppBonuses",
+     "type": "u8",
+     "byteOffset": 8,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "friendship": {
+     "name": "friendship",
+     "type": "u8",
+     "byteOffset": 9,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "pokeball": {
+     "name": "pokeball",
+     "type": "u16",
+     "byteOffset": 10,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 6
+    },
+    "nickname12": {
+     "name": "nickname12",
+     "type": "u16",
+     "byteOffset": 10,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 6,
+     "bitWidth": 8
+    },
+    "unused_0A": {
+     "name": "unused_0A",
+     "type": "u16",
+     "byteOffset": 10,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 14,
+     "bitWidth": 2
+    }
+   }
+  },
+  "PokemonSubstruct1": {
+   "name": "PokemonSubstruct1",
+   "sizeBytes": 12,
+   "fields": [
+    {
+     "name": "move1",
+     "type": "enum Move",
+     "byteOffset": 0,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 11
+    },
+    {
+     "name": "evolutionTracker1",
+     "type": "u16",
+     "byteOffset": 0,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 5
+    },
+    {
+     "name": "move2",
+     "type": "enum Move",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 11
+    },
+    {
+     "name": "evolutionTracker2",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 5
+    },
+    {
+     "name": "move3",
+     "type": "enum Move",
+     "byteOffset": 4,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 11
+    },
+    {
+     "name": "unused_04",
+     "type": "u16",
+     "byteOffset": 4,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 5
+    },
+    {
+     "name": "move4",
+     "type": "enum Move",
+     "byteOffset": 6,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 11
+    },
+    {
+     "name": "unused_06",
+     "type": "u16",
+     "byteOffset": 6,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 3
+    },
+    {
+     "name": "hyperTrainedHP",
+     "type": "u16",
+     "byteOffset": 6,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 14,
+     "bitWidth": 1
+    },
+    {
+     "name": "hyperTrainedAttack",
+     "type": "u16",
+     "byteOffset": 6,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 15,
+     "bitWidth": 1
+    },
+    {
+     "name": "pp1",
+     "type": "u8",
+     "byteOffset": 8,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 7
+    },
+    {
+     "name": "hyperTrainedDefense",
+     "type": "u8",
+     "byteOffset": 8,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 7,
+     "bitWidth": 1
+    },
+    {
+     "name": "pp2",
+     "type": "u8",
+     "byteOffset": 9,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 7
+    },
+    {
+     "name": "hyperTrainedSpeed",
+     "type": "u8",
+     "byteOffset": 9,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 7,
+     "bitWidth": 1
+    },
+    {
+     "name": "pp3",
+     "type": "u8",
+     "byteOffset": 10,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 7
+    },
+    {
+     "name": "hyperTrainedSpAttack",
+     "type": "u8",
+     "byteOffset": 10,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 7,
+     "bitWidth": 1
+    },
+    {
+     "name": "pp4",
+     "type": "u8",
+     "byteOffset": 11,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 7
+    },
+    {
+     "name": "hyperTrainedSpDefense",
+     "type": "u8",
+     "byteOffset": 11,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 7,
+     "bitWidth": 1
+    }
+   ],
+   "byName": {
+    "move1": {
+     "name": "move1",
+     "type": "enum Move",
+     "byteOffset": 0,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 11
+    },
+    "evolutionTracker1": {
+     "name": "evolutionTracker1",
+     "type": "u16",
+     "byteOffset": 0,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 5
+    },
+    "move2": {
+     "name": "move2",
+     "type": "enum Move",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 11
+    },
+    "evolutionTracker2": {
+     "name": "evolutionTracker2",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 5
+    },
+    "move3": {
+     "name": "move3",
+     "type": "enum Move",
+     "byteOffset": 4,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 11
+    },
+    "unused_04": {
+     "name": "unused_04",
+     "type": "u16",
+     "byteOffset": 4,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 5
+    },
+    "move4": {
+     "name": "move4",
+     "type": "enum Move",
+     "byteOffset": 6,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 11
+    },
+    "unused_06": {
+     "name": "unused_06",
+     "type": "u16",
+     "byteOffset": 6,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 3
+    },
+    "hyperTrainedHP": {
+     "name": "hyperTrainedHP",
+     "type": "u16",
+     "byteOffset": 6,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 14,
+     "bitWidth": 1
+    },
+    "hyperTrainedAttack": {
+     "name": "hyperTrainedAttack",
+     "type": "u16",
+     "byteOffset": 6,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 15,
+     "bitWidth": 1
+    },
+    "pp1": {
+     "name": "pp1",
+     "type": "u8",
+     "byteOffset": 8,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 7
+    },
+    "hyperTrainedDefense": {
+     "name": "hyperTrainedDefense",
+     "type": "u8",
+     "byteOffset": 8,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 7,
+     "bitWidth": 1
+    },
+    "pp2": {
+     "name": "pp2",
+     "type": "u8",
+     "byteOffset": 9,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 7
+    },
+    "hyperTrainedSpeed": {
+     "name": "hyperTrainedSpeed",
+     "type": "u8",
+     "byteOffset": 9,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 7,
+     "bitWidth": 1
+    },
+    "pp3": {
+     "name": "pp3",
+     "type": "u8",
+     "byteOffset": 10,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 7
+    },
+    "hyperTrainedSpAttack": {
+     "name": "hyperTrainedSpAttack",
+     "type": "u8",
+     "byteOffset": 10,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 7,
+     "bitWidth": 1
+    },
+    "pp4": {
+     "name": "pp4",
+     "type": "u8",
+     "byteOffset": 11,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 7
+    },
+    "hyperTrainedSpDefense": {
+     "name": "hyperTrainedSpDefense",
+     "type": "u8",
+     "byteOffset": 11,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": 7,
+     "bitWidth": 1
+    }
+   }
+  },
+  "PokemonSubstruct2": {
+   "name": "PokemonSubstruct2",
+   "sizeBytes": 12,
+   "fields": [
+    {
+     "name": "hpEV",
+     "type": "u8",
+     "byteOffset": 0,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "attackEV",
+     "type": "u8",
+     "byteOffset": 1,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "defenseEV",
+     "type": "u8",
+     "byteOffset": 2,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "speedEV",
+     "type": "u8",
+     "byteOffset": 3,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "spAttackEV",
+     "type": "u8",
+     "byteOffset": 4,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "spDefenseEV",
+     "type": "u8",
+     "byteOffset": 5,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "cool",
+     "type": "u8",
+     "byteOffset": 6,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "beauty",
+     "type": "u8",
+     "byteOffset": 7,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "cute",
+     "type": "u8",
+     "byteOffset": 8,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "smart",
+     "type": "u8",
+     "byteOffset": 9,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "tough",
+     "type": "u8",
+     "byteOffset": 10,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "sheen",
+     "type": "u8",
+     "byteOffset": 11,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    }
+   ],
+   "byName": {
+    "hpEV": {
+     "name": "hpEV",
+     "type": "u8",
+     "byteOffset": 0,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "attackEV": {
+     "name": "attackEV",
+     "type": "u8",
+     "byteOffset": 1,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "defenseEV": {
+     "name": "defenseEV",
+     "type": "u8",
+     "byteOffset": 2,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "speedEV": {
+     "name": "speedEV",
+     "type": "u8",
+     "byteOffset": 3,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "spAttackEV": {
+     "name": "spAttackEV",
+     "type": "u8",
+     "byteOffset": 4,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "spDefenseEV": {
+     "name": "spDefenseEV",
+     "type": "u8",
+     "byteOffset": 5,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "cool": {
+     "name": "cool",
+     "type": "u8",
+     "byteOffset": 6,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "beauty": {
+     "name": "beauty",
+     "type": "u8",
+     "byteOffset": 7,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "cute": {
+     "name": "cute",
+     "type": "u8",
+     "byteOffset": 8,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "smart": {
+     "name": "smart",
+     "type": "u8",
+     "byteOffset": 9,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "tough": {
+     "name": "tough",
+     "type": "u8",
+     "byteOffset": 10,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "sheen": {
+     "name": "sheen",
+     "type": "u8",
+     "byteOffset": 11,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    }
+   }
+  },
+  "PokemonSubstruct3": {
+   "name": "PokemonSubstruct3",
+   "sizeBytes": 12,
+   "fields": [
+    {
+     "name": "pokerus",
+     "type": "u8",
+     "byteOffset": 0,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "metLocation",
+     "type": "u8",
+     "byteOffset": 1,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    {
+     "name": "metLevel",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 7
+    },
+    {
+     "name": "metGame",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 7,
+     "bitWidth": 4
+    },
+    {
+     "name": "dynamaxLevel",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 4
+    },
+    {
+     "name": "otGender",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 15,
+     "bitWidth": 1
+    },
+    {
+     "name": "hpIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 5
+    },
+    {
+     "name": "attackIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 5,
+     "bitWidth": 5
+    },
+    {
+     "name": "defenseIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 10,
+     "bitWidth": 5
+    },
+    {
+     "name": "speedIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 15,
+     "bitWidth": 5
+    },
+    {
+     "name": "spAttackIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 20,
+     "bitWidth": 5
+    },
+    {
+     "name": "spDefenseIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 25,
+     "bitWidth": 5
+    },
+    {
+     "name": "isEgg",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 30,
+     "bitWidth": 1
+    },
+    {
+     "name": "gigantamaxFactor",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 31,
+     "bitWidth": 1
+    },
+    {
+     "name": "coolRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 3
+    },
+    {
+     "name": "beautyRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 3,
+     "bitWidth": 3
+    },
+    {
+     "name": "cuteRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 6,
+     "bitWidth": 3
+    },
+    {
+     "name": "smartRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 9,
+     "bitWidth": 3
+    },
+    {
+     "name": "toughRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 12,
+     "bitWidth": 3
+    },
+    {
+     "name": "championRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 15,
+     "bitWidth": 1
+    },
+    {
+     "name": "winningRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 16,
+     "bitWidth": 1
+    },
+    {
+     "name": "victoryRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 17,
+     "bitWidth": 1
+    },
+    {
+     "name": "artistRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 18,
+     "bitWidth": 1
+    },
+    {
+     "name": "effortRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 19,
+     "bitWidth": 1
+    },
+    {
+     "name": "killCount",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 20,
+     "bitWidth": 8
+    },
+    {
+     "name": "isShadow",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 28,
+     "bitWidth": 1
+    },
+    {
+     "name": "abilityNum",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 29,
+     "bitWidth": 2
+    },
+    {
+     "name": "modernFatefulEncounter",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 31,
+     "bitWidth": 1
+    }
+   ],
+   "byName": {
+    "pokerus": {
+     "name": "pokerus",
+     "type": "u8",
+     "byteOffset": 0,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "metLocation": {
+     "name": "metLocation",
+     "type": "u8",
+     "byteOffset": 1,
+     "bytes": 1,
+     "array": null,
+     "bitOffset": null,
+     "bitWidth": null
+    },
+    "metLevel": {
+     "name": "metLevel",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 7
+    },
+    "metGame": {
+     "name": "metGame",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 7,
+     "bitWidth": 4
+    },
+    "dynamaxLevel": {
+     "name": "dynamaxLevel",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 11,
+     "bitWidth": 4
+    },
+    "otGender": {
+     "name": "otGender",
+     "type": "u16",
+     "byteOffset": 2,
+     "bytes": 2,
+     "array": null,
+     "bitOffset": 15,
+     "bitWidth": 1
+    },
+    "hpIV": {
+     "name": "hpIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 5
+    },
+    "attackIV": {
+     "name": "attackIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 5,
+     "bitWidth": 5
+    },
+    "defenseIV": {
+     "name": "defenseIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 10,
+     "bitWidth": 5
+    },
+    "speedIV": {
+     "name": "speedIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 15,
+     "bitWidth": 5
+    },
+    "spAttackIV": {
+     "name": "spAttackIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 20,
+     "bitWidth": 5
+    },
+    "spDefenseIV": {
+     "name": "spDefenseIV",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 25,
+     "bitWidth": 5
+    },
+    "isEgg": {
+     "name": "isEgg",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 30,
+     "bitWidth": 1
+    },
+    "gigantamaxFactor": {
+     "name": "gigantamaxFactor",
+     "type": "u32",
+     "byteOffset": 4,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 31,
+     "bitWidth": 1
+    },
+    "coolRibbon": {
+     "name": "coolRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 0,
+     "bitWidth": 3
+    },
+    "beautyRibbon": {
+     "name": "beautyRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 3,
+     "bitWidth": 3
+    },
+    "cuteRibbon": {
+     "name": "cuteRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 6,
+     "bitWidth": 3
+    },
+    "smartRibbon": {
+     "name": "smartRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 9,
+     "bitWidth": 3
+    },
+    "toughRibbon": {
+     "name": "toughRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 12,
+     "bitWidth": 3
+    },
+    "championRibbon": {
+     "name": "championRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 15,
+     "bitWidth": 1
+    },
+    "winningRibbon": {
+     "name": "winningRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 16,
+     "bitWidth": 1
+    },
+    "victoryRibbon": {
+     "name": "victoryRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 17,
+     "bitWidth": 1
+    },
+    "artistRibbon": {
+     "name": "artistRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 18,
+     "bitWidth": 1
+    },
+    "effortRibbon": {
+     "name": "effortRibbon",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 19,
+     "bitWidth": 1
+    },
+    "killCount": {
+     "name": "killCount",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 20,
+     "bitWidth": 8
+    },
+    "isShadow": {
+     "name": "isShadow",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 28,
+     "bitWidth": 1
+    },
+    "abilityNum": {
+     "name": "abilityNum",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 29,
+     "bitWidth": 2
+    },
+    "modernFatefulEncounter": {
+     "name": "modernFatefulEncounter",
+     "type": "u32",
+     "byteOffset": 8,
+     "bytes": 4,
+     "array": null,
+     "bitOffset": 31,
+     "bitWidth": 1
+    }
+   }
+  }
+ },
+ "killCount": {
+  "struct": "PokemonSubstruct3",
+  "byteOffset": 8,
+  "bitOffset": 20,
+  "bitWidth": 8,
+  "max": 255,
+  "dataId": "MON_DATA_KILL_COUNT",
+  "note": "Incremented in battle_move_resolution.c and battle_script_commands.c whenever this Pokemon faints an opposing trainer's Pokemon, and capped at 255. Shown on the summary screen. Read it as (u32 at byteOffset >> bitOffset) & max."
+ }
+}

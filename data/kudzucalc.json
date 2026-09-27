@@ -1,0 +1,2486 @@
+{
+ "file": "data/kudzu.js",
+ "deployedTo": "kudzucalc\\backups\\kudzu.js",
+ "calcDir": "kudzucalc",
+ "counts": {
+  "species": 1355,
+  "moves": 847,
+  "sets": 2253,
+  "aiMoves": 847,
+  "aiItems": 366,
+  "aiAbilities": 313,
+  "trainers": 507,
+  "megaLinks": 208
+ },
+ "species": {
+  "Venusaur": {
+   "otherFormes": [
+    "Venusaur-Mega"
+   ]
+  },
+  "Venusaur-Mega": {
+   "otherFormes": [
+    "Venusaur-Mega"
+   ]
+  },
+  "Charizard": {
+   "otherFormes": [
+    "Charizard-Mega-X",
+    "Charizard-Mega-Y"
+   ]
+  },
+  "Charizard-Mega-X": {
+   "otherFormes": [
+    "Charizard-Mega-X",
+    "Charizard-Mega-Y"
+   ]
+  },
+  "Charizard-Mega-Y": {
+   "otherFormes": [
+    "Charizard-Mega-X",
+    "Charizard-Mega-Y"
+   ]
+  },
+  "Blastoise": {
+   "otherFormes": [
+    "Blastoise-Mega"
+   ]
+  },
+  "Blastoise-Mega": {
+   "otherFormes": [
+    "Blastoise-Mega"
+   ]
+  },
+  "Beedrill": {
+   "otherFormes": [
+    "Beedrill-Mega"
+   ]
+  },
+  "Beedrill-Mega": {
+   "otherFormes": [
+    "Beedrill-Mega"
+   ]
+  },
+  "Pidgeot": {
+   "otherFormes": [
+    "Pidgeot-Mega"
+   ]
+  },
+  "Pidgeot-Mega": {
+   "otherFormes": [
+    "Pidgeot-Mega"
+   ]
+  },
+  "Raichu": {
+   "otherFormes": [
+    "Raichu-Mega-X",
+    "Raichu-Mega-Y"
+   ]
+  },
+  "Raichu-Mega-X": {
+   "otherFormes": [
+    "Raichu-Mega-X",
+    "Raichu-Mega-Y"
+   ]
+  },
+  "Raichu-Mega-Y": {
+   "otherFormes": [
+    "Raichu-Mega-X",
+    "Raichu-Mega-Y"
+   ]
+  },
+  "Clefable": {
+   "otherFormes": [
+    "Clefable-Mega"
+   ]
+  },
+  "Clefable-Mega": {
+   "otherFormes": [
+    "Clefable-Mega"
+   ]
+  },
+  "Alakazam": {
+   "otherFormes": [
+    "Alakazam-Mega"
+   ]
+  },
+  "Alakazam-Mega": {
+   "otherFormes": [
+    "Alakazam-Mega"
+   ]
+  },
+  "Victreebel": {
+   "otherFormes": [
+    "Victreebel-Mega"
+   ]
+  },
+  "Victreebel-Mega": {
+   "otherFormes": [
+    "Victreebel-Mega"
+   ]
+  },
+  "Slowbro": {
+   "otherFormes": [
+    "Slowbro-Mega"
+   ]
+  },
+  "Slowbro-Mega": {
+   "otherFormes": [
+    "Slowbro-Mega"
+   ]
+  },
+  "Gengar": {
+   "otherFormes": [
+    "Gengar-Mega"
+   ]
+  },
+  "Gengar-Mega": {
+   "otherFormes": [
+    "Gengar-Mega"
+   ]
+  },
+  "Steelix": {
+   "otherFormes": [
+    "Steelix-Mega"
+   ]
+  },
+  "Steelix-Mega": {
+   "otherFormes": [
+    "Steelix-Mega"
+   ]
+  },
+  "Kangaskhan": {
+   "otherFormes": [
+    "Kangaskhan-Mega"
+   ]
+  },
+  "Kangaskhan-Mega": {
+   "otherFormes": [
+    "Kangaskhan-Mega"
+   ]
+  },
+  "Starmie": {
+   "otherFormes": [
+    "Starmie-Mega"
+   ]
+  },
+  "Starmie-Mega": {
+   "otherFormes": [
+    "Starmie-Mega"
+   ]
+  },
+  "Scizor": {
+   "otherFormes": [
+    "Scizor-Mega"
+   ]
+  },
+  "Scizor-Mega": {
+   "otherFormes": [
+    "Scizor-Mega"
+   ]
+  },
+  "Pinsir": {
+   "otherFormes": [
+    "Pinsir-Mega"
+   ]
+  },
+  "Pinsir-Mega": {
+   "otherFormes": [
+    "Pinsir-Mega"
+   ]
+  },
+  "Gyarados": {
+   "otherFormes": [
+    "Gyarados-Mega"
+   ]
+  },
+  "Gyarados-Mega": {
+   "otherFormes": [
+    "Gyarados-Mega"
+   ]
+  },
+  "Aerodactyl": {
+   "otherFormes": [
+    "Aerodactyl-Mega"
+   ]
+  },
+  "Aerodactyl-Mega": {
+   "otherFormes": [
+    "Aerodactyl-Mega"
+   ]
+  },
+  "Dragonite": {
+   "otherFormes": [
+    "Dragonite-Mega"
+   ]
+  },
+  "Dragonite-Mega": {
+   "otherFormes": [
+    "Dragonite-Mega"
+   ]
+  },
+  "Mewtwo": {
+   "otherFormes": [
+    "Mewtwo-Mega-X",
+    "Mewtwo-Mega-Y"
+   ]
+  },
+  "Mewtwo-Mega-X": {
+   "otherFormes": [
+    "Mewtwo-Mega-X",
+    "Mewtwo-Mega-Y"
+   ]
+  },
+  "Mewtwo-Mega-Y": {
+   "otherFormes": [
+    "Mewtwo-Mega-X",
+    "Mewtwo-Mega-Y"
+   ]
+  },
+  "Meganium": {
+   "otherFormes": [
+    "Meganium-Mega"
+   ]
+  },
+  "Meganium-Mega": {
+   "otherFormes": [
+    "Meganium-Mega"
+   ]
+  },
+  "Feraligatr": {
+   "otherFormes": [
+    "Feraligatr-Mega"
+   ]
+  },
+  "Feraligatr-Mega": {
+   "otherFormes": [
+    "Feraligatr-Mega"
+   ]
+  },
+  "Ampharos": {
+   "otherFormes": [
+    "Ampharos-Mega"
+   ]
+  },
+  "Ampharos-Mega": {
+   "otherFormes": [
+    "Ampharos-Mega"
+   ]
+  },
+  "Heracross": {
+   "otherFormes": [
+    "Heracross-Mega"
+   ]
+  },
+  "Heracross-Mega": {
+   "otherFormes": [
+    "Heracross-Mega"
+   ]
+  },
+  "Skarmory": {
+   "otherFormes": [
+    "Skarmory-Mega"
+   ]
+  },
+  "Skarmory-Mega": {
+   "otherFormes": [
+    "Skarmory-Mega"
+   ]
+  },
+  "Houndoom": {
+   "otherFormes": [
+    "Houndoom-Mega"
+   ]
+  },
+  "Houndoom-Mega": {
+   "otherFormes": [
+    "Houndoom-Mega"
+   ]
+  },
+  "Tyranitar": {
+   "otherFormes": [
+    "Tyranitar-Mega"
+   ]
+  },
+  "Tyranitar-Mega": {
+   "otherFormes": [
+    "Tyranitar-Mega"
+   ]
+  },
+  "Sceptile": {
+   "otherFormes": [
+    "Sceptile-Mega"
+   ]
+  },
+  "Sceptile-Mega": {
+   "otherFormes": [
+    "Sceptile-Mega"
+   ]
+  },
+  "Blaziken": {
+   "otherFormes": [
+    "Blaziken-Mega"
+   ]
+  },
+  "Blaziken-Mega": {
+   "otherFormes": [
+    "Blaziken-Mega"
+   ]
+  },
+  "Swampert": {
+   "otherFormes": [
+    "Swampert-Mega"
+   ]
+  },
+  "Swampert-Mega": {
+   "otherFormes": [
+    "Swampert-Mega"
+   ]
+  },
+  "Gardevoir": {
+   "otherFormes": [
+    "Gardevoir-Mega"
+   ]
+  },
+  "Gardevoir-Mega": {
+   "otherFormes": [
+    "Gardevoir-Mega"
+   ]
+  },
+  "Gallade": {
+   "otherFormes": [
+    "Gallade-Mega"
+   ]
+  },
+  "Gallade-Mega": {
+   "otherFormes": [
+    "Gallade-Mega"
+   ]
+  },
+  "Sableye": {
+   "otherFormes": [
+    "Sableye-Mega"
+   ]
+  },
+  "Sableye-Mega": {
+   "otherFormes": [
+    "Sableye-Mega"
+   ]
+  },
+  "Mawile": {
+   "otherFormes": [
+    "Mawile-Mega"
+   ]
+  },
+  "Mawile-Mega": {
+   "otherFormes": [
+    "Mawile-Mega"
+   ]
+  },
+  "Aggron": {
+   "otherFormes": [
+    "Aggron-Mega"
+   ]
+  },
+  "Aggron-Mega": {
+   "otherFormes": [
+    "Aggron-Mega"
+   ]
+  },
+  "Medicham": {
+   "otherFormes": [
+    "Medicham-Mega"
+   ]
+  },
+  "Medicham-Mega": {
+   "otherFormes": [
+    "Medicham-Mega"
+   ]
+  },
+  "Manectric": {
+   "otherFormes": [
+    "Manectric-Mega"
+   ]
+  },
+  "Manectric-Mega": {
+   "otherFormes": [
+    "Manectric-Mega"
+   ]
+  },
+  "Sharpedo": {
+   "otherFormes": [
+    "Sharpedo-Mega"
+   ]
+  },
+  "Sharpedo-Mega": {
+   "otherFormes": [
+    "Sharpedo-Mega"
+   ]
+  },
+  "Camerupt": {
+   "otherFormes": [
+    "Camerupt-Mega"
+   ]
+  },
+  "Camerupt-Mega": {
+   "otherFormes": [
+    "Camerupt-Mega"
+   ]
+  },
+  "Altaria": {
+   "otherFormes": [
+    "Altaria-Mega"
+   ]
+  },
+  "Altaria-Mega": {
+   "otherFormes": [
+    "Altaria-Mega"
+   ]
+  },
+  "Banette": {
+   "otherFormes": [
+    "Banette-Mega"
+   ]
+  },
+  "Banette-Mega": {
+   "otherFormes": [
+    "Banette-Mega"
+   ]
+  },
+  "Chimecho": {
+   "otherFormes": [
+    "Chimecho-Mega"
+   ]
+  },
+  "Chimecho-Mega": {
+   "otherFormes": [
+    "Chimecho-Mega"
+   ]
+  },
+  "Absol": {
+   "otherFormes": [
+    "Absol",
+    "Absol-Mega"
+   ]
+  },
+  "Absol-Mega": {
+   "otherFormes": [
+    "Absol",
+    "Absol-Mega"
+   ]
+  },
+  "Glalie": {
+   "otherFormes": [
+    "Glalie-Mega"
+   ]
+  },
+  "Glalie-Mega": {
+   "otherFormes": [
+    "Glalie-Mega"
+   ]
+  },
+  "Froslass": {
+   "otherFormes": [
+    "Froslass-Mega"
+   ]
+  },
+  "Froslass-Mega": {
+   "otherFormes": [
+    "Froslass-Mega"
+   ]
+  },
+  "Salamence": {
+   "otherFormes": [
+    "Salamence-Mega"
+   ]
+  },
+  "Salamence-Mega": {
+   "otherFormes": [
+    "Salamence-Mega"
+   ]
+  },
+  "Metagross": {
+   "otherFormes": [
+    "Metagross-Mega"
+   ]
+  },
+  "Metagross-Mega": {
+   "otherFormes": [
+    "Metagross-Mega"
+   ]
+  },
+  "Latias": {
+   "otherFormes": [
+    "Latias-Mega"
+   ]
+  },
+  "Latias-Mega": {
+   "otherFormes": [
+    "Latias-Mega"
+   ]
+  },
+  "Latios": {
+   "otherFormes": [
+    "Latios-Mega"
+   ]
+  },
+  "Latios-Mega": {
+   "otherFormes": [
+    "Latios-Mega"
+   ]
+  },
+  "Kyogre": {
+   "otherFormes": [
+    "Kyogre-Primal"
+   ]
+  },
+  "Kyogre-Primal": {
+   "otherFormes": [
+    "Kyogre-Primal"
+   ]
+  },
+  "Groudon": {
+   "otherFormes": [
+    "Groudon-Primal"
+   ]
+  },
+  "Groudon-Primal": {
+   "otherFormes": [
+    "Groudon-Primal"
+   ]
+  },
+  "Staraptor": {
+   "otherFormes": [
+    "Staraptor-Mega"
+   ]
+  },
+  "Staraptor-Mega": {
+   "otherFormes": [
+    "Staraptor-Mega"
+   ]
+  },
+  "Lopunny": {
+   "otherFormes": [
+    "Lopunny-Mega"
+   ]
+  },
+  "Lopunny-Mega": {
+   "otherFormes": [
+    "Lopunny-Mega"
+   ]
+  },
+  "Garchomp": {
+   "otherFormes": [
+    "Garchomp",
+    "Garchomp-Mega"
+   ]
+  },
+  "Garchomp-Mega": {
+   "otherFormes": [
+    "Garchomp",
+    "Garchomp-Mega"
+   ]
+  },
+  "Lucario": {
+   "otherFormes": [
+    "Lucario",
+    "Lucario-Mega"
+   ]
+  },
+  "Lucario-Mega": {
+   "otherFormes": [
+    "Lucario",
+    "Lucario-Mega"
+   ]
+  },
+  "Abomasnow": {
+   "otherFormes": [
+    "Abomasnow-Mega"
+   ]
+  },
+  "Abomasnow-Mega": {
+   "otherFormes": [
+    "Abomasnow-Mega"
+   ]
+  },
+  "Heatran": {
+   "otherFormes": [
+    "Heatran-Mega"
+   ]
+  },
+  "Heatran-Mega": {
+   "otherFormes": [
+    "Heatran-Mega"
+   ]
+  },
+  "Darkrai": {
+   "otherFormes": [
+    "Darkrai-Mega"
+   ]
+  },
+  "Darkrai-Mega": {
+   "otherFormes": [
+    "Darkrai-Mega"
+   ]
+  },
+  "Emboar": {
+   "otherFormes": [
+    "Emboar-Mega"
+   ]
+  },
+  "Emboar-Mega": {
+   "otherFormes": [
+    "Emboar-Mega"
+   ]
+  },
+  "Excadrill": {
+   "otherFormes": [
+    "Excadrill-Mega"
+   ]
+  },
+  "Excadrill-Mega": {
+   "otherFormes": [
+    "Excadrill-Mega"
+   ]
+  },
+  "Audino": {
+   "otherFormes": [
+    "Audino-Mega"
+   ]
+  },
+  "Audino-Mega": {
+   "otherFormes": [
+    "Audino-Mega"
+   ]
+  },
+  "Scolipede": {
+   "otherFormes": [
+    "Scolipede-Mega"
+   ]
+  },
+  "Scolipede-Mega": {
+   "otherFormes": [
+    "Scolipede-Mega"
+   ]
+  },
+  "Scrafty": {
+   "otherFormes": [
+    "Scrafty-Mega"
+   ]
+  },
+  "Scrafty-Mega": {
+   "otherFormes": [
+    "Scrafty-Mega"
+   ]
+  },
+  "Eelektross": {
+   "otherFormes": [
+    "Eelektross-Mega"
+   ]
+  },
+  "Eelektross-Mega": {
+   "otherFormes": [
+    "Eelektross-Mega"
+   ]
+  },
+  "Chandelure": {
+   "otherFormes": [
+    "Chandelure-Mega"
+   ]
+  },
+  "Chandelure-Mega": {
+   "otherFormes": [
+    "Chandelure-Mega"
+   ]
+  },
+  "Golurk": {
+   "otherFormes": [
+    "Golurk-Mega"
+   ]
+  },
+  "Golurk-Mega": {
+   "otherFormes": [
+    "Golurk-Mega"
+   ]
+  },
+  "Chesnaught": {
+   "otherFormes": [
+    "Chesnaught-Mega"
+   ]
+  },
+  "Chesnaught-Mega": {
+   "otherFormes": [
+    "Chesnaught-Mega"
+   ]
+  },
+  "Delphox": {
+   "otherFormes": [
+    "Delphox-Mega"
+   ]
+  },
+  "Delphox-Mega": {
+   "otherFormes": [
+    "Delphox-Mega"
+   ]
+  },
+  "Greninja": {
+   "otherFormes": [
+    "Greninja-Mega"
+   ]
+  },
+  "Greninja-Mega": {
+   "otherFormes": [
+    "Greninja-Mega"
+   ]
+  },
+  "Pyroar": {
+   "otherFormes": [
+    "Pyroar-Mega"
+   ]
+  },
+  "Pyroar-Mega": {
+   "otherFormes": [
+    "Pyroar-Mega"
+   ]
+  },
+  "Floette": {
+   "otherFormes": [
+    "Floette"
+   ]
+  },
+  "Floette-Eternal": {
+   "otherFormes": [
+    "Floette"
+   ]
+  },
+  "Meowstic": {
+   "otherFormes": [
+    "Meowstic-Mega"
+   ]
+  },
+  "Meowstic-F": {
+   "otherFormes": [
+    "Meowstic-F-Mega"
+   ]
+  },
+  "Meowstic-Mega": {
+   "otherFormes": [
+    "Meowstic-Mega"
+   ]
+  },
+  "Meowstic-F-Mega": {
+   "otherFormes": [
+    "Meowstic-F-Mega"
+   ]
+  },
+  "Malamar": {
+   "otherFormes": [
+    "Malamar-Mega"
+   ]
+  },
+  "Malamar-Mega": {
+   "otherFormes": [
+    "Malamar-Mega"
+   ]
+  },
+  "Barbaracle": {
+   "otherFormes": [
+    "Barbaracle-Mega"
+   ]
+  },
+  "Barbaracle-Mega": {
+   "otherFormes": [
+    "Barbaracle-Mega"
+   ]
+  },
+  "Dragalge": {
+   "otherFormes": [
+    "Dragalge-Mega"
+   ]
+  },
+  "Dragalge-Mega": {
+   "otherFormes": [
+    "Dragalge-Mega"
+   ]
+  },
+  "Hawlucha": {
+   "otherFormes": [
+    "Hawlucha-Mega"
+   ]
+  },
+  "Hawlucha-Mega": {
+   "otherFormes": [
+    "Hawlucha-Mega"
+   ]
+  },
+  "Zygarde": {
+   "otherFormes": [
+    "Zygarde"
+   ]
+  },
+  "Zygarde-Complete": {
+   "otherFormes": [
+    "Zygarde"
+   ]
+  },
+  "Diancie": {
+   "otherFormes": [
+    "Diancie-Mega"
+   ]
+  },
+  "Diancie-Mega": {
+   "otherFormes": [
+    "Diancie-Mega"
+   ]
+  },
+  "Crabominable": {
+   "otherFormes": [
+    "Crabominable-Mega"
+   ]
+  },
+  "Crabominable-Mega": {
+   "otherFormes": [
+    "Crabominable-Mega"
+   ]
+  },
+  "Golisopod": {
+   "otherFormes": [
+    "Golisopod-Mega"
+   ]
+  },
+  "Golisopod-Mega": {
+   "otherFormes": [
+    "Golisopod-Mega"
+   ]
+  },
+  "Drampa": {
+   "otherFormes": [
+    "Drampa-Mega"
+   ]
+  },
+  "Drampa-Mega": {
+   "otherFormes": [
+    "Drampa-Mega"
+   ]
+  },
+  "Magearna": {
+   "otherFormes": [
+    "Magearna-Mega"
+   ]
+  },
+  "Magearna-Original": {
+   "otherFormes": [
+    "Magearna-Original-Mega"
+   ]
+  },
+  "Magearna-Mega": {
+   "otherFormes": [
+    "Magearna-Mega"
+   ]
+  },
+  "Magearna-Original-Mega": {
+   "otherFormes": [
+    "Magearna-Original-Mega"
+   ]
+  },
+  "Zeraora": {
+   "otherFormes": [
+    "Zeraora-Mega"
+   ]
+  },
+  "Zeraora-Mega": {
+   "otherFormes": [
+    "Zeraora-Mega"
+   ]
+  },
+  "Falinks": {
+   "otherFormes": [
+    "Falinks-Mega"
+   ]
+  },
+  "Falinks-Mega": {
+   "otherFormes": [
+    "Falinks-Mega"
+   ]
+  },
+  "Scovillain": {
+   "otherFormes": [
+    "Scovillain-Mega"
+   ]
+  },
+  "Scovillain-Mega": {
+   "otherFormes": [
+    "Scovillain-Mega"
+   ]
+  },
+  "Glimmora": {
+   "otherFormes": [
+    "Glimmora-Mega"
+   ]
+  },
+  "Glimmora-Mega": {
+   "otherFormes": [
+    "Glimmora-Mega"
+   ]
+  },
+  "Tatsugiri": {
+   "otherFormes": [
+    "Tatsugiri-Mega"
+   ]
+  },
+  "Tatsugiri-Mega": {
+   "otherFormes": [
+    "Tatsugiri-Mega"
+   ]
+  },
+  "Baxcalibur": {
+   "otherFormes": [
+    "Baxcalibur-Mega"
+   ]
+  },
+  "Baxcalibur-Mega": {
+   "otherFormes": [
+    "Baxcalibur-Mega"
+   ]
+  }
+ },
+ "keyByConstant": {
+  "SPECIES_BULBASAUR": "Bulbasaur",
+  "SPECIES_IVYSAUR": "Ivysaur",
+  "SPECIES_VENUSAUR": "Venusaur",
+  "SPECIES_VENUSAUR_MEGA": "Venusaur-Mega",
+  "SPECIES_CHARMANDER": "Charmander",
+  "SPECIES_CHARMELEON": "Charmeleon",
+  "SPECIES_CHARIZARD": "Charizard",
+  "SPECIES_CHARIZARD_MEGA_X": "Charizard-Mega-X",
+  "SPECIES_CHARIZARD_MEGA_Y": "Charizard-Mega-Y",
+  "SPECIES_SQUIRTLE": "Squirtle",
+  "SPECIES_WARTORTLE": "Wartortle",
+  "SPECIES_BLASTOISE": "Blastoise",
+  "SPECIES_BLASTOISE_MEGA": "Blastoise-Mega",
+  "SPECIES_CATERPIE": "Caterpie",
+  "SPECIES_METAPOD": "Metapod",
+  "SPECIES_BUTTERFREE": "Butterfree",
+  "SPECIES_WEEDLE": "Weedle",
+  "SPECIES_KAKUNA": "Kakuna",
+  "SPECIES_BEEDRILL": "Beedrill",
+  "SPECIES_BEEDRILL_MEGA": "Beedrill-Mega",
+  "SPECIES_PIDGEY": "Pidgey",
+  "SPECIES_PIDGEOTTO": "Pidgeotto",
+  "SPECIES_PIDGEOT": "Pidgeot",
+  "SPECIES_PIDGEOT_MEGA": "Pidgeot-Mega",
+  "SPECIES_RATTATA": "Rattata",
+  "SPECIES_RATICATE": "Raticate",
+  "SPECIES_RATTATA_ALOLA": "Rattata-Alola",
+  "SPECIES_RATICATE_ALOLA": "Raticate-Alola",
+  "SPECIES_RATICATE_ALOLA_TOTEM": "Raticate-Alola-Totem",
+  "SPECIES_SPEAROW": "Spearow",
+  "SPECIES_FEAROW": "Fearow",
+  "SPECIES_EKANS": "Ekans",
+  "SPECIES_ARBOK": "Arbok",
+  "SPECIES_PICHU": "Pichu",
+  "SPECIES_PICHU_SPIKY_EARED": "Pichu (Spiky-eared)",
+  "SPECIES_PIKACHU": "Pikachu",
+  "SPECIES_PIKACHU_COSPLAY": "Pikachu (Cosplay)",
+  "SPECIES_PIKACHU_ROCK_STAR": "Pikachu (Rock Star)",
+  "SPECIES_PIKACHU_BELLE": "Pikachu (Belle)",
+  "SPECIES_PIKACHU_POP_STAR": "Pikachu (Pop Star)",
+  "SPECIES_PIKACHU_PHD": "Pikachu (Phd)",
+  "SPECIES_PIKACHU_LIBRE": "Pikachu (Libre)",
+  "SPECIES_PIKACHU_ORIGINAL": "Pikachu-Original",
+  "SPECIES_PIKACHU_HOENN": "Pikachu-Hoenn",
+  "SPECIES_PIKACHU_SINNOH": "Pikachu-Sinnoh",
+  "SPECIES_PIKACHU_UNOVA": "Pikachu-Unova",
+  "SPECIES_PIKACHU_KALOS": "Pikachu-Kalos",
+  "SPECIES_PIKACHU_ALOLA": "Pikachu-Alola",
+  "SPECIES_PIKACHU_PARTNER": "Pikachu-Partner",
+  "SPECIES_PIKACHU_WORLD": "Pikachu-World",
+  "SPECIES_PIKACHU_STARTER": "Pikachu",
+  "SPECIES_RAICHU": "Raichu",
+  "SPECIES_RAICHU_ALOLA": "Raichu-Alola",
+  "SPECIES_RAICHU_MEGA_X": "Raichu-Mega-X",
+  "SPECIES_RAICHU_MEGA_Y": "Raichu-Mega-Y",
+  "SPECIES_SANDSHREW": "Sandshrew",
+  "SPECIES_SANDSLASH": "Sandslash",
+  "SPECIES_SANDSHREW_ALOLA": "Sandshrew-Alola",
+  "SPECIES_SANDSLASH_ALOLA": "Sandslash-Alola",
+  "SPECIES_NIDORAN_F": "Nidoran-F",
+  "SPECIES_NIDORINA": "Nidorina",
+  "SPECIES_NIDOQUEEN": "Nidoqueen",
+  "SPECIES_NIDORAN_M": "Nidoran-M",
+  "SPECIES_NIDORINO": "Nidorino",
+  "SPECIES_NIDOKING": "Nidoking",
+  "SPECIES_CLEFFA": "Cleffa",
+  "SPECIES_CLEFAIRY": "Clefairy",
+  "SPECIES_CLEFABLE": "Clefable",
+  "SPECIES_CLEFABLE_MEGA": "Clefable-Mega",
+  "SPECIES_VULPIX": "Vulpix",
+  "SPECIES_NINETALES": "Ninetales",
+  "SPECIES_VULPIX_ALOLA": "Vulpix-Alola",
+  "SPECIES_NINETALES_ALOLA": "Ninetales-Alola",
+  "SPECIES_IGGLYBUFF": "Igglybuff",
+  "SPECIES_JIGGLYPUFF": "Jigglypuff",
+  "SPECIES_WIGGLYTUFF": "Wigglytuff",
+  "SPECIES_ZUBAT": "Zubat",
+  "SPECIES_GOLBAT": "Golbat",
+  "SPECIES_CROBAT": "Crobat",
+  "SPECIES_ODDISH": "Oddish",
+  "SPECIES_GLOOM": "Gloom",
+  "SPECIES_VILEPLUME": "Vileplume",
+  "SPECIES_BELLOSSOM": "Bellossom",
+  "SPECIES_PARAS": "Paras",
+  "SPECIES_PARASECT": "Parasect",
+  "SPECIES_VENONAT": "Venonat",
+  "SPECIES_VENOMOTH": "Venomoth",
+  "SPECIES_DIGLETT": "Diglett",
+  "SPECIES_DUGTRIO": "Dugtrio",
+  "SPECIES_DIGLETT_ALOLA": "Diglett-Alola",
+  "SPECIES_DUGTRIO_ALOLA": "Dugtrio-Alola",
+  "SPECIES_MEOWTH": "Meowth",
+  "SPECIES_PERSIAN": "Persian",
+  "SPECIES_MEOWTH_ALOLA": "Meowth-Alola",
+  "SPECIES_PERSIAN_ALOLA": "Persian-Alola",
+  "SPECIES_MEOWTH_GALAR": "Meowth-Galar",
+  "SPECIES_PERRSERKER": "Perrserker",
+  "SPECIES_PSYDUCK": "Psyduck",
+  "SPECIES_GOLDUCK": "Golduck",
+  "SPECIES_MANKEY": "Mankey",
+  "SPECIES_PRIMEAPE": "Primeape",
+  "SPECIES_ANNIHILAPE": "Annihilape",
+  "SPECIES_GROWLITHE": "Growlithe",
+  "SPECIES_ARCANINE": "Arcanine",
+  "SPECIES_GROWLITHE_HISUI": "Growlithe-Hisui",
+  "SPECIES_ARCANINE_HISUI": "Arcanine-Hisui",
+  "SPECIES_POLIWAG": "Poliwag",
+  "SPECIES_POLIWHIRL": "Poliwhirl",
+  "SPECIES_POLIWRATH": "Poliwrath",
+  "SPECIES_POLITOED": "Politoed",
+  "SPECIES_ABRA": "Abra",
+  "SPECIES_KADABRA": "Kadabra",
+  "SPECIES_ALAKAZAM": "Alakazam",
+  "SPECIES_ALAKAZAM_MEGA": "Alakazam-Mega",
+  "SPECIES_MACHOP": "Machop",
+  "SPECIES_MACHOKE": "Machoke",
+  "SPECIES_MACHAMP": "Machamp",
+  "SPECIES_BELLSPROUT": "Bellsprout",
+  "SPECIES_WEEPINBELL": "Weepinbell",
+  "SPECIES_VICTREEBEL": "Victreebel",
+  "SPECIES_VICTREEBEL_MEGA": "Victreebel-Mega",
+  "SPECIES_TENTACOOL": "Tentacool",
+  "SPECIES_TENTACRUEL": "Tentacruel",
+  "SPECIES_GEODUDE": "Geodude",
+  "SPECIES_GRAVELER": "Graveler",
+  "SPECIES_GOLEM": "Golem",
+  "SPECIES_GEODUDE_ALOLA": "Geodude-Alola",
+  "SPECIES_GRAVELER_ALOLA": "Graveler-Alola",
+  "SPECIES_GOLEM_ALOLA": "Golem-Alola",
+  "SPECIES_PONYTA": "Ponyta",
+  "SPECIES_RAPIDASH": "Rapidash",
+  "SPECIES_PONYTA_GALAR": "Ponyta-Galar",
+  "SPECIES_RAPIDASH_GALAR": "Rapidash-Galar",
+  "SPECIES_SLOWPOKE": "Slowpoke",
+  "SPECIES_SLOWBRO": "Slowbro",
+  "SPECIES_SLOWKING": "Slowking",
+  "SPECIES_SLOWBRO_MEGA": "Slowbro-Mega",
+  "SPECIES_SLOWPOKE_GALAR": "Slowpoke-Galar",
+  "SPECIES_SLOWBRO_GALAR": "Slowbro-Galar",
+  "SPECIES_SLOWKING_GALAR": "Slowking-Galar",
+  "SPECIES_MAGNEMITE": "Magnemite",
+  "SPECIES_MAGNETON": "Magneton",
+  "SPECIES_MAGNEZONE": "Magnezone",
+  "SPECIES_FARFETCHD": "Farfetch’d",
+  "SPECIES_FARFETCHD_GALAR": "Farfetch’d-Galar",
+  "SPECIES_SIRFETCHD": "Sirfetch’d",
+  "SPECIES_DODUO": "Doduo",
+  "SPECIES_DODRIO": "Dodrio",
+  "SPECIES_SEEL": "Seel",
+  "SPECIES_DEWGONG": "Dewgong",
+  "SPECIES_GRIMER": "Grimer",
+  "SPECIES_MUK": "Muk",
+  "SPECIES_GRIMER_ALOLA": "Grimer-Alola",
+  "SPECIES_MUK_ALOLA": "Muk-Alola",
+  "SPECIES_SHELLDER": "Shellder",
+  "SPECIES_CLOYSTER": "Cloyster",
+  "SPECIES_GASTLY": "Gastly",
+  "SPECIES_HAUNTER": "Haunter",
+  "SPECIES_GENGAR": "Gengar",
+  "SPECIES_GENGAR_MEGA": "Gengar-Mega",
+  "SPECIES_ONIX": "Onix",
+  "SPECIES_STEELIX": "Steelix",
+  "SPECIES_STEELIX_MEGA": "Steelix-Mega",
+  "SPECIES_DROWZEE": "Drowzee",
+  "SPECIES_HYPNO": "Hypno",
+  "SPECIES_KRABBY": "Krabby",
+  "SPECIES_KINGLER": "Kingler",
+  "SPECIES_VOLTORB": "Voltorb",
+  "SPECIES_ELECTRODE": "Electrode",
+  "SPECIES_VOLTORB_HISUI": "Voltorb-Hisui",
+  "SPECIES_ELECTRODE_HISUI": "Electrode-Hisui",
+  "SPECIES_EXEGGCUTE": "Exeggcute",
+  "SPECIES_EXEGGUTOR": "Exeggutor",
+  "SPECIES_EXEGGUTOR_ALOLA": "Exeggutor-Alola",
+  "SPECIES_CUBONE": "Cubone",
+  "SPECIES_MAROWAK": "Marowak",
+  "SPECIES_MAROWAK_ALOLA": "Marowak-Alola",
+  "SPECIES_MAROWAK_ALOLA_TOTEM": "Marowak-Alola-Totem",
+  "SPECIES_TYROGUE": "Tyrogue",
+  "SPECIES_HITMONLEE": "Hitmonlee",
+  "SPECIES_HITMONCHAN": "Hitmonchan",
+  "SPECIES_HITMONTOP": "Hitmontop",
+  "SPECIES_LICKITUNG": "Lickitung",
+  "SPECIES_LICKILICKY": "Lickilicky",
+  "SPECIES_KOFFING": "Koffing",
+  "SPECIES_WEEZING": "Weezing",
+  "SPECIES_WEEZING_GALAR": "Weezing-Galar",
+  "SPECIES_RHYHORN": "Rhyhorn",
+  "SPECIES_RHYDON": "Rhydon",
+  "SPECIES_RHYPERIOR": "Rhyperior",
+  "SPECIES_HAPPINY": "Happiny",
+  "SPECIES_CHANSEY": "Chansey",
+  "SPECIES_BLISSEY": "Blissey",
+  "SPECIES_TANGELA": "Tangela",
+  "SPECIES_TANGROWTH": "Tangrowth",
+  "SPECIES_KANGASKHAN": "Kangaskhan",
+  "SPECIES_KANGASKHAN_MEGA": "Kangaskhan-Mega",
+  "SPECIES_HORSEA": "Horsea",
+  "SPECIES_SEADRA": "Seadra",
+  "SPECIES_KINGDRA": "Kingdra",
+  "SPECIES_GOLDEEN": "Goldeen",
+  "SPECIES_SEAKING": "Seaking",
+  "SPECIES_STARYU": "Staryu",
+  "SPECIES_STARMIE": "Starmie",
+  "SPECIES_STARMIE_MEGA": "Starmie-Mega",
+  "SPECIES_MIME_JR": "Mime Jr.",
+  "SPECIES_MR_MIME": "Mr. Mime",
+  "SPECIES_MR_MIME_GALAR": "Mr. Mime-Galar",
+  "SPECIES_MR_RIME": "Mr. Rime",
+  "SPECIES_SCYTHER": "Scyther",
+  "SPECIES_SCIZOR": "Scizor",
+  "SPECIES_SCIZOR_MEGA": "Scizor-Mega",
+  "SPECIES_KLEAVOR": "Kleavor",
+  "SPECIES_SMOOCHUM": "Smoochum",
+  "SPECIES_JYNX": "Jynx",
+  "SPECIES_ELEKID": "Elekid",
+  "SPECIES_ELECTABUZZ": "Electabuzz",
+  "SPECIES_ELECTIVIRE": "Electivire",
+  "SPECIES_MAGBY": "Magby",
+  "SPECIES_MAGMAR": "Magmar",
+  "SPECIES_MAGMORTAR": "Magmortar",
+  "SPECIES_PINSIR": "Pinsir",
+  "SPECIES_PINSIR_MEGA": "Pinsir-Mega",
+  "SPECIES_TAUROS": "Tauros",
+  "SPECIES_TAUROS_PALDEA_COMBAT": "Tauros-Paldea-Combat",
+  "SPECIES_TAUROS_PALDEA_BLAZE": "Tauros-Paldea-Blaze",
+  "SPECIES_TAUROS_PALDEA_AQUA": "Tauros-Paldea-Aqua",
+  "SPECIES_MAGIKARP": "Magikarp",
+  "SPECIES_GYARADOS": "Gyarados",
+  "SPECIES_GYARADOS_MEGA": "Gyarados-Mega",
+  "SPECIES_LAPRAS": "Lapras",
+  "SPECIES_DITTO": "Ditto",
+  "SPECIES_EEVEE": "Eevee",
+  "SPECIES_EEVEE_STARTER": "Eevee",
+  "SPECIES_VAPOREON": "Vaporeon",
+  "SPECIES_JOLTEON": "Jolteon",
+  "SPECIES_FLAREON": "Flareon",
+  "SPECIES_ESPEON": "Espeon",
+  "SPECIES_UMBREON": "Umbreon",
+  "SPECIES_LEAFEON": "Leafeon",
+  "SPECIES_GLACEON": "Glaceon",
+  "SPECIES_SYLVEON": "Sylveon",
+  "SPECIES_PORYGON": "Porygon",
+  "SPECIES_PORYGON2": "Porygon2",
+  "SPECIES_PORYGON_Z": "Porygon-Z",
+  "SPECIES_OMANYTE": "Omanyte",
+  "SPECIES_OMASTAR": "Omastar",
+  "SPECIES_KABUTO": "Kabuto",
+  "SPECIES_KABUTOPS": "Kabutops",
+  "SPECIES_AERODACTYL": "Aerodactyl",
+  "SPECIES_AERODACTYL_MEGA": "Aerodactyl-Mega",
+  "SPECIES_MUNCHLAX": "Munchlax",
+  "SPECIES_SNORLAX": "Snorlax",
+  "SPECIES_ARTICUNO": "Articuno",
+  "SPECIES_ARTICUNO_GALAR": "Articuno-Galar",
+  "SPECIES_ZAPDOS": "Zapdos",
+  "SPECIES_ZAPDOS_GALAR": "Zapdos-Galar",
+  "SPECIES_MOLTRES": "Moltres",
+  "SPECIES_MOLTRES_GALAR": "Moltres-Galar",
+  "SPECIES_DRATINI": "Dratini",
+  "SPECIES_DRAGONAIR": "Dragonair",
+  "SPECIES_DRAGONITE": "Dragonite",
+  "SPECIES_DRAGONITE_MEGA": "Dragonite-Mega",
+  "SPECIES_MEWTWO": "Mewtwo",
+  "SPECIES_MEWTWO_MEGA_X": "Mewtwo-Mega-X",
+  "SPECIES_MEWTWO_MEGA_Y": "Mewtwo-Mega-Y",
+  "SPECIES_MEW": "Mew",
+  "SPECIES_CHIKORITA": "Chikorita",
+  "SPECIES_BAYLEEF": "Bayleef",
+  "SPECIES_MEGANIUM": "Meganium",
+  "SPECIES_MEGANIUM_MEGA": "Meganium-Mega",
+  "SPECIES_CYNDAQUIL": "Cyndaquil",
+  "SPECIES_QUILAVA": "Quilava",
+  "SPECIES_TYPHLOSION": "Typhlosion",
+  "SPECIES_TYPHLOSION_HISUI": "Typhlosion-Hisui",
+  "SPECIES_TOTODILE": "Totodile",
+  "SPECIES_CROCONAW": "Croconaw",
+  "SPECIES_FERALIGATR": "Feraligatr",
+  "SPECIES_FERALIGATR_MEGA": "Feraligatr-Mega",
+  "SPECIES_SENTRET": "Sentret",
+  "SPECIES_FURRET": "Furret",
+  "SPECIES_HOOTHOOT": "Hoothoot",
+  "SPECIES_NOCTOWL": "Noctowl",
+  "SPECIES_LEDYBA": "Ledyba",
+  "SPECIES_LEDIAN": "Ledian",
+  "SPECIES_SPINARAK": "Spinarak",
+  "SPECIES_ARIADOS": "Ariados",
+  "SPECIES_CHINCHOU": "Chinchou",
+  "SPECIES_LANTURN": "Lanturn",
+  "SPECIES_TOGEPI": "Togepi",
+  "SPECIES_TOGETIC": "Togetic",
+  "SPECIES_TOGEKISS": "Togekiss",
+  "SPECIES_NATU": "Natu",
+  "SPECIES_XATU": "Xatu",
+  "SPECIES_MAREEP": "Mareep",
+  "SPECIES_FLAAFFY": "Flaaffy",
+  "SPECIES_AMPHAROS": "Ampharos",
+  "SPECIES_AMPHAROS_MEGA": "Ampharos-Mega",
+  "SPECIES_AZURILL": "Azurill",
+  "SPECIES_MARILL": "Marill",
+  "SPECIES_AZUMARILL": "Azumarill",
+  "SPECIES_BONSLY": "Bonsly",
+  "SPECIES_SUDOWOODO": "Sudowoodo",
+  "SPECIES_HOPPIP": "Hoppip",
+  "SPECIES_SKIPLOOM": "Skiploom",
+  "SPECIES_JUMPLUFF": "Jumpluff",
+  "SPECIES_AIPOM": "Aipom",
+  "SPECIES_AMBIPOM": "Ambipom",
+  "SPECIES_SUNKERN": "Sunkern",
+  "SPECIES_SUNFLORA": "Sunflora",
+  "SPECIES_YANMA": "Yanma",
+  "SPECIES_YANMEGA": "Yanmega",
+  "SPECIES_WOOPER": "Wooper",
+  "SPECIES_QUAGSIRE": "Quagsire",
+  "SPECIES_WOOPER_PALDEA": "Wooper-Paldea",
+  "SPECIES_CLODSIRE": "Clodsire",
+  "SPECIES_MURKROW": "Murkrow",
+  "SPECIES_HONCHKROW": "Honchkrow",
+  "SPECIES_MISDREAVUS": "Misdreavus",
+  "SPECIES_MISMAGIUS": "Mismagius",
+  "SPECIES_UNOWN": "Unown",
+  "SPECIES_UNOWN_B": "Unown (B)",
+  "SPECIES_UNOWN_C": "Unown (C)",
+  "SPECIES_UNOWN_D": "Unown (D)",
+  "SPECIES_UNOWN_E": "Unown (E)",
+  "SPECIES_UNOWN_F": "Unown (F)",
+  "SPECIES_UNOWN_G": "Unown (G)",
+  "SPECIES_UNOWN_H": "Unown (H)",
+  "SPECIES_UNOWN_I": "Unown (I)",
+  "SPECIES_UNOWN_J": "Unown (J)",
+  "SPECIES_UNOWN_K": "Unown (K)",
+  "SPECIES_UNOWN_L": "Unown (L)",
+  "SPECIES_UNOWN_M": "Unown (M)",
+  "SPECIES_UNOWN_N": "Unown (N)",
+  "SPECIES_UNOWN_O": "Unown (O)",
+  "SPECIES_UNOWN_P": "Unown (P)",
+  "SPECIES_UNOWN_Q": "Unown (Q)",
+  "SPECIES_UNOWN_R": "Unown (R)",
+  "SPECIES_UNOWN_S": "Unown (S)",
+  "SPECIES_UNOWN_T": "Unown (T)",
+  "SPECIES_UNOWN_U": "Unown (U)",
+  "SPECIES_UNOWN_V": "Unown (V)",
+  "SPECIES_UNOWN_W": "Unown (W)",
+  "SPECIES_UNOWN_X": "Unown (X)",
+  "SPECIES_UNOWN_Y": "Unown (Y)",
+  "SPECIES_UNOWN_Z": "Unown (Z)",
+  "SPECIES_UNOWN_EXCLAMATION": "Unown (Exclamation)",
+  "SPECIES_UNOWN_QUESTION": "Unown (Question)",
+  "SPECIES_WYNAUT": "Wynaut",
+  "SPECIES_WOBBUFFET": "Wobbuffet",
+  "SPECIES_GIRAFARIG": "Girafarig",
+  "SPECIES_FARIGIRAF": "Farigiraf",
+  "SPECIES_PINECO": "Pineco",
+  "SPECIES_FORRETRESS": "Forretress",
+  "SPECIES_DUNSPARCE": "Dunsparce",
+  "SPECIES_DUDUNSPARCE_TWO_SEGMENT": "Dudunsparce",
+  "SPECIES_DUDUNSPARCE_THREE_SEGMENT": "Dudunsparce-Three-Segment",
+  "SPECIES_GLIGAR": "Gligar",
+  "SPECIES_GLISCOR": "Gliscor",
+  "SPECIES_SNUBBULL": "Snubbull",
+  "SPECIES_GRANBULL": "Granbull",
+  "SPECIES_QWILFISH": "Qwilfish",
+  "SPECIES_QWILFISH_HISUI": "Qwilfish-Hisui",
+  "SPECIES_OVERQWIL": "Overqwil",
+  "SPECIES_SHUCKLE": "Shuckle",
+  "SPECIES_HERACROSS": "Heracross",
+  "SPECIES_HERACROSS_MEGA": "Heracross-Mega",
+  "SPECIES_SNEASEL": "Sneasel",
+  "SPECIES_WEAVILE": "Weavile",
+  "SPECIES_SNEASEL_HISUI": "Sneasel-Hisui",
+  "SPECIES_SNEASLER": "Sneasler",
+  "SPECIES_TEDDIURSA": "Teddiursa",
+  "SPECIES_URSARING": "Ursaring",
+  "SPECIES_URSALUNA": "Ursaluna",
+  "SPECIES_URSALUNA_BLOODMOON": "Ursaluna-Bloodmoon",
+  "SPECIES_SLUGMA": "Slugma",
+  "SPECIES_MAGCARGO": "Magcargo",
+  "SPECIES_SWINUB": "Swinub",
+  "SPECIES_PILOSWINE": "Piloswine",
+  "SPECIES_MAMOSWINE": "Mamoswine",
+  "SPECIES_CORSOLA": "Corsola",
+  "SPECIES_CORSOLA_GALAR": "Corsola-Galar",
+  "SPECIES_CURSOLA": "Cursola",
+  "SPECIES_REMORAID": "Remoraid",
+  "SPECIES_OCTILLERY": "Octillery",
+  "SPECIES_DELIBIRD": "Delibird",
+  "SPECIES_MANTYKE": "Mantyke",
+  "SPECIES_MANTINE": "Mantine",
+  "SPECIES_SKARMORY": "Skarmory",
+  "SPECIES_SKARMORY_MEGA": "Skarmory-Mega",
+  "SPECIES_HOUNDOUR": "Houndour",
+  "SPECIES_HOUNDOOM": "Houndoom",
+  "SPECIES_HOUNDOOM_MEGA": "Houndoom-Mega",
+  "SPECIES_PHANPY": "Phanpy",
+  "SPECIES_DONPHAN": "Donphan",
+  "SPECIES_STANTLER": "Stantler",
+  "SPECIES_WYRDEER": "Wyrdeer",
+  "SPECIES_SMEARGLE": "Smeargle",
+  "SPECIES_MILTANK": "Miltank",
+  "SPECIES_RAIKOU": "Raikou",
+  "SPECIES_ENTEI": "Entei",
+  "SPECIES_SUICUNE": "Suicune",
+  "SPECIES_LARVITAR": "Larvitar",
+  "SPECIES_PUPITAR": "Pupitar",
+  "SPECIES_TYRANITAR": "Tyranitar",
+  "SPECIES_TYRANITAR_MEGA": "Tyranitar-Mega",
+  "SPECIES_LUGIA": "Lugia",
+  "SPECIES_HO_OH": "Ho-Oh",
+  "SPECIES_CELEBI": "Celebi",
+  "SPECIES_TREECKO": "Treecko",
+  "SPECIES_GROVYLE": "Grovyle",
+  "SPECIES_SCEPTILE": "Sceptile",
+  "SPECIES_SCEPTILE_MEGA": "Sceptile-Mega",
+  "SPECIES_TORCHIC": "Torchic",
+  "SPECIES_COMBUSKEN": "Combusken",
+  "SPECIES_BLAZIKEN": "Blaziken",
+  "SPECIES_BLAZIKEN_MEGA": "Blaziken-Mega",
+  "SPECIES_MUDKIP": "Mudkip",
+  "SPECIES_MARSHTOMP": "Marshtomp",
+  "SPECIES_SWAMPERT": "Swampert",
+  "SPECIES_SWAMPERT_MEGA": "Swampert-Mega",
+  "SPECIES_POOCHYENA": "Poochyena",
+  "SPECIES_MIGHTYENA": "Mightyena",
+  "SPECIES_ZIGZAGOON": "Zigzagoon",
+  "SPECIES_LINOONE": "Linoone",
+  "SPECIES_ZIGZAGOON_GALAR": "Zigzagoon-Galar",
+  "SPECIES_LINOONE_GALAR": "Linoone-Galar",
+  "SPECIES_OBSTAGOON": "Obstagoon",
+  "SPECIES_WURMPLE": "Wurmple",
+  "SPECIES_SILCOON": "Silcoon",
+  "SPECIES_BEAUTIFLY": "Beautifly",
+  "SPECIES_CASCOON": "Cascoon",
+  "SPECIES_DUSTOX": "Dustox",
+  "SPECIES_LOTAD": "Lotad",
+  "SPECIES_LOMBRE": "Lombre",
+  "SPECIES_LUDICOLO": "Ludicolo",
+  "SPECIES_SEEDOT": "Seedot",
+  "SPECIES_NUZLEAF": "Nuzleaf",
+  "SPECIES_SHIFTRY": "Shiftry",
+  "SPECIES_TAILLOW": "Taillow",
+  "SPECIES_SWELLOW": "Swellow",
+  "SPECIES_WINGULL": "Wingull",
+  "SPECIES_PELIPPER": "Pelipper",
+  "SPECIES_RALTS": "Ralts",
+  "SPECIES_KIRLIA": "Kirlia",
+  "SPECIES_GARDEVOIR": "Gardevoir",
+  "SPECIES_GARDEVOIR_MEGA": "Gardevoir-Mega",
+  "SPECIES_GALLADE": "Gallade",
+  "SPECIES_GALLADE_MEGA": "Gallade-Mega",
+  "SPECIES_SURSKIT": "Surskit",
+  "SPECIES_MASQUERAIN": "Masquerain",
+  "SPECIES_SHROOMISH": "Shroomish",
+  "SPECIES_BRELOOM": "Breloom",
+  "SPECIES_SLAKOTH": "Slakoth",
+  "SPECIES_VIGOROTH": "Vigoroth",
+  "SPECIES_SLAKING": "Slaking",
+  "SPECIES_NINCADA": "Nincada",
+  "SPECIES_NINJASK": "Ninjask",
+  "SPECIES_SHEDINJA": "Shedinja",
+  "SPECIES_WHISMUR": "Whismur",
+  "SPECIES_LOUDRED": "Loudred",
+  "SPECIES_EXPLOUD": "Exploud",
+  "SPECIES_MAKUHITA": "Makuhita",
+  "SPECIES_HARIYAMA": "Hariyama",
+  "SPECIES_NOSEPASS": "Nosepass",
+  "SPECIES_PROBOPASS": "Probopass",
+  "SPECIES_SKITTY": "Skitty",
+  "SPECIES_DELCATTY": "Delcatty",
+  "SPECIES_SABLEYE": "Sableye",
+  "SPECIES_SABLEYE_MEGA": "Sableye-Mega",
+  "SPECIES_MAWILE": "Mawile",
+  "SPECIES_MAWILE_MEGA": "Mawile-Mega",
+  "SPECIES_ARON": "Aron",
+  "SPECIES_LAIRON": "Lairon",
+  "SPECIES_AGGRON": "Aggron",
+  "SPECIES_AGGRON_MEGA": "Aggron-Mega",
+  "SPECIES_MEDITITE": "Meditite",
+  "SPECIES_MEDICHAM": "Medicham",
+  "SPECIES_MEDICHAM_MEGA": "Medicham-Mega",
+  "SPECIES_ELECTRIKE": "Electrike",
+  "SPECIES_MANECTRIC": "Manectric",
+  "SPECIES_MANECTRIC_MEGA": "Manectric-Mega",
+  "SPECIES_PLUSLE": "Plusle",
+  "SPECIES_MINUN": "Minun",
+  "SPECIES_VOLBEAT": "Volbeat",
+  "SPECIES_ILLUMISE": "Illumise",
+  "SPECIES_BUDEW": "Budew",
+  "SPECIES_ROSELIA": "Roselia",
+  "SPECIES_ROSERADE": "Roserade",
+  "SPECIES_GULPIN": "Gulpin",
+  "SPECIES_SWALOT": "Swalot",
+  "SPECIES_CARVANHA": "Carvanha",
+  "SPECIES_SHARPEDO": "Sharpedo",
+  "SPECIES_SHARPEDO_MEGA": "Sharpedo-Mega",
+  "SPECIES_WAILMER": "Wailmer",
+  "SPECIES_WAILORD": "Wailord",
+  "SPECIES_NUMEL": "Numel",
+  "SPECIES_CAMERUPT": "Camerupt",
+  "SPECIES_CAMERUPT_MEGA": "Camerupt-Mega",
+  "SPECIES_TORKOAL": "Torkoal",
+  "SPECIES_SPOINK": "Spoink",
+  "SPECIES_GRUMPIG": "Grumpig",
+  "SPECIES_SPINDA": "Spinda",
+  "SPECIES_TRAPINCH": "Trapinch",
+  "SPECIES_VIBRAVA": "Vibrava",
+  "SPECIES_FLYGON": "Flygon",
+  "SPECIES_CACNEA": "Cacnea",
+  "SPECIES_CACTURNE": "Cacturne",
+  "SPECIES_SWABLU": "Swablu",
+  "SPECIES_ALTARIA": "Altaria",
+  "SPECIES_ALTARIA_MEGA": "Altaria-Mega",
+  "SPECIES_ZANGOOSE": "Zangoose",
+  "SPECIES_SEVIPER": "Seviper",
+  "SPECIES_LUNATONE": "Lunatone",
+  "SPECIES_SOLROCK": "Solrock",
+  "SPECIES_BARBOACH": "Barboach",
+  "SPECIES_WHISCASH": "Whiscash",
+  "SPECIES_CORPHISH": "Corphish",
+  "SPECIES_CRAWDAUNT": "Crawdaunt",
+  "SPECIES_BALTOY": "Baltoy",
+  "SPECIES_CLAYDOL": "Claydol",
+  "SPECIES_LILEEP": "Lileep",
+  "SPECIES_CRADILY": "Cradily",
+  "SPECIES_ANORITH": "Anorith",
+  "SPECIES_ARMALDO": "Armaldo",
+  "SPECIES_FEEBAS": "Feebas",
+  "SPECIES_MILOTIC": "Milotic",
+  "SPECIES_CASTFORM_NORMAL": "Castform",
+  "SPECIES_CASTFORM_SUNNY": "Castform-Sunny",
+  "SPECIES_CASTFORM_RAINY": "Castform-Rainy",
+  "SPECIES_CASTFORM_SNOWY": "Castform-Snowy",
+  "SPECIES_KECLEON": "Kecleon",
+  "SPECIES_SHUPPET": "Shuppet",
+  "SPECIES_BANETTE": "Banette",
+  "SPECIES_BANETTE_MEGA": "Banette-Mega",
+  "SPECIES_DUSKULL": "Duskull",
+  "SPECIES_DUSCLOPS": "Dusclops",
+  "SPECIES_DUSKNOIR": "Dusknoir",
+  "SPECIES_TROPIUS": "Tropius",
+  "SPECIES_CHINGLING": "Chingling",
+  "SPECIES_CHIMECHO": "Chimecho",
+  "SPECIES_CHIMECHO_MEGA": "Chimecho-Mega",
+  "SPECIES_ABSOL": "Absol",
+  "SPECIES_ABSOL_MEGA": "Absol-Mega",
+  "SPECIES_ABSOL_MEGA_Z": "Absol",
+  "SPECIES_SNORUNT": "Snorunt",
+  "SPECIES_GLALIE": "Glalie",
+  "SPECIES_GLALIE_MEGA": "Glalie-Mega",
+  "SPECIES_FROSLASS": "Froslass",
+  "SPECIES_FROSLASS_MEGA": "Froslass-Mega",
+  "SPECIES_SPHEAL": "Spheal",
+  "SPECIES_SEALEO": "Sealeo",
+  "SPECIES_WALREIN": "Walrein",
+  "SPECIES_CLAMPERL": "Clamperl",
+  "SPECIES_HUNTAIL": "Huntail",
+  "SPECIES_GOREBYSS": "Gorebyss",
+  "SPECIES_RELICANTH": "Relicanth",
+  "SPECIES_LUVDISC": "Luvdisc",
+  "SPECIES_BAGON": "Bagon",
+  "SPECIES_SHELGON": "Shelgon",
+  "SPECIES_SALAMENCE": "Salamence",
+  "SPECIES_SALAMENCE_MEGA": "Salamence-Mega",
+  "SPECIES_BELDUM": "Beldum",
+  "SPECIES_METANG": "Metang",
+  "SPECIES_METAGROSS": "Metagross",
+  "SPECIES_METAGROSS_MEGA": "Metagross-Mega",
+  "SPECIES_REGIROCK": "Regirock",
+  "SPECIES_REGICE": "Regice",
+  "SPECIES_REGISTEEL": "Registeel",
+  "SPECIES_LATIAS": "Latias",
+  "SPECIES_LATIAS_MEGA": "Latias-Mega",
+  "SPECIES_LATIOS": "Latios",
+  "SPECIES_LATIOS_MEGA": "Latios-Mega",
+  "SPECIES_KYOGRE": "Kyogre",
+  "SPECIES_KYOGRE_PRIMAL": "Kyogre-Primal",
+  "SPECIES_GROUDON": "Groudon",
+  "SPECIES_GROUDON_PRIMAL": "Groudon-Primal",
+  "SPECIES_RAYQUAZA": "Rayquaza",
+  "SPECIES_RAYQUAZA_MEGA": "Rayquaza-Mega",
+  "SPECIES_JIRACHI": "Jirachi",
+  "SPECIES_DEOXYS_NORMAL": "Deoxys",
+  "SPECIES_DEOXYS_ATTACK": "Deoxys-Attack",
+  "SPECIES_DEOXYS_DEFENSE": "Deoxys-Defense",
+  "SPECIES_DEOXYS_SPEED": "Deoxys-Speed",
+  "SPECIES_TURTWIG": "Turtwig",
+  "SPECIES_GROTLE": "Grotle",
+  "SPECIES_TORTERRA": "Torterra",
+  "SPECIES_CHIMCHAR": "Chimchar",
+  "SPECIES_MONFERNO": "Monferno",
+  "SPECIES_INFERNAPE": "Infernape",
+  "SPECIES_PIPLUP": "Piplup",
+  "SPECIES_PRINPLUP": "Prinplup",
+  "SPECIES_EMPOLEON": "Empoleon",
+  "SPECIES_STARLY": "Starly",
+  "SPECIES_STARAVIA": "Staravia",
+  "SPECIES_STARAPTOR": "Staraptor",
+  "SPECIES_STARAPTOR_MEGA": "Staraptor-Mega",
+  "SPECIES_BIDOOF": "Bidoof",
+  "SPECIES_BIBAREL": "Bibarel",
+  "SPECIES_KRICKETOT": "Kricketot",
+  "SPECIES_KRICKETUNE": "Kricketune",
+  "SPECIES_SHINX": "Shinx",
+  "SPECIES_LUXIO": "Luxio",
+  "SPECIES_LUXRAY": "Luxray",
+  "SPECIES_CRANIDOS": "Cranidos",
+  "SPECIES_RAMPARDOS": "Rampardos",
+  "SPECIES_SHIELDON": "Shieldon",
+  "SPECIES_BASTIODON": "Bastiodon",
+  "SPECIES_BURMY_PLANT": "Burmy",
+  "SPECIES_BURMY_SANDY": "Burmy",
+  "SPECIES_BURMY_TRASH": "Burmy",
+  "SPECIES_WORMADAM_PLANT": "Wormadam",
+  "SPECIES_WORMADAM_SANDY": "Wormadam-Sandy",
+  "SPECIES_WORMADAM_TRASH": "Wormadam-Trash",
+  "SPECIES_MOTHIM_PLANT": "Mothim",
+  "SPECIES_MOTHIM_SANDY": "Mothim",
+  "SPECIES_MOTHIM_TRASH": "Mothim",
+  "SPECIES_COMBEE": "Combee",
+  "SPECIES_VESPIQUEN": "Vespiquen",
+  "SPECIES_PACHIRISU": "Pachirisu",
+  "SPECIES_BUIZEL": "Buizel",
+  "SPECIES_FLOATZEL": "Floatzel",
+  "SPECIES_CHERUBI": "Cherubi",
+  "SPECIES_CHERRIM_OVERCAST": "Cherrim",
+  "SPECIES_CHERRIM_SUNSHINE": "Cherrim-Sunshine",
+  "SPECIES_SHELLOS_WEST": "Shellos",
+  "SPECIES_SHELLOS_EAST": "Shellos",
+  "SPECIES_GASTRODON_WEST": "Gastrodon",
+  "SPECIES_GASTRODON_EAST": "Gastrodon",
+  "SPECIES_DRIFLOON": "Drifloon",
+  "SPECIES_DRIFBLIM": "Drifblim",
+  "SPECIES_BUNEARY": "Buneary",
+  "SPECIES_LOPUNNY": "Lopunny",
+  "SPECIES_LOPUNNY_MEGA": "Lopunny-Mega",
+  "SPECIES_GLAMEOW": "Glameow",
+  "SPECIES_PURUGLY": "Purugly",
+  "SPECIES_STUNKY": "Stunky",
+  "SPECIES_SKUNTANK": "Skuntank",
+  "SPECIES_BRONZOR": "Bronzor",
+  "SPECIES_BRONZONG": "Bronzong",
+  "SPECIES_CHATOT": "Chatot",
+  "SPECIES_SPIRITOMB": "Spiritomb",
+  "SPECIES_GIBLE": "Gible",
+  "SPECIES_GABITE": "Gabite",
+  "SPECIES_GARCHOMP": "Garchomp",
+  "SPECIES_GARCHOMP_MEGA": "Garchomp-Mega",
+  "SPECIES_GARCHOMP_MEGA_Z": "Garchomp",
+  "SPECIES_RIOLU": "Riolu",
+  "SPECIES_LUCARIO": "Lucario",
+  "SPECIES_LUCARIO_MEGA": "Lucario-Mega",
+  "SPECIES_LUCARIO_MEGA_Z": "Lucario",
+  "SPECIES_HIPPOPOTAS": "Hippopotas",
+  "SPECIES_HIPPOWDON": "Hippowdon",
+  "SPECIES_SKORUPI": "Skorupi",
+  "SPECIES_DRAPION": "Drapion",
+  "SPECIES_CROAGUNK": "Croagunk",
+  "SPECIES_TOXICROAK": "Toxicroak",
+  "SPECIES_CARNIVINE": "Carnivine",
+  "SPECIES_FINNEON": "Finneon",
+  "SPECIES_LUMINEON": "Lumineon",
+  "SPECIES_SNOVER": "Snover",
+  "SPECIES_ABOMASNOW": "Abomasnow",
+  "SPECIES_ABOMASNOW_MEGA": "Abomasnow-Mega",
+  "SPECIES_ROTOM": "Rotom",
+  "SPECIES_ROTOM_HEAT": "Rotom-Heat",
+  "SPECIES_ROTOM_WASH": "Rotom-Wash",
+  "SPECIES_ROTOM_FROST": "Rotom-Frost",
+  "SPECIES_ROTOM_FAN": "Rotom-Fan",
+  "SPECIES_ROTOM_MOW": "Rotom-Mow",
+  "SPECIES_UXIE": "Uxie",
+  "SPECIES_MESPRIT": "Mesprit",
+  "SPECIES_AZELF": "Azelf",
+  "SPECIES_DIALGA": "Dialga",
+  "SPECIES_DIALGA_ORIGIN": "Dialga-Origin",
+  "SPECIES_PALKIA": "Palkia",
+  "SPECIES_PALKIA_ORIGIN": "Palkia-Origin",
+  "SPECIES_HEATRAN": "Heatran",
+  "SPECIES_HEATRAN_MEGA": "Heatran-Mega",
+  "SPECIES_REGIGIGAS": "Regigigas",
+  "SPECIES_GIRATINA_ALTERED": "Giratina",
+  "SPECIES_GIRATINA_ORIGIN": "Giratina-Origin",
+  "SPECIES_CRESSELIA": "Cresselia",
+  "SPECIES_PHIONE": "Phione",
+  "SPECIES_MANAPHY": "Manaphy",
+  "SPECIES_DARKRAI": "Darkrai",
+  "SPECIES_DARKRAI_MEGA": "Darkrai-Mega",
+  "SPECIES_SHAYMIN_LAND": "Shaymin",
+  "SPECIES_SHAYMIN_SKY": "Shaymin-Sky",
+  "SPECIES_ARCEUS_NORMAL": "Arceus",
+  "SPECIES_ARCEUS_FIGHTING": "Arceus-Fighting",
+  "SPECIES_ARCEUS_FLYING": "Arceus-Flying",
+  "SPECIES_ARCEUS_POISON": "Arceus-Poison",
+  "SPECIES_ARCEUS_GROUND": "Arceus-Ground",
+  "SPECIES_ARCEUS_ROCK": "Arceus-Rock",
+  "SPECIES_ARCEUS_BUG": "Arceus-Bug",
+  "SPECIES_ARCEUS_GHOST": "Arceus-Ghost",
+  "SPECIES_ARCEUS_STEEL": "Arceus-Steel",
+  "SPECIES_ARCEUS_FIRE": "Arceus-Fire",
+  "SPECIES_ARCEUS_WATER": "Arceus-Water",
+  "SPECIES_ARCEUS_GRASS": "Arceus-Grass",
+  "SPECIES_ARCEUS_ELECTRIC": "Arceus-Electric",
+  "SPECIES_ARCEUS_PSYCHIC": "Arceus-Psychic",
+  "SPECIES_ARCEUS_ICE": "Arceus-Ice",
+  "SPECIES_ARCEUS_DRAGON": "Arceus-Dragon",
+  "SPECIES_ARCEUS_DARK": "Arceus-Dark",
+  "SPECIES_ARCEUS_FAIRY": "Arceus-Fairy",
+  "SPECIES_VICTINI": "Victini",
+  "SPECIES_SNIVY": "Snivy",
+  "SPECIES_SERVINE": "Servine",
+  "SPECIES_SERPERIOR": "Serperior",
+  "SPECIES_TEPIG": "Tepig",
+  "SPECIES_PIGNITE": "Pignite",
+  "SPECIES_EMBOAR": "Emboar",
+  "SPECIES_EMBOAR_MEGA": "Emboar-Mega",
+  "SPECIES_OSHAWOTT": "Oshawott",
+  "SPECIES_DEWOTT": "Dewott",
+  "SPECIES_SAMUROTT": "Samurott",
+  "SPECIES_SAMUROTT_HISUI": "Samurott-Hisui",
+  "SPECIES_PATRAT": "Patrat",
+  "SPECIES_WATCHOG": "Watchog",
+  "SPECIES_LILLIPUP": "Lillipup",
+  "SPECIES_HERDIER": "Herdier",
+  "SPECIES_STOUTLAND": "Stoutland",
+  "SPECIES_PURRLOIN": "Purrloin",
+  "SPECIES_LIEPARD": "Liepard",
+  "SPECIES_PANSAGE": "Pansage",
+  "SPECIES_SIMISAGE": "Simisage",
+  "SPECIES_PANSEAR": "Pansear",
+  "SPECIES_SIMISEAR": "Simisear",
+  "SPECIES_PANPOUR": "Panpour",
+  "SPECIES_SIMIPOUR": "Simipour",
+  "SPECIES_MUNNA": "Munna",
+  "SPECIES_MUSHARNA": "Musharna",
+  "SPECIES_PIDOVE": "Pidove",
+  "SPECIES_TRANQUILL": "Tranquill",
+  "SPECIES_UNFEZANT": "Unfezant",
+  "SPECIES_BLITZLE": "Blitzle",
+  "SPECIES_ZEBSTRIKA": "Zebstrika",
+  "SPECIES_ROGGENROLA": "Roggenrola",
+  "SPECIES_BOLDORE": "Boldore",
+  "SPECIES_GIGALITH": "Gigalith",
+  "SPECIES_WOOBAT": "Woobat",
+  "SPECIES_SWOOBAT": "Swoobat",
+  "SPECIES_DRILBUR": "Drilbur",
+  "SPECIES_EXCADRILL": "Excadrill",
+  "SPECIES_EXCADRILL_MEGA": "Excadrill-Mega",
+  "SPECIES_AUDINO": "Audino",
+  "SPECIES_AUDINO_MEGA": "Audino-Mega",
+  "SPECIES_TIMBURR": "Timburr",
+  "SPECIES_GURDURR": "Gurdurr",
+  "SPECIES_CONKELDURR": "Conkeldurr",
+  "SPECIES_TYMPOLE": "Tympole",
+  "SPECIES_PALPITOAD": "Palpitoad",
+  "SPECIES_SEISMITOAD": "Seismitoad",
+  "SPECIES_THROH": "Throh",
+  "SPECIES_SAWK": "Sawk",
+  "SPECIES_SEWADDLE": "Sewaddle",
+  "SPECIES_SWADLOON": "Swadloon",
+  "SPECIES_LEAVANNY": "Leavanny",
+  "SPECIES_VENIPEDE": "Venipede",
+  "SPECIES_WHIRLIPEDE": "Whirlipede",
+  "SPECIES_SCOLIPEDE": "Scolipede",
+  "SPECIES_SCOLIPEDE_MEGA": "Scolipede-Mega",
+  "SPECIES_COTTONEE": "Cottonee",
+  "SPECIES_WHIMSICOTT": "Whimsicott",
+  "SPECIES_PETILIL": "Petilil",
+  "SPECIES_LILLIGANT": "Lilligant",
+  "SPECIES_LILLIGANT_HISUI": "Lilligant-Hisui",
+  "SPECIES_BASCULIN_RED_STRIPED": "Basculin",
+  "SPECIES_BASCULIN_BLUE_STRIPED": "Basculin-Blue-Striped",
+  "SPECIES_BASCULIN_WHITE_STRIPED": "Basculin-White-Striped",
+  "SPECIES_BASCULEGION_M": "Basculegion",
+  "SPECIES_BASCULEGION_F": "Basculegion-F",
+  "SPECIES_SANDILE": "Sandile",
+  "SPECIES_KROKOROK": "Krokorok",
+  "SPECIES_KROOKODILE": "Krookodile",
+  "SPECIES_DARUMAKA": "Darumaka",
+  "SPECIES_DARMANITAN_STANDARD": "Darmanitan",
+  "SPECIES_DARMANITAN_ZEN": "Darmanitan-Zen",
+  "SPECIES_DARUMAKA_GALAR": "Darumaka-Galar",
+  "SPECIES_DARMANITAN_GALAR_STANDARD": "Darmanitan",
+  "SPECIES_DARMANITAN_GALAR_ZEN": "Darmanitan-Galar-Zen",
+  "SPECIES_MARACTUS": "Maractus",
+  "SPECIES_DWEBBLE": "Dwebble",
+  "SPECIES_CRUSTLE": "Crustle",
+  "SPECIES_SCRAGGY": "Scraggy",
+  "SPECIES_SCRAFTY": "Scrafty",
+  "SPECIES_SCRAFTY_MEGA": "Scrafty-Mega",
+  "SPECIES_SIGILYPH": "Sigilyph",
+  "SPECIES_YAMASK": "Yamask",
+  "SPECIES_COFAGRIGUS": "Cofagrigus",
+  "SPECIES_YAMASK_GALAR": "Yamask-Galar",
+  "SPECIES_RUNERIGUS": "Runerigus",
+  "SPECIES_TIRTOUGA": "Tirtouga",
+  "SPECIES_CARRACOSTA": "Carracosta",
+  "SPECIES_ARCHEN": "Archen",
+  "SPECIES_ARCHEOPS": "Archeops",
+  "SPECIES_TRUBBISH": "Trubbish",
+  "SPECIES_GARBODOR": "Garbodor",
+  "SPECIES_ZORUA": "Zorua",
+  "SPECIES_ZOROARK": "Zoroark",
+  "SPECIES_ZORUA_HISUI": "Zorua-Hisui",
+  "SPECIES_ZOROARK_HISUI": "Zoroark-Hisui",
+  "SPECIES_MINCCINO": "Minccino",
+  "SPECIES_CINCCINO": "Cinccino",
+  "SPECIES_GOTHITA": "Gothita",
+  "SPECIES_GOTHORITA": "Gothorita",
+  "SPECIES_GOTHITELLE": "Gothitelle",
+  "SPECIES_SOLOSIS": "Solosis",
+  "SPECIES_DUOSION": "Duosion",
+  "SPECIES_REUNICLUS": "Reuniclus",
+  "SPECIES_DUCKLETT": "Ducklett",
+  "SPECIES_SWANNA": "Swanna",
+  "SPECIES_VANILLITE": "Vanillite",
+  "SPECIES_VANILLISH": "Vanillish",
+  "SPECIES_VANILLUXE": "Vanilluxe",
+  "SPECIES_DEERLING_SPRING": "Deerling",
+  "SPECIES_DEERLING_SUMMER": "Deerling",
+  "SPECIES_DEERLING_AUTUMN": "Deerling",
+  "SPECIES_DEERLING_WINTER": "Deerling",
+  "SPECIES_SAWSBUCK_SPRING": "Sawsbuck",
+  "SPECIES_SAWSBUCK_SUMMER": "Sawsbuck",
+  "SPECIES_SAWSBUCK_AUTUMN": "Sawsbuck",
+  "SPECIES_SAWSBUCK_WINTER": "Sawsbuck",
+  "SPECIES_EMOLGA": "Emolga",
+  "SPECIES_KARRABLAST": "Karrablast",
+  "SPECIES_ESCAVALIER": "Escavalier",
+  "SPECIES_FOONGUS": "Foongus",
+  "SPECIES_AMOONGUSS": "Amoonguss",
+  "SPECIES_FRILLISH": "Frillish",
+  "SPECIES_JELLICENT": "Jellicent",
+  "SPECIES_ALOMOMOLA": "Alomomola",
+  "SPECIES_JOLTIK": "Joltik",
+  "SPECIES_GALVANTULA": "Galvantula",
+  "SPECIES_FERROSEED": "Ferroseed",
+  "SPECIES_FERROTHORN": "Ferrothorn",
+  "SPECIES_KLINK": "Klink",
+  "SPECIES_KLANG": "Klang",
+  "SPECIES_KLINKLANG": "Klinklang",
+  "SPECIES_TYNAMO": "Tynamo",
+  "SPECIES_EELEKTRIK": "Eelektrik",
+  "SPECIES_EELEKTROSS": "Eelektross",
+  "SPECIES_EELEKTROSS_MEGA": "Eelektross-Mega",
+  "SPECIES_ELGYEM": "Elgyem",
+  "SPECIES_BEHEEYEM": "Beheeyem",
+  "SPECIES_LITWICK": "Litwick",
+  "SPECIES_LAMPENT": "Lampent",
+  "SPECIES_CHANDELURE": "Chandelure",
+  "SPECIES_CHANDELURE_MEGA": "Chandelure-Mega",
+  "SPECIES_AXEW": "Axew",
+  "SPECIES_FRAXURE": "Fraxure",
+  "SPECIES_HAXORUS": "Haxorus",
+  "SPECIES_CUBCHOO": "Cubchoo",
+  "SPECIES_BEARTIC": "Beartic",
+  "SPECIES_CRYOGONAL": "Cryogonal",
+  "SPECIES_SHELMET": "Shelmet",
+  "SPECIES_ACCELGOR": "Accelgor",
+  "SPECIES_STUNFISK": "Stunfisk",
+  "SPECIES_STUNFISK_GALAR": "Stunfisk-Galar",
+  "SPECIES_MIENFOO": "Mienfoo",
+  "SPECIES_MIENSHAO": "Mienshao",
+  "SPECIES_DRUDDIGON": "Druddigon",
+  "SPECIES_GOLETT": "Golett",
+  "SPECIES_GOLURK": "Golurk",
+  "SPECIES_GOLURK_MEGA": "Golurk-Mega",
+  "SPECIES_PAWNIARD": "Pawniard",
+  "SPECIES_BISHARP": "Bisharp",
+  "SPECIES_KINGAMBIT": "Kingambit",
+  "SPECIES_BOUFFALANT": "Bouffalant",
+  "SPECIES_RUFFLET": "Rufflet",
+  "SPECIES_BRAVIARY": "Braviary",
+  "SPECIES_BRAVIARY_HISUI": "Braviary-Hisui",
+  "SPECIES_VULLABY": "Vullaby",
+  "SPECIES_MANDIBUZZ": "Mandibuzz",
+  "SPECIES_HEATMOR": "Heatmor",
+  "SPECIES_DURANT": "Durant",
+  "SPECIES_DEINO": "Deino",
+  "SPECIES_ZWEILOUS": "Zweilous",
+  "SPECIES_HYDREIGON": "Hydreigon",
+  "SPECIES_LARVESTA": "Larvesta",
+  "SPECIES_VOLCARONA": "Volcarona",
+  "SPECIES_COBALION": "Cobalion",
+  "SPECIES_TERRAKION": "Terrakion",
+  "SPECIES_VIRIZION": "Virizion",
+  "SPECIES_TORNADUS_INCARNATE": "Tornadus",
+  "SPECIES_TORNADUS_THERIAN": "Tornadus-Therian",
+  "SPECIES_THUNDURUS_INCARNATE": "Thundurus",
+  "SPECIES_THUNDURUS_THERIAN": "Thundurus-Therian",
+  "SPECIES_RESHIRAM": "Reshiram",
+  "SPECIES_ZEKROM": "Zekrom",
+  "SPECIES_LANDORUS_INCARNATE": "Landorus",
+  "SPECIES_LANDORUS_THERIAN": "Landorus-Therian",
+  "SPECIES_KYUREM": "Kyurem",
+  "SPECIES_KYUREM_WHITE": "Kyurem-White",
+  "SPECIES_KYUREM_BLACK": "Kyurem-Black",
+  "SPECIES_KELDEO_ORDINARY": "Keldeo",
+  "SPECIES_KELDEO_RESOLUTE": "Keldeo-Resolute",
+  "SPECIES_MELOETTA_ARIA": "Meloetta",
+  "SPECIES_MELOETTA_PIROUETTE": "Meloetta-Pirouette",
+  "SPECIES_GENESECT": "Genesect",
+  "SPECIES_GENESECT_DOUSE": "Genesect-Douse",
+  "SPECIES_GENESECT_SHOCK": "Genesect-Shock",
+  "SPECIES_GENESECT_BURN": "Genesect-Burn",
+  "SPECIES_GENESECT_CHILL": "Genesect-Chill",
+  "SPECIES_CHESPIN": "Chespin",
+  "SPECIES_QUILLADIN": "Quilladin",
+  "SPECIES_CHESNAUGHT": "Chesnaught",
+  "SPECIES_CHESNAUGHT_MEGA": "Chesnaught-Mega",
+  "SPECIES_FENNEKIN": "Fennekin",
+  "SPECIES_BRAIXEN": "Braixen",
+  "SPECIES_DELPHOX": "Delphox",
+  "SPECIES_DELPHOX_MEGA": "Delphox-Mega",
+  "SPECIES_FROAKIE": "Froakie",
+  "SPECIES_FROGADIER": "Frogadier",
+  "SPECIES_GRENINJA": "Greninja",
+  "SPECIES_GRENINJA_BATTLE_BOND": "Greninja",
+  "SPECIES_GRENINJA_ASH": "Greninja-Ash",
+  "SPECIES_GRENINJA_MEGA": "Greninja-Mega",
+  "SPECIES_BUNNELBY": "Bunnelby",
+  "SPECIES_DIGGERSBY": "Diggersby",
+  "SPECIES_FLETCHLING": "Fletchling",
+  "SPECIES_FLETCHINDER": "Fletchinder",
+  "SPECIES_TALONFLAME": "Talonflame",
+  "SPECIES_SCATTERBUG_ICY_SNOW": "Scatterbug",
+  "SPECIES_SCATTERBUG_POLAR": "Scatterbug",
+  "SPECIES_SCATTERBUG_TUNDRA": "Scatterbug",
+  "SPECIES_SCATTERBUG_CONTINENTAL": "Scatterbug",
+  "SPECIES_SCATTERBUG_GARDEN": "Scatterbug",
+  "SPECIES_SCATTERBUG_ELEGANT": "Scatterbug",
+  "SPECIES_SCATTERBUG_MEADOW": "Scatterbug",
+  "SPECIES_SCATTERBUG_MODERN": "Scatterbug",
+  "SPECIES_SCATTERBUG_MARINE": "Scatterbug",
+  "SPECIES_SCATTERBUG_ARCHIPELAGO": "Scatterbug",
+  "SPECIES_SCATTERBUG_HIGH_PLAINS": "Scatterbug",
+  "SPECIES_SCATTERBUG_SANDSTORM": "Scatterbug",
+  "SPECIES_SCATTERBUG_RIVER": "Scatterbug",
+  "SPECIES_SCATTERBUG_MONSOON": "Scatterbug",
+  "SPECIES_SCATTERBUG_SAVANNA": "Scatterbug",
+  "SPECIES_SCATTERBUG_SUN": "Scatterbug",
+  "SPECIES_SCATTERBUG_OCEAN": "Scatterbug",
+  "SPECIES_SCATTERBUG_JUNGLE": "Scatterbug",
+  "SPECIES_SCATTERBUG_FANCY": "Scatterbug",
+  "SPECIES_SCATTERBUG_POKEBALL": "Scatterbug",
+  "SPECIES_SPEWPA_ICY_SNOW": "Spewpa",
+  "SPECIES_SPEWPA_POLAR": "Spewpa",
+  "SPECIES_SPEWPA_TUNDRA": "Spewpa",
+  "SPECIES_SPEWPA_CONTINENTAL": "Spewpa",
+  "SPECIES_SPEWPA_GARDEN": "Spewpa",
+  "SPECIES_SPEWPA_ELEGANT": "Spewpa",
+  "SPECIES_SPEWPA_MEADOW": "Spewpa",
+  "SPECIES_SPEWPA_MODERN": "Spewpa",
+  "SPECIES_SPEWPA_MARINE": "Spewpa",
+  "SPECIES_SPEWPA_ARCHIPELAGO": "Spewpa",
+  "SPECIES_SPEWPA_HIGH_PLAINS": "Spewpa",
+  "SPECIES_SPEWPA_SANDSTORM": "Spewpa",
+  "SPECIES_SPEWPA_RIVER": "Spewpa",
+  "SPECIES_SPEWPA_MONSOON": "Spewpa",
+  "SPECIES_SPEWPA_SAVANNA": "Spewpa",
+  "SPECIES_SPEWPA_SUN": "Spewpa",
+  "SPECIES_SPEWPA_OCEAN": "Spewpa",
+  "SPECIES_SPEWPA_JUNGLE": "Spewpa",
+  "SPECIES_SPEWPA_FANCY": "Spewpa",
+  "SPECIES_SPEWPA_POKEBALL": "Spewpa",
+  "SPECIES_VIVILLON_ICY_SNOW": "Vivillon",
+  "SPECIES_VIVILLON_POLAR": "Vivillon",
+  "SPECIES_VIVILLON_TUNDRA": "Vivillon",
+  "SPECIES_VIVILLON_CONTINENTAL": "Vivillon",
+  "SPECIES_VIVILLON_GARDEN": "Vivillon",
+  "SPECIES_VIVILLON_ELEGANT": "Vivillon",
+  "SPECIES_VIVILLON_MEADOW": "Vivillon",
+  "SPECIES_VIVILLON_MODERN": "Vivillon",
+  "SPECIES_VIVILLON_MARINE": "Vivillon",
+  "SPECIES_VIVILLON_ARCHIPELAGO": "Vivillon",
+  "SPECIES_VIVILLON_HIGH_PLAINS": "Vivillon",
+  "SPECIES_VIVILLON_SANDSTORM": "Vivillon",
+  "SPECIES_VIVILLON_RIVER": "Vivillon",
+  "SPECIES_VIVILLON_MONSOON": "Vivillon",
+  "SPECIES_VIVILLON_SAVANNA": "Vivillon",
+  "SPECIES_VIVILLON_SUN": "Vivillon",
+  "SPECIES_VIVILLON_OCEAN": "Vivillon",
+  "SPECIES_VIVILLON_JUNGLE": "Vivillon",
+  "SPECIES_VIVILLON_FANCY": "Vivillon-Fancy",
+  "SPECIES_VIVILLON_POKEBALL": "Vivillon-Pokeball",
+  "SPECIES_LITLEO": "Litleo",
+  "SPECIES_PYROAR": "Pyroar",
+  "SPECIES_PYROAR_MEGA": "Pyroar-Mega",
+  "SPECIES_FLABEBE_RED": "Flabébé",
+  "SPECIES_FLABEBE_YELLOW": "Flabébé",
+  "SPECIES_FLABEBE_ORANGE": "Flabébé",
+  "SPECIES_FLABEBE_BLUE": "Flabébé",
+  "SPECIES_FLABEBE_WHITE": "Flabébé",
+  "SPECIES_FLOETTE_RED": "Floette",
+  "SPECIES_FLOETTE_YELLOW": "Floette",
+  "SPECIES_FLOETTE_ORANGE": "Floette",
+  "SPECIES_FLOETTE_BLUE": "Floette",
+  "SPECIES_FLOETTE_WHITE": "Floette",
+  "SPECIES_FLOETTE_ETERNAL": "Floette-Eternal",
+  "SPECIES_FLORGES_RED": "Florges",
+  "SPECIES_FLORGES_YELLOW": "Florges",
+  "SPECIES_FLORGES_ORANGE": "Florges",
+  "SPECIES_FLORGES_BLUE": "Florges",
+  "SPECIES_FLORGES_WHITE": "Florges",
+  "SPECIES_FLOETTE_MEGA": "Floette",
+  "SPECIES_SKIDDO": "Skiddo",
+  "SPECIES_GOGOAT": "Gogoat",
+  "SPECIES_PANCHAM": "Pancham",
+  "SPECIES_PANGORO": "Pangoro",
+  "SPECIES_FURFROU_NATURAL": "Furfrou",
+  "SPECIES_FURFROU_HEART": "Furfrou",
+  "SPECIES_FURFROU_STAR": "Furfrou",
+  "SPECIES_FURFROU_DIAMOND": "Furfrou",
+  "SPECIES_FURFROU_DEBUTANTE": "Furfrou",
+  "SPECIES_FURFROU_MATRON": "Furfrou",
+  "SPECIES_FURFROU_DANDY": "Furfrou",
+  "SPECIES_FURFROU_LA_REINE": "Furfrou",
+  "SPECIES_FURFROU_KABUKI": "Furfrou",
+  "SPECIES_FURFROU_PHARAOH": "Furfrou",
+  "SPECIES_ESPURR": "Espurr",
+  "SPECIES_MEOWSTIC_M": "Meowstic",
+  "SPECIES_MEOWSTIC_F": "Meowstic-F",
+  "SPECIES_MEOWSTIC_M_MEGA": "Meowstic-Mega",
+  "SPECIES_MEOWSTIC_F_MEGA": "Meowstic-F-Mega",
+  "SPECIES_HONEDGE": "Honedge",
+  "SPECIES_DOUBLADE": "Doublade",
+  "SPECIES_AEGISLASH_SHIELD": "Aegislash-Shield",
+  "SPECIES_AEGISLASH_BLADE": "Aegislash-Blade",
+  "SPECIES_SPRITZEE": "Spritzee",
+  "SPECIES_AROMATISSE": "Aromatisse",
+  "SPECIES_SWIRLIX": "Swirlix",
+  "SPECIES_SLURPUFF": "Slurpuff",
+  "SPECIES_INKAY": "Inkay",
+  "SPECIES_MALAMAR": "Malamar",
+  "SPECIES_MALAMAR_MEGA": "Malamar-Mega",
+  "SPECIES_BINACLE": "Binacle",
+  "SPECIES_BARBARACLE": "Barbaracle",
+  "SPECIES_BARBARACLE_MEGA": "Barbaracle-Mega",
+  "SPECIES_SKRELP": "Skrelp",
+  "SPECIES_DRAGALGE": "Dragalge",
+  "SPECIES_DRAGALGE_MEGA": "Dragalge-Mega",
+  "SPECIES_CLAUNCHER": "Clauncher",
+  "SPECIES_CLAWITZER": "Clawitzer",
+  "SPECIES_HELIOPTILE": "Helioptile",
+  "SPECIES_HELIOLISK": "Heliolisk",
+  "SPECIES_TYRUNT": "Tyrunt",
+  "SPECIES_TYRANTRUM": "Tyrantrum",
+  "SPECIES_AMAURA": "Amaura",
+  "SPECIES_AURORUS": "Aurorus",
+  "SPECIES_HAWLUCHA": "Hawlucha",
+  "SPECIES_HAWLUCHA_MEGA": "Hawlucha-Mega",
+  "SPECIES_DEDENNE": "Dedenne",
+  "SPECIES_CARBINK": "Carbink",
+  "SPECIES_GOOMY": "Goomy",
+  "SPECIES_SLIGGOO": "Sliggoo",
+  "SPECIES_GOODRA": "Goodra",
+  "SPECIES_SLIGGOO_HISUI": "Sliggoo-Hisui",
+  "SPECIES_GOODRA_HISUI": "Goodra-Hisui",
+  "SPECIES_KLEFKI": "Klefki",
+  "SPECIES_PHANTUMP": "Phantump",
+  "SPECIES_TREVENANT": "Trevenant",
+  "SPECIES_PUMPKABOO_AVERAGE": "Pumpkaboo",
+  "SPECIES_PUMPKABOO_SMALL": "Pumpkaboo-Small",
+  "SPECIES_PUMPKABOO_LARGE": "Pumpkaboo-Large",
+  "SPECIES_PUMPKABOO_SUPER": "Pumpkaboo-Super",
+  "SPECIES_GOURGEIST_AVERAGE": "Gourgeist",
+  "SPECIES_GOURGEIST_SMALL": "Gourgeist-Small",
+  "SPECIES_GOURGEIST_LARGE": "Gourgeist-Large",
+  "SPECIES_GOURGEIST_SUPER": "Gourgeist-Super",
+  "SPECIES_BERGMITE": "Bergmite",
+  "SPECIES_AVALUGG": "Avalugg",
+  "SPECIES_AVALUGG_HISUI": "Avalugg-Hisui",
+  "SPECIES_NOIBAT": "Noibat",
+  "SPECIES_NOIVERN": "Noivern",
+  "SPECIES_XERNEAS_NEUTRAL": "Xerneas",
+  "SPECIES_XERNEAS_ACTIVE": "Xerneas",
+  "SPECIES_YVELTAL": "Yveltal",
+  "SPECIES_ZYGARDE_50": "Zygarde",
+  "SPECIES_ZYGARDE_50_POWER_CONSTRUCT": "Zygarde",
+  "SPECIES_ZYGARDE_10_AURA_BREAK": "Zygarde",
+  "SPECIES_ZYGARDE_10_POWER_CONSTRUCT": "Zygarde",
+  "SPECIES_ZYGARDE_COMPLETE": "Zygarde-Complete",
+  "SPECIES_ZYGARDE_MEGA": "Zygarde",
+  "SPECIES_DIANCIE": "Diancie",
+  "SPECIES_DIANCIE_MEGA": "Diancie-Mega",
+  "SPECIES_HOOPA_CONFINED": "Hoopa",
+  "SPECIES_HOOPA_UNBOUND": "Hoopa-Unbound",
+  "SPECIES_VOLCANION": "Volcanion",
+  "SPECIES_ROWLET": "Rowlet",
+  "SPECIES_DARTRIX": "Dartrix",
+  "SPECIES_DECIDUEYE": "Decidueye",
+  "SPECIES_DECIDUEYE_HISUI": "Decidueye-Hisui",
+  "SPECIES_LITTEN": "Litten",
+  "SPECIES_TORRACAT": "Torracat",
+  "SPECIES_INCINEROAR": "Incineroar",
+  "SPECIES_POPPLIO": "Popplio",
+  "SPECIES_BRIONNE": "Brionne",
+  "SPECIES_PRIMARINA": "Primarina",
+  "SPECIES_PIKIPEK": "Pikipek",
+  "SPECIES_TRUMBEAK": "Trumbeak",
+  "SPECIES_TOUCANNON": "Toucannon",
+  "SPECIES_YUNGOOS": "Yungoos",
+  "SPECIES_GUMSHOOS": "Gumshoos",
+  "SPECIES_GUMSHOOS_TOTEM": "Gumshoos-Totem",
+  "SPECIES_GRUBBIN": "Grubbin",
+  "SPECIES_CHARJABUG": "Charjabug",
+  "SPECIES_VIKAVOLT": "Vikavolt",
+  "SPECIES_VIKAVOLT_TOTEM": "Vikavolt-Totem",
+  "SPECIES_CRABRAWLER": "Crabrawler",
+  "SPECIES_CRABOMINABLE": "Crabominable",
+  "SPECIES_CRABOMINABLE_MEGA": "Crabominable-Mega",
+  "SPECIES_ORICORIO_BAILE": "Oricorio",
+  "SPECIES_ORICORIO_POM_POM": "Oricorio-Pom-Pom",
+  "SPECIES_ORICORIO_PAU": "Oricorio-Pa'u",
+  "SPECIES_ORICORIO_SENSU": "Oricorio-Sensu",
+  "SPECIES_CUTIEFLY": "Cutiefly",
+  "SPECIES_RIBOMBEE": "Ribombee",
+  "SPECIES_RIBOMBEE_TOTEM": "Ribombee-Totem",
+  "SPECIES_ROCKRUFF": "Rockruff",
+  "SPECIES_ROCKRUFF_OWN_TEMPO": "Rockruff",
+  "SPECIES_LYCANROC_MIDDAY": "Lycanroc",
+  "SPECIES_LYCANROC_MIDNIGHT": "Lycanroc-Midnight",
+  "SPECIES_LYCANROC_DUSK": "Lycanroc-Dusk",
+  "SPECIES_WISHIWASHI_SOLO": "Wishiwashi",
+  "SPECIES_WISHIWASHI_SCHOOL": "Wishiwashi-School",
+  "SPECIES_MAREANIE": "Mareanie",
+  "SPECIES_TOXAPEX": "Toxapex",
+  "SPECIES_MUDBRAY": "Mudbray",
+  "SPECIES_MUDSDALE": "Mudsdale",
+  "SPECIES_DEWPIDER": "Dewpider",
+  "SPECIES_ARAQUANID": "Araquanid",
+  "SPECIES_ARAQUANID_TOTEM": "Araquanid-Totem",
+  "SPECIES_FOMANTIS": "Fomantis",
+  "SPECIES_LURANTIS": "Lurantis",
+  "SPECIES_LURANTIS_TOTEM": "Lurantis-Totem",
+  "SPECIES_MORELULL": "Morelull",
+  "SPECIES_SHIINOTIC": "Shiinotic",
+  "SPECIES_SALANDIT": "Salandit",
+  "SPECIES_SALAZZLE": "Salazzle",
+  "SPECIES_SALAZZLE_TOTEM": "Salazzle-Totem",
+  "SPECIES_STUFFUL": "Stufful",
+  "SPECIES_BEWEAR": "Bewear",
+  "SPECIES_BOUNSWEET": "Bounsweet",
+  "SPECIES_STEENEE": "Steenee",
+  "SPECIES_TSAREENA": "Tsareena",
+  "SPECIES_COMFEY": "Comfey",
+  "SPECIES_ORANGURU": "Oranguru",
+  "SPECIES_PASSIMIAN": "Passimian",
+  "SPECIES_WIMPOD": "Wimpod",
+  "SPECIES_GOLISOPOD": "Golisopod",
+  "SPECIES_GOLISOPOD_MEGA": "Golisopod-Mega",
+  "SPECIES_SANDYGAST": "Sandygast",
+  "SPECIES_PALOSSAND": "Palossand",
+  "SPECIES_PYUKUMUKU": "Pyukumuku",
+  "SPECIES_TYPE_NULL": "Type: Null",
+  "SPECIES_SILVALLY_NORMAL": "Silvally",
+  "SPECIES_SILVALLY_FIGHTING": "Silvally-Fighting",
+  "SPECIES_SILVALLY_FLYING": "Silvally-Flying",
+  "SPECIES_SILVALLY_POISON": "Silvally-Poison",
+  "SPECIES_SILVALLY_GROUND": "Silvally-Ground",
+  "SPECIES_SILVALLY_ROCK": "Silvally-Rock",
+  "SPECIES_SILVALLY_BUG": "Silvally-Bug",
+  "SPECIES_SILVALLY_GHOST": "Silvally-Ghost",
+  "SPECIES_SILVALLY_STEEL": "Silvally-Steel",
+  "SPECIES_SILVALLY_FIRE": "Silvally-Fire",
+  "SPECIES_SILVALLY_WATER": "Silvally-Water",
+  "SPECIES_SILVALLY_GRASS": "Silvally-Grass",
+  "SPECIES_SILVALLY_ELECTRIC": "Silvally-Electric",
+  "SPECIES_SILVALLY_PSYCHIC": "Silvally-Psychic",
+  "SPECIES_SILVALLY_ICE": "Silvally-Ice",
+  "SPECIES_SILVALLY_DRAGON": "Silvally-Dragon",
+  "SPECIES_SILVALLY_DARK": "Silvally-Dark",
+  "SPECIES_SILVALLY_FAIRY": "Silvally-Fairy",
+  "SPECIES_MINIOR_METEOR_RED": "Minior",
+  "SPECIES_MINIOR_METEOR_ORANGE": "Minior",
+  "SPECIES_MINIOR_METEOR_YELLOW": "Minior",
+  "SPECIES_MINIOR_METEOR_GREEN": "Minior",
+  "SPECIES_MINIOR_METEOR_BLUE": "Minior",
+  "SPECIES_MINIOR_METEOR_INDIGO": "Minior",
+  "SPECIES_MINIOR_METEOR_VIOLET": "Minior",
+  "SPECIES_MINIOR_CORE_RED": "Minior",
+  "SPECIES_MINIOR_CORE_ORANGE": "Minior",
+  "SPECIES_MINIOR_CORE_YELLOW": "Minior",
+  "SPECIES_MINIOR_CORE_GREEN": "Minior",
+  "SPECIES_MINIOR_CORE_BLUE": "Minior",
+  "SPECIES_MINIOR_CORE_INDIGO": "Minior",
+  "SPECIES_MINIOR_CORE_VIOLET": "Minior",
+  "SPECIES_KOMALA": "Komala",
+  "SPECIES_TURTONATOR": "Turtonator",
+  "SPECIES_TOGEDEMARU": "Togedemaru",
+  "SPECIES_TOGEDEMARU_TOTEM": "Togedemaru-Totem",
+  "SPECIES_MIMIKYU_DISGUISED": "Mimikyu",
+  "SPECIES_MIMIKYU_BUSTED": "Mimikyu-Busted",
+  "SPECIES_MIMIKYU_TOTEM_DISGUISED": "Mimikyu",
+  "SPECIES_MIMIKYU_BUSTED_TOTEM": "Mimikyu-Busted-Totem",
+  "SPECIES_BRUXISH": "Bruxish",
+  "SPECIES_DRAMPA": "Drampa",
+  "SPECIES_DRAMPA_MEGA": "Drampa-Mega",
+  "SPECIES_DHELMISE": "Dhelmise",
+  "SPECIES_JANGMO_O": "Jangmo-o",
+  "SPECIES_HAKAMO_O": "Hakamo-o",
+  "SPECIES_KOMMO_O": "Kommo-o",
+  "SPECIES_KOMMO_O_TOTEM": "Kommo-o-Totem",
+  "SPECIES_TAPU_KOKO": "Tapu Koko",
+  "SPECIES_TAPU_LELE": "Tapu Lele",
+  "SPECIES_TAPU_BULU": "Tapu Bulu",
+  "SPECIES_TAPU_FINI": "Tapu Fini",
+  "SPECIES_COSMOG": "Cosmog",
+  "SPECIES_COSMOEM": "Cosmoem",
+  "SPECIES_SOLGALEO": "Solgaleo",
+  "SPECIES_LUNALA": "Lunala",
+  "SPECIES_NIHILEGO": "Nihilego",
+  "SPECIES_BUZZWOLE": "Buzzwole",
+  "SPECIES_PHEROMOSA": "Pheromosa",
+  "SPECIES_XURKITREE": "Xurkitree",
+  "SPECIES_CELESTEELA": "Celesteela",
+  "SPECIES_KARTANA": "Kartana",
+  "SPECIES_GUZZLORD": "Guzzlord",
+  "SPECIES_NECROZMA": "Necrozma",
+  "SPECIES_NECROZMA_DUSK_MANE": "Necrozma-Dusk-Mane",
+  "SPECIES_NECROZMA_DAWN_WINGS": "Necrozma-Dawn-Wings",
+  "SPECIES_NECROZMA_ULTRA": "Necrozma-Ultra",
+  "SPECIES_MAGEARNA": "Magearna",
+  "SPECIES_MAGEARNA_ORIGINAL": "Magearna-Original",
+  "SPECIES_MAGEARNA_MEGA": "Magearna-Mega",
+  "SPECIES_MAGEARNA_ORIGINAL_MEGA": "Magearna-Original-Mega",
+  "SPECIES_MARSHADOW": "Marshadow",
+  "SPECIES_POIPOLE": "Poipole",
+  "SPECIES_NAGANADEL": "Naganadel",
+  "SPECIES_STAKATAKA": "Stakataka",
+  "SPECIES_BLACEPHALON": "Blacephalon",
+  "SPECIES_ZERAORA": "Zeraora",
+  "SPECIES_ZERAORA_MEGA": "Zeraora-Mega",
+  "SPECIES_MELTAN": "Meltan",
+  "SPECIES_MELMETAL": "Melmetal",
+  "SPECIES_GROOKEY": "Grookey",
+  "SPECIES_THWACKEY": "Thwackey",
+  "SPECIES_RILLABOOM": "Rillaboom",
+  "SPECIES_SCORBUNNY": "Scorbunny",
+  "SPECIES_RABOOT": "Raboot",
+  "SPECIES_CINDERACE": "Cinderace",
+  "SPECIES_SOBBLE": "Sobble",
+  "SPECIES_DRIZZILE": "Drizzile",
+  "SPECIES_INTELEON": "Inteleon",
+  "SPECIES_SKWOVET": "Skwovet",
+  "SPECIES_GREEDENT": "Greedent",
+  "SPECIES_ROOKIDEE": "Rookidee",
+  "SPECIES_CORVISQUIRE": "Corvisquire",
+  "SPECIES_CORVIKNIGHT": "Corviknight",
+  "SPECIES_BLIPBUG": "Blipbug",
+  "SPECIES_DOTTLER": "Dottler",
+  "SPECIES_ORBEETLE": "Orbeetle",
+  "SPECIES_NICKIT": "Nickit",
+  "SPECIES_THIEVUL": "Thievul",
+  "SPECIES_GOSSIFLEUR": "Gossifleur",
+  "SPECIES_ELDEGOSS": "Eldegoss",
+  "SPECIES_WOOLOO": "Wooloo",
+  "SPECIES_DUBWOOL": "Dubwool",
+  "SPECIES_CHEWTLE": "Chewtle",
+  "SPECIES_DREDNAW": "Drednaw",
+  "SPECIES_YAMPER": "Yamper",
+  "SPECIES_BOLTUND": "Boltund",
+  "SPECIES_ROLYCOLY": "Rolycoly",
+  "SPECIES_CARKOL": "Carkol",
+  "SPECIES_COALOSSAL": "Coalossal",
+  "SPECIES_APPLIN": "Applin",
+  "SPECIES_FLAPPLE": "Flapple",
+  "SPECIES_APPLETUN": "Appletun",
+  "SPECIES_DIPPLIN": "Dipplin",
+  "SPECIES_HYDRAPPLE": "Hydrapple",
+  "SPECIES_SILICOBRA": "Silicobra",
+  "SPECIES_SANDACONDA": "Sandaconda",
+  "SPECIES_CRAMORANT": "Cramorant",
+  "SPECIES_CRAMORANT_GULPING": "Cramorant-Gulping",
+  "SPECIES_CRAMORANT_GORGING": "Cramorant-Gorging",
+  "SPECIES_ARROKUDA": "Arrokuda",
+  "SPECIES_BARRASKEWDA": "Barraskewda",
+  "SPECIES_TOXEL": "Toxel",
+  "SPECIES_TOXTRICITY_AMPED": "Toxtricity",
+  "SPECIES_TOXTRICITY_LOW_KEY": "Toxtricity-Low-Key",
+  "SPECIES_SIZZLIPEDE": "Sizzlipede",
+  "SPECIES_CENTISKORCH": "Centiskorch",
+  "SPECIES_CLOBBOPUS": "Clobbopus",
+  "SPECIES_GRAPPLOCT": "Grapploct",
+  "SPECIES_SINISTEA_PHONY": "Sinistea",
+  "SPECIES_SINISTEA_ANTIQUE": "Sinistea-Antique",
+  "SPECIES_POLTEAGEIST_PHONY": "Polteageist",
+  "SPECIES_POLTEAGEIST_ANTIQUE": "Polteageist-Antique",
+  "SPECIES_HATENNA": "Hatenna",
+  "SPECIES_HATTREM": "Hattrem",
+  "SPECIES_HATTERENE": "Hatterene",
+  "SPECIES_IMPIDIMP": "Impidimp",
+  "SPECIES_MORGREM": "Morgrem",
+  "SPECIES_GRIMMSNARL": "Grimmsnarl",
+  "SPECIES_MILCERY": "Milcery",
+  "SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STRAWBERRY_RUBY_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STRAWBERRY_MATCHA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STRAWBERRY_MINT_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STRAWBERRY_LEMON_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STRAWBERRY_SALTED_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STRAWBERRY_RUBY_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_STRAWBERRY_CARAMEL_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_STRAWBERRY_RAINBOW_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_BERRY_VANILLA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_BERRY_RUBY_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_BERRY_MATCHA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_BERRY_MINT_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_BERRY_LEMON_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_BERRY_SALTED_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_BERRY_RUBY_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_BERRY_CARAMEL_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_BERRY_RAINBOW_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_LOVE_VANILLA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_LOVE_RUBY_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_LOVE_MATCHA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_LOVE_MINT_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_LOVE_LEMON_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_LOVE_SALTED_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_LOVE_RUBY_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_LOVE_CARAMEL_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_LOVE_RAINBOW_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_STAR_VANILLA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STAR_RUBY_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STAR_MATCHA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STAR_MINT_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STAR_LEMON_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STAR_SALTED_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_STAR_RUBY_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_STAR_CARAMEL_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_STAR_RAINBOW_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_CLOVER_VANILLA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_CLOVER_RUBY_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_CLOVER_MATCHA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_CLOVER_MINT_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_CLOVER_LEMON_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_CLOVER_SALTED_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_CLOVER_RUBY_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_CLOVER_CARAMEL_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_CLOVER_RAINBOW_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_FLOWER_VANILLA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_FLOWER_RUBY_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_FLOWER_MATCHA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_FLOWER_MINT_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_FLOWER_LEMON_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_FLOWER_SALTED_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_FLOWER_RUBY_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_FLOWER_CARAMEL_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_FLOWER_RAINBOW_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_RIBBON_VANILLA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_RIBBON_RUBY_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_RIBBON_MATCHA_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_RIBBON_MINT_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_RIBBON_LEMON_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_RIBBON_SALTED_CREAM": "Alcremie",
+  "SPECIES_ALCREMIE_RIBBON_RUBY_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_RIBBON_CARAMEL_SWIRL": "Alcremie",
+  "SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL": "Alcremie",
+  "SPECIES_FALINKS": "Falinks",
+  "SPECIES_FALINKS_MEGA": "Falinks-Mega",
+  "SPECIES_PINCURCHIN": "Pincurchin",
+  "SPECIES_SNOM": "Snom",
+  "SPECIES_FROSMOTH": "Frosmoth",
+  "SPECIES_STONJOURNER": "Stonjourner",
+  "SPECIES_EISCUE_ICE": "Eiscue",
+  "SPECIES_EISCUE_NOICE": "Eiscue-Noice",
+  "SPECIES_INDEEDEE_M": "Indeedee",
+  "SPECIES_INDEEDEE_F": "Indeedee-F",
+  "SPECIES_MORPEKO_FULL_BELLY": "Morpeko",
+  "SPECIES_MORPEKO_HANGRY": "Morpeko-Hangry",
+  "SPECIES_CUFANT": "Cufant",
+  "SPECIES_COPPERAJAH": "Copperajah",
+  "SPECIES_DRACOZOLT": "Dracozolt",
+  "SPECIES_ARCTOZOLT": "Arctozolt",
+  "SPECIES_DRACOVISH": "Dracovish",
+  "SPECIES_ARCTOVISH": "Arctovish",
+  "SPECIES_DURALUDON": "Duraludon",
+  "SPECIES_ARCHALUDON": "Archaludon",
+  "SPECIES_DREEPY": "Dreepy",
+  "SPECIES_DRAKLOAK": "Drakloak",
+  "SPECIES_DRAGAPULT": "Dragapult",
+  "SPECIES_ZACIAN_HERO": "Zacian",
+  "SPECIES_ZACIAN_CROWNED": "Zacian-Crowned",
+  "SPECIES_ZAMAZENTA_HERO": "Zamazenta",
+  "SPECIES_ZAMAZENTA_CROWNED": "Zamazenta-Crowned",
+  "SPECIES_ETERNATUS": "Eternatus",
+  "SPECIES_ETERNATUS_ETERNAMAX": "Eternatus-Eternamax",
+  "SPECIES_KUBFU": "Kubfu",
+  "SPECIES_URSHIFU_SINGLE_STRIKE": "Urshifu",
+  "SPECIES_URSHIFU_RAPID_STRIKE": "Urshifu-Rapid-Strike",
+  "SPECIES_ZARUDE": "Zarude",
+  "SPECIES_ZARUDE_DADA": "Zarude-Dada",
+  "SPECIES_REGIELEKI": "Regieleki",
+  "SPECIES_REGIDRAGO": "Regidrago",
+  "SPECIES_GLASTRIER": "Glastrier",
+  "SPECIES_SPECTRIER": "Spectrier",
+  "SPECIES_CALYREX": "Calyrex",
+  "SPECIES_CALYREX_ICE": "Calyrex-Ice",
+  "SPECIES_CALYREX_SHADOW": "Calyrex-Shadow",
+  "SPECIES_ENAMORUS_INCARNATE": "Enamorus",
+  "SPECIES_ENAMORUS_THERIAN": "Enamorus-Therian",
+  "SPECIES_SPRIGATITO": "Sprigatito",
+  "SPECIES_FLORAGATO": "Floragato",
+  "SPECIES_MEOWSCARADA": "Meowscarada",
+  "SPECIES_FUECOCO": "Fuecoco",
+  "SPECIES_CROCALOR": "Crocalor",
+  "SPECIES_SKELEDIRGE": "Skeledirge",
+  "SPECIES_QUAXLY": "Quaxly",
+  "SPECIES_QUAXWELL": "Quaxwell",
+  "SPECIES_QUAQUAVAL": "Quaquaval",
+  "SPECIES_LECHONK": "Lechonk",
+  "SPECIES_OINKOLOGNE_M": "Oinkologne",
+  "SPECIES_OINKOLOGNE_F": "Oinkologne-F",
+  "SPECIES_TAROUNTULA": "Tarountula",
+  "SPECIES_SPIDOPS": "Spidops",
+  "SPECIES_NYMBLE": "Nymble",
+  "SPECIES_LOKIX": "Lokix",
+  "SPECIES_PAWMI": "Pawmi",
+  "SPECIES_PAWMO": "Pawmo",
+  "SPECIES_PAWMOT": "Pawmot",
+  "SPECIES_TANDEMAUS": "Tandemaus",
+  "SPECIES_MAUSHOLD_THREE": "Maushold",
+  "SPECIES_MAUSHOLD_FOUR": "Maushold-Four",
+  "SPECIES_FIDOUGH": "Fidough",
+  "SPECIES_DACHSBUN": "Dachsbun",
+  "SPECIES_SMOLIV": "Smoliv",
+  "SPECIES_DOLLIV": "Dolliv",
+  "SPECIES_ARBOLIVA": "Arboliva",
+  "SPECIES_SQUAWKABILLY_GREEN": "Squawkabilly",
+  "SPECIES_SQUAWKABILLY_BLUE": "Squawkabilly-Blue",
+  "SPECIES_SQUAWKABILLY_YELLOW": "Squawkabilly-Yellow",
+  "SPECIES_SQUAWKABILLY_WHITE": "Squawkabilly-White",
+  "SPECIES_NACLI": "Nacli",
+  "SPECIES_NACLSTACK": "Naclstack",
+  "SPECIES_GARGANACL": "Garganacl",
+  "SPECIES_CHARCADET": "Charcadet",
+  "SPECIES_ARMAROUGE": "Armarouge",
+  "SPECIES_CERULEDGE": "Ceruledge",
+  "SPECIES_TADBULB": "Tadbulb",
+  "SPECIES_BELLIBOLT": "Bellibolt",
+  "SPECIES_WATTREL": "Wattrel",
+  "SPECIES_KILOWATTREL": "Kilowattrel",
+  "SPECIES_MASCHIFF": "Maschiff",
+  "SPECIES_MABOSSTIFF": "Mabosstiff",
+  "SPECIES_SHROODLE": "Shroodle",
+  "SPECIES_GRAFAIAI": "Grafaiai",
+  "SPECIES_BRAMBLIN": "Bramblin",
+  "SPECIES_BRAMBLEGHAST": "Brambleghast",
+  "SPECIES_TOEDSCOOL": "Toedscool",
+  "SPECIES_TOEDSCRUEL": "Toedscruel",
+  "SPECIES_KLAWF": "Klawf",
+  "SPECIES_CAPSAKID": "Capsakid",
+  "SPECIES_SCOVILLAIN": "Scovillain",
+  "SPECIES_SCOVILLAIN_MEGA": "Scovillain-Mega",
+  "SPECIES_RELLOR": "Rellor",
+  "SPECIES_RABSCA": "Rabsca",
+  "SPECIES_FLITTLE": "Flittle",
+  "SPECIES_ESPATHRA": "Espathra",
+  "SPECIES_TINKATINK": "Tinkatink",
+  "SPECIES_TINKATUFF": "Tinkatuff",
+  "SPECIES_TINKATON": "Tinkaton",
+  "SPECIES_WIGLETT": "Wiglett",
+  "SPECIES_WUGTRIO": "Wugtrio",
+  "SPECIES_BOMBIRDIER": "Bombirdier",
+  "SPECIES_FINIZEN": "Finizen",
+  "SPECIES_PALAFIN_ZERO": "Palafin",
+  "SPECIES_PALAFIN_HERO": "Palafin-Hero",
+  "SPECIES_VAROOM": "Varoom",
+  "SPECIES_REVAVROOM": "Revavroom",
+  "SPECIES_CYCLIZAR": "Cyclizar",
+  "SPECIES_ORTHWORM": "Orthworm",
+  "SPECIES_GLIMMET": "Glimmet",
+  "SPECIES_GLIMMORA": "Glimmora",
+  "SPECIES_GLIMMORA_MEGA": "Glimmora-Mega",
+  "SPECIES_GREAVARD": "Greavard",
+  "SPECIES_HOUNDSTONE": "Houndstone",
+  "SPECIES_FLAMIGO": "Flamigo",
+  "SPECIES_CETODDLE": "Cetoddle",
+  "SPECIES_CETITAN": "Cetitan",
+  "SPECIES_VELUZA": "Veluza",
+  "SPECIES_DONDOZO": "Dondozo",
+  "SPECIES_TATSUGIRI_CURLY": "Tatsugiri",
+  "SPECIES_TATSUGIRI_DROOPY": "Tatsugiri",
+  "SPECIES_TATSUGIRI_STRETCHY": "Tatsugiri",
+  "SPECIES_TATSUGIRI_CURLY_MEGA": "Tatsugiri-Mega",
+  "SPECIES_TATSUGIRI_DROOPY_MEGA": "Tatsugiri-Mega",
+  "SPECIES_TATSUGIRI_STRETCHY_MEGA": "Tatsugiri-Mega",
+  "SPECIES_GREAT_TUSK": "Great Tusk",
+  "SPECIES_SCREAM_TAIL": "Scream Tail",
+  "SPECIES_BRUTE_BONNET": "Brute Bonnet",
+  "SPECIES_FLUTTER_MANE": "Flutter Mane",
+  "SPECIES_SLITHER_WING": "Slither Wing",
+  "SPECIES_SANDY_SHOCKS": "Sandy Shocks",
+  "SPECIES_IRON_TREADS": "Iron Treads",
+  "SPECIES_IRON_BUNDLE": "Iron Bundle",
+  "SPECIES_IRON_HANDS": "Iron Hands",
+  "SPECIES_IRON_JUGULIS": "Iron Jugulis",
+  "SPECIES_IRON_MOTH": "Iron Moth",
+  "SPECIES_IRON_THORNS": "Iron Thorns",
+  "SPECIES_FRIGIBAX": "Frigibax",
+  "SPECIES_ARCTIBAX": "Arctibax",
+  "SPECIES_BAXCALIBUR": "Baxcalibur",
+  "SPECIES_BAXCALIBUR_MEGA": "Baxcalibur-Mega",
+  "SPECIES_GIMMIGHOUL_CHEST": "Gimmighoul",
+  "SPECIES_GIMMIGHOUL_ROAMING": "Gimmighoul-Roaming",
+  "SPECIES_GHOLDENGO": "Gholdengo",
+  "SPECIES_WO_CHIEN": "Wo-Chien",
+  "SPECIES_CHIEN_PAO": "Chien-Pao",
+  "SPECIES_TING_LU": "Ting-Lu",
+  "SPECIES_CHI_YU": "Chi-Yu",
+  "SPECIES_ROARING_MOON": "Roaring Moon",
+  "SPECIES_IRON_VALIANT": "Iron Valiant",
+  "SPECIES_KORAIDON": "Koraidon",
+  "SPECIES_MIRAIDON": "Miraidon",
+  "SPECIES_WALKING_WAKE": "Walking Wake",
+  "SPECIES_IRON_LEAVES": "Iron Leaves",
+  "SPECIES_POLTCHAGEIST_COUNTERFEIT": "Poltchageist",
+  "SPECIES_POLTCHAGEIST_ARTISAN": "Poltchageist-Artisan",
+  "SPECIES_SINISTCHA_UNREMARKABLE": "Sinistcha",
+  "SPECIES_SINISTCHA_MASTERPIECE": "Sinistcha-Masterpiece",
+  "SPECIES_OKIDOGI": "Okidogi",
+  "SPECIES_MUNKIDORI": "Munkidori",
+  "SPECIES_FEZANDIPITI": "Fezandipiti",
+  "SPECIES_OGERPON_TEAL": "Ogerpon",
+  "SPECIES_OGERPON_WELLSPRING": "Ogerpon-Wellspring",
+  "SPECIES_OGERPON_HEARTHFLAME": "Ogerpon-Hearthflame",
+  "SPECIES_OGERPON_CORNERSTONE": "Ogerpon-Cornerstone",
+  "SPECIES_OGERPON_TEAL_TERA": "Ogerpon-Teal-Tera",
+  "SPECIES_OGERPON_WELLSPRING_TERA": "Ogerpon-Wellspring-Tera",
+  "SPECIES_OGERPON_HEARTHFLAME_TERA": "Ogerpon-Hearthflame-Tera",
+  "SPECIES_OGERPON_CORNERSTONE_TERA": "Ogerpon-Cornerstone-Tera",
+  "SPECIES_GOUGING_FIRE": "Gouging Fire",
+  "SPECIES_RAGING_BOLT": "Raging Bolt",
+  "SPECIES_IRON_BOULDER": "Iron Boulder",
+  "SPECIES_IRON_CROWN": "Iron Crown",
+  "SPECIES_TERAPAGOS_NORMAL": "Terapagos",
+  "SPECIES_TERAPAGOS_TERASTAL": "Terapagos-Terastal",
+  "SPECIES_TERAPAGOS_STELLAR": "Terapagos-Stellar",
+  "SPECIES_PECHARUNT": "Pecharunt"
+ }
+}

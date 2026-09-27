@@ -1,0 +1,658 @@
+#mastersheet {
+	color:  #f1f1f1;
+	padding-top:  20px;
+	max-width: calc(82vw - 40px);
+	margin-left: calc(18vw + 20px);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+
+#content-container {
+	background: #121212;
+}
+
+.master-sidebar.pokemon-filter {
+	background: rgba(255,255,255,0.05);
+    padding-top: 0px;
+    max-height: 100vh;
+    padding: 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 18vw;
+}
+
+#toc {
+	position: fixed;
+	left: 0;
+	top: 44px;
+	width: 18vw;
+	overflow: scroll;
+	height: calc(100vh - 44px);
+}
+
+#mastersheet .filterable, #mastersheet .expanded-card-content {
+	margin-top:  0px;
+	width: auto;
+}
+
+#mastersheet a {
+	color: #bd93f9;
+}
+
+#mastersheet .filterable.doc-enc {
+	width: 100%;
+}
+
+.doc-ab {
+	cursor: pointer;
+}
+
+.doc-ab:hover, .doc-move:hover, .doc-species:hover, .doc-held-item:hover {
+	text-decoration: underline;
+}
+
+#mastersheet ul {
+	width: 100%;
+	padding-left: 80px;
+}
+
+#mastersheet .filterable {
+	background: rgba(255,255,255,0.05)
+}
+
+#ms-source {
+	height: 90vh;
+	width:  400px;
+	opacity: 0.8;
+}
+
+#ms-editor {
+	height: 400px;
+	width:  400px;
+	position:  fixed;
+	top: 40px;
+	right: 40px;
+	z-index: 10;
+}
+
+#submit-ms {
+	height: 30px;
+	background: #bd93f9;
+	border-radius: 5px;
+	text-align: center;
+	width:  100%;
+	line-height: 30px;
+	margin-top: 5px;
+	cursor:  pointer;
+	color: #f1f1f1;
+}
+
+.master-sidebar input {
+	height:  40px;
+}
+
+.ms-pok td {
+	color:  #f1f1f1;
+}
+
+.ms-trainer {
+	margin-right: 20px;
+}
+
+#manip-lvl {
+	display: inline;
+    width: 65px;
+}
+
+#mastersheet p {
+	font-size: 20px;
+	/*margin:  10px 0px;*/
+	padding-left: 60px;
+	width: 100%;
+}
+
+#mastersheet ul {
+	width: 100%;
+	padding-left: 80px;
+}
+
+#mastersheet li {
+	width: 100%;
+	padding-left: 80px;
+}
+
+#mastersheet h1, #mastersheet h2 {
+	margin-top: 40px;
+	padding-left: 60px;
+	width: 100%;
+}
+
+
+#mastersheet h4 {
+	margin-top: 20px;
+	margin-bottom:  20px;
+	font-size:  24px;
+	padding-left: 60px;
+	width: 100%;
+}
+
+#mastersheet h3 {
+	margin-top: 20px;
+	margin-bottom:  20px;
+	font-size:  30px;
+	padding-left: 60px;
+	width: 100%;
+}
+
+#mastersheet h4 {
+	margin-top: 20px;
+	margin-bottom:  0px;
+	font-size:  20px;
+	padding-left: 60px;
+	width: 100%;
+}
+
+#mastersheet li {
+  padding-left: 22px;
+  list-style-position: inside;
+  text-indent: -22px;
+}
+
+#mastersheet h2 {
+	font-size:  36px;
+	border-bottom:  2px solid #f1f1f1;
+	padding-top: 20px;
+	padding-bottom:  20px; 
+}
+
+#mastersheet h1 {
+	text-align: center;
+	font-size:  48px;
+	border-bottom: 4px solid #f1f1f1;
+}
+
+#mastersheet .expanded-field {
+	border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+#mastersheet .expanded-field.doc-enc {
+	border: 1px solid #469e62;
+}
+
+
+.ms-trainer .expanded-field-main {
+	width:  120px;
+}
+
+#mastersheet .ms-trainer.mand {
+	border:  1px solid #bd93f9;
+
+}
+
+.ms-trainer .expanded-field-main {
+	margin-right: 20px;
+	
+}
+
+
+.ms-trainer.mand .trainer-name {
+	color: #bd93f9;
+}
+
+.ms-trainer .trainer-name:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.ms-trainer.expanded-field.filterable {
+	display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    border-radius: 5px;
+}
+
+.ms-trainer .expanded-card-content {
+	width: calc(100% - 180px);
+}
+
+.ms-trainer .trainer-name, #mastersheet img {
+	width: 160px;
+}
+
+#mastersheet .filterable {
+	margin-bottom: 10px;
+}
+
+#mastersheet .trainer-doc-item {
+	width: 160px;
+	margin-bottom: 10px;
+}
+
+.trainer-doc-item .trpok-item-info {
+	border-bottom: 1px solid rgba(255,255,255,0.2);
+	width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  height: 25px;
+}
+
+#mastersheet .expanded-field.filterable.ms-trainer {
+	width: auto;
+}
+
+#mastersheet .expanded-field .move-info.expand-grass, #mastersheet .expanded-field:hover .move-info.expand-grass  {
+	bottom:  0px;
+	left:  40px;
+}
+
+#mastersheet .expanded-field .move-info.expand-water {
+	bottom:  0px;
+	left:  80px;
+}
+
+#mastersheet .move-info {
+	display: block;
+}
+
+#mastersheet .encounter-wilds {
+	width:  calc(100% - 180px);
+}
+
+.doc-enc {
+	cursor: pointer;
+	border:  2px solid transparent;
+	box-sizing:  content-box;
+	width: 100%;
+}
+
+.doc-enc:hover {
+	border: 2px solid #1abc9c;
+}
+
+.doc-held-item {
+	cursor: pointer;
+}
+
+#mastersheet .doc-move, #mastersheet .doc-species, #mastersheet .enc-name, .ms-enc-name  {
+	cursor:  pointer;
+	color:  #1abc9c;
+	height: 25px;	
+	overflow: hidden;
+}
+
+#mastersheet .doc-sprite:hover {
+	border: 1px solid #1abc9c;
+	border-radius:  4px;
+	cursor:  pointer;
+}
+
+
+.ms-pok .pokemon-card__name{
+	margin-top: 40px;
+}
+
+.ms-pok .pokemon-card__ability{
+	display: block;
+    width: auto;
+    margin-top:  10px;
+}
+
+.ms-pok .pokemon-card__info {
+	margin-left: 0px;
+}
+
+.ms-pok .pokemon-card__table td {
+	text-align:  left;
+}
+
+.ms-pok .expanded-left {
+	width:  100%;
+}
+
+.ms-pok .move-name, .ms-move .move-name {
+	width:  130px;
+}
+
+.ms-move .move-name {
+	margin-left: 20px;
+}
+
+.ms-move .move-power, .ms-move .move-accuracy {
+	width:  60px;
+}
+.ms-pok, .ms-move {
+	display:  none;
+}
+
+.repel-manip {
+	width: 120px;
+    position: absolute;
+    bottom: 0px;
+    left: 100px;
+    background: none;
+    border: 1px solid #f1f1f1;
+    border-radius: 5px;
+    padding: 2px 10px;
+    height: 30px;
+    color: #f1f1f1;
+}
+
+#enc-info {
+	display:  none;
+}
+
+.ms-desc {
+	font-size:  18px;
+}
+
+.ms-pok .move-power, .ms-pok .move-accuracy {
+	width:  40px;
+}
+
+.ms-pok .expanded-left {
+	padding:  0px;
+}
+
+.ms-pok .move-level {
+	width:  30px;
+}
+
+.ms-enc-header {
+	font-size:  26px;
+	margin: 20px 0px;
+	text-align: center;
+}
+
+.ms-enc-main-header {
+	font-size:  32px;
+	margin: 20px 0px;
+	text-align: center;
+}
+.ms-enc-row {
+	display: flex;
+	justify-content: space-between;
+	font-size: 20px;
+}
+
+.tr-notes {
+	margin-top:  20px;
+}
+
+#mastersheet .wild.dupe  {
+	background: rgba(255, 85, 85, 0.5);
+	border-radius: 10px;
+}
+
+#mastersheet .wild:hover {
+	border: 1px solid #1abc9c;	
+	border-radius: 10px;
+}
+
+#mastersheet .filterable:nth-child(2n) {
+    background: rgba(255,255,255,0.05);
+}
+
+#mastersheet .filterable:nth-child(2n) .expanded-card-content, .filterable:nth-child(2n) .expanded-card-subcontent, #mastersheet .filterable .expanded-card-content{
+    background: rgba(255,255,255, 0.1);
+    border-radius: 10px;
+}
+
+.toc-header, .toc-item {
+	cursor: pointer;
+	font-size: 20px;
+	border-bottom: 1px solid rgba(255,255,255,0.3);
+	width: 100%;
+
+}
+
+.toc-header:hover, .toc-item:hover {
+	text-decoration: underline;
+}
+
+.toc-header {
+	font-size: 28px;
+	margin: 20px 0px;
+	padding-left: 20px;
+	color: #bd93f9;
+	position: sticky;
+  	top: 0;
+  	z-index: 10;
+  	/* optional: make the "stick" look nicer */
+  	/*border-bottom: 1px solid rgba(0,0,0,0.08);*/
+  	background: #282a36;
+  	border-bottom: 1px solid #bd93f9;
+  	text-align: center;
+}
+
+.toc-item {
+	margin: 10px 0px;
+	padding-left: 40px;
+}
+
+#filter-tabs {
+    width: 18vw;
+    cursor: pointer;
+    height: 44px;
+    position: fixed;
+    top: 0;
+    margin: 0;
+    line-height: 44px;
+    padding: 0;
+    display: flex;
+}
+
+#filter-tabs .filter-title {
+	cursor: pointer;
+	text-align: center;
+	width: 33.33%;
+	margin: 0;
+	padding: 0;
+}
+
+
+
+.master-sidebar .filter-title.active {
+    background: #bd93f9;
+    color: #f2f2f2;
+}
+
+.master-sidebar .filter-title:hover {
+    text-decoration: underline;
+}
+
+
+/* ---------------- gifts / items / notif (table-like blocks) ---------------- */
+
+#mastersheet .ms-block {
+  width: 100%;
+  margin: 24px 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+#mastersheet .ms-notif, #mastersheet .ms-gifts {
+	width: auto;
+	max-width: 100%;
+}
+
+#mastersheet .ms-row {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Left “label” column (Gift Encounter / Items / WARNING!) */
+#mastersheet .ms-left {
+  flex: 0 0 260px;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+#mastersheet .ms-items {
+	border: 1px solid #f1fa8c;
+}
+
+#mastersheet .ms-left-title {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+#mastersheet .ms-left-desc {
+  margin-top: 8px;
+  font-size: 16px;
+  opacity: 0.9;
+  text-align: center;
+}
+
+/* Right side content area */
+#mastersheet .ms-cells,
+#mastersheet .ms-item-rows,
+#mastersheet .ms-notif-body {
+  flex: 1 1 auto;
+  background: rgba(255,255,255,0.10);
+  box-sizing: border-box;
+}
+
+/* ---------------- gifts grid ---------------- */
+
+#mastersheet .ms-cells {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0; /* looks like a table */
+  max-width: calc(100% - 260px);
+}
+
+#mastersheet .ms-cell {
+  flex: 1 1 0;
+  width: 120px;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-left: 1px solid rgba(255,255,255,0.15);
+}
+
+
+
+#mastersheet .ms-cell:first-child {
+  border-left: none;
+}
+
+#mastersheet .ms-cell-top img {
+  width: 72px;      /* override your global #mastersheet img { width:160px } */
+  height: 72px;
+  object-fit: contain;
+}
+
+#mastersheet .ms-cell-bottom {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+/* -------- gifts: center sprite if bottom is empty -------- */
+
+#mastersheet .ms-gift-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+/* default behavior */
+#mastersheet .ms-cell-top {
+  flex: 0 0 auto;
+}
+
+/* when there is NO bottom content, let top fill + center */
+#mastersheet .ms-gift-cell:has(.ms-cell-bottom:empty) .ms-cell-top {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* when there is NO bottom content, let top fill + center */
+#mastersheet .ms-gift-cell:has(.ms-cell-bottom:empty) .ms-cell-top img {
+	width: 100%;
+}
+
+/* optional: remove spacing when empty */
+#mastersheet .ms-gift-cell:has(.ms-cell-bottom:empty) .ms-cell-bottom {
+  display: none;
+}
+
+
+/* increase image size */
+#mastersheet .ms-gift-cell .ms-cell-top img {
+  width: 96px;        /* ← change this number */
+  height: 96px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* when bottom is empty, allow sprite to grow a bit more */
+#mastersheet .ms-gift-cell:has(.ms-cell-bottom:empty) .ms-cell-top img {
+  width: 120px;       /* bigger when centered */
+  height: 120px;
+}
+
+/* ---------------- items: 2 per row ---------------- */
+
+#mastersheet .ms-item-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two items per row */
+}
+
+#mastersheet .ms-item-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  box-sizing: border-box;
+
+  /* visual separation like table cells */
+  border-top: 1px solid rgba(255,255,255,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  border-right: 1px solid rgba(255,255,255,0.15);
+}
+
+/* remove top border for first row */
+#mastersheet .ms-item-row:nth-child(1),
+#mastersheet .ms-item-row:nth-child(2) {
+  border-top: none;
+}
+
+.ms-item-icon {
+	height: 32px;
+	width: 32px;
+}
+
+/* ---------------- notif ---------------- */
+
+#mastersheet .ms-notif-body {
+  padding: 12px 16px;
+  box-sizing: border-box;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+
+
+#mastersheet .flex-break {
+  flex: 0 0 100%;
+  height: 0;
+}
+
+/* Dynamic Calc Stuff */

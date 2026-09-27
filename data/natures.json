@@ -1,0 +1,402 @@
+[
+ {
+  "constant": "NATURE_HARDY",
+  "id": 0,
+  "displayName": "Hardy",
+  "statUp": null,
+  "statDown": null,
+  "neutral": true,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.0,
+   "speed": 1.0,
+   "spAttack": 1.0,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_LONELY",
+  "id": 1,
+  "displayName": "Lonely",
+  "statUp": "STAT_ATK",
+  "statDown": "STAT_DEF",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.1,
+   "defense": 0.9,
+   "speed": 1.0,
+   "spAttack": 1.0,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_BRAVE",
+  "id": 2,
+  "displayName": "Brave",
+  "statUp": "STAT_ATK",
+  "statDown": "STAT_SPEED",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.1,
+   "defense": 1.0,
+   "speed": 0.9,
+   "spAttack": 1.0,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_ADAMANT",
+  "id": 3,
+  "displayName": "Adamant",
+  "statUp": "STAT_ATK",
+  "statDown": "STAT_SPATK",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.1,
+   "defense": 1.0,
+   "speed": 1.0,
+   "spAttack": 0.9,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_NAUGHTY",
+  "id": 4,
+  "displayName": "Naughty",
+  "statUp": "STAT_ATK",
+  "statDown": "STAT_SPDEF",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.1,
+   "defense": 1.0,
+   "speed": 1.0,
+   "spAttack": 1.0,
+   "spDefense": 0.9
+  }
+ },
+ {
+  "constant": "NATURE_BOLD",
+  "id": 5,
+  "displayName": "Bold",
+  "statUp": "STAT_DEF",
+  "statDown": "STAT_ATK",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 0.9,
+   "defense": 1.1,
+   "speed": 1.0,
+   "spAttack": 1.0,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_DOCILE",
+  "id": 6,
+  "displayName": "Docile",
+  "statUp": null,
+  "statDown": null,
+  "neutral": true,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.0,
+   "speed": 1.0,
+   "spAttack": 1.0,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_RELAXED",
+  "id": 7,
+  "displayName": "Relaxed",
+  "statUp": "STAT_DEF",
+  "statDown": "STAT_SPEED",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.1,
+   "speed": 0.9,
+   "spAttack": 1.0,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_IMPISH",
+  "id": 8,
+  "displayName": "Impish",
+  "statUp": "STAT_DEF",
+  "statDown": "STAT_SPATK",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.1,
+   "speed": 1.0,
+   "spAttack": 0.9,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_LAX",
+  "id": 9,
+  "displayName": "Lax",
+  "statUp": "STAT_DEF",
+  "statDown": "STAT_SPDEF",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.1,
+   "speed": 1.0,
+   "spAttack": 1.0,
+   "spDefense": 0.9
+  }
+ },
+ {
+  "constant": "NATURE_TIMID",
+  "id": 10,
+  "displayName": "Timid",
+  "statUp": "STAT_SPEED",
+  "statDown": "STAT_ATK",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 0.9,
+   "defense": 1.0,
+   "speed": 1.1,
+   "spAttack": 1.0,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_HASTY",
+  "id": 11,
+  "displayName": "Hasty",
+  "statUp": "STAT_SPEED",
+  "statDown": "STAT_DEF",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 0.9,
+   "speed": 1.1,
+   "spAttack": 1.0,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_SERIOUS",
+  "id": 12,
+  "displayName": "Serious",
+  "statUp": null,
+  "statDown": null,
+  "neutral": true,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.0,
+   "speed": 1.0,
+   "spAttack": 1.0,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_JOLLY",
+  "id": 13,
+  "displayName": "Jolly",
+  "statUp": "STAT_SPEED",
+  "statDown": "STAT_SPATK",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.0,
+   "speed": 1.1,
+   "spAttack": 0.9,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_NAIVE",
+  "id": 14,
+  "displayName": "Naive",
+  "statUp": "STAT_SPEED",
+  "statDown": "STAT_SPDEF",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.0,
+   "speed": 1.1,
+   "spAttack": 1.0,
+   "spDefense": 0.9
+  }
+ },
+ {
+  "constant": "NATURE_MODEST",
+  "id": 15,
+  "displayName": "Modest",
+  "statUp": "STAT_SPATK",
+  "statDown": "STAT_ATK",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 0.9,
+   "defense": 1.0,
+   "speed": 1.0,
+   "spAttack": 1.1,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_MILD",
+  "id": 16,
+  "displayName": "Mild",
+  "statUp": "STAT_SPATK",
+  "statDown": "STAT_DEF",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 0.9,
+   "speed": 1.0,
+   "spAttack": 1.1,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_QUIET",
+  "id": 17,
+  "displayName": "Quiet",
+  "statUp": "STAT_SPATK",
+  "statDown": "STAT_SPEED",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.0,
+   "speed": 0.9,
+   "spAttack": 1.1,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_BASHFUL",
+  "id": 18,
+  "displayName": "Bashful",
+  "statUp": null,
+  "statDown": null,
+  "neutral": true,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.0,
+   "speed": 1.0,
+   "spAttack": 1.0,
+   "spDefense": 1.0
+  }
+ },
+ {
+  "constant": "NATURE_RASH",
+  "id": 19,
+  "displayName": "Rash",
+  "statUp": "STAT_SPATK",
+  "statDown": "STAT_SPDEF",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.0,
+   "speed": 1.0,
+   "spAttack": 1.1,
+   "spDefense": 0.9
+  }
+ },
+ {
+  "constant": "NATURE_CALM",
+  "id": 20,
+  "displayName": "Calm",
+  "statUp": "STAT_SPDEF",
+  "statDown": "STAT_ATK",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 0.9,
+   "defense": 1.0,
+   "speed": 1.0,
+   "spAttack": 1.0,
+   "spDefense": 1.1
+  }
+ },
+ {
+  "constant": "NATURE_GENTLE",
+  "id": 21,
+  "displayName": "Gentle",
+  "statUp": "STAT_SPDEF",
+  "statDown": "STAT_DEF",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 0.9,
+   "speed": 1.0,
+   "spAttack": 1.0,
+   "spDefense": 1.1
+  }
+ },
+ {
+  "constant": "NATURE_SASSY",
+  "id": 22,
+  "displayName": "Sassy",
+  "statUp": "STAT_SPDEF",
+  "statDown": "STAT_SPEED",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.0,
+   "speed": 0.9,
+   "spAttack": 1.0,
+   "spDefense": 1.1
+  }
+ },
+ {
+  "constant": "NATURE_CAREFUL",
+  "id": 23,
+  "displayName": "Careful",
+  "statUp": "STAT_SPDEF",
+  "statDown": "STAT_SPATK",
+  "neutral": false,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.0,
+   "speed": 1.0,
+   "spAttack": 0.9,
+   "spDefense": 1.1
+  }
+ },
+ {
+  "constant": "NATURE_QUIRKY",
+  "id": 24,
+  "displayName": "Quirky",
+  "statUp": null,
+  "statDown": null,
+  "neutral": true,
+  "modifiers": {
+   "hp": 1.0,
+   "attack": 1.0,
+   "defense": 1.0,
+   "speed": 1.0,
+   "spAttack": 1.0,
+   "spDefense": 1.0
+  }
+ }
+]

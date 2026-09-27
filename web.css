@@ -1,0 +1,25 @@
+/* Kudzu tracker - web edition. Hides what needs the desktop app (Refresh needs
+   the ROM source, the Sandbox writes the save, a typed path means nothing to a
+   browser) and styles the two bars web.js adds. */
+html.web #refresh,
+html.web #sav-path-apply,
+html.web label.f:has(#sav-path-input),
+html.web #tabs button[data-tab="sandbox"] { display: none !important; }
+
+#web-reconnect,
+#web-update {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 6px 16px;
+  font-size: 13px;
+  background: #3e3320;
+  color: #f0d9a8;
+  border-bottom: 1px solid #5a4a2a;
+}
+#web-update { background: #1f3a2a; color: #bfe8cc; border-bottom-color: #2f5a40; }
+#web-reconnect[hidden] { display: none; }
+#web-reconnect .btn,
+#web-update .btn { padding: 3px 10px; }
+.web-note { margin-top: 6px; opacity: 0.85; }

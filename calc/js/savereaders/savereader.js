@@ -1,0 +1,2077 @@
+// SAVEREADERS FOR GEN 4/5 AND HG-ENGINE
+
+const DS_SAVE_SLOTS_PER_BOX = 30
+const GEN5_BOXES_TO_IMPORT = 7
+const GEN5_BOX_SLOT_COUNT = GEN5_BOXES_TO_IMPORT * DS_SAVE_SLOTS_PER_BOX
+
+var invalidSavSpeciesDebugCount = 0
+
+function isHgeSaveReaderMode() {
+    return (
+        (typeof mechanics !== "undefined" && mechanics == "hge")
+        || (
+            typeof baseGame !== "undefined"
+            && baseGame == "HGSS"
+            && typeof save_expansion !== "undefined"
+            && save_expansion
+        )
+    )
+}
+
+function getHgssBoxDataBaseOffset() {
+    return (
+        isHgeSaveReaderMode()
+        || (typeof save_expansion !== "undefined" && save_expansion)
+    ) ? 0x10000 : 0x0F700
+}
+
+function configureHgssSaveReaderOffsets() {
+    partyCountOffset = 0x94
+    smallBlockSize = isHgeSaveReaderMode() ? 0xFFA0 : 0xF628
+    boxDataOffset = getHgssBoxDataBaseOffset()
+    bigBlockStart = boxDataOffset
+    bigBlockSize = 0x12310
+    footerSize = 16
+    partyPokSize = 236
+}
+
+function ensureHgeSaveIncludeTables() {
+    if (!isHgeSaveReaderMode()) {
+        return false
+    }
+    if (typeof window !== "undefined" && window.HGE_SAVE_INCLUDES_READY) {
+        return true
+    }
+
+    var hgeIncludes = typeof window !== "undefined" ? window.HGE_DEFAULT_INCLUDES : null
+    var requiredKeys = ["poks", "moves", "items", "growths", "abilities"]
+    if (!hgeIncludes || !requiredKeys.every(function(key) {
+        return Array.isArray(hgeIncludes[key]) && hgeIncludes[key].length > 0
+    })) {
+        console.warn("[HGE Save] Shared include tables are unavailable.")
+        return false
+    }
+
+    includes = {}
+    requiredKeys.forEach(function(key) {
+        includes[key] = hgeIncludes[key].slice()
+    })
+    sav_pok_names = includes.poks
+    sav_move_names = includes.moves
+    sav_item_names = includes.items
+    sav_pok_growths = includes.growths
+    sav_abilities = includes.abilities
+    window.HGE_SAVE_INCLUDES_READY = true
+    window.HGE_SAVE_INCLUDE_SOURCE = "shared-fallback-at-save-load"
+    console.log("[HGE Save] Installed shared fallback include tables before parsing the save.")
+    return true
+}
+
+function isEmptyOrInvalidDsSaveCounter(value) {
+    return value === 0xFFFFFFFF || value === 0x00000000
+}
+
+function getDsSaveLocationGameKey() {
+    if (baseGame == "BW" && baseVersion == "BW2") {
+        return "BW2"
+    }
+    return baseGame
+}
+
+function chooseDsPairedBlockOffset(preferredSaveCount, block1SaveCount, block2SaveCount, forceBlock2=false) {
+    const block1Invalid = isEmptyOrInvalidDsSaveCounter(block1SaveCount)
+    const block2Invalid = isEmptyOrInvalidDsSaveCounter(block2SaveCount)
+
+    if (forceBlock2) {
+        return 0x40000
+    }
+
+    if (!block1Invalid && block1SaveCount === preferredSaveCount) {
+        return 0
+    }
+
+    if (!block2Invalid && block2SaveCount === preferredSaveCount) {
+        return 0x40000
+    }
+
+    if (block1Invalid && !block2Invalid) {
+        return 0x40000
+    }
+
+    if (!block1Invalid && block2Invalid) {
+        return 0
+    }
+
+    if (!block1Invalid && !block2Invalid && block2SaveCount > block1SaveCount) {
+        return 0x40000
+    }
+
+    return 0
+}
+
+$(document).ready(function() {
+    const hasConfiguredBaseGame = typeof window.baseGame === "string" && window.baseGame;
+    const shouldUseDsSaveReader = (
+        window.baseGame == "DP" ||
+        window.baseGame == "Pt" ||
+        window.baseGame == "HGSS" ||
+        window.baseGame == "BW" ||
+        (!hasConfiguredBaseGame && (gameGen == 4 || gameGen == 5 || isHgeSaveReaderMode()))
+    );
+
+    if (shouldUseDsSaveReader) {
+        const saveUpload = document.getElementById('save-upload-g45') || document.getElementById('save-upload');
+        if (saveUpload) {
+            saveUpload.id = 'save-upload-g45';
+        }
+        $('#read-save').show()
+        $('#read-save').attr('for', 'save-upload-g45')
+
+        $('#read-save').off('click.g45save').on('click.g45save', function(){
+            if ($('#save-upload-g45').length > 0) {
+                $('#save-upload-g45')[0].value = null
+            }
+        })
+    }
+
+    if (TITLE.includes("Cascade")) {
+        sav_pok_names[653] = "Sawsbuck-Summer"
+        sav_pok_names[654] = "Sawsbuck-Autumn"
+        sav_pok_names[655] = "Sawsbuck-Winter"
+        sav_pok_names[656] = "Shellos-East"
+        sav_pok_names[657] = "Gastrodon-East"
+    }
+
+    if (TITLE == "Platinum Kaizo") {
+        sav_pok_growths = pk_pok_growths
+    }
+
+    const saveUploadG45 = document.getElementById('save-upload-g45');
+    if (!saveUploadG45) {
+        return;
+    }
+
+    saveUploadG45.addEventListener('change', function(event, forceBlock2=false) {
+    if ($('#save-upload').length > 0) return;
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        saveFileName = $('#save-upload-g45').val().split("\\").pop()
+        savExt = saveFileName.slice(-3)
+        currentParty = []
+
+        if (baseGame == "DP") {
+            partyCountOffset = 0x94
+            smallBlockSize = 0xC100
+            boxDataOffset = 0xC104
+            bigBlockStart = boxDataOffset - 4
+            bigBlockSize = 0x121E0
+            footerSize = 20
+            partyPokSize = 236
+        } else if (baseGame == "Pt") {
+            partyCountOffset = 0x9C
+            smallBlockSize = 0xCF2C
+            boxDataOffset = 0xCF30
+            bigBlockStart = boxDataOffset - 4
+            bigBlockSize = 0x121E4
+            footerSize = 20
+            partyPokSize = 236
+        } else if (baseGame == "HGSS") {
+            configureHgssSaveReaderOffsets()
+        } else if (baseGame == "BW") {
+            partyCountOffset = 0x18e00 + 4
+            boxDataOffset = 0x400
+            boxSize = 0xFF0
+            partySize = 0x534
+            checksumsOffset = 0x23F00
+            checksumEnd = 0x23F9A
+            partyPokSize = 220
+            checksumTableSize = 0x8C
+
+            if (baseVersion == "BW2") {
+                checksumsOffset = 0x25F00
+                checksumEnd = 0x25FA2
+                checksumTableSize = 0x94
+            }
+        }
+
+        battleStatSize = (partyPokSize - 136) / 2
+
+        reader.onload = function(e) {
+            // Blank-dev/Ddex configuration finishes after some document-ready
+            // handlers. Resolve HGSS/HGE offsets at file-load time so the reader
+            // cannot retain the earlier vanilla defaults.
+            if (baseGame == "HGSS") {
+                configureHgssSaveReaderOffsets()
+                battleStatSize = (partyPokSize - 136) / 2
+            }
+
+            // Extract the processing logic into a separate function for retry
+            function processSaveFile(forceBlock2 = false) {
+                try {
+                    ensureHgeSaveIncludeTables()
+
+                    // Convert the binary string to ArrayBuffer for easier access
+                    const binaryData = e.target.result;
+                    const buffer = new ArrayBuffer(binaryData.length);
+
+                    view = new Uint8Array(buffer);
+
+                    saveUploaded = true
+                    for (let i = 0; i < binaryData.length; i++) {
+                        view[i] = binaryData.charCodeAt(i);
+                    }
+
+                    changelog = "<h4>Changelog:</h4>"
+                    changelog += `<p>${saveFileName} loaded</p>`
+                    if ($('#changelog').length == 0) {
+                       $('#clearSets').after("<p id='changelog'></p>") 
+                    }
+                    $('#changelog').html(changelog).show()
+                    
+                    partyExpTables = []
+                    partyExpIndexes = []
+                    partyMovesIndexes = []
+                    var importedTrainerId = null
+                    var importedSecretId = null
+                    var importedTrainerIdSecret = null
+
+                    smallBlockStart = 0
+
+                    if (baseGame == "DP" || baseGame == "Pt" || baseGame == "HGSS") {
+                        smallBlock1SaveCount = read32BitIntegerFromUint8Array(view,  smallBlockSize - 16)
+                        smallBlock2SaveCount = read32BitIntegerFromUint8Array(view,  smallBlockSize + 0x40000 - 16)
+                        var smallBlock1Invalid = isEmptyOrInvalidDsSaveCounter(smallBlock1SaveCount)
+                        var smallBlock2Invalid = isEmptyOrInvalidDsSaveCounter(smallBlock2SaveCount)
+                        if (smallBlock1Invalid || forceBlock2 || (!smallBlock2Invalid && smallBlock2SaveCount > smallBlock1SaveCount)) {
+                            partyCountOffset += 0x40000
+                            console.log("now reading party from block 2")
+                            smallBlockStart = 0x40000
+                        } else {
+                            console.log("now reading party from block 1")
+                        }
+                        var selectedSmallBlockSaveCount = smallBlockStart === 0x40000 ? smallBlock2SaveCount : smallBlock1SaveCount
+                        var bigBlock1SaveCount = read32BitIntegerFromUint8Array(view,  bigBlockStart + bigBlockSize - 16)
+                        var bigBlock2SaveCount = read32BitIntegerFromUint8Array(view,  bigBlockStart + 0x40000 + bigBlockSize - 16)
+                        var bigBlockOffset = chooseDsPairedBlockOffset(selectedSmallBlockSaveCount, bigBlock1SaveCount, bigBlock2SaveCount, forceBlock2)
+                        if (bigBlockOffset === 0x40000) {
+                            boxDataOffset += 0x40000
+                            bigBlockStart += 0x40000
+                            console.log("now reading box from block 2")
+                        } else {
+                            console.log("now reading box from block 1")
+                        }
+                        var trainerIdOffset = smallBlockStart + (baseGame == "HGSS" ? 0x74 : 0x78)
+                        var tid = view[trainerIdOffset] | (view[trainerIdOffset + 1] << 8)
+                        var sid = view[trainerIdOffset + 2] | (view[trainerIdOffset + 3] << 8)
+                        importedTrainerId = tid
+                        importedSecretId = sid
+                        importedTrainerIdSecret = ((tid & 0xFFFF) | ((sid & 0xFFFF) << 16)) >>> 0
+                        localStorage.lastTid = importedTrainerIdSecret
+                    } else if (baseGame == "BW") {
+                            const tidSid =  read32BitIntegerFromUint8Array(view,  0x19414); // BW2
+                            importedTrainerId = tidSid & 0xFFFF
+                            importedSecretId = (tidSid >>> 16) & 0xFFFF
+                            importedTrainerIdSecret = tidSid >>> 0
+                            localStorage.lastTid = tidSid;  
+                    }
+
+                    // Step 1: Get 'n' from offset 0x9C (single byte)
+                    var n = view[partyCountOffset];
+                    partyCount = n
+
+                    // Initialize an array to store decrypted chunks
+                    decryptedChunks = [];
+                    decryptedBattleStats = []
+                    partyMons = {}
+                    partySlotMetadata = []
+                    partyPIDs = []
+
+
+                    // Step 2: Loop 'n' times to read and decrypt each 236-byte chunk       
+                    CHUNK_SIZE = partyPokSize
+                    var offset = partyCountOffset + 4;
+                    
+                    showdownImport = ""
+                    savParty = []
+
+                    for (let i = 0; i < n; i++) {
+                        // Extract the chunk of 236 bytes from the binary data
+                       chunk = view.slice(offset, offset + CHUNK_SIZE);
+                       showdownImport += parsePKM(chunk, true)
+                       offset += CHUNK_SIZE                 
+                    }
+
+                    offset = boxDataOffset
+                    CHUNK_SIZE = 136
+                    var liveBoxSlotCount = 510
+                    var totalBoxSlotCount = 510
+
+                    if (save_expansion) {
+                       liveBoxSlotCount = 870 
+                       totalBoxSlotCount = 870
+                    }
+
+                    if (baseGame == "BW") {
+                        liveBoxSlotCount = GEN5_BOX_SLOT_COUNT
+                        totalBoxSlotCount = GEN5_BOX_SLOT_COUNT
+                    } else if (baseGame == "DP" || baseGame == "Pt" || baseGame == "HGSS") {
+                        totalBoxSlotCount = 540
+                    }
+
+                    boxPokOffsets = {}
+                    savBox = []
+                    const deadMons = []
+
+                    for (let i = 0; i < totalBoxSlotCount; i++) {
+                        // Extract the chunk of 236 bytes from the binary data
+
+                       if (baseGame == "HGSS") {
+                         if (i > 0 && i % DS_SAVE_SLOTS_PER_BOX == 0) {
+                            offset += 16
+                         } 
+                       } else if (baseGame == "BW") {
+                         if (i > 0 && i % DS_SAVE_SLOTS_PER_BOX == 0) {
+                            offset += 16
+                         } 
+                       }
+                      
+                       chunk = view.slice(offset, offset + CHUNK_SIZE);
+                       const showdownBlock = parsePKM(chunk, false, offset)
+                       if (i < liveBoxSlotCount) {
+                           showdownImport += showdownBlock
+                       } else {
+                           const deadMon = buildDsSaveDeadMonFromShowdown(showdownBlock, Math.floor(i / DS_SAVE_SLOTS_PER_BOX) + 1, (i % DS_SAVE_SLOTS_PER_BOX) + 1)
+                           if (deadMon) {
+                               deadMons.push(deadMon)
+                           }
+                       }
+                       offset += CHUNK_SIZE                 
+                    }
+                    return {
+                        showdownImport: showdownImport,
+                        deadMons: deadMons,
+                        source: 'save-file',
+                        replaceDeadMons: true,
+                        trainerId: importedTrainerId,
+                        secretId: importedSecretId,
+                        trainerIdSecret: importedTrainerIdSecret,
+                    }
+                    
+                } catch (error) {
+                    console.log('Processing failed:', error.message);
+                    throw error; // Re-throw to trigger retry
+                }
+            }
+
+            runWithImportPartyPreviewPolicy(function() {
+                var importedSnapshot
+                try {
+                    importedSnapshot = processSaveFile(forceBlock2);
+                } catch (error) {
+                    console.log('First attempt failed, retrying with forceBlock2=true');
+                    
+                    // Reset any modified offsets before retry
+                    if (baseGame == "DP") {
+                        partyCountOffset = 0x94
+                        boxDataOffset = 0xC104
+                        bigBlockStart = boxDataOffset - 4
+                    } else if (baseGame == "Pt") {
+                        partyCountOffset = 0x9C
+                        boxDataOffset = 0xCF30
+                        bigBlockStart = boxDataOffset - 4
+                    } else if (baseGame == "HGSS") {
+                        configureHgssSaveReaderOffsets()
+                    } else if (baseGame == "BW") {
+                        partyCountOffset = 0x18e00 + 4
+                        boxDataOffset = 0x400
+                    }
+                    
+                    importedSnapshot = processSaveFile(true); // Retry with forceBlock2=true
+                    console.log('Retry with forceBlock2=true succeeded');
+                }
+
+                // Import errors are unrelated to DS block selection. Keeping this
+                // outside the retry prevents a downstream set error from switching
+                // an HGE save back to vanilla HGSS offsets and decrypting garbage.
+                if (typeof window.applyImportedSnapshot === 'function') {
+                    window.applyImportedSnapshot(importedSnapshot)
+                } else {
+                    $('.import-team-text').val(importedSnapshot.showdownImport)
+                }
+            });
+        };
+
+        // Read file as binary string
+        reader.readAsBinaryString(file);
+    } else {
+        console.log("No file selected.");
+    }
+});
+
+})
+
+function uint8ArrayFromNumberArray(values) {
+    if (!Array.isArray(values)) {
+        throw new Error("Expected an array of byte values");
+    }
+    const out = new Uint8Array(values.length);
+    for (let i = 0; i < values.length; i++) {
+        out[i] = Number(values[i]) & 0xFF;
+    }
+    return out;
+}
+
+function buildDsSaveDeadMonFromShowdown(showdownBlock, box, slot) {
+    const text = String(showdownBlock || "").replace(/\r/g, "").trim();
+    if (!text) {
+        return null;
+    }
+
+    const lines = text.split("\n");
+    const headerLine = String(lines[0] || "").trim();
+    if (!headerLine) {
+        return null;
+    }
+
+    let speciesName = "";
+    if (typeof findImportedSpeciesNameFromHeader === "function") {
+        speciesName = findImportedSpeciesNameFromHeader(headerLine);
+    }
+    speciesName = checkExeptions(String(speciesName || "").trim());
+    if (!speciesName) {
+        return null;
+    }
+
+    let nickname = "";
+    if (typeof getNicknameFromImportHeader === "function") {
+        nickname = String(getNicknameFromImportHeader(headerLine, speciesName) || "").trim();
+    }
+
+    let met = "";
+    for (let i = 1; i < lines.length; i++) {
+        const match = String(lines[i] || "").match(/^Met:\s*(.*)$/i);
+        if (match) {
+            met = String(match[1] || "").trim();
+            break;
+        }
+    }
+
+    return {
+        speciesName: speciesName,
+        nickname: nickname,
+        met: met,
+        box: box,
+        slot: slot,
+        source: "save-file",
+    };
+}
+
+function uint8ArrayFromHexString(hex) {
+    if (typeof hex !== "string") {
+        throw new Error("Expected hex string");
+    }
+    if ((hex.length % 2) !== 0) {
+        throw new Error("Hex string length must be even");
+    }
+    const out = new Uint8Array(hex.length / 2);
+    for (let i = 0; i < out.length; i++) {
+        const byteText = hex.slice(i * 2, i * 2 + 2);
+        const value = parseInt(byteText, 16);
+        if (Number.isNaN(value)) {
+            throw new Error(`Invalid hex byte at index ${i}: ${byteText}`);
+        }
+        out[i] = value & 0xFF;
+    }
+    return out;
+}
+
+function resetParsedPokemonGlobalsForGen4Import() {
+    decryptedChunks = [];
+    decryptedBattleStats = [];
+    partyMons = {};
+    partySlotMetadata = [];
+    partyPIDs = [];
+    currentParty = [];
+    partyExpTables = [];
+    partyExpIndexes = [];
+    partyMovesIndexes = [];
+    savParty = [];
+    boxPokOffsets = {};
+    savBox = [];
+}
+
+function recordDsPartySlotMetadata(options) {
+    if (!options || !Number.isInteger(options.slotIndex) || options.slotIndex < 0) {
+        return;
+    }
+
+    const slotIndex = options.slotIndex;
+    const rawSpeciesId = Number(options.rawSpeciesId) || 0;
+    const speciesName = String(options.speciesName || "").trim();
+    const isEgg = !!options.isEgg;
+
+    if (typeof partySlotMetadata === "undefined" || !Array.isArray(partySlotMetadata)) {
+        partySlotMetadata = [];
+    }
+
+    partySlotMetadata[slotIndex] = {
+        speciesName: speciesName,
+        rawSpeciesId: rawSpeciesId,
+        valid: options.valid !== false,
+        isEgg: isEgg,
+    };
+
+    partyPIDs[slotIndex] = options.pv;
+    partyExpTables[slotIndex] = (typeof sav_pok_growths !== "undefined" && sav_pok_growths)
+        ? sav_pok_growths[rawSpeciesId]
+        : undefined;
+    partyExpIndexes[slotIndex] = options.monDataOffset + 4;
+    partyMovesIndexes[slotIndex] = options.moveDataOffset;
+    savParty[slotIndex] = options.decryptedData;
+
+    if (speciesName && !isEgg && options.valid !== false) {
+        partyMons[speciesName] = slotIndex;
+        currentParty.push(speciesName);
+    }
+}
+
+function isWritableDsPartySlot(partyIndex, speciesName) {
+    if (!Number.isInteger(partyIndex) || partyIndex < 0) {
+        return false;
+    }
+
+    const metadata = (typeof partySlotMetadata !== "undefined" && partySlotMetadata)
+        ? partySlotMetadata[partyIndex]
+        : null;
+
+    if (metadata && (metadata.valid === false || metadata.isEgg)) {
+        console.warn("Skipping party save sync for an egg or unrecognized party slot", {
+            speciesName: speciesName,
+            partyIndex: partyIndex,
+            metadata: metadata,
+        });
+        alert("This party slot cannot be safely edited because the save reader sees it as an egg or an unrecognized species. The save was not changed.");
+        return false;
+    }
+
+    if (typeof savParty === "undefined" || !savParty || !savParty[partyIndex] || !Array.isArray(savParty[partyIndex])) {
+        console.warn("Skipping party save sync because party core data is missing", {
+            speciesName: speciesName,
+            partyIndex: partyIndex,
+            metadata: metadata,
+        });
+        alert("This party slot could not be matched back to the loaded save. The save was not changed.");
+        return false;
+    }
+
+    const expTableIndex = (typeof partyExpTables !== "undefined" && partyExpTables) ? partyExpTables[partyIndex] : undefined;
+    if (!Number.isInteger(expTableIndex) || typeof expTables === "undefined" || !expTables || !Array.isArray(expTables[expTableIndex])) {
+        console.warn("Skipping party save sync because the EXP table is unknown", {
+            speciesName: speciesName,
+            partyIndex: partyIndex,
+            expTableIndex: expTableIndex,
+            metadata: metadata,
+        });
+        alert("This species has no known EXP table for save editing. The save was not changed.");
+        return false;
+    }
+
+    if (typeof decryptedBattleStats === "undefined" || !decryptedBattleStats || !Array.isArray(decryptedBattleStats[partyIndex])) {
+        console.warn("Skipping party save sync because battle-stat data is missing", {
+            speciesName: speciesName,
+            partyIndex: partyIndex,
+            metadata: metadata,
+        });
+        alert("This party slot is missing battle-stat data. The save was not changed.");
+        return false;
+    }
+
+    return true;
+}
+
+function getSaveEditorTargetLevel() {
+    var level = parseInt($('#levelL1').val(), 10);
+    if (!Number.isInteger(level) || level < 1 || level > 100) {
+        alert("Please choose a level from 1 to 100 before writing to the save.");
+        return null;
+    }
+    return level;
+}
+
+function wordsFromUint8LE(byteArray, byteOffset, byteLength) {
+    const words = [];
+    for (let i = 0; i < byteLength; i += 2) {
+        const lo = byteArray[byteOffset + i] || 0;
+        const hi = byteArray[byteOffset + i + 1] || 0;
+        words.push((hi << 8) | lo);
+    }
+    return words;
+}
+
+function isPKMChunkEmpty(byteArray) {
+    for (let i = 0; i < byteArray.length; i++) {
+        if ((byteArray[i] || 0) !== 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function rewriteUint8FromWordsLE(targetBytes, byteOffset, words) {
+    const bytes = convert16BitWordsToUint8Array(words);
+    targetBytes.set(bytes, byteOffset);
+}
+
+function buildParsePKMChunkFromPossiblyDecryptedLuaChunk(chunk, is_party=false) {
+    const normalized = new Uint8Array(chunk); // clone
+    const pv = read32BitIntegerFromUint8Array(normalized, 0);
+    const checksum = (normalized[0x07] << 8) | normalized[0x06];
+
+    const coreWords = wordsFromUint8LE(normalized, 0x08, 128);
+    const encryptedCore = encryptData(coreWords, checksum, 64);
+    rewriteUint8FromWordsLE(normalized, 0x08, encryptedCore);
+
+    if (is_party && normalized.length >= 236) {
+        const battleWordCount = (236 - 136) / 2;
+        const battleWords = wordsFromUint8LE(normalized, 136, 100);
+        const encryptedBattle = encryptData(battleWords, pv, battleWordCount);
+        rewriteUint8FromWordsLE(normalized, 136, encryptedBattle);
+    }
+
+    return normalized;
+}
+
+function tryParseLuaRawPartySlot0WithFallback(chunk, offset=0) {
+    try {
+        const out = parsePKM(chunk, true, offset);
+        if (typeof out === "string" && out.length > 0) {
+            return out;
+        }
+    } catch (err) {
+        console.warn("Lua raw party slot0 parsePKM failed (normal path), retrying as pre-decrypted chunk", err);
+    }
+
+    // Slot 0 is parsed first in this import path, so a reset is safe before retry.
+    resetParsedPokemonGlobalsForGen4Import();
+    const normalizedChunk = buildParsePKMChunkFromPossiblyDecryptedLuaChunk(chunk, true);
+    return parsePKM(normalizedChunk, true, offset);
+}
+
+function isDsSaveEggPokemon(monName, ivValue) {
+    return monName === "Egg" || monName === "Bad Egg" || ((ivValue >>> 30) & 0x1) === 1;
+}
+
+// Parse a DS PokeLua/DeSmuME Box-<tid>.json dump where `party` and `boxes` contain raw bytes.
+// Reuses parsePKM() so offsets/decryption stay aligned with the main Gen 4/5 save parser.
+function parsePokeLuaGen4RawBoxDump(boxDumpInput) {
+    if (!(baseGame == "DP" || baseGame == "Pt" || baseGame == "HGSS" || baseGame == "BW")) {
+        throw new Error("parsePokeLuaGen4RawBoxDump only supports DS Pt/HGSS/BW");
+    }
+
+    const dump = (typeof boxDumpInput === "string") ? JSON.parse(boxDumpInput) : boxDumpInput;
+    if (!dump || typeof dump.party !== "string" || typeof dump.boxes !== "string") {
+        throw new Error("Invalid PokeLua box dump JSON (expected hex strings in party/boxes)");
+    }
+    if (dump.partyEncoding !== "hex" || dump.boxesEncoding !== "hex") {
+        throw new Error("PokeLua box dump must use hex encoding for party/boxes");
+    }
+
+    const partyStruct = Number(dump.partyStructSize || 236);
+    const boxStruct = Number(dump.boxStructSize || 136);
+    const partyCountRaw = Number(dump.partyCount || 0);
+    const partyCountFromBytes = Math.floor((dump.party.length / 2) / partyStruct);
+    const partyCountParsed = Math.min(partyCountRaw, partyCountFromBytes);
+    const boxSlotsDumped = Number(dump.boxSlotsDumped || Math.floor((dump.boxes.length / 2) / boxStruct));
+    const boxSlotsFromBytes = Math.floor((dump.boxes.length / 2) / boxStruct);
+    const boxSlotsParsed = Math.min(boxSlotsDumped, boxSlotsFromBytes);
+
+    if (boxStruct !== 136) {
+        throw new Error(`Unexpected box struct size for DS dump (box=${boxStruct})`);
+    }
+
+    if ((baseGame == "DP" || baseGame == "Pt" || baseGame == "HGSS") && partyStruct !== 236) {
+        throw new Error(`Unexpected party struct size for Gen 4 dump (party=${partyStruct})`);
+    }
+
+    if (baseGame == "BW" && partyStruct !== 220) {
+        throw new Error(`Unexpected party struct size for BW dump (party=${partyStruct})`);
+    }
+
+    partyPokSize = partyStruct;
+    battleStatSize = (partyPokSize - 136) / 2;
+    resetParsedPokemonGlobalsForGen4Import();
+
+    const partyBytes = uint8ArrayFromHexString(dump.party);
+    const boxBytes = uint8ArrayFromHexString(dump.boxes);
+    const deadMons = [];
+
+    let showdownImport = "";
+
+    for (let i = 0; i < partyCountParsed; i++) {
+        const start = i * partyStruct;
+        const chunk = partyBytes.slice(start, start + partyStruct);
+        if (i === 0 && (baseGame == "DP" || baseGame == "Pt" || baseGame == "HGSS")) {
+            showdownImport += tryParseLuaRawPartySlot0WithFallback(chunk, start);
+        } else {
+            showdownImport += parsePKM(chunk, true, start);
+        }
+    }
+
+    for (let i = 0; i < boxSlotsParsed; i++) {
+        const start = i * boxStruct;
+        const chunk = boxBytes.slice(start, start + boxStruct);
+        showdownImport += parsePKM(chunk, false, start);
+    }
+
+    const deadBoxes = Array.isArray(dump.deadBoxes) ? dump.deadBoxes : [];
+    for (let boxIndex = 0; boxIndex < deadBoxes.length; boxIndex++) {
+        const deadBox = deadBoxes[boxIndex];
+        const slots = Array.isArray(deadBox && deadBox.slots) ? deadBox.slots : [];
+        for (let slotIndex = 0; slotIndex < slots.length; slotIndex++) {
+            const deadEntry = slots[slotIndex];
+            if (!deadEntry || typeof deadEntry !== "object") {
+                continue;
+            }
+            deadMons.push({
+                speciesName: checkExeptions(String(deadEntry.species || "").trim()),
+                speciesId: typeof deadEntry.speciesId === "number" ? deadEntry.speciesId : undefined,
+                nickname: String(deadEntry.nickname || "").trim(),
+                met: String(deadEntry.location || "").trim(),
+                metLocationId: typeof deadEntry.locationId === "number" ? deadEntry.locationId : undefined,
+                box: typeof deadEntry.box === "number" ? deadEntry.box : (Number(deadBox.box) || (boxIndex + 1)),
+                slot: typeof deadEntry.slot === "number" ? deadEntry.slot : (slotIndex + 1),
+                source: "desmume",
+            });
+        }
+    }
+
+    return {
+        trainerId: dump.trainerId,
+        secretId: dump.secretId,
+        trainerIdSecret: (Number.isFinite(Number(dump.trainerId)) && Number.isFinite(Number(dump.secretId)))
+            ? (((Number(dump.trainerId) & 0xFFFF) | ((Number(dump.secretId) & 0xFFFF) << 16)) >>> 0)
+            : null,
+        trainerKey: (dump.trainerId != null && dump.secretId != null)
+            ? `${dump.trainerId}:${dump.secretId}`
+            : null,
+        partyCount: partyCountParsed,
+        boxedPokemonCount: dump.boxedPokemonCount || 0,
+        boxSlotsDumped: boxSlotsParsed,
+        showdownImport,
+        deadMons,
+        source: "desmume",
+        rawDump: dump,
+    };
+}
+
+function loadPokeLuaGen4RawBoxDump(boxDumpInput) {
+    const result = parsePokeLuaGen4RawBoxDump(boxDumpInput);
+    if ($('.import-team-text').length) {
+        $('.import-team-text').val(result.showdownImport);
+    }
+    return result;
+}
+
+// -------- Location helpers --------
+//
+// Supported loc forms:
+//  - { where: "party", index: 0 }
+//  - { where: "box", index: 0 }              // absolute box slot index (0..n-1)
+//  - "party:0", "box:123"                    // string shorthand
+
+function parseLoc(loc) {
+  if (typeof loc === "string") {
+    const [where, idxStr] = loc.split(":");
+    const index = Number(idxStr);
+    if (!Number.isInteger(index) || index < 0) throw new Error(`Bad loc index: ${loc}`);
+    if (where !== "party" && where !== "box") throw new Error(`Bad loc where: ${loc}`);
+    return { where, index };
+  }
+  if (!loc || (loc.where !== "party" && loc.where !== "box") || !Number.isInteger(loc.index) || loc.index < 0) {
+    throw new Error(`Bad loc: ${JSON.stringify(loc)}`);
+  }
+  return loc;
+}
+
+function getPartySlotOffset(partyIndex) {
+  // In your reader: party mons start at partyCountOffset+4, each partyPokSize bytes. :contentReference[oaicite:2]{index=2}
+  return partyCountOffset + 4 + (partyIndex * partyPokSize);
+}
+
+function getBoxSlotOffset(boxIndex) {
+  // Your parsing loop adds +16 padding after every 30 slots for HGSS and BW. :contentReference[oaicite:3]{index=3}
+  // Pt has no such padding in your code.
+  const pad = (baseGame === "HGSS" || baseGame === "BW") ? (Math.floor(boxIndex / 30) * 16) : 0;
+  return boxDataOffset + (boxIndex * 136) + pad; // box chunk size is always 136 in your parser :contentReference[oaicite:4]{index=4}
+}
+
+function getSlotOffset(loc) {
+  loc = parseLoc(loc);
+  return (loc.where === "party") ? getPartySlotOffset(loc.index) : getBoxSlotOffset(loc.index);
+}
+
+function getSlotByteLength(loc) {
+  loc = parseLoc(loc);
+  return (loc.where === "party") ? partyPokSize : 136;
+}
+
+// -------- PKM decode/encode (side-effect free) --------
+
+function readPKMFromViewAtOffset(offset, isParty) {
+  const CHUNK_SIZE = isParty ? partyPokSize : 136;
+  const raw = view.slice(offset, offset + CHUNK_SIZE);
+
+  const pv = read32BitIntegerFromUint8Array(raw, 0);
+  if (isPKMChunkEmpty(raw)) {
+    return { empty: true, offset, isParty, pv, raw };
+  }
+
+  // shift order depends on pv (same logic as parsePKM) :contentReference[oaicite:5]{index=5}
+  const shiftValue = ((pv & 0x3E000) >> 0xD) % 24;
+  const shiftOrder = blockOrders[shiftValue];
+
+  // checksum at 0x06 (same logic as parsePKM) :contentReference[oaicite:6]{index=6}
+  const checksum = (raw[0x07] << 8) | raw[0x06];
+
+  // encrypted 128 bytes starts at +8, ends at 136
+  const enc = raw.slice(8, 136);
+
+  // convert to 16-bit words
+  const encryptedWords = [];
+  for (let j = 0; j < 128; j += 2) {
+    encryptedWords.push((enc[j + 1] << 8) | enc[j]);
+  }
+
+  const decryptedData = decryptData(encryptedWords, checksum); // returns 64 words :contentReference[oaicite:7]{index=7}
+
+  // party has extra encrypted battle stats after 136; you already decrypt w/ seed pv :contentReference[oaicite:8]{index=8}
+  let battle = null;
+  if (isParty) {
+    const battleBytes = raw.slice(136);
+    const battleWords = [];
+    for (let j = 0; j < battleBytes.length; j += 2) {
+      battleWords.push((battleBytes[j + 1] << 8) | battleBytes[j]);
+    }
+    battle = {
+      encryptedWords: battleWords,
+      // NOTE: decrypted battle is optional; only decrypt if you need it.
+      // decryptedWords: decryptData(battleWords, pv, battleStatSize),
+    };
+  }
+
+  // Precompute commonly-used block offsets (same as parsePKM) :contentReference[oaicite:9]{index=9}
+  const mon_data_offset  = shiftOrder.indexOf(0) * 16;
+  const move_data_offset = shiftOrder.indexOf(1) * 16;
+  const nn_data_offset   = shiftOrder.indexOf(2) * 16;
+  const met_data_offset  = shiftOrder.indexOf(3) * 16;
+
+  return {
+    empty: false,
+    offset,
+    isParty,
+    pv,
+    checksum,
+    shiftValue,
+    shiftOrder,
+    decryptedData,          // 64 x uint16 (stored in shuffled block order, like your current code)
+    raw,                    // raw bytes snapshot (useful for duplication sanity)
+    battle,
+    idx: {
+      mon: mon_data_offset,
+      moves: move_data_offset,
+      nickname: nn_data_offset,
+      met: met_data_offset,
+      species: mon_data_offset + 0,
+      item: mon_data_offset + 1,
+      expLo: mon_data_offset + 4,
+      expHi: mon_data_offset + 5,
+      abilityFriendship: mon_data_offset + 6, // your code uses high byte for ability :contentReference[oaicite:10]{index=10}
+    }
+  };
+}
+
+function writePKMToView(pkm) {
+  if (pkm.empty) throw new Error("Cannot write: source slot is empty (pv==0).");
+
+  // Recompute and write checksum + encrypted 128 bytes using your existing writer :contentReference[oaicite:11]{index=11}
+  setPKMNCheckSum(pkm.decryptedData, pkm.offset);
+
+  // Update save-block checksums / add download button (matches your update funcs) :contentReference[oaicite:12]{index=12}
+  if (baseGame !== "BW") {
+    if (pkm.isParty) setSmallBlockChecksum();
+    else setBigBlockCheckSum();
+  } else {
+    // BW checksums are handled at download time in your code. :contentReference[oaicite:13]{index=13}
+    // You can still call addSaveBtn() so you can export immediately.
+  }
+  addSaveBtn();
+}
+
+// -------- Public API --------
+
+// Generic "edit any field" by decryptedData word index
+// Example: editPokemonWord("party:0", 0 /* species word */, 25)
+function editPokemonWord(loc, wordIndex, value) {
+  loc = parseLoc(loc);
+  const offset = getSlotOffset(loc);
+  const pkm = readPKMFromViewAtOffset(offset, loc.where === "party");
+
+  if (pkm.empty) throw new Error(`Slot is empty: ${loc.where}:${loc.index}`);
+  if (!Number.isInteger(wordIndex) || wordIndex < 0 || wordIndex >= pkm.decryptedData.length) {
+    throw new Error(`wordIndex out of range (0..${pkm.decryptedData.length - 1})`);
+  }
+  pkm.decryptedData[wordIndex] = value & 0xFFFF;
+
+  writePKMToView(pkm);
+  return pkm; // return metadata so you can inspect indices in console
+}
+
+// Higher-level editor that gives you indices + helpers
+function editPokemon(loc, fn) {
+  loc = parseLoc(loc);
+  const offset = getSlotOffset(loc);
+  const pkm = readPKMFromViewAtOffset(offset, loc.where === "party");
+
+  if (pkm.empty) throw new Error(`Slot is empty: ${loc.where}:${loc.index}`);
+
+  const api = {
+    pkm,
+
+    // common fields
+    getSpecies: () => pkm.decryptedData[pkm.idx.species],
+    setSpecies: (speciesId) => { pkm.decryptedData[pkm.idx.species] = speciesId & 0xFFFF; },
+
+    getMove: (slot0to3) => pkm.decryptedData[pkm.idx.moves + slot0to3],
+    setMove: (slot0to3, moveId) => { pkm.decryptedData[pkm.idx.moves + slot0to3] = moveId & 0xFFFF; },
+
+    setItem: (itemId) => { pkm.decryptedData[pkm.idx.item] = itemId & 0xFFFF; },
+
+    // ability is stored in high byte of mon_data_offset+6 in your code :contentReference[oaicite:14]{index=14}
+    setAbilityIndex: (abilityIndex) => {
+      const i = pkm.idx.abilityFriendship;
+      pkm.decryptedData[i] = (pkm.decryptedData[i] & 0x00FF) | ((abilityIndex & 0xFF) << 8);
+    },
+
+    // raw word editing
+    setWord: (wordIndex, value) => { pkm.decryptedData[wordIndex] = value & 0xFFFF; },
+    getWord: (wordIndex) => pkm.decryptedData[wordIndex],
+
+    // expose offsets so you can script quickly
+    indices: pkm.idx
+  };
+
+  fn(api);
+  writePKMToView(pkm);
+  return pkm;
+}
+
+// Duplicate any slot -> any slot by raw byte copy.
+// This is a true clone of the slot bytes (including party battle stats region).
+function duplicatePokemonSlot(srcLoc, dstLoc) {
+  srcLoc = parseLoc(srcLoc);
+  dstLoc = parseLoc(dstLoc);
+
+  const srcOffset = getSlotOffset(srcLoc);
+  const dstOffset = getSlotOffset(dstLoc);
+
+  const srcLen = getSlotByteLength(srcLoc);
+  const dstLen = getSlotByteLength(dstLoc);
+
+  if (srcLen !== dstLen) {
+    throw new Error(`Slot sizes differ (src ${srcLen}, dst ${dstLen}). party<->box copies are allowed only if same size; yours are not.`);
+  }
+
+  const bytes = view.slice(srcOffset, srcOffset + srcLen);
+  view.set(bytes, dstOffset);
+
+  // Update block checksums like your update funcs :contentReference[oaicite:15]{index=15}
+  if (baseGame !== "BW") {
+    // If either side is party, small block checksum needs update.
+    // If either side is box, big block checksum needs update.
+    if (srcLoc.where === "party" || dstLoc.where === "party") setSmallBlockChecksum();
+    if (srcLoc.where === "box" || dstLoc.where === "box") setBigBlockCheckSum();
+  }
+
+  addSaveBtn();
+  return { srcLoc, dstLoc, srcOffset, dstOffset, len: srcLen };
+}
+
+
+
+
+
+function setBWChecksums() {
+    // set box checksums
+    for (let i = 0; i < 24;i++) {
+        // calcualte checksum for pc box
+        var boxStart = boxDataOffset + (i * 0x1000)
+        var checksum = getCheckSum(view.slice(boxStart, boxStart + boxSize))
+
+        // set new checksum
+        view.set([checksum & 0xFF, (checksum >>> 8) & 0xFF], boxStart + boxSize + 2)
+        view.set([checksum & 0xFF, (checksum >>> 8) & 0xFF], checksumsOffset + (i * 2) + 2)
+    }
+
+    // set party checksum
+    var partyChecksum = getCheckSum(view.slice(0x18e00, 0x18e00 + partySize))
+    view.set([partyChecksum & 0xFF, (partyChecksum >>> 8) & 0xFF], 0x18e00 + partySize + 2)
+    view.set([partyChecksum & 0xFF, (partyChecksum >>> 8) & 0xFF], checksumsOffset + 52)
+
+    // set checksum table
+    checksumsChecksum = getCheckSum(view.slice(checksumsOffset, checksumsOffset + checksumTableSize))
+    view.set([checksumsChecksum & 0xFF, (checksumsChecksum >>> 8) & 0xFF], checksumEnd)
+}
+
+// The decryptData function, as described earlier
+function decryptData(encryptedData, checksum, wordCount=64) {
+    const decryptedData = [];
+    let X = checksum; // Initialize PRNG with checksum as seed
+
+    for (let i = 0; i < wordCount; i++) {
+        // Advance the PRNG state
+        X = (BigInt(BigInt(0x41C64E6D) * BigInt(X)) + BigInt(0x6073)); 
+
+        // Extract the top 16 bits for XOR
+        prngValue = parseInt(BigInt(X) >> BigInt(16) & BigInt(0XFFFF))
+
+        // Decrypt by reversing the XOR operation
+        const decryptedWord = encryptedData[i] ^ prngValue;
+        // Store decrypted word
+        decryptedData.push(decryptedWord);
+    }
+    return decryptedData;
+}
+
+function getTop16BitsAsInt(bigint) {
+  const totalBits = bigint.toString(2).length;       // Get the bit length of the BigInt
+  const shiftAmount = totalBits - 16;                // Calculate the shift to get top 16 bits
+
+  if (shiftAmount <= 0) {
+    return Number(bigint & BigInt(0xFFFF));          // If 16 bits or less, just mask directly
+  }
+
+  const top16Bits = (bigint >> BigInt(shiftAmount)) & BigInt(0xFFFF); // Shift and mask
+  return Number(top16Bits);                          // Convert to regular integer
+}
+
+function toLittleEndian(value) {
+    // Ensure the value is within the 2-byte range (0 to 65535)
+    value &= 0xFFFF;
+
+    // Convert to little-endian by swapping the bytes
+    const littleEndianValue = ((value & 0xFF) << 8) | ((value >> 8) & 0xFF);
+    return littleEndianValue;
+}
+
+function parsePKM(chunk, is_party=false, offset=0) {
+
+    var showdownString = ""
+
+     // Extract the first 4 bytes and convert them to a 32-bit integer
+    pv = read32BitIntegerFromUint8Array(chunk)
+
+    if (isPKMChunkEmpty(chunk)) {
+        return ""
+    }
+
+    // Perform the function on pv: ((pv & 0x3E000) >> 0xD) % 24
+    const shiftValue = ((pv & 0x3E000) >> 0xD) % 24;
+
+    shiftOrder = blockOrders[shiftValue]
+
+    // Extract the 2-byte checksum at offset 0x06 within the chunk
+    const checksum = (chunk[0x07] << 8) | chunk[0x06];
+
+    battleStats = chunk.slice(136)
+    chunk = chunk.slice(8,136)
+
+
+    // Convert chunk to array of 16-bit words (2-byte integers) for decryption
+    const encryptedData = [];
+    for (let j = 0; j < 128; j += 2) {
+        const word = (chunk[j + 1] << 8) | chunk[j];
+        encryptedData.push(word);
+    }
+
+    const decryptedData = decryptData(encryptedData, checksum);
+
+    if (is_party) {
+        const encryptedBattleStat = []
+        for (let j = 0; j < 100; j += 2) {
+            const word = (battleStats[j + 1] << 8) | battleStats[j];
+            encryptedBattleStat.push(word);
+        }
+
+        const decryptedBattleStat = decryptData(encryptedBattleStat, pv, battleStatSize)
+        decryptedBattleStats.push(decryptedBattleStat)
+    }
+    
+    // Store decrypted chunk
+    decryptedChunks.push(decryptedData);
+    
+    var mon_data_offset = shiftOrder.indexOf(0) * 16
+    var move_data_offset = shiftOrder.indexOf(1) * 16
+    var met_data_offset = shiftOrder.indexOf(3) * 16
+    var nn_data_offset = shiftOrder.indexOf(2) * 16
+    var gender_forme_word = decryptedData[move_data_offset + 12]
+    var gender = ""
+    if (((gender_forme_word >> 2) & 0x1) === 1) {
+        gender = "N"
+    } else if (((gender_forme_word >> 1) & 0x1) === 1) {
+        gender = "F"
+    } else {
+        gender = "M"
+    }
+
+    var rawSpeciesId = decryptedData[mon_data_offset]
+    var partySlotIndex = is_party ? decryptedBattleStats.length - 1 : -1
+    if (!Number.isInteger(rawSpeciesId) || rawSpeciesId <= 0) {
+        if (is_party) {
+            recordDsPartySlotMetadata({
+                slotIndex: partySlotIndex,
+                speciesName: "",
+                rawSpeciesId: rawSpeciesId || 0,
+                pv: pv,
+                decryptedData: decryptedData,
+                monDataOffset: mon_data_offset,
+                moveDataOffset: move_data_offset,
+                valid: false,
+                isEgg: false,
+            });
+        }
+        return ""
+    }
+    var mon_name = sav_pok_names[rawSpeciesId]
+
+    try {
+       mon_name = SPECIES_BY_ID[gen][cleanString(mon_name)].name 
+   } catch {
+        invalidSavSpeciesDebugCount += 1
+        console.log(`failed to parse species id: ${rawSpeciesId}`)
+        if (invalidSavSpeciesDebugCount <= 25) {
+            console.log("[egg-debug][savereader] invalid species details", {
+                count: invalidSavSpeciesDebugCount,
+                speciesId: rawSpeciesId,
+                rawSpeciesName: mon_name || null,
+                isParty: Boolean(is_party),
+                offset: offset,
+                pid: pv >>> 0,
+                pidHex: "0x" + (pv >>> 0).toString(16).toUpperCase(),
+                shiftOrder: shiftOrder,
+                monDataOffset: mon_data_offset,
+                moveDataOffset: move_data_offset,
+                firstWords: decryptedData.slice(0, 16),
+            })
+        }
+        if (is_party) {
+            recordDsPartySlotMetadata({
+                slotIndex: partySlotIndex,
+                speciesName: "",
+                rawSpeciesId: rawSpeciesId,
+                pv: pv,
+                decryptedData: decryptedData,
+                monDataOffset: mon_data_offset,
+                moveDataOffset: move_data_offset,
+                valid: false,
+                isEgg: false,
+            });
+        }
+        return ""
+   }
+
+    
+
+    if (typeof mon_name == "undefined" && decryptedData[mon_data_offset] == 83) {
+        mon_name = "Farfetch’d"
+    }
+
+    
+
+    if (mon_name in mon_forms) {
+        var form_index = (decryptedData[move_data_offset + 12] >> 3 & 0x1F) - 1 
+        if (form_index >= 0 ) {
+           mon_name += `-${mon_forms[mon_name][form_index]}` 
+        } 
+    }
+
+    var item_name = sav_item_names[decryptedData[mon_data_offset + 1]]
+    if (typeof item_name !== "string" || !item_name.trim()) {
+        item_name = "None"
+    }
+
+    var hp_ev = decryptedData[mon_data_offset + 8] & 0xFF
+    var def_ev = decryptedData[mon_data_offset + 9] & 0xFF
+    var spa_ev = decryptedData[mon_data_offset + 10] & 0xFF
+    var atk_ev = decryptedData[mon_data_offset + 8] >> 8 & 0xFF
+    var spe_ev = decryptedData[mon_data_offset + 9] >> 8 & 0xFF
+    var spd_ev = decryptedData[mon_data_offset + 10] >> 8 & 0xFF
+
+
+    let nn = ""
+
+
+    
+    for (let i = 0;i < 10;i++) {
+        if (baseGame == "DP" || baseGame == "Pt" || baseGame == "HGSS") {
+            let letter = textTable[decryptedData[nn_data_offset + i]] || ""
+            nn += letter
+        } else {
+            let letter = String.fromCharCode(decryptedData[nn_data_offset + i])
+            if (decryptedData[nn_data_offset + i] != 65535) {
+                nn += letter
+            }  
+        }
+    }
+
+    nn = nn.replaceAll('\u0000', '');
+    
+    var iv_value = (decryptedData[move_data_offset + 9] << 16) | (decryptedData[move_data_offset + 8]  & 0xFFFF)
+    ivs = getIVs(iv_value) 
+    let met_location
+
+    const locationGameKey = getDsSaveLocationGameKey()
+    if (baseGame == "DP" || baseGame == "Pt" || baseGame == "HGSS") {
+        met_location = locations[baseGame][decryptedData[move_data_offset + 15]] 
+    } else {
+        met_location = locations[locationGameKey][decryptedData[met_data_offset + 12]] 
+    }
+    
+
+    if (isHgeSaveReaderMode()) {
+        var resolvedFormName = resolveHgeSaveFormName(mon_name, decryptedData[move_data_offset + 12])
+        if (resolvedFormName != mon_name) {
+            mon_name = resolvedFormName
+            if (pokedex[nn]) {
+                nn = mon_name
+            }
+        }
+    }
+
+
+    if (baseGame != "BW") {
+        var nature = natures[Math.abs(pv) % 25]
+    } else {
+        var natureIndex = decryptedData[move_data_offset + 12] >> 8  
+        var nature = natures[natureIndex]
+    }
+
+    var exp = (decryptedData[mon_data_offset + 5] << 16) | (decryptedData[mon_data_offset + 4]  & 0xFFFF)
+    var isEgg = isDsSaveEggPokemon(mon_name, iv_value)
+    var abilitySlotId = null
+    if (gameGen == 4) {
+        abilitySlotId = (pv & 0x1) + 1
+    }
+    if (isEgg) {
+        console.log("[egg-debug][savereader] detected egg", {
+            speciesName: mon_name,
+            isParty: Boolean(is_party),
+            offset: offset,
+            speciesId: decryptedData[mon_data_offset],
+            pid: pv >>> 0,
+            pidHex: "0x" + (pv >>> 0).toString(16).toUpperCase(),
+            exp: exp,
+            eggBit30: (iv_value >>> 30) & 0x1,
+            abilitySlotId: abilitySlotId,
+            abilityName: ability || null,
+            nickname: nn,
+        })
+    }
+
+    if (is_party) {
+        recordDsPartySlotMetadata({
+            slotIndex: partySlotIndex,
+            speciesName: mon_name,
+            rawSpeciesId: rawSpeciesId,
+            pv: pv,
+            decryptedData: decryptedData,
+            monDataOffset: mon_data_offset,
+            moveDataOffset: move_data_offset,
+            valid: true,
+            isEgg: isEgg,
+        });
+    } else {
+        boxPokOffsets[mon_name] = {}
+        boxPokOffsets[mon_name]["offset"] = offset
+        boxPokOffsets[mon_name]["decryptedData"] = decryptedData
+
+        boxPokOffsets[mon_name]["exp_table"] = sav_pok_growths[decryptedData[mon_data_offset]]
+        boxPokOffsets[mon_name]["exp_index"] = mon_data_offset + 4
+        boxPokOffsets[mon_name]["moves_index"] = move_data_offset
+    }
+
+    try {
+        if (isEgg) {
+            showdownString += `${mon_name} (Egg)`
+        } else if (nn.toLowerCase() != mon_name.toLowerCase()) {
+            showdownString += `${nn} (${mon_name})`
+        } else {
+            showdownString += `${mon_name}`
+        }
+    } catch {
+        console.log(mon_name)
+        showdownString += isEgg ? `${mon_name} (Egg)` : `${mon_name}`
+    }
+
+    if (gender && gender !== "N") {
+        showdownString += ` (${gender})`
+    }
+
+    showdownString += ` @ ${item_name}\n`
+
+    
+    
+
+    var exp_table = expTables[sav_pok_growths[decryptedData[mon_data_offset]]]
+    var level = resolveSavLevelFromExperience(mon_name, exp);
+    if (!Number.isFinite(level)) {
+        level = get_level(exp_table, exp);
+    }
+    var ability = sav_abilities[(decryptedData[mon_data_offset + 6] >> 8 & 0xFF) ]
+
+
+    showdownString += `Level: ${level}\n`
+    showdownString += `${nature} Nature\n`
+    if (ability) {
+        showdownString += `Ability: ${ability}\n`
+    }
+    if (abilitySlotId !== null) {
+        showdownString += `Ability Slot: ${abilitySlotId}\n`
+    }
+    if (isEgg) {
+        showdownString += `Egg: Yes\n`
+    }
+
+    showdownString += `EVs: ${hp_ev} HP / ${atk_ev} Atk / ${def_ev} Def / ${spa_ev} SpA / ${spd_ev} SpD / ${spe_ev} Spe\n`
+    showdownString += `IVs: ${ivs[0]} HP / ${ivs[1]} Atk / ${ivs[2]} Def / ${ivs[4]} SpA / ${ivs[5]} SpD / ${ivs[3]} Spe\n`
+
+    for (let i = 0; i < 4; i++) {
+        var move_name = sav_move_names[decryptedData[move_data_offset + i]]
+        showdownString += `- ${move_name}\n`
+    }
+
+    showdownString += `Met: ${met_location}\n`
+    showdownString += "\n"
+    return showdownString    
+}
+
+
+function read32BitIntegerFromUint8Array(array, offset = 0) {
+  const buffer = array.buffer; // Get the ArrayBuffer from the Uint8Array
+  const view = new DataView(buffer, array.byteOffset, array.byteLength);
+  return view.getUint32(offset, true); // true for little-endian
+}
+
+
+function getIVs(ivValue) {
+
+    // Extract each stat using bitwise operations
+    const hp = (ivValue >> 0) & 0x1F;         // 5 bits for HP
+    const attack = (ivValue >> 5) & 0x1F;     // 5 bits for Attack
+    const defense = (ivValue >> 10) & 0x1F;   // 5 bits for Defense
+    const speed = (ivValue >> 15) & 0x1F;     // 5 bits for Speed
+    const spAttack = (ivValue >> 20) & 0x1F;  // 5 bits for Special Attack
+    const spDefense = (ivValue >> 25) & 0x1F; // 5 bits for Special Defense
+
+    return [
+        hp,
+        attack,
+        defense,  
+        spAttack,
+        spDefense,
+        speed,
+    ];
+}
+
+function getCheckSum(dataToUpdate) {
+    // Precomputed lookup table
+    const table = new Uint16Array([
+        0x0000, 0x1021, 0x2042, 0x3063, 0x4084, 0x50A5, 0x60C6, 0x70E7,
+        0x8108, 0x9129, 0xA14A, 0xB16B, 0xC18C, 0xD1AD, 0xE1CE, 0xF1EF,
+        0x1231, 0x0210, 0x3273, 0x2252, 0x52B5, 0x4294, 0x72F7, 0x62D6,
+        0x9339, 0x8318, 0xB37B, 0xA35A, 0xD3BD, 0xC39C, 0xF3FF, 0xE3DE,
+        0x2462, 0x3443, 0x0420, 0x1401, 0x64E6, 0x74C7, 0x44A4, 0x5485,
+        0xA56A, 0xB54B, 0x8528, 0x9509, 0xE5EE, 0xF5CF, 0xC5AC, 0xD58D,
+        0x3653, 0x2672, 0x1611, 0x0630, 0x76D7, 0x66F6, 0x5695, 0x46B4,
+        0xB75B, 0xA77A, 0x9719, 0x8738, 0xF7DF, 0xE7FE, 0xD79D, 0xC7BC,
+        0x48C4, 0x58E5, 0x6886, 0x78A7, 0x0840, 0x1861, 0x2802, 0x3823,
+        0xC9CC, 0xD9ED, 0xE98E, 0xF9AF, 0x8948, 0x9969, 0xA90A, 0xB92B,
+        0x5AF5, 0x4AD4, 0x7AB7, 0x6A96, 0x1A71, 0x0A50, 0x3A33, 0x2A12,
+        0xDBFD, 0xCBDC, 0xFBBF, 0xEB9E, 0x9B79, 0x8B58, 0xBB3B, 0xAB1A,
+        0x6CA6, 0x7C87, 0x4CE4, 0x5CC5, 0x2C22, 0x3C03, 0x0C60, 0x1C41,
+        0xEDAE, 0xFD8F, 0xCDEC, 0xDDCD, 0xAD2A, 0xBD0B, 0x8D68, 0x9D49,
+        0x7E97, 0x6EB6, 0x5ED5, 0x4EF4, 0x3E13, 0x2E32, 0x1E51, 0x0E70,
+        0xFF9F, 0xEFBE, 0xDFDD, 0xCFFC, 0xBF1B, 0xAF3A, 0x9F59, 0x8F78,
+        0x9188, 0x81A9, 0xB1CA, 0xA1EB, 0xD10C, 0xC12D, 0xF14E, 0xE16F,
+        0x1080, 0x00A1, 0x30C2, 0x20E3, 0x5004, 0x4025, 0x7046, 0x6067,
+        0x83B9, 0x9398, 0xA3FB, 0xB3DA, 0xC33D, 0xD31C, 0xE37F, 0xF35E,
+        0x02B1, 0x1290, 0x22F3, 0x32D2, 0x4235, 0x5214, 0x6277, 0x7256,
+        0xB5EA, 0xA5CB, 0x95A8, 0x8589, 0xF56E, 0xE54F, 0xD52C, 0xC50D,
+        0x34E2, 0x24C3, 0x14A0, 0x0481, 0x7466, 0x6447, 0x5424, 0x4405,
+        0xA7DB, 0xB7FA, 0x8799, 0x97B8, 0xE75F, 0xF77E, 0xC71D, 0xD73C,
+        0x26D3, 0x36F2, 0x0691, 0x16B0, 0x6657, 0x7676, 0x4615, 0x5634,
+        0xD94C, 0xC96D, 0xF90E, 0xE92F, 0x99C8, 0x89E9, 0xB98A, 0xA9AB,
+        0x5844, 0x4865, 0x7806, 0x6827, 0x18C0, 0x08E1, 0x3882, 0x28A3,
+        0xCB7D, 0xDB5C, 0xEB3F, 0xFB1E, 0x8BF9, 0x9BD8, 0xABBB, 0xBB9A,
+        0x4A75, 0x5A54, 0x6A37, 0x7A16, 0x0AF1, 0x1AD0, 0x2AB3, 0x3A92,
+        0xFD2E, 0xED0F, 0xDD6C, 0xCD4D, 0xBDAA, 0xAD8B, 0x9DE8, 0x8DC9,
+        0x7C26, 0x6C07, 0x5C64, 0x4C45, 0x3CA2, 0x2C83, 0x1CE0, 0x0CC1,
+        0xEF1F, 0xFF3E, 0xCF5D, 0xDF7C, 0xAF9B, 0xBFBA, 0x8FD9, 0x9FF8,
+        0x6E17, 0x7E36, 0x4E55, 0x5E74, 0x2E93, 0x3EB2, 0x0ED1, 0x1EF0
+    ]);
+    let sum = 0xFFFF;
+    const view = new Uint8Array(dataToUpdate);
+    for (let i = 0; i < view.length; i++) {
+        sum = ((sum << 8) ^ table[(view[i] ^ (sum >> 8)) & 0xFF]) & 0xFFFF;
+    }
+    console.log('0x' + (sum & 0xFFFF).toString(16).toUpperCase().padStart(4, '0'))
+    return '0x' + (sum & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
+}
+
+function getPKMNCheckSum(array) {
+    let sum = 0;
+    for (let i = 0; i < array.length; i++) {
+        sum += array[i];
+    }
+    return sum & 0xFFFF; 
+}
+
+function getSaveSyncSpeciesName(speciesNameOverride=false) {
+    if (speciesNameOverride) {
+        return speciesNameOverride;
+    }
+
+    if (!$('.set-selector')[0] || !$('.set-selector')[0].value) {
+        return "";
+    }
+
+    return $('.set-selector')[0].value.split("(")[0].trim();
+}
+
+function hasWritableDsSaveForCurrentSelection(speciesNameOverride=false) {
+    if (!saveUploaded || !["HGSS", "BW", "Pt", "BW2"].includes(baseGame)) {
+        return false;
+    }
+
+    if (typeof view === "undefined" || !view) {
+        return false;
+    }
+
+    var speciesName = getSaveSyncSpeciesName(speciesNameOverride);
+    if (!speciesName) {
+        return false;
+    }
+
+    var loadedPartyMons = (typeof partyMons !== "undefined" && partyMons && typeof partyMons === "object") ? partyMons : {};
+    var loadedBoxPokOffsets = (typeof boxPokOffsets !== "undefined" && boxPokOffsets && typeof boxPokOffsets === "object") ? boxPokOffsets : {};
+
+    return typeof loadedPartyMons[speciesName] !== "undefined" || !!loadedBoxPokOffsets[speciesName];
+}
+
+function updateBoxPKMN(edge=false, speciesNameOverride=false) {
+    var selected = getSaveSyncSpeciesName(speciesNameOverride)
+    if (!selected) {
+        return false
+    }
+
+    if (typeof boxPokOffsets === "undefined" || !boxPokOffsets || !boxPokOffsets[selected]) {
+        console.warn("Skipping box save sync because no loaded save box data exists for", selected)
+        return false
+    }
+
+    var level = getSaveEditorTargetLevel()
+    if (level === null) {
+        return false
+    }
+ 
+    // edge = confirm("Would you like to edge exp to max as well? Clicking cancel will only update level/items/moves")
+    var boxPokData = boxPokOffsets[selected]
+    var decryptedData = boxPokData["decryptedData"] 
+    var expTable = expTables[boxPokData["exp_table"]]
+    var desiredExp = expTable[level - 1] 
+
+    // edge exp
+
+    decryptedData = updatePKMNLevel(decryptedData, boxPokData["exp_index"], expTable, level, edge, selected)
+    decryptedData = updatePKMNProps(decryptedData, boxPokData["exp_index"], boxPokData["moves_index"])
+
+    setPKMNCheckSum(decryptedData, boxPokData["offset"])
+
+    setBigBlockCheckSum()
+    addSaveBtn()
+
+    changelog += `<p>${selected} updated</p>`
+    $('#changelog').html(changelog) 
+    return true
+}
+
+function updatePKMNLevel(decryptedData, expIndex, expTable, level, edge=false, speciesName=false) {
+    if (!Array.isArray(decryptedData) || !Number.isInteger(expIndex) || expIndex < 0) {
+        throw new Error("Cannot update Pokemon level: missing decrypted Pokemon data.");
+    }
+
+    if (!Array.isArray(expTable)) {
+        throw new Error("Cannot update Pokemon level: missing EXP table.");
+    }
+
+    if (!Number.isInteger(level) || level < 1 || level > 100) {
+        throw new Error("Cannot update Pokemon level: level must be 1-100.");
+    }
+    
+    if (edge) {
+        // get target exp from exp tables
+        
+        var desiredExp = expTable[level] - 1   
+        if (!Number.isFinite(desiredExp)) {
+            throw new Error("Cannot update Pokemon level: target EXP is unavailable.");
+        }
+        
+        decryptedData[expIndex] = desiredExp & 0xFFFF
+        decryptedData[expIndex + 1] = (desiredExp >>> 16) & 0xFFFF  
+        
+        var selected = speciesName || getSaveSyncSpeciesName()
+        changelog += `<p>${selected} edged to level ${level + 1}</p>`    
+    } else {
+        level = level - 1
+        var desiredExp = expTable[level]
+        if (!Number.isFinite(desiredExp)) {
+            throw new Error("Cannot update Pokemon level: target EXP is unavailable.");
+        }
+        if (parseInt($('#levelL1').val()) != currentLvl) {
+            console.log("updating level to " + $('#levelL1').val())
+            decryptedData[expIndex] = desiredExp & 0xFFFF
+            decryptedData[expIndex + 1] = (desiredExp >>> 16) & 0xFFFF  
+        }
+
+    }
+
+    return decryptedData    
+}
+
+function updatePKMNProps(decryptedData, expIndex, movesIndex) {
+
+    // write item 
+    var item_index = sav_item_names.indexOf($('#itemL1').val())
+    if (item_index > -1) {
+        decryptedData[expIndex - 3] = item_index
+    }
+
+
+    // write ability
+    var ab_index = sav_abilities.indexOf($('#abilityL1').val())
+    if (ab_index > -1) {
+        // decryptedData[expIndex + 2] = ( decryptedData[expIndex + 2] & 0xFF) | ab_index
+        decryptedData[expIndex + 2] = (decryptedData[expIndex + 2] & 0xFF) | (ab_index << 8);
+    }
+
+
+    // write nature
+    var nature_index = natures.indexOf($('#natureL1').val())
+    if (baseGame == 'BW') {
+        if (nature_index > -1) {
+            decryptedData[movesIndex + 12] = (decryptedData[movesIndex + 12] & 0xFF) | (nature_index << 8);
+        }
+    }
+
+
+    // write EVs
+    var hp_ev = getSaveEditorEvValue('.hp')
+    var at_ev = getSaveEditorEvValue('.at')
+    var df_ev = getSaveEditorEvValue('.df')
+    var sp_ev = getSaveEditorEvValue('.sp')
+    var sa_ev = getSaveEditorEvValue('.sa')
+    var sd_ev = getSaveEditorEvValue('.sd')
+
+    decryptedData[expIndex + 4] = (decryptedData[expIndex + 4] & 0xFF00) | hp_ev
+    decryptedData[expIndex + 5] = (decryptedData[expIndex + 5] & 0xFF00) | df_ev
+    decryptedData[expIndex + 6] = (decryptedData[expIndex + 6] & 0xFF00) | sa_ev
+    decryptedData[expIndex + 4] = (decryptedData[expIndex + 4] & 0xFF) | (at_ev << 8)
+    decryptedData[expIndex + 5] = (decryptedData[expIndex + 5] & 0xFF) | (sp_ev << 8)
+    decryptedData[expIndex + 6] = (decryptedData[expIndex + 6] & 0xFF) | (sd_ev << 8)
+
+    // max friendship
+    decryptedData[expIndex + 2] = ( decryptedData[expIndex + 2] & 0xFF00) | 255
+
+     // write moves
+    // swap move replacements
+
+    var titleMoveChanges = typeof getMoveChangesForTitle === "function" ? getMoveChangesForTitle(TITLE) : (moveChanges[TITLE] || {})
+    if (Object.keys(titleMoveChanges).length) {
+        var reverseMoveChanges = Object.fromEntries(
+        Object.entries(titleMoveChanges).map(([key, value]) => [value, key])
+    );
+    } else {
+        var reverseMoveChanges = {}
+    }
+
+    for (let moveID = 0;moveID<4;moveID++) {
+        var move_name = $(`.move${moveID + 1} .select2-container`).first().text().trim()
+
+        // swap move back to original for rom hacks
+        if (reverseMoveChanges[move_name]) {
+            move_name = reverseMoveChanges[move_name]
+        }
+
+        var move_index = sav_move_names.indexOf(move_name)
+        if (move_index > -1) {
+            decryptedData[movesIndex + moveID] = move_index
+        }
+    }
+    return decryptedData
+}
+
+function getSaveEditorEvValue(statSelector) {
+    var rawValue = $('#p1').find(statSelector + ' .evs').val()
+    var value = parseInt(rawValue, 10)
+    if (!Number.isFinite(value)) {
+        return 0
+    }
+    return Math.max(0, Math.min(255, value)) & 0xFF
+}
+
+// updates the selected party pokemon with the battle stats displayed on showdown calc, and edges exp to max
+// speciesNameOverride is set when this function is called from running the batch edge function, otherwise will be false
+function updatePartyPKMN(edge=false, speciesNameOverride=false) {
+    var speciesName = getSaveSyncSpeciesName(speciesNameOverride)
+    if (!speciesName) {
+        return false
+    }
+
+    if (!hasWritableDsSaveForCurrentSelection(speciesName)) {
+        console.warn("Skipping party save sync because no loaded save data exists for", speciesName)
+        return false
+    }
+
+    var partyIndex
+    if (typeof partyMons !== "undefined" && partyMons && typeof partyMons === "object") {
+        partyIndex = partyMons[speciesName]
+    }
+    
+    // search box if not in party
+    if (typeof partyIndex === 'undefined') {
+        return updateBoxPKMN(edge, speciesName)
+    }
+
+    if (!isWritableDsPartySlot(partyIndex, speciesName)) {
+        return false
+    }
+
+    var partyOffset = partyCountOffset + 4
+
+    const decryptedBattleStat = decryptedBattleStats[partyIndex]
+    const updatedBattleStat = updateBattleStat(decryptedBattleStat, speciesName, speciesNameOverride != false)
+    const level = updatedBattleStat[2]
+    
+    if (level == 0 || level == 1) {
+        console.log(updatedBattleStat)
+        alert("Something went wrong, please refresh page and try again. Please contact hzla on discord and let me know what you were doing right before seeing this message if possible.")
+    }
+
+
+    savParty[partyIndex] = updatePKMNLevel(savParty[partyIndex], partyExpIndexes[partyIndex], expTables[partyExpTables[partyIndex]], level, edge, speciesName)
+    
+    decryptedData = savParty[partyIndex]
+    
+    if (!speciesNameOverride) {
+        decryptedData = updatePKMNProps(savParty[partyIndex], partyExpIndexes[partyIndex], partyMovesIndexes[partyIndex])
+    }
+    
+    // write checksum for main pkmn data
+    setPKMNCheckSum(decryptedData, partyCountOffset + 4 + (partyIndex * partyPokSize))
+    
+    // encrypt and write battle stats
+    var encryptedBattleStat = encryptData(updatedBattleStat, partyPIDs[partyIndex], battleStatSize)
+    uint8PokArray = convert16BitWordsToUint8Array(encryptedBattleStat)
+    view.set(uint8PokArray, partyOffset + (partyIndex * partyPokSize) + 136)
+
+    changelog += `<p>Party ${speciesName} stats updated</p>`
+    $('#changelog').html(changelog)
+
+    setSmallBlockChecksum()   
+    addSaveBtn()
+    return true
+}
+
+$('#edge').click(function() {
+    edgeSelected()
+})
+
+function edgeSelected(maxIVs=false) {
+    var selected = getSelectedPoks()
+
+    desiredLevel = parseInt(prompt("Edge selection to level: "))
+    if (!Number.isInteger(desiredLevel) || desiredLevel < 2 || desiredLevel > 100) {
+        alert("Please choose a target edge level from 2 to 100.");
+        return
+    }
+
+    if (selected.length == 0) {
+        alert("Nothing selected")
+        return
+    }
+
+    for (let i = 0;i < selected.length; i++) {
+        
+        // if not found in box
+        if (!boxPokOffsets[selected[i]]) {
+            updatePartyPKMN(true, selected[i])
+            continue
+        }
+
+        var boxPokData = boxPokOffsets[selected[i]]
+        var expTable = expTables[boxPokData["exp_table"]]
+        if (!Array.isArray(expTable)) {
+            console.warn("Skipping edge update because the EXP table is unknown", selected[i], boxPokData)
+            continue
+        }
+        var desiredExp = expTable[desiredLevel - 1] - 1
+        if (!Number.isFinite(desiredExp)) {
+            console.warn("Skipping edge update because target EXP is unavailable", selected[i], desiredLevel)
+            continue
+        }
+
+        var decryptedData = boxPokData["decryptedData"]
+        decryptedData[boxPokData["exp_index"]] = desiredExp & 0xFFFF
+        decryptedData[boxPokData["exp_index"] + 1] = (desiredExp >>> 16) & 0xFFFF
+
+        setPKMNCheckSum(decryptedData, boxPokData["offset"])
+        changelog += `<p>${selected[i]} edged to level ${desiredLevel - 1}</p>`
+    }
+
+    setBigBlockCheckSum()
+    addSaveBtn()
+
+    $('#changelog').html(changelog)
+}
+
+function setPKMNCheckSum(decryptedData, offset) {
+    var newPKMNCheckSum = getPKMNCheckSum(decryptedData)
+    var encryptedPok = encryptData(decryptedData, newPKMNCheckSum)
+    var uint8PokArray = convert16BitWordsToUint8Array(encryptedPok)
+
+    view.set([newPKMNCheckSum & 0xFF, (newPKMNCheckSum >>> 8) & 0xFF], offset + 6)
+    view.set(uint8PokArray, offset + 8)
+}
+
+function setSmallBlockChecksum() {
+    if (baseGame != "BW") {
+        var checkSum = getCheckSum(view.slice(smallBlockStart, smallBlockSize + smallBlockStart - footerSize))
+        view.set([checkSum & 0xFF, (checkSum >>> 8) & 0xFF], smallBlockSize + smallBlockStart - 2)
+    }
+}
+
+function setBigBlockCheckSum() {
+    if (baseGame != "BW") {
+        var checkSum = getCheckSum(view.slice(bigBlockStart, bigBlockStart + bigBlockSize - footerSize))
+        view.set([checkSum & 0xFF, (checkSum >>> 8) & 0xFF], bigBlockStart + bigBlockSize - 2)
+    } 
+}
+
+function addSaveBtn() {
+    $('#download-sav').remove()
+    var downloadButton = `<button type="button" id="download-sav" class="bs-btn bs-btn-default" onClick='downloadSave()'>Download .sav</button>`
+    var insertTarget = $('#read-save')
+    if (!insertTarget.length || !insertTarget.is(':visible')) {
+        insertTarget = $('#save-pok')
+    }
+    if (insertTarget.length) {
+        insertTarget.after(downloadButton)
+    } else {
+        $('#import-1_wrapper').append(downloadButton)
+    }
+}
+
+function encryptData(decryptedData, checksum, wordCount=64) {
+    const encryptedData = [];
+    let X = checksum; // Initialize PRNG with checksum as seed
+
+    for (let i = 0; i < wordCount; i++) {
+        // Advance the PRNG state
+        X = (BigInt(0x41C64E6D) * BigInt(X) + BigInt(0x6073)) & BigInt(0xFFFFFFFF);
+
+        // Extract the top 16 bits for XOR
+        const prngValue = Number((X >> BigInt(16)) & BigInt(0xFFFF));
+
+        // Encrypt by applying XOR to the decrypted data
+        const encryptedWord = decryptedData[i] ^ prngValue;
+
+        // Store encrypted word
+        encryptedData.push(encryptedWord);
+    }
+    return encryptedData;
+}
+
+
+function convert16BitWordsToUint8Array(words) {
+    const byteArray = new Uint8Array(words.length * 2); // Each word produces 2 bytes
+    for (let i = 0; i < words.length; i++) {
+        // Get the current 16-bit word
+        const word = words[i];
+
+        // Split into two bytes and store in little-endian format
+        byteArray[i * 2] = word & 0xFF; // Lower byte
+        byteArray[i * 2 + 1] = (word >> 8) & 0xFF; // Higher byte
+    }
+    return byteArray;
+}
+
+function downloadSave() {
+    if (baseGame == "BW") {
+        setBWChecksums()
+    }
+    const blob = new Blob([view], { type: 'application/octet-stream' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${TITLE}_edited.${savExt}`; 
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function getSelectedPoks() {
+    var selected = []
+    $('.player-party .left-side').each(function() {
+        selected.push($(this).attr('data-id').split(" (My")[0])
+    })
+    return selected
+}
+
+function getAllPoks() {
+    var selected = []
+    $('#p1 .trainer-pok-list .left-side').each(function() {
+        selected.push($(this).attr('data-id').split(" (My")[0])
+    })
+    return selected
+}
+
+function bedtime() {
+    for (let i=0;i<partyCount;i++) {
+        var battleStat = decryptedBattleStats[i]
+
+        battleStat[0] = 1
+
+        var encryptedBattleStat = encryptData(battleStat, partyPIDs[i], battleStatSize)
+        uint8PokArray = convert16BitWordsToUint8Array(encryptedBattleStat)
+        view.set(uint8PokArray, partyCountOffset + 4 + (i * partyPokSize) + 136)
+    }
+
+    changelog += `<p>Party set to 1 turn sleep</p>`
+    $('#changelog').html(changelog)
+    setSmallBlockChecksum()   
+    addSaveBtn()
+}
+
+function updateBattleStat(battleStat, speciesName, batch=false) {
+    if (!batch) {
+        level = getSaveEditorTargetLevel()
+        if (level === null) {
+            throw new Error("Cannot update battle stats: invalid target level.");
+        }
+    } else {
+        level = desiredLevel - 1
+        if (!Number.isInteger(level) || level < 1 || level > 100) {
+            throw new Error("Cannot update battle stats: invalid batch target level.");
+        }
+    }
+
+
+
+    const currentHp = parseInt($('#currentHpL1').val())
+        
+    var set = customSets[speciesName]["My Box"]
+    var pokeinfo = pokedex[speciesName]
+
+    if (typeof set.ivs === 'undefined') {
+        set.ivs = {'hp': 31, 'at': 31, 'df':31, 'sa':31, 'sd':31, 'sp':31}
+    }
+
+    if (typeof set.evs === 'undefined') {
+        set.evs = {'hp': 0, 'at': 0, 'df':0, 'sa':0, 'sd':0, 'sp':0}
+    }
+
+    battleStat[2] = level
+
+    const hp = getStat([natMods[set.nature].plus, natMods[set.nature].minus], 'hp' , pokeinfo.bs.hp, set.ivs.hp, set.evs.hp,level)
+    const at = getStat([natMods[set.nature].plus, natMods[set.nature].minus], 'atk', pokeinfo.bs.at, set.ivs.at, set.evs.at,level)
+    const df = getStat([natMods[set.nature].plus, natMods[set.nature].minus], 'def', pokeinfo.bs.df, set.ivs.df, set.evs.df,level)
+    const sa = getStat([natMods[set.nature].plus, natMods[set.nature].minus], 'spa', pokeinfo.bs.sa, set.ivs.sa, set.evs.sa,level)
+    const sd = getStat([natMods[set.nature].plus, natMods[set.nature].minus], 'spd', pokeinfo.bs.sd, set.ivs.sd, set.evs.sd,level)
+    const sp = getStat([natMods[set.nature].plus, natMods[set.nature].minus], 'spe', pokeinfo.bs.sp, set.ivs.sp, set.evs.sp,level)
+
+
+
+
+
+    const status = $('#statusL1').val()
+
+    
+    if ([hp,at,df,sp,sa,sd].includes(0)) {
+        alert("Something went wrong, please refresh page and try again. Please contact hzla on discord and let me know what you were doing right before seeing this message if possible.")
+    }
+
+    battleStat[3] = hp
+    battleStat[4] = hp
+    battleStat[5] = at
+    battleStat[6] = df
+    battleStat[7] = sp
+    battleStat[8] = sa
+    battleStat[9] = sd
+
+    // only edit current hp and status if manually editing
+    if (!batch) {
+        battleStat[3] = currentHp  
+        if (baseGame != "BW") {
+            if (status == "Poisoned") {
+                battleStat[0] = 0 | (1 << 3)
+            } else if (status == "Asleep") {
+                battleStat[0] = 1
+            } else if (status == "Burned") {
+                battleStat[0] = 0 | (1 << 4)   
+            } else if (status == "Paralyzed") {
+                battleStat[0] = 0| (1 << 6)   
+            } else if (status == "Frozen") {
+                battleStat[0] = 0 | (1 << 5)   
+            } else if (status == "Badly Poisoned") {
+                battleStat[0] = 0 | (1 << 7)   
+            } else { // healthy
+                battleStat[0] = 0 
+            }
+        } else {
+            if (status == "Poisoned") {
+                battleStat[0] = 5
+            } else if (status == "Asleep") {
+                battleStat[0] = 2
+            } else if (status == "Burned") {
+                battleStat[0] = 4  
+            } else if (status == "Paralyzed") {
+                battleStat[0] = 1 
+            } else if (status == "Frozen") {
+                battleStat[0] = 3 
+            } else if (status == "Badly Poisoned") {
+                battleStat[0] = 6
+            } else { // healthy
+                battleStat[0] = 0 
+            }
+        }
+    }
+    return battleStat
+}
+
+function adjustPokemonPV(originalPV, desiredNature) {
+    // Extract the original block shift order
+    const originalShiftOrder = ((originalPV & 0x3E000) >> 0xD) % 24;
+  
+    // Try different PV values to find one that matches the desired criteria
+    for (let i = 0; i < 25; i++) {
+        const candidatePV = originalPV - (originalPV % 25) + desiredNature + (i * 25);
+        
+        // Check if the candidate PV maintains the original block shift order
+        const candidateShiftOrder = ((candidatePV & 0x3E000) >> 0xD) % 24;
+        
+        if (candidateShiftOrder === originalShiftOrder) {
+            return candidatePV;
+        }
+    }
+}
+
+function getStat(mods, stat, base, iv, ev, level) {
+    if (!ev) {
+        ev = 0
+    }
+
+
+    if (!iv && iv != 0) {
+        iv = 31
+    }
+    if (stat === 'hp') {
+        return base === 1
+            ? base
+            : Math.floor(((base * 2 + iv + Math.floor(ev / 4)) * level) / 100) + level + 10;
+    }
+    else {
+        var n = mods[0] === stat && mods[1] === stat
+            ? 1
+            : mods[0] === stat
+                ? 1.1
+                : mods[1] === stat
+                    ? 0.9
+                    : 1;
+        // console.log(`${stat}: ${Math.floor((Math.floor(((base * 2 + iv + Math.floor(ev / 4)) * level) / 100) + 5) * n)}`)
+        return Math.floor((Math.floor(((base * 2 + iv + Math.floor(ev / 4)) * level) / 100) + 5) * n);
+    }
+};
+
+function resolveHgeSaveFormName(monName, genderFormWord) {
+    if (
+        !isHgeSaveReaderMode()
+        || !Number.isInteger(genderFormWord)
+        || typeof pokedex == "undefined"
+        || !pokedex[monName]
+        || !Array.isArray(pokedex[monName]["otherFormes"])
+    ) {
+        return monName
+    }
+
+    // HGE stores 0 for the base form and 1 for the first entry in otherFormes.
+    // The previous `> 0` check accidentally skipped that first alternate form.
+    var formIndex = (((genderFormWord & 0xFF) >> 3) & 0x1F) - 1
+    if (formIndex < 0) {
+        return monName
+    }
+    var candidateFormName = pokedex[monName]["otherFormes"][formIndex]
+    // hg-engine's PokeOtherFormMonsNoGet keeps the base species unless its
+    // species/form pair exists in PokeFormDataTbl. The ROM species catalog is
+    // our exported equivalent of that check; do not let unrelated global calc
+    // formes (for example Torterra-Mega) reinterpret an otherwise ignored bit.
+    if (!candidateFormName || !hasHgeRomSpecies(candidateFormName)) {
+        return monName
+    }
+    return candidateFormName
+}
+
+function hasHgeRomSpecies(speciesName) {
+    if (
+        !speciesName
+        || typeof backup_data == "undefined"
+        || !backup_data
+    ) {
+        return false
+    }
+
+    var speciesMaps = [backup_data.poks, backup_data.formatted_sets]
+    var speciesId = typeof cleanString == "function"
+        ? cleanString(speciesName)
+        : String(speciesName).replace(/[^a-zA-Z0-9]/g, "").toLowerCase()
+
+    for (var i = 0; i < speciesMaps.length; i++) {
+        var speciesMap = speciesMaps[i]
+        if (!speciesMap || typeof speciesMap != "object") {
+            continue
+        }
+        if (speciesMap[speciesName] || speciesMap[speciesId]) {
+            return true
+        }
+    }
+
+    return false
+}
+
+if (typeof module !== "undefined" && module.exports) {
+    module.exports.__test = {
+        resetParsedPokemonGlobalsForGen4Import,
+        recordDsPartySlotMetadata,
+        isWritableDsPartySlot,
+        isDsSaveEggPokemon,
+        isHgeSaveReaderMode,
+        getHgssBoxDataBaseOffset,
+        configureHgssSaveReaderOffsets,
+        ensureHgeSaveIncludeTables,
+        hasHgeRomSpecies,
+        resolveHgeSaveFormName,
+        parsePKM,
+        encryptData,
+    };
+}

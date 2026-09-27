@@ -1,0 +1,687 @@
+function getGen4Phase2MoveTableName(moveName) {
+    if (!moveName) {
+        return moveName
+    }
+    if (/^HP\s+\w+$/.test(moveName) || /^Hidden Power\s+\w+$/.test(moveName)) {
+        return "Hidden Power"
+    }
+    if (moveName == "HP") {
+        return "Hidden Power"
+    }
+    if (moveName == "Sonicboom") {
+        return "Sonic Boom"
+    }
+    return moveName
+}
+
+function getGen4Phase2MoveSources() {
+    var sources = []
+    if (typeof jsonMoves !== "undefined" && jsonMoves) {
+        sources.push(jsonMoves)
+    }
+    if (typeof backup_moves !== "undefined" && backup_moves) {
+        sources.push(backup_moves)
+    }
+    if (typeof moves !== "undefined" && moves) {
+        sources.push(moves)
+    }
+
+    return sources
+}
+
+function getGen4Phase2MoveData(moveName) {
+    var tableName = getGen4Phase2MoveTableName(moveName)
+    var sources = getGen4Phase2MoveSources()
+
+    for (var i = 0; i < sources.length; i++) {
+        var source = sources[i]
+        if (source[tableName]) {
+            return source[tableName]
+        }
+        if (source[moveName]) {
+            return source[moveName]
+        }
+    }
+
+    return null
+}
+
+function getGen4Phase2MovePower(moveName) {
+    var move = getGen4Phase2MoveData(moveName)
+    if (!move) {
+        return NaN
+    }
+    if (typeof move.bp !== "undefined") {
+        return Number(move.bp)
+    }
+    if (typeof move.basePower !== "undefined") {
+        return Number(move.basePower)
+    }
+    if (typeof move.power !== "undefined") {
+        return Number(move.power)
+    }
+    return NaN
+}
+
+var GEN4_PHASE2_SOURCE_POWER_ONE_MOVES = [
+    "Bide",
+    "Counter",
+    "Crush Grip",
+    "Dragon Rage",
+    "Endeavor",
+    "Fissure",
+    "Flail",
+    "Fling",
+    "Frustration",
+    "Grass Knot",
+    "Guillotine",
+    "Gyro Ball",
+    "Hidden Power",
+    "Horn Drill",
+    "Low Kick",
+    "Magnitude",
+    "Metal Burst",
+    "Mirror Coat",
+    "Natural Gift",
+    "Night Shade",
+    "Present",
+    "Psywave",
+    "Punishment",
+    "Return",
+    "Reversal",
+    "Seismic Toss",
+    "Sheer Cold",
+    "SonicBoom",
+    "Sonic Boom",
+    "Spit Up",
+    "Super Fang",
+    "Trump Card",
+    "Wring Out"
+]
+
+function isGen4Phase2IgnoredMove(moveName) {
+    var tableName = getGen4Phase2MoveTableName(moveName)
+    return getGen4Phase2MovePower(moveName) == 1 ||
+        GEN4_PHASE2_SOURCE_POWER_ONE_MOVES.includes(tableName)
+}
+
+function getGen4TrainerPreviewDataId(setId) {
+    if (typeof getTrainerPreviewDataId === "function") {
+        return getTrainerPreviewDataId(setId)
+    }
+    return typeof setId === "string" ? setId.split("[")[0] : ""
+}
+
+function getGen4CurrentOpposingDataId() {
+    if (typeof getOpposingFaintDataId === "function") {
+        return getOpposingFaintDataId()
+    }
+
+    var currentSet = ""
+    var opposingSelector = $(".set-selector.opposing")
+    if (opposingSelector.length) {
+        currentSet = opposingSelector.last().val()
+    }
+    currentSet = currentSet || $("input.opposing").val() || ""
+    return getGen4TrainerPreviewDataId(currentSet)
+}
+
+function isGen4TrainerPreviewFainted(setId, dataId) {
+    if (typeof fainted === "undefined" || !Array.isArray(fainted)) {
+        return false
+    }
+    return fainted.includes(dataId) || fainted.includes(setId)
+}
+
+function getGen4TrainerPreviewPartyIndex(setId, fallbackIndex) {
+    if (typeof setId !== "string") {
+        return fallbackIndex
+    }
+
+    var match = setId.match(/\[(\d+)\]\s*$/)
+    if (!match) {
+        return fallbackIndex
+    }
+
+    return parseInt(match[1])
+}
+
+function getGen4TrainerPoksInPartyOrder(trainerPoks) {
+    return trainerPoks.map(function(setId, originalIndex) {
+        return {
+            setId: setId,
+            originalIndex: originalIndex,
+            partyIndex: getGen4TrainerPreviewPartyIndex(setId, originalIndex)
+        }
+    }).sort(function(a, b) {
+        if (a.partyIndex === b.partyIndex) {
+            return a.originalIndex - b.originalIndex
+        }
+        return a.partyIndex - b.partyIndex
+    }).map(function(entry) {
+        return entry.setId
+    })
+}
+
+function gen4AiU8(value) {
+    return Number(value) & 0xFF
+}
+
+function gen4AiDivide(dividend, divisor) {
+    if (dividend == 0) {
+        return dividend
+    }
+
+    var signedFloor = dividend < 0 ? -1 : 1
+    var quotient = dividend < 0 ? Math.ceil(dividend / divisor) : Math.floor(dividend / divisor)
+    return quotient == 0 ? signedFloor : quotient
+}
+
+function gen4AiApplyEffectiveness(score, effectiveness) {
+    if (effectiveness == 0) {
+        return 0
+    }
+    if (effectiveness == 0.5) {
+        return gen4AiDivide(score * 5, 10)
+    }
+    if (effectiveness == 2) {
+        return gen4AiDivide(score * 20, 10)
+    }
+    return score
+}
+
+function hasGen4Phase2BaseDamage(result) {
+    var desc = result && result.rawDesc ? result.rawDesc : null
+    return Boolean(desc && Number.isFinite(desc.g4Phase2BaseDamage))
+}
+
+function getGen4Phase2DamageScore(result) {
+    var desc = result && result.rawDesc ? result.rawDesc : null
+
+    if (hasGen4Phase2BaseDamage(result)) {
+        var score = gen4AiU8(desc.g4Phase2BaseDamage)
+
+        if (desc.g4Phase2StabMod == 2) {
+            score *= 2
+        } else if (desc.g4Phase2StabMod == 1.5) {
+            score = Math.floor(score * 15 / 10)
+        }
+
+        score = gen4AiApplyEffectiveness(score, desc.g4Phase2Type1Effectiveness)
+        score = gen4AiApplyEffectiveness(score, desc.g4Phase2Type2Effectiveness)
+
+        if (desc.g4Phase2FilterMod == 0.75) {
+            score = gen4AiDivide(score * 3, 4)
+        }
+        if (desc.g4Phase2ExpertBeltMod && desc.g4Phase2ExpertBeltMod != 1) {
+            score = Math.floor(score * desc.g4Phase2ExpertBeltMod)
+        }
+        if (desc.g4Phase2TintedMod && desc.g4Phase2TintedMod != 1) {
+            score = Math.floor(score * desc.g4Phase2TintedMod)
+        }
+        if (desc.g4Phase2BerryMod && desc.g4Phase2BerryMod != 1) {
+            score = Math.floor(score * desc.g4Phase2BerryMod)
+        }
+
+        return gen4AiU8(score)
+    }
+
+    if (!result) {
+        return 0
+    }
+    if (typeof result.damage === 'number') {
+        return gen4AiU8(result.damage)
+    }
+    return gen4AiU8(result.damage[result.damage.length - 1])
+}
+
+function get_next_in_g4() {
+    if (typeof CURRENT_TRAINER_POKS === "undefined") {
+        return
+    }
+
+    function g4_type_multiplier_40(attackingType, defendingType1, defendingType2) {
+        var TYPE_MULTI_IMMUNE = 0
+        var TYPE_MULTI_NOT_VERY_EFF = 5
+        var TYPE_MULTI_SUPER_EFF = 20
+        var TYPE_MULTI_BASE_DAMAGE = 40
+
+        var typeChart = {
+            Normal:   { Rock: TYPE_MULTI_NOT_VERY_EFF, Steel: TYPE_MULTI_NOT_VERY_EFF, Ghost: TYPE_MULTI_IMMUNE },
+            Fire:     { Fire: TYPE_MULTI_NOT_VERY_EFF, Water: TYPE_MULTI_NOT_VERY_EFF, Grass: TYPE_MULTI_SUPER_EFF, Ice: TYPE_MULTI_SUPER_EFF, Bug: TYPE_MULTI_SUPER_EFF, Rock: TYPE_MULTI_NOT_VERY_EFF, Dragon: TYPE_MULTI_NOT_VERY_EFF, Steel: TYPE_MULTI_SUPER_EFF },
+            Water:    { Fire: TYPE_MULTI_SUPER_EFF, Water: TYPE_MULTI_NOT_VERY_EFF, Grass: TYPE_MULTI_NOT_VERY_EFF, Ground: TYPE_MULTI_SUPER_EFF, Rock: TYPE_MULTI_SUPER_EFF, Dragon: TYPE_MULTI_NOT_VERY_EFF },
+            Electric: { Water: TYPE_MULTI_SUPER_EFF, Electric: TYPE_MULTI_NOT_VERY_EFF, Grass: TYPE_MULTI_NOT_VERY_EFF, Ground: TYPE_MULTI_IMMUNE, Flying: TYPE_MULTI_SUPER_EFF, Dragon: TYPE_MULTI_NOT_VERY_EFF },
+            Grass:    { Fire: TYPE_MULTI_NOT_VERY_EFF, Water: TYPE_MULTI_SUPER_EFF, Grass: TYPE_MULTI_NOT_VERY_EFF, Poison: TYPE_MULTI_NOT_VERY_EFF, Ground: TYPE_MULTI_SUPER_EFF, Flying: TYPE_MULTI_NOT_VERY_EFF, Bug: TYPE_MULTI_NOT_VERY_EFF, Rock: TYPE_MULTI_SUPER_EFF, Dragon: TYPE_MULTI_NOT_VERY_EFF, Steel: TYPE_MULTI_NOT_VERY_EFF },
+            Ice:      { Fire: TYPE_MULTI_NOT_VERY_EFF, Water: TYPE_MULTI_NOT_VERY_EFF, Grass: TYPE_MULTI_SUPER_EFF, Ice: TYPE_MULTI_NOT_VERY_EFF, Ground: TYPE_MULTI_SUPER_EFF, Flying: TYPE_MULTI_SUPER_EFF, Dragon: TYPE_MULTI_SUPER_EFF, Steel: TYPE_MULTI_NOT_VERY_EFF },
+            Fighting: { Normal: TYPE_MULTI_SUPER_EFF, Ice: TYPE_MULTI_SUPER_EFF, Poison: TYPE_MULTI_NOT_VERY_EFF, Flying: TYPE_MULTI_NOT_VERY_EFF, Psychic: TYPE_MULTI_NOT_VERY_EFF, Bug: TYPE_MULTI_NOT_VERY_EFF, Rock: TYPE_MULTI_SUPER_EFF, Ghost: TYPE_MULTI_IMMUNE, Dark: TYPE_MULTI_SUPER_EFF, Steel: TYPE_MULTI_SUPER_EFF, Fairy: TYPE_MULTI_NOT_VERY_EFF },
+            Poison:   { Grass: TYPE_MULTI_SUPER_EFF, Poison: TYPE_MULTI_NOT_VERY_EFF, Ground: TYPE_MULTI_NOT_VERY_EFF, Rock: TYPE_MULTI_NOT_VERY_EFF, Ghost: TYPE_MULTI_NOT_VERY_EFF, Steel: TYPE_MULTI_IMMUNE, Fairy: TYPE_MULTI_SUPER_EFF },
+            Ground:   { Fire: TYPE_MULTI_SUPER_EFF, Electric: TYPE_MULTI_SUPER_EFF, Grass: TYPE_MULTI_NOT_VERY_EFF, Poison: TYPE_MULTI_SUPER_EFF, Flying: TYPE_MULTI_IMMUNE, Bug: TYPE_MULTI_NOT_VERY_EFF, Rock: TYPE_MULTI_SUPER_EFF, Steel: TYPE_MULTI_SUPER_EFF },
+            Flying:   { Electric: TYPE_MULTI_NOT_VERY_EFF, Grass: TYPE_MULTI_SUPER_EFF, Fighting: TYPE_MULTI_SUPER_EFF, Bug: TYPE_MULTI_SUPER_EFF, Rock: TYPE_MULTI_NOT_VERY_EFF, Steel: TYPE_MULTI_NOT_VERY_EFF },
+            Psychic:  { Fighting: TYPE_MULTI_SUPER_EFF, Poison: TYPE_MULTI_SUPER_EFF, Psychic: TYPE_MULTI_NOT_VERY_EFF, Dark: TYPE_MULTI_IMMUNE, Steel: TYPE_MULTI_NOT_VERY_EFF },
+            Bug:      { Fire: TYPE_MULTI_NOT_VERY_EFF, Grass: TYPE_MULTI_SUPER_EFF, Fighting: TYPE_MULTI_NOT_VERY_EFF, Poison: TYPE_MULTI_NOT_VERY_EFF, Flying: TYPE_MULTI_NOT_VERY_EFF, Psychic: TYPE_MULTI_SUPER_EFF, Ghost: TYPE_MULTI_NOT_VERY_EFF, Dark: TYPE_MULTI_SUPER_EFF, Steel: TYPE_MULTI_NOT_VERY_EFF, Fairy: TYPE_MULTI_NOT_VERY_EFF },
+            Rock:     { Fire: TYPE_MULTI_SUPER_EFF, Ice: TYPE_MULTI_SUPER_EFF, Fighting: TYPE_MULTI_NOT_VERY_EFF, Ground: TYPE_MULTI_NOT_VERY_EFF, Flying: TYPE_MULTI_SUPER_EFF, Bug: TYPE_MULTI_SUPER_EFF, Steel: TYPE_MULTI_NOT_VERY_EFF },
+            Ghost:    { Normal: TYPE_MULTI_IMMUNE, Psychic: TYPE_MULTI_SUPER_EFF, Ghost: TYPE_MULTI_SUPER_EFF, Dark: TYPE_MULTI_NOT_VERY_EFF },
+            Dragon:   { Dragon: TYPE_MULTI_SUPER_EFF, Steel: TYPE_MULTI_NOT_VERY_EFF, Fairy: TYPE_MULTI_IMMUNE },
+            Dark:     { Fighting: TYPE_MULTI_NOT_VERY_EFF, Psychic: TYPE_MULTI_SUPER_EFF, Ghost: TYPE_MULTI_SUPER_EFF, Dark: TYPE_MULTI_NOT_VERY_EFF, Fairy: TYPE_MULTI_NOT_VERY_EFF },
+            Steel:    { Fire: TYPE_MULTI_NOT_VERY_EFF, Water: TYPE_MULTI_NOT_VERY_EFF, Electric: TYPE_MULTI_NOT_VERY_EFF, Ice: TYPE_MULTI_SUPER_EFF, Rock: TYPE_MULTI_SUPER_EFF, Steel: TYPE_MULTI_NOT_VERY_EFF, Fairy: TYPE_MULTI_SUPER_EFF },
+            Fairy:    { Fire: TYPE_MULTI_NOT_VERY_EFF, Fighting: TYPE_MULTI_SUPER_EFF, Poison: TYPE_MULTI_NOT_VERY_EFF, Dragon: TYPE_MULTI_SUPER_EFF, Dark: TYPE_MULTI_SUPER_EFF, Steel: TYPE_MULTI_NOT_VERY_EFF }
+        }
+
+        var mul = TYPE_MULTI_BASE_DAMAGE
+        var attackTable = typeChart[attackingType] || {}
+
+        function applyInverseTypeMulti(typeMulti) {
+            if (!isInverseBattleActive()) {
+                return typeMulti
+            }
+            if (typeMulti == TYPE_MULTI_IMMUNE || typeMulti == TYPE_MULTI_NOT_VERY_EFF) {
+                return TYPE_MULTI_SUPER_EFF
+            }
+            if (typeMulti == TYPE_MULTI_SUPER_EFF) {
+                return TYPE_MULTI_NOT_VERY_EFF
+            }
+            return typeMulti
+        }
+
+        if (attackTable.hasOwnProperty(defendingType1)) {
+            mul = Math.floor(mul * applyInverseTypeMulti(attackTable[defendingType1]) / 10)
+        }
+
+        if (defendingType1 != defendingType2 && attackTable.hasOwnProperty(defendingType2)) {
+            mul = Math.floor(mul * applyInverseTypeMulti(attackTable[defendingType2]) / 10)
+        }
+
+        return mul
+    }
+
+    function g4_phase1_score_40(monType1, monType2, playerType1, playerType2) {
+        return g4_type_multiplier_40(monType1, playerType1, playerType2)
+            + g4_type_multiplier_40(monType2, playerType1, playerType2)
+    }
+
+    var ranked_trainer_poks = []
+    var trainer_poks = CURRENT_TRAINER_POKS
+    var trainer_poks_source_order = getGen4TrainerPoksInPartyOrder(trainer_poks)
+    var trainer_poks_copy = JSON.parse(JSON.stringify(trainer_poks))
+    var current_opposing_data_id = getGen4CurrentOpposingDataId()
+    var player_type1 = $('.type1').first().val()
+    var player_type2 = $('.type2').first().val()
+    var player_pok = $('.set-selector.player')[1].value.substring(0, $('.set-selector.player')[1].value.indexOf(" ("))
+
+    if (player_type2 == "") {
+        player_type2 = player_type1
+    }
+
+    // get type chart
+    var type_info = get_type_info([player_type1, player_type2])
+
+    // get mons with SE moves and sort by type matchup and trainer order
+    var se_mons = []
+    var se_mon_ids = []
+
+    var phase1_records = []
+
+    var p1info = $("#p1");
+    var p2info = $("#p2");
+    var p1 = createPokemon(p1info);
+    var p2 = createPokemon(p2info);
+    p1Name = p1.name
+    var p1field = createField();
+    var p2field = p1field.clone().swap();
+
+    try {
+        p1.ability = customSets[p1.name]["My Box"].ability
+    } catch {
+        p1.ability = "Pressure"
+    }
+
+    for (var i = 0; i < trainer_poks_source_order.length; i++) {
+        var trainer_pok = trainer_poks_source_order[i]
+        var pok_name = trainer_pok.split(" (")[0]
+        var tr_name = trainer_pok.split(" (")[1].replace(")", "").split("[")[0]
+        if (!pokedex[pok_name]) {
+            continue
+        }
+
+
+        
+
+        
+
+        var type1 = pokedex[pok_name]["types"][0]
+        var type2 = pokedex[pok_name]["types"][1] || type1
+
+        var pok_data = SETDEX_BW[pok_name][tr_name]
+        var sub_index = getGen4TrainerPreviewPartyIndex(trainer_pok, i)
+        var trainer_preview_data_id = getGen4TrainerPreviewDataId(trainer_pok)
+        var is_fainted = isGen4TrainerPreviewFainted(trainer_pok, trainer_preview_data_id)
+        var is_current_mon = trainer_preview_data_id && trainer_preview_data_id == current_opposing_data_id
+
+        var expYield = Math.floor(Math.floor(expYields[cleanString(pok_name)] * pok_data.level / 7) * 1.5);
+
+
+
+        var plate_type = null
+        if (pok_data["ability"] == "Multitype") {
+            var plates = {}
+            plates["Blank"] = "Normal"
+            plates["Draco"] = "Dragon"
+            plates["Dread"] = "Dark"
+            plates["Earth"] = "Ground"
+            plates["Fist"] = "Fighting"
+            plates["Flame"] = "Fire"
+            plates["Icicle"] = "Ice"
+            plates["Insect"] = "Bug"
+            plates["Iron"] = "Steel"
+            plates["Meadow"] = "Grass"
+            plates["Mind"] = "Psychic"
+            plates["Pixie"] = "Fairy"
+            plates["Sky"] = "Flying"
+            plates["Splash"] = "Water"
+            plates["Spooky"] = "Ghost"
+            plates["Stone"] = "Rock"
+            plates["Toxic"] = "Poison"
+            plates["Zap"] = "Electric"
+            plate_type = plates[pok_data["item"].split(" Plate")[0]]
+            type1 = plate_type
+            type2 = plate_type
+        }
+
+        var effectiveness = type_info[type1] + type_info[type2]
+        if (effectiveness == 8) {
+            effectiveness = 1.75
+        }
+
+        var exact_phase1_score_40 = g4_phase1_score_40(type1, type2, player_type1, player_type2)
+
+
+        var full_immune = (effectiveness == 0)
+
+
+
+        // check moves for SE
+        var isSE = false
+        var added_to_se_bucket = false
+        var seMoves = []
+
+        for (var j = 0; j < pok_data["moves"].length; j++) {
+            var mov_name = pok_data["moves"][j]
+            var mov_data = moves[mov_name]
+
+            if (pok_data["moves"][j] == "Judgment") {
+                mov_data["type"] = plate_type
+            }
+
+            if (pok_data["moves"][j] == "Weather Ball") {
+                var weather = p1field.weather
+                var weatherBallTypes = {"Sun": "Fire", "Hail": "Ice", "Rain": "Water", "Sand": "Rock"}
+                mov_data["type"] = weatherBallTypes[weather] || "Normal"
+            }
+
+
+
+            // Curse can't be supereffective against anything
+            if (!mov_data || mov_name == "Curse") {
+                continue
+            }
+
+
+
+            if (mov_data) {
+                var groundWeak = ["Aerodactyl","Skarmory"]
+                var electricWeak = ["Gligar", "Gliscor"]
+                var scrappyWeak = ["Sableye", "Spiritomb"]
+
+                if (pok_data.ability == "Normalize") {
+                    mov_data["type"] = "Normal"
+                }
+
+                // Fairy type insertion bugs
+                if (TITLE == "Renegade Platinum") {
+                    groundWeak.push("Zapdos")
+                    groundWeak.push("Zubat")
+                    groundWeak.push("Golbat")
+                    groundWeak.push("Crobat")
+                    groundWeak.push("Moltres")
+
+                    electricWeak.push("Gastrodon")
+                    electricWeak.push("Marshtomp")
+                    electricWeak.push("Swampert")
+                    electricWeak.push("Barboach")
+                    electricWeak.push("Whishcash")
+                    electricWeak.push("Wooper")
+                    electricWeak.push("Quagsire")
+                }
+
+                if (mov_data["type"] == "Ground" && groundWeak.includes(player_pok)) {
+                    isSE = true
+                }
+
+                if (mov_data["type"] == "Electric" && electricWeak.includes(player_pok)) {
+                    isSE = true
+                }
+
+                if (player_pok == "Altaria" && mov_data["type"] == "Dragon") {
+                    isSE = true
+                }
+
+                if (player_pok == "Altaria" && mov_data["type"] == "Dragon") {
+                    isSE = true
+                }
+
+                if (mov_data["type"] == "Fighting" && scrappyWeak.includes(player_pok) && pok_data.ability == "Scrappy") {
+                    isSE = true
+                }
+
+                if (player_type1 == "Steel" && player_type2 == "Fairy" && mov_data["type"] == "Poison") {
+                    isSE = true
+                }
+
+                if (player_pok == "Girafarig" && mov_data["type"] == "Ghost") {
+                    isSE = true
+                }
+
+                if (type_info[mov_data["type"]] >= 2) {
+                    isSE = true
+                }
+            }
+
+            if (p1.ability == 'Levitate' && mov_data["type"] == "Ground") {
+                isSE = false
+            }
+
+            if (isSE && !full_immune) {
+                se_mons.push([trainer_pok, 0, mov_name, sub_index, pok_data["moves"], effectiveness, '', '', expYield, exact_phase1_score_40])
+                se_mon_ids.push(trainer_pok)
+                added_to_se_bucket = true
+                break
+            }
+        }
+
+        phase1_records.push({
+            partyIndex: sub_index,
+            eligible: !is_fainted && !is_current_mon,
+            hasSuperEffectiveMove: isSE,
+            score: exact_phase1_score_40
+        })
+    }
+
+    function get_g4_phase1_stale_score_40() {
+        var battlersDisregarded = 0
+        var lastScore = null
+
+        while (battlersDisregarded != 0x3F) {
+            var maxScore = 0
+            var pickedRecord = null
+
+            for (var i = 0; i < phase1_records.length; i++) {
+                var record = phase1_records[i]
+
+                if (
+                    record.eligible &&
+                    (battlersDisregarded & (1 << record.partyIndex)) == false
+                ) {
+                    lastScore = record.score
+
+                    if (maxScore < record.score) {
+                        maxScore = record.score
+                        pickedRecord = record
+                    }
+                } else {
+                    battlersDisregarded |= (1 << record.partyIndex)
+                }
+            }
+
+            if (!pickedRecord) {
+                battlersDisregarded = 0x3F
+            } else if (pickedRecord.hasSuperEffectiveMove) {
+                return null
+            } else {
+                battlersDisregarded |= (1 << pickedRecord.partyIndex)
+            }
+        }
+
+        return lastScore
+    }
+
+    var phase1_stale_score_40 = get_g4_phase1_stale_score_40()
+
+    // Phase 2: sort rest of mons by using other mons moves with current mon stats
+    var other_mons = []
+
+    var currentHp = parseInt($('.max-hp').first().text())
+
+    // The bug only affects the first Phase 2 mon checked.
+    var checked_first_phase2_mon = false
+
+    for (var i = 0; i < trainer_poks_source_order.length; i++) {
+        var trainer_pok = trainer_poks_source_order[i]
+        var pok_name = trainer_pok.split(" (")[0]
+        var tr_name = trainer_pok.split(" (")[1].replace(")", "").split("[")[0]
+        var type1 = pokedex[pok_name]["types"][0]
+        var type2 = pokedex[pok_name]["types"][1] || type1
+        var pok_data = SETDEX_BW[pok_name][tr_name]
+        var sub_index = getGen4TrainerPreviewPartyIndex(trainer_pok, i)
+
+        expYield = Math.floor(Math.floor(expYields[cleanString(pok_name)] * pok_data.level / 7) * 1.5);
+
+
+
+        if (se_mon_ids.includes(trainer_pok)) {
+            continue
+        }
+
+        var trainer_preview_data_id = getGen4TrainerPreviewDataId(trainer_pok)
+        var is_fainted = isGen4TrainerPreviewFainted(trainer_pok, trainer_preview_data_id)
+        var is_current_mon = trainer_preview_data_id && trainer_preview_data_id == current_opposing_data_id
+        var can_consume_first_phase2_check = !is_fainted && !is_current_mon
+
+        var is_first_phase2_mon = can_consume_first_phase2_check && !checked_first_phase2_mon
+        
+        if (can_consume_first_phase2_check) {
+            checked_first_phase2_mon = true
+        }
+        
+
+        // p1 = createPokemon($("#p1"))
+        // create mon with ignoteStatMods = true
+        p2 = createPokemon(p2info, pok_data["moves"], true)
+        p2.originalCurHP = 1
+
+        if (p2.ability == "Reckless") {
+            p2.ability = "Minus"
+        }
+
+        if (p2.item == "Life Orb") {
+            p2.item = "Leftovers"
+        }
+
+        // because the game only counts multihits moves as 1
+        var results = []
+        try {
+            calcingForSwitchIns = true
+            results = calculateAllMoves(settings.damageGen, p1, p1field, p2, p2field, false)[1]
+        } finally {
+            calcingForSwitchIns = false
+        }
+
+        var firstMoveName = pok_data["moves"][0]
+        var firstMoveIgnored = isGen4Phase2IgnoredMove(firstMoveName)
+        var useBuggedFirstMoveDamage = is_first_phase2_mon &&
+            firstMoveIgnored &&
+            phase1_stale_score_40 !== null
+
+        var highestDamage = useBuggedFirstMoveDamage ? phase1_stale_score_40 : 0
+        var highestDamageName = useBuggedFirstMoveDamage ? firstMoveName : ""
+
+        for (n in results) {
+            var dmg = 0
+            var moveName = results[n].move.name
+            var rawMoveName = pok_data["moves"][parseInt(n)] || moveName
+            var isIgnoredPhase2Move = isGen4Phase2IgnoredMove(rawMoveName)
+            var useBuggedPhase2Damage = false
+
+            if (useBuggedFirstMoveDamage && parseInt(n) === 0) {
+                continue
+            }
+
+            if (
+                is_first_phase2_mon &&
+                parseInt(n) === 0 &&
+                isIgnoredPhase2Move &&
+                phase1_stale_score_40 !== null
+            ) {
+                dmg = phase1_stale_score_40
+                useBuggedPhase2Damage = true
+            } else {
+                if (isIgnoredPhase2Move) {
+                    continue
+                }
+
+                dmg = getGen4Phase2DamageScore(results[n])
+
+                // correct for doubling dmg when slower moves
+                if (["Avalanche", "Payback", "Assurance"].includes(moveName) && results[n].attacker.rawStats.spe < results[n].defender.rawStats.spe) {
+                    dmg = dmg / 2
+                }
+
+                if (!hasGen4Phase2BaseDamage(results[n]) && moves[moveName] && moves[moveName]['multihit']) {
+                    dmg = Math.floor(dmg / 3)
+                }
+            }
+
+            if (dmg > highestDamage) {
+                highestDamage = dmg
+                if (useBuggedPhase2Damage) {
+                    highestDamageName = moveName
+                } else {
+                    highestDamageName = moveName
+                }
+            }
+        }
+        other_mons.push([trainer_pok, 0, "", sub_index, pok_data["moves"], highestDamage, highestDamageName, '', expYield, null])
+    }
+
+    orderedMons = []
+
+    if (settings.noSwitch) {
+        orderedMons = se_mons.concat(other_mons).sort(sort_trpoks_g4)
+    } else {
+        orderedMons = se_mons.sort(sort_trpoks_g4).concat(other_mons.sort(sort_trpoks_g4))
+    }
+
+    return (orderedMons)
+}
+
+function sort_trpoks_g4(a, b) {
+    if (settings.noSwitch) {
+        return (b[3] > a[3]) ? -1 : 1;
+    }
+
+    if (a[5] === b[5]) {
+        return (b[3] > a[3]) ? -1 : 1;
+    }
+    else {
+        return (b[5] < a[5]) ? -1 : 1;
+    }
+}

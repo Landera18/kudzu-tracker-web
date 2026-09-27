@@ -1,0 +1,303 @@
+/* Kudzu AI move-chance preview (js/calc_ui/kudzu_ai/) */
+
+.kz-ai-rate {
+    display: inline-block;
+    min-width: 3.6em;
+    margin-left: 0.6em;
+    font-size: 0.95em;
+    font-weight: 700;
+    color: #8be9fd;
+    text-align: right;
+    white-space: nowrap;
+}
+.results-right > div > span.kz-ai-rate { margin-right: 0; }
+.kz-ai-rate:empty { display: none; }
+.kz-ai-rate-top { color: #50fa7b; }
+
+/* Options panel: sits in the empty middle of the move-result strip on desktop */
+.kz-ai-panel {
+    position: absolute;
+    top: 0;
+    left: 22em;
+    right: 29em;
+    max-height: 14em;   /* six option rows; the static variant below lifts the cap */
+    overflow: auto;
+    box-sizing: border-box;
+    padding: 4px 8px 6px;
+    border: 1px solid rgba(139, 233, 253, 0.32);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #f1f1f1;
+    font-size: 12px;
+    line-height: 1.3;
+    z-index: 5;
+}
+.kz-ai-panel-static {
+    position: static;
+    left: auto;
+    right: auto;
+    max-height: none;
+    margin: 6px 0 10px;
+}
+.kz-ai-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+}
+.kz-ai-title { font-weight: 700; font-size: 12px; }
+.kz-ai-note { flex: 1 1 auto; min-width: 0; color: rgba(241, 241, 241, 0.6); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kz-ai-note.warn { color: #ffd166; }
+.kz-ai-detail-btn {
+    flex: 0 0 auto;
+    height: 20px;
+    padding: 0 8px;
+    border: 1px solid rgba(241, 241, 241, 0.45);
+    border-radius: 6px;
+    background: rgba(24, 24, 24, 0.6);
+    color: #f1f1f1;
+    font: inherit;
+    font-size: 11px;
+    cursor: pointer;
+}
+.kz-ai-detail-btn.active { background: #bb86fc; color: #181818; border-color: #bb86fc; }
+.kz-ai-opts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 14px;
+}
+.kz-ai-opt {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    width: auto;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+}
+.kz-ai-opt input[type="checkbox"] { margin: 0; }
+.kz-ai-opt select {
+    max-width: 11em;
+    padding: 0 2px;
+    background: #181818;
+    color: #f1f1f1;
+    border: 1px solid rgba(241, 241, 241, 0.35);
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+/* Scoring breakdown under the main result */
+.kz-ai-detail {
+    margin: 0 0 1em;
+    padding: 6px 10px;
+    border: 1px solid rgba(187, 134, 252, 0.4);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 12px;
+}
+.kz-ai-detail-head { font-weight: 700; margin-bottom: 4px; }
+.kz-ai-detail-head span { color: rgba(241, 241, 241, 0.55); font-weight: 400; }
+.kz-ai-detail-move { border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 4px 0; }
+.kz-ai-detail-chance { color: #8be9fd; font-weight: 700; margin: 0 6px; }
+.kz-ai-detail-scores { color: rgba(241, 241, 241, 0.65); }
+.kz-ai-detail-trace { display: flex; flex-wrap: wrap; gap: 3px 10px; margin-top: 2px; }
+.kz-ai-step { white-space: nowrap; }
+.kz-ai-delta { display: inline-block; min-width: 2.4em; margin-right: 3px; font-weight: 700; text-align: right; }
+.kz-ai-delta.pos { color: #50fa7b; }
+.kz-ai-delta.neg { color: #ff5555; }
+.kz-ai-muted { color: rgba(241, 241, 241, 0.5); }
+
+@media (width <= 960px) {
+    .move-result-group.kz-ai-on .results-right > div:not(.result-move-header) {
+        grid-template-columns: minmax(0, 38%) minmax(0, 42%) minmax(0, 20%);
+    }
+    .move-result-group.kz-ai-on .results-right > div > span.kz-ai-rate {
+        order: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+        margin: 0;
+        border-left: 1px solid rgba(241, 241, 241, 0.2);
+        font-size: 11px;
+    }
+    .kz-ai-opt { white-space: normal; }
+}
+
+/* ── switch-in prediction (kudzu_ai_switch.js) ─────────────────────── */
+.kz-switch-panel {
+    margin: 10px 10px 8px;   /* the fieldset has no padding; its other children inset themselves 10-12px */
+    padding: 5px 8px 6px;
+    border: 1px solid rgba(139, 233, 253, 0.32);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #f1f1f1;
+    font-size: 12px;
+    line-height: 1.35;
+}
+.kz-switch-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.kz-switch-toggle {
+    font: inherit; font-weight: 700; color: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+}
+.kz-switch-toggle::before { content: "▾ "; color: #8be9fd; }
+.kz-switch-panel.collapsed .kz-switch-toggle::before { content: "▸ "; }
+.kz-switch-note {
+    flex: 1 1 12em; min-width: 0; text-align: right; color: rgba(241, 241, 241, 0.6); font-size: 11px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.kz-switch-body { margin-top: 4px; }
+.kz-switch-row {
+    display: grid; grid-template-columns: 3.6em minmax(0, 11em) minmax(0, 1fr) auto; gap: 8px; align-items: baseline;
+    padding: 2px 4px; border-radius: 5px; cursor: pointer;
+}
+.kz-switch-row:hover { background: rgba(139, 233, 253, 0.09); }
+.kz-switch-row.top { background: rgba(80, 250, 123, 0.09); }
+.kz-switch-row.zero { opacity: 0.55; }
+.kz-switch-pct { font-weight: 700; color: #8be9fd; text-align: right; }
+.kz-switch-row.top .kz-switch-pct { color: #50fa7b; }
+.kz-switch-name small { color: rgba(241, 241, 241, 0.5); font-weight: 400; }
+.kz-switch-why { color: rgba(241, 241, 241, 0.85); }
+.kz-switch-meta { color: rgba(241, 241, 241, 0.55); font-size: 11px; white-space: nowrap; }
+.kz-switch-empty { color: rgba(241, 241, 241, 0.6); }
+/* why the party strip shows an icon the list does not (a Mega copy of a stone-holder) */
+.kz-switch-foot { margin-top: 6px; padding-top: 5px; border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(241, 241, 241, 0.55); font-size: 11px; line-height: 1.35; white-space: normal; }
+.trainer-pok-list.opposing .trainer-pok-container { position: relative; }
+.kz-switch-badge {
+    position: absolute; top: 0; right: 0; left: auto; z-index: 3;   /* top-left is the held-item icon's corner */
+    padding: 0 4px; border-radius: 6px;
+    font-size: 10.5px; font-weight: 700; line-height: 1.5;
+    color: #0b0f14; background: #8be9fd; pointer-events: none;
+}
+.kz-switch-badge.top { background: #50fa7b; }
+
+/* ── item bag (kudzu_bag.js) ────────────────────────────────────────── */
+.kz-bag-anchor { position: relative; }
+.kz-bag-btn {
+    margin-left: 4px; padding: 1px 7px; border-radius: 6px; cursor: pointer;
+    font: inherit; font-size: 11.5px; font-weight: 700;
+    color: #0b0f14; background: #8be9fd; border: 1px solid #8be9fd;
+}
+.kz-bag-btn.kz-bag-empty { color: inherit; background: transparent; border-color: rgba(241, 241, 241, 0.3); font-weight: 400; }
+.kz-bag-popup {
+    position: absolute; top: 100%; left: 0; z-index: 60; margin-top: 4px;
+    width: min(560px, 92vw); max-height: 430px; overflow: auto; box-sizing: border-box;
+    padding: 8px 10px 10px; border-radius: 10px;
+    border: 1px solid rgba(139, 233, 253, 0.45); background: #1b1e26; color: #f1f1f1;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55); font-size: 12px; text-align: left;
+}
+.kz-bag-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.kz-bag-sub { color: rgba(241, 241, 241, 0.6); }
+.kz-bag-close { background: none; border: 0; color: inherit; font-size: 18px; line-height: 1; cursor: pointer; padding: 0 2px; }
+.kz-bag-group { margin: 8px 0 4px; font-weight: 700; color: #8be9fd; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+.kz-bag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); gap: 4px; }
+.kz-bag-item {
+    display: grid; grid-template-columns: 24px 1fr auto; align-items: center; gap: 4px;
+    padding: 3px 5px; border-radius: 6px; cursor: pointer; text-align: left;
+    font: inherit; color: inherit; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.kz-bag-item:hover { border-color: #8be9fd; background: rgba(139, 233, 253, 0.1); }
+.kz-bag-item.on { border-color: #50fa7b; background: rgba(80, 250, 123, 0.12); }
+.kz-bag-item.held .kz-bag-name { color: rgba(241, 241, 241, 0.62); }
+.kz-bag-item img { width: 24px; height: 24px; image-rendering: pixelated; }
+.kz-bag-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kz-bag-qty { color: rgba(241, 241, 241, 0.6); font-size: 11px; }
+.kz-bag-who { grid-column: 2 / 4; color: #ffd166; font-size: 10.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kz-bag-foot { margin-top: 8px; }
+.kz-bag-clear { display: inline-block; grid-template-columns: none; }
+.kz-bag-none { color: rgba(241, 241, 241, 0.7); line-height: 1.45; }
+
+/* the bag's picker toggle, and the next-in line inside the AI panel */
+.kz-bag-only {
+    margin-left: auto; padding: 1px 8px; border-radius: 6px; cursor: pointer; white-space: nowrap;
+    font: inherit; font-size: 11.5px; color: inherit; background: transparent; border: 1px solid rgba(241, 241, 241, 0.3);
+}
+.kz-bag-only[aria-pressed="true"] { color: #0b0f14; background: #50fa7b; border-color: #50fa7b; font-weight: 700; }
+.kz-ai-next { margin: 1px 0 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+.kz-ai-next:empty { display: none; }
+.kz-ai-next-label { font-weight: 700; }
+.kz-ai-next-mon { color: #8be9fd; font-weight: 700; margin-right: 4px; }
+.kz-ai-next-mon.top { color: #50fa7b; }
+.kz-ai-next-why { color: rgba(241, 241, 241, 0.6); font-size: 11px; }
+
+/* ── immunity from the calculator's own stylesheet ───────────────────
+   Everything we inject lives inside .poke-info / .info-selectors / .move-result-group, where main.css
+   styles bare element selectors (label { width: 6em }, select { width: 172px }, input { width: 2.5em }).
+   These put our own components back to neutral, scoped to our ids so main.css stays pullable. */
+#kz-ai-panel, #kz-ai-panel *, #kz-ai-detail, #kz-ai-detail *, #kz-switch-panel, #kz-switch-panel *,
+#kz-bag-popup, #kz-bag-popup *, #kz-bag-btn, .kz-ai-rate, .kz-switch-badge { box-sizing: border-box; }   /* main.css: .wrapper * { content-box } */
+/* No <label> goes inside #kz-switch-panel or #kz-bag-popup: main.css sizes or hides them there. Buttons only. */
+/* .move-result-group label paints an opaque #181818 box behind every label inside it */
+#kz-ai-panel label.kz-ai-opt { display: inline-flex; width: auto; background: transparent; color: inherit; }
+#kz-switch-panel button, #kz-bag-popup button, #kz-bag-btn { width: auto; min-width: 0; height: auto; line-height: 1.35; text-transform: none; letter-spacing: normal; box-shadow: none; }
+#kz-bag-popup .kz-bag-close { line-height: 1; }
+
+/* the mode switch: a two-button segmented control */
+.kz-switch-modes { display: inline-flex; gap: 0; border: 1px solid rgba(139, 233, 253, 0.35); border-radius: 7px; overflow: hidden; }
+.kz-switch-mode {
+    margin: 0; padding: 1px 9px; border: 0; border-radius: 0; cursor: pointer; white-space: nowrap;
+    font: inherit; font-size: 11.5px; color: rgba(241, 241, 241, 0.75); background: transparent;
+}
+.kz-switch-mode + .kz-switch-mode { border-left: 1px solid rgba(139, 233, 253, 0.35); }
+.kz-switch-mode:hover { color: #f1f1f1; background: rgba(139, 233, 253, 0.1); }
+.kz-switch-mode.on { color: #0b0f14; background: #8be9fd; font-weight: 700; }
+.kz-switch-head { row-gap: 3px; }
+
+/* The Bag button. The item row has two layouts in main.css:
+     wider than 1540px   the select fills the row and the on/off checkbox sits in the gutter at left:-24px
+     1540px and under    the select is a fixed 172px, the row is a flex row 264px wide, and the checkbox is
+                         parked absolutely at right:4rem - exactly where an inline button lands, which is how
+                         the button ended up as a clipped "B" under the checkbox.
+   So: leave room on the line when wide, and step past the checkbox when narrow. */
+.info-group.info-selectors .kz-bag-anchor > select.item { width: calc(100% - 50px); }
+.kz-bag-btn { flex: none; margin-left: 6px; vertical-align: middle; }
+@media (width <= 1540px) {
+    .info-group.info-selectors .kz-bag-anchor > select.item { width: 172px; }
+    .kz-bag-btn { margin-left: 44px; }   /* select 172 + checkbox parked at right:4rem (ends ~38px past the select) */
+}
+
+/* ── more immunity: hover, scrollbars, narrow panels ─────────────────
+   main.css has `button:hover, label:hover { background: rgba(0,0,0,.1) !important }`. It wiped the
+   fill of every filled control of ours while the text stayed dark - the label vanished under the
+   cursor. An id in the selector plus !important is what it takes to restate each state. */
+#kz-bag-btn:hover { background: #a6f0ff !important; }
+#kz-bag-btn.kz-bag-empty:hover { background: rgba(139, 233, 253, 0.12) !important; }
+#kz-switch-panel .kz-switch-mode:hover { background: rgba(139, 233, 253, 0.1) !important; }
+#kz-switch-panel .kz-switch-mode.on:hover { background: #8be9fd !important; }
+#kz-switch-panel .kz-switch-toggle:hover, #kz-bag-popup .kz-bag-close:hover { background: none !important; }
+#kz-bag-popup .kz-bag-only:hover { background: rgba(255, 255, 255, 0.06) !important; }
+#kz-bag-popup .kz-bag-only[aria-pressed="true"]:hover { background: #50fa7b !important; }
+#kz-bag-popup .kz-bag-item:hover { background: rgba(139, 233, 253, 0.1) !important; }
+#kz-bag-popup .kz-bag-item.on:hover { background: rgba(80, 250, 123, 0.18) !important; }
+#kz-ai-panel label:hover { background: transparent !important; }
+#kz-ai-detail-btn:hover { background: rgba(24, 24, 24, 0.6) !important; }
+#kz-ai-detail-btn.active:hover { background: #bb86fc !important; }
+
+/* main.css hides every scrollbar on the page, so our two scrolling boxes cut their content off with
+   no cue that there was more. */
+#kz-ai-panel, #kz-bag-popup { scrollbar-width: thin; scrollbar-color: rgba(139, 233, 253, 0.55) transparent; }
+/* the Next-in line took one of the AI panel's five visible option rows; give it back */
+.kz-ai-panel-static { clear: both; }
+
+/* P2's panel is sized in vw by main.css (33vw at 1540px and under), so inside the tracker it is
+   340-410px wide - narrower than on a phone - while the viewport is nowhere near a phone's. The
+   compact layout therefore follows the PANEL's width, not the window's. */
+#kz-switch-panel { container-type: inline-size; }
+.kz-switch-row > * { min-width: 0; }
+@container (max-width: 520px) {
+    .kz-switch-row { grid-template-columns: 3.4em minmax(0, 1fr); row-gap: 0; }
+    .kz-switch-why, .kz-switch-meta { grid-column: 2; white-space: normal; }
+    .kz-switch-note { flex-basis: 100%; text-align: left; }
+}
+
+/* a move row with no move collapsed its rate cell and shifted 4em right of the rows above it
+   (wide layout only: on a phone the rate is already a fixed grid cell, whose divider this would hide) */
+@media (width > 960px) {
+    .move-result-group.kz-ai-on .results-right > div > span.kz-ai-rate:empty { display: inline-block; visibility: hidden; }
+}
+
+/* the phone layout: the item row is a flex row there, and the popup's ancestors clip and out-stack it */
+@media (width <= 960px) {
+    .panel-wrapper.mobile-dual-panel-layout .kz-bag-btn { margin-left: 6px; order: 3; }
+    .kz-bag-popup { position: fixed; top: 8vh; left: 4vw; right: 4vw; width: auto; max-height: 80vh; z-index: 90; }
+}

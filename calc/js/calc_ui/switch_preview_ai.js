@@ -1,0 +1,965 @@
+function canTrap(trapper, target) {
+    if (target.types.includes("Ghost")) return false;
+
+    if (trapper.ability == "Shadow Tag") {
+        if (target.ability != "Shadow Tag") return true;
+    }
+
+    if (trapper.ability == "Magnet Pull" && target.types.includes("Steel")) return true;
+    if (trapper.ability == "Arena Trap" && target.ability != "Levitate" && !target.types.includes("Flying")) return true;
+
+    return false;
+}
+
+function adjustSpeed(speed, ability, weather, terrain, item) { 
+    if (item == "Choice Scarf") {
+        speed = speed * 1.5;
+    }
+    if (ability == "Chlorophyll" && weather == "Sun") {
+        return speed * 2
+    }
+    if (ability == "Slush Rush" && weather == "Snow") {
+        return speed * 2
+    }
+    if (ability == "Swift Swim" && weather == "Rain") {
+        return speed * 2
+    }
+    if (ability == "Sand Rush" && weather == "Sand") {
+        return speed * 2
+    }
+    if (ability == "Surge Surfer" && terrain == "Electric") {
+        return speed * 2   
+    }
+    return speed
+}
+
+function getSwitchPreviewDamageValue(damage) {
+    if (!Array.isArray(damage) || damage.length == 0) {
+        return null
+    }
+
+    if (typeof damage[0] === "number") {
+        if (damage.length == 16 && typeof damage[8] === "number") {
+            return damage[8]
+        }
+        return typeof damage[0] === "number" ? damage[0] : null
+    }
+
+    if (Array.isArray(damage[0])) {
+        let totalDamage = 0
+
+        for (let hitRolls of damage) {
+            if (!Array.isArray(hitRolls) || hitRolls.length != 16 || typeof hitRolls[8] !== "number") {
+                return null
+            }
+            totalDamage += hitRolls[8]
+        }
+
+        return totalDamage
+    }
+
+    return null
+}
+
+function normalizeSwitchPreviewDamage(damage) {
+    let damageValue = getSwitchPreviewDamageValue(damage)
+    if (damageValue === null) {
+        return damage
+    }
+
+    return new Array(16).fill(damageValue)
+}
+
+function getSwitchPreviewTurnsToKill(koData) {
+    if (!koData || koData.chance === 0 || koData.text === "not a KO") {
+        return 0
+    }
+
+    return koData.n
+}
+
+function summarizeSwitchPreviewDebugDamage(damage) {
+    if (!Array.isArray(damage)) {
+        return damage
+    }
+
+    if (damage.length == 0) {
+        return []
+    }
+
+    if (typeof damage[0] === "number") {
+        return {
+            min: damage[0],
+            max: damage[damage.length - 1],
+            rolls: damage.slice()
+        }
+    }
+
+    if (Array.isArray(damage[0])) {
+        return {
+            hits: damage.map(summarizeSwitchPreviewDebugDamage),
+            totalMin: damage.reduce((total, hitRolls) => total + (Array.isArray(hitRolls) ? hitRolls[0] : 0), 0),
+            totalMax: damage.reduce((total, hitRolls) => total + (Array.isArray(hitRolls) ? hitRolls[hitRolls.length - 1] : 0), 0)
+        }
+    }
+
+    return damage
+}
+
+
+// Attacker is Player, Defender is AI
+function postKoMatchupData(attackerVDefenderResults, defenderVAttackerResults, isCurrent=false) {
+    disableKOChanceCalcs = true
+
+    let attacker = defenderVAttackerResults[0].defender
+    let defender = defenderVAttackerResults[0].attacker
+
+    let defenderField = defenderVAttackerResults[0].field
+    let attackerField = attackerVDefenderResults[0].field
+
+    let defenderFastestKill = 100
+    let attackerFastestKill = 100
+
+    let defenderFastestPrioKill = 100
+    let attackerFastestPrioKill = 100
+
+    let attackerBestMoveHasPrio = false
+    let defenderBestMoveHasPrio = false
+
+    let isRevenge = false
+    let isThreaten = false
+    let isTrapper = canTrap(defender, attacker)
+    let highestDmgDealt = 0
+    let bestMove = "(None)"
+    let attackerBestMove = "(None)"
+    let isOhkod = false
+    let wins1v1 = false
+    let winsMidTurn1v1 = false
+    let aiHasSE = false
+    let adjustedSpeed = adjustSpeed(defender.rawStats.spe, defender.ability, defenderField.weather, defenderField.terrain, defender.item)
+    let playerDamageDebug = []
+
+
+    let isFaster = adjustedSpeed >= p1RawSpeed
+    let movesFirst = false
+
+    // These variables are also referenced by the battle console
+    if (isCurrent) {
+        bestDmgAgainstCurrent = 0
+        bestPrioDmgAgainstCurrent = 0
+
+        bestPrioMoveAgainstCurrent = ""
+        bestMoveAgainstCurrent = ""
+        bestMoveAgainstCurrentIndex = 0
+
+        currentAiMoves = get_current_in().moves
+
+
+        bestAiDmgAgainstCurrent = 0
+        bestAiMoveAgainstCurrent = ""
+        currentTypeMatchup = 2
+    }
+
+    // check player moves against AI pok
+    for (moveIndex in attacker.moves) {
+        let move = attacker.moves[moveIndex]
+
+        // skip first impression
+        if (move.name == "First Impression") {
+            continue;
+        }
+
+        let rawDamage = attackerVDefenderResults[moveIndex].damage
+        damage = normalizeSwitchPreviewDamage(rawDamage)
+
+        if (Array.isArray(damage) && damage.length == 16 && typeof damage[0] === "number") {
+            if (isCurrent && damage[0] > bestDmgAgainstCurrent) {
+                bestDmgAgainstCurrent = damage[0]
+                bestMoveAgainstCurrent = move.name
+                bestMoveAgainstCurrentIndex = moveIndex
+            }
+        }
+
+        // count how many turns to kill including status/hazards and recovery items
+        let koData = getKOChance(genInfo, attacker, defender, move, attackerField, damage, false, true)
+        let turnsToKill = getSwitchPreviewTurnsToKill(koData)
+        playerDamageDebug.push({
+            move: move.name,
+            rawDamage: summarizeSwitchPreviewDebugDamage(rawDamage),
+            previewDamage: summarizeSwitchPreviewDebugDamage(damage),
+            koChance: koData.chance,
+            koText: koData.text,
+            turnsToKill: turnsToKill
+        })
+
+        // 0 means too insignificant to matter
+        if (turnsToKill == 0) {
+            continue;
+        }
+
+
+        if (turnsToKill == 1 && (defender.item != 'Focus Sash') && defender.ability != "Sturdy") {
+            isOhkod = true
+        }
+
+        // AI sees itself at 90% hp when it has life orb
+        if (turnsToKill == 2 && defender.item == "Life Orb" && damage[0] >= (defender.originalCurHP * 0.9)) {
+            isOhkod = true
+            turnsToKill = 1
+        }
+
+        if (turnsToKill < attackerFastestKill) {
+            attackerFastestKill = turnsToKill
+            attackerBestMove = move.name
+
+            if (!move.priority) {
+                attackerBestMoveHasPrio = false;
+            }
+        } 
+
+        if (move.priority) {
+            if (turnsToKill <= attackerFastestPrioKill) {
+                attackerFastestPrioKill = turnsToKill;                 
+                // attacker is marked as having prio since this is the fastest kill the move or tied with fastest
+                if (turnsToKill <= attackerFastestKill) {
+                    attackerBestMoveHasPrio = true;
+                    if (isCurrent) {
+                        if (damage[0] > bestPrioDmgAgainstCurrent) {
+                            bestPrioDmgAgainstCurrent = damage[0]
+                            bestPrioMoveAgainstCurrent = move.name
+                        }
+                    }
+                }
+            }
+        }   
+    }
+
+
+
+    // AI can see it's own focus sash
+    if (defender.item == 'Focus Sash' && attackerFastestKill > 0) {
+        attackerFastestKill = Math.max(2, attackerFastestKill)
+    }
+
+    // Check ai moves against player pok
+    for (moveIndex in defender.moves) {
+        let move = defender.moves[moveIndex]
+
+
+        if (movePPs[currentlyCalcingAgainst] && parseInt(movePPs[currentlyCalcingAgainst][moveIndex]) == 0) {
+            continue;
+        }
+        damage = normalizeSwitchPreviewDamage(defenderVAttackerResults[moveIndex].damage)
+
+        if (move.category != "Status") {
+           let effectiveness = getCombinedTypeChartEffectiveness(move.type, attacker.types)
+           if (effectiveness > 1) {
+               aiHasSE = true;
+           }
+        }
+
+        if (Array.isArray(damage) && damage.length == 16 && typeof damage[0] === "number") {
+            if (isCurrent && (bestAiMoveAgainstCurrent == "" || damage[0] > bestAiDmgAgainstCurrent)) {
+                bestAiDmgAgainstCurrent = damage[0]
+                bestAiMoveAgainstCurrent = move.name
+            }
+        }
+
+
+
+        if (damage[0] > highestDmgDealt) {
+            highestDmgDealt = damage[0]
+        }
+
+        // TODO: AI doesn't see status on player, or weather damage effects
+        // count how many turns to kill including status/hazards and recovery items
+        let koData = getKOChance(genInfo, defender, attacker, move, defenderField, damage, false, true)
+        let turnsToKill = getSwitchPreviewTurnsToKill(koData)
+
+
+        // 0 means too insignificant to matter
+        if (turnsToKill == 0) {
+            continue;
+        }
+
+        // OHKO means revenge killer
+        if (damage[0] > attacker.originalCurHP) {
+            isRevenge = true
+
+            if (move.priority) {
+                defenderBestMoveHasPrio = true
+                // prio move that kills should always be best move
+                bestMove = move.name
+            }
+        }
+
+        // 2hko means threatener, ignore explosion
+        if (damage[0] >= attacker.originalCurHP / 2 && move.name != "Explosion") {
+            isThreaten = true
+
+            if (move.priority && defenderFastestKill >= 2) {
+                defenderBestMoveHasPrio = true
+            }
+        }
+
+        if (turnsToKill <  defenderFastestKill) {
+            defenderFastestKill = turnsToKill
+
+            if (move.priority) {
+                defenderBestMoveHasPrio = true
+            } else {
+                defenderBestMoveHasPrio = false;
+            }
+            bestMove = move.name
+        }
+   
+        if (move.priority) {
+            // faster and using priority
+            if (isFaster) {
+                // compare turns to kill with player fastest kill
+                if (turnsToKill <= attackerFastestKill) {
+                    wins1v1 = true
+                } 
+                if (turnsToKill < attackerFastestKill) {
+                    winsMidTurn1v1 = true
+                }       
+            // slower and using priority
+            } else {
+                // compare turns to kill with player fastest non prio kill and prio kill
+                if (turnsToKill <= attackerFastestKill && turnsToKill < attackerFastestPrioKill) {
+                    wins1v1 = true
+                }
+                if (turnsToKill < attackerFastestKill && turnsToKill < attackerFastestPrioKill - 1) {
+                    winsMidTurn1v1 = true
+                }
+            }
+        } else {
+            // faster without priority
+            if (isFaster) {
+                // compare turns to kill with player fastest non prio kill and prio kill
+                if (turnsToKill <= attackerFastestKill && turnsToKill < attackerFastestPrioKill) {
+                    wins1v1 = true
+                }
+
+                if (turnsToKill < attackerFastestKill && turnsToKill < attackerFastestPrioKill - 1) {
+                    winsMidTurn1v1 = true
+                }
+            // slower and non priority
+            } else {
+                // compare turns to kill with player fastest non prio kill and prio kill
+                if (turnsToKill < attackerFastestKill && turnsToKill < attackerFastestPrioKill) {
+                    wins1v1 = true
+                }
+                if (turnsToKill < attackerFastestKill - 1 && turnsToKill < attackerFastestPrioKill - 1) {
+                    winsMidTurn1v1 = true
+                }
+            }
+        }
+    }
+
+
+   
+    if (defenderBestMoveHasPrio && !attackerBestMoveHasPrio) {
+        movesFirst = true
+    } else if ( (defenderBestMoveHasPrio && attackerBestMoveHasPrio) || (!defenderBestMoveHasPrio && !attackerBestMoveHasPrio)) {
+        movesFirst = isFaster
+    }
+
+
+
+    let debug = {defenderBestMoveHasPrio: defenderBestMoveHasPrio, attackerBestMoveHasPrio: attackerBestMoveHasPrio, attackerFastestKill: attackerFastestKill, defenderFastestKill: defenderFastestKill, attackerFastestPrioKill: attackerFastestPrioKill, isFaster: isFaster, movesFirst: movesFirst, winsMidTurn1v1: winsMidTurn1v1}
+    let matchupData = {aiHasSE: aiHasSE, defenderBestMoveHasPrio: defenderBestMoveHasPrio, attackerBestMoveHasPrio: attackerBestMoveHasPrio, wins1v1: wins1v1, isFaster: movesFirst, isRevenge: isRevenge, isThreaten: isThreaten, maxDmg: highestDmgDealt, move: bestMove, attackerBestMove: attackerBestMove, isTrapper: isTrapper, isOhkod: isOhkod, winsMidTurn1v1: winsMidTurn1v1, attackerFastestKill: attackerFastestKill, defenderFastestKill: defenderFastestKill}
+    console.log("[switch-preview player damage]", {
+        attacker: attacker.name,
+        defender: defender.name,
+        defenderHp: defender.originalCurHP,
+        defenderMaxHp: typeof defender.maxHP === "function" ? defender.maxHP() : defender.rawStats && defender.rawStats.hp,
+        bestPlayerMove: attackerBestMove,
+        playerFastestKill: attackerFastestKill,
+        isOhkod: isOhkod,
+        decision: debug,
+        matchup: matchupData,
+        moves: playerDamageDebug
+    })
+
+    disableKOChanceCalcs = false
+    matchupCache.set(currentKey, matchupData)
+
+    return matchupData
+}
+
+function isBadOdds(p1, p2) {
+    let aiHpThreshold =  parseInt(p2.ability == "Regenerator" ? p2.stats.hp / 2 : p2.stats.hp / 4)
+    let playerHpThreshold = Math.min( parseInt(p1.stats.hp / 2), p1.originalCurHP)
+    
+    // TODO: account for player prio
+    let aiIsFaster = false
+    let bestAiMovePriority = 0
+
+    if (bestAiMoveAgainstCurrent != "") {
+        let bestAiMoveData = moves[bestAiMoveAgainstCurrent]
+        if (!bestAiMoveData && typeof backup_moves !== "undefined") {
+            bestAiMoveData = backup_moves[bestAiMoveAgainstCurrent]
+        }
+
+        // Status-only or otherwise non-damaging current AI sets may never populate this lookup.
+        if (bestAiMoveData) {
+            bestAiMovePriority = parseInt(bestAiMoveData.priority) || 0
+        }
+    }
+
+    const prioMoveKills = bestPrioMoveAgainstCurrent != "" && bestPrioDmgAgainstCurrent >= p2.originalCurHP
+
+    let badOddsDmg = 0;
+
+    
+    // If prio move kills, check priority speed brackets, and only check against the prio move dmg
+    if (prioMoveKills) {
+        if (bestAiMovePriority == 1) {
+            aiIsFaster = p2.rawStats.spe >= p1.rawStats.spe
+        } else {
+            aiIsFaster = false
+        }
+        badOddsDmg = bestPrioDmgAgainstCurrent
+    } else {
+        if (bestMoveAgainstCurrent == "") {
+            aiIsFaster = p2.rawStats.spe >= p1.rawStats.spe
+        } else if (bestMoveAgainstCurrent) {
+            aiIsFaster = p2.rawStats.spe >= p1.rawStats.spe || bestAiMovePriority == 1
+        }        
+        // AI must have greater than 50% hp or 25% with regenerator
+        if (p2.originalCurHP < aiHpThreshold) {
+            return [false, "low HP"]
+        } 
+        badOddsDmg = bestDmgAgainstCurrent   
+    }
+    
+
+    // console.log(p2)
+    // console.log(`${aiIsFaster} faster, ${bestDmgAgainstCurrent} dmg vs ${p2.originalCurHP}`)
+
+    // If Player threatens fast ohko
+    if (badOddsDmg >= p2.originalCurHP && !aiIsFaster) {
+        return [true, "F-Ohko"];
+    // If Player threatens slow ohko
+    } else if (badOddsDmg >= p2.originalCurHP && aiIsFaster) {
+        // Check if ai can do more than 50% or ko player
+        if (bestAiDmgAgainstCurrent < playerHpThreshold) {
+            return [true, "S-Ohko"]
+        } else {
+            return [false, "Ai Chunks"]
+        }
+    // If bad type matchup
+    } else if (currentTypeMatchup > 2) {       
+        for (let move of p2.moves) {
+            let cat = move.category
+            if (cat == "status") continue;
+            let effectiveness = getCombinedTypeChartEffectiveness(move.type, p1.types)
+
+            // Check for super effective moves
+            if (effectiveness > 1) {
+                return [false, "AI SE"];
+            }
+        }
+        return [true, "Bad MU"]
+    }
+
+    return [false, ""];
+}
+
+const unseenAbilities = ["Bull Rush", "Illusion", "Slow Start", "Quill Rush","Bull Rush", "Dauntless Shield", "Intrepid Sword", "Download", "Orichalcum Pulse", "Hadron Engine", "Electric Surge", "Grassy Surge", "Psychic Surge", "Seed Sower", "Misty Surge", "Desolate Land", "Primordial Sea", "Delta Stream"]
+
+const defaultOffAbilities = ['Flash Fire','Minus', 'Plus','Unburden','Stakeout'];
+
+function deepMemoize(fn) {
+  resultsCache = new Map();
+  matchupCache = new Map();
+
+  return function(...args) {
+    currentKey = hashPokemonPair([compressPlayerPok(args[1]), compressTrainerPok(args[3])])
+    if (resultsCache.has(currentKey)) {
+      return resultsCache.get(currentKey);
+    }
+    const result = fn(...args);
+    resultsCache.set(currentKey, result);
+    return result;
+  };
+}
+
+function compressPlayerPok(pok) {
+    return {
+        't': pok.types,
+        'l': pok.level,
+        'a': pok.ability,
+        's': pok.name,
+        'ao': pok.abilityOn,
+        'i': pok.item,
+        'n': pok.nature,
+        'iv': pok.ivs,
+        'ev': pok.evs,
+        'b': pok.boosts,
+        'ss': pok.stats,
+        'h': pok.originalCurHP,
+        'st': pok.status,
+        'm0': pok.moves[0].name,
+        'm1': pok.moves[1].name,
+        'm2': pok.moves[2].name,
+        'm3': pok.moves[3].name
+    }
+}
+
+// compress to only the fields that can change when a trainer pok is not loaded
+function compressTrainerPok(pok) {
+    return {
+        'l': pok.level,
+        'a': pok.ability,
+        's': pok.name,
+        "i": pok.item,
+        'm0': pok.moves[0].name,
+        'm1': pok.moves[1].name,
+        'm2': pok.moves[2].name,
+        'm3': pok.moves[3].name
+    }
+}
+
+
+
+
+function get_next_in() {  
+    if (typeof CURRENT_TRAINER_POKS === "undefined") {
+        return
+    }
+
+    if (typeof expYields === "undefined") {
+        if (TITLE == "Platinum Kaizo") {
+            expYields = pkExpYields
+        } else if (settings.gameSwitchIn == 5)  {
+            expYields = vanillaG5ExpYields
+        } else {
+            expYields = vanillaExpYields
+        }
+    }
+
+    if (settings.gameSwitchIn == 4 || TITLE == "Platinum Kaizo") {
+        return get_next_in_g4()
+    }
+
+    if (settings.gameSwitchIn >= 5 && settings.gameSwitchIn <= 7) {
+        return get_next_in_g5()
+    }
+
+    if (settings.gameSwitchIn == 3) {
+        return get_next_in_g3()
+    }
+
+    isDoubles = $('#doubles-format').is(":checked")
+    lvlCap = parseInt($('#lvl-cap').val())
+
+    var trainer_poks = [...CURRENT_TRAINER_POKS]
+    var player_type1 = $('.type1').first().val()
+    var player_type2 = $('.type2').first().val() 
+    
+    if (player_type2 == ""){
+        player_type2 = player_type1
+    }
+
+    var type_info = get_type_info([player_type1, player_type2])
+    var currentHp = parseInt($('.current-hp').first().val())
+
+    var p1info = $("#p1");
+    var p2info = $("#p2");
+    var p1 = createPokemon(p1info);
+    p1Name = p1.name
+
+    if (p1.ability == "Intimidate") {
+        p1.ability = "Run Away"
+    }
+
+    var currentp2 = createPokemon(p2info)
+
+
+    p1RawSpeed = parseInt($('#p1 .totalMod').text())
+
+    var p1field = createField();
+
+
+    var p2field = p1field.clone().swap();
+
+
+    ranked_trainer_poks = []
+    let trainerMatchups = []
+    let wallCandidate = null
+
+    var expYield = 0
+
+    for (let subIndex = 0; subIndex < trainer_poks.length; subIndex++) {
+        p2 = createPokemon(trainer_poks[subIndex].slice(0,-3))
+        
+        currentlyCalcingAgainst = trainer_poks[subIndex].slice(0,-3)
+
+        let isCurrent = currentp2.name == p2.name
+
+
+        expYield = Math.floor(Math.floor(expYields[cleanString(p2.name)] * p2.level / 7) * 1.5);
+
+
+
+        // Remove intimidate unless you're calcing against the current in pokemon and intimidate is on
+        // TODO: fix so that if current player mon has been intimidated, it needs to apply the dmg reduction to dmg done to all ai trainer pokemon
+        if (p2.ability == "Intimidate" && !(isCurrent && $('#p2 .abilityToggle').is(':checked'))) {
+            p2.ability = "Run Away"
+        }
+        else if (unseenAbilities.includes(p2.ability)) {
+            p2.ability = "Run Away"
+        } else if (defaultOffAbilities.includes(p2.ability)) {
+            p2.abilityOn = false;
+        }
+
+        if (!settings.hasEvs) {
+            p2.evs = {
+                "hp": 0,
+                "atk": 0,
+                "def": 0,
+                "spa": 0,
+                "spd": 0,
+                "spe": 0
+            }
+        }
+
+
+        let matchup = {}
+        if (localStorage.switchInfo == '1') {
+            calcingForSwitchIns = true
+            p1Name = p1.name
+
+
+            let all_results = memoizedCalc(settings.damageGen, p1, p1field, p2, p2field);
+
+            calcingForSwitchIns = false
+            
+            player_results = all_results[0]
+            results = all_results[1]
+            matchup = postKoMatchupData(player_results, results, isCurrent)
+        } else {
+            p1name = p1.name
+        }
+       
+
+        let pok_name = trainer_poks[subIndex].split(" (")[0]
+        let tr_name = trainer_poks[subIndex].split(" (")[1].replace(")", "").split("[")[0]
+        let pok_data = SETDEX_BW[pok_name][tr_name]
+
+        let sub_index = parseInt(trainer_poks[subIndex].split(" (")[1].replace(")", "").split("[")[1].replace("]", ""))
+        let types = pokedex[pok_name].types
+        let type_matchup = getTypeMatchup([player_type1, player_type2], types)
+
+        if (localStorage.switchInfo == '1') {
+            matchup["type_matchup"] = type_matchup
+
+            matchup.move = matchup.move.replace("Hidden Power", "HP")
+            matchup.attackerBestMove = matchup.attackerBestMove.replace("Hidden Power", "HP")
+        }
+
+        // Only one mon should receive the defensive mid-turn wall bonus.
+        if (!isDoubles && localStorage.switchInfo == '1' && matchup.winsMidTurn1v1 && !matchup.isTrapper && type_matchup >= 2 && matchup.attackerFastestKill > 3) {
+            if (
+                wallCandidate === null ||
+                matchup.attackerFastestKill > wallCandidate.hits ||
+                (matchup.attackerFastestKill == wallCandidate.hits && sub_index < wallCandidate.sub_index)
+            ) {
+                wallCandidate = {
+                    hits: matchup.attackerFastestKill,
+                    sub_index: sub_index
+                }
+            }
+        }
+
+        trainerMatchups.push({
+            expYield: expYield,
+            isCurrent: isCurrent,
+            matchup: matchup,
+            pok_data: pok_data,
+            pok_name: pok_name,
+            sub_index: sub_index,
+            trainer_pok: trainer_poks[subIndex],
+            tr_name: tr_name,
+            type_matchup: type_matchup
+        })
+    }
+
+    for (let trainerMatchup of trainerMatchups) {
+        analysis = ""
+
+        let expYield = trainerMatchup.expYield
+        let isCurrent = trainerMatchup.isCurrent
+        let matchup = trainerMatchup.matchup
+        let pok_data = trainerMatchup.pok_data
+        let pok_name = trainerMatchup.pok_name
+        let sub_index = trainerMatchup.sub_index
+        let type_matchup = trainerMatchup.type_matchup
+        let switchInScore = 0
+
+        if (localStorage.switchInfo == '1') analysis += "<div class='ai-infos'>"
+        if (settings.damageGen != 4 || typeof shouldShowSwitchAiInfo !== "function" || shouldShowSwitchAiInfo()) {
+            analysis += `<div class='bp-info switch-info mu-info'>Type MU: ${type_matchup}</div>`
+        }
+
+        if (isCurrent) {
+            currentTypeMatchup = type_matchup
+        }
+
+        if (localStorage.switchInfo == '1') {
+
+            
+      
+            // Check for trappers, revenge killers, and good matchups
+            if (isDoubles) {
+                switchInScore = 0
+                // If a pokemon has a good defensive type matchup (<2) AND a super effective damaging move, 
+                // it is considered a good candidate and can be sent out. The candidates are ranked from lowest 
+                // type matchup value to highest (0.5 outranking 1.5). In case of ties, the AI will send a pokemon 
+                // in party order, from the front of the party to the back. 
+
+                if (type_matchup < 2 && matchup.aiHasSE) {
+                    console.log(pok_name)
+                    switchInScore -= sub_index
+                    switchInScore += 4000 * (2 - type_matchup)
+                    analysis += `<div class='bp-info switch-info'>Good MU</div>` 
+                } else {
+                    switchInScore -= sub_index / 100
+                    switchInScore += Math.min(matchup.maxDmg / 10, currentHp)
+                    analysis += `<div class='bp-info switch-info'>Deals ${Math.min(matchup.maxDmg, currentHp)} ${matchup.move}</div>` 
+                }                
+            } else {
+                if (matchup.wins1v1) {
+                    analysis += "<div class='bp-info switch-info'>Wins 1v1</div>" 
+                    // trapper
+                    if (matchup.isTrapper && matchup.wins1v1) {
+                        switchInScore += 20000
+                        analysis += "<div class='bp-info switch-info'>Trapper</div>"
+                    // fast ohko
+                    } else if (matchup.isRevenge && matchup.isFaster) {
+                        switchInScore += sub_index
+                        switchInScore += 10000 
+                        analysis += `<div class='bp-info switch-info'>Fast Ohko ${matchup.move}</div>`
+                    // slow ohko
+                    } else if (matchup.isRevenge && !matchup.isFaster) {
+                        switchInScore += sub_index
+                        switchInScore += 9500
+                        analysis += `<div class='bp-info switch-info'>Slow Ohko ${matchup.move}</div>` 
+                    // fast 2hko
+                    } else if (matchup.isThreaten && matchup.isFaster && !matchup.move.includes("Explosion") && !matchup.move != "Self-Destruct") {
+                        switchInScore += sub_index
+                        switchInScore += 9000 
+                        analysis += `<div class='bp-info switch-info'>Fast 2Hko ${matchup.move}</div>` 
+                    // slow 2hko
+                    } else if (matchup.isThreaten && !matchup.isFaster && !matchup.move.includes("Explosion") && !matchup.move != "Self-Destruct") {
+                        switchInScore += sub_index
+                        switchInScore += 8500
+                        analysis += `<div class='bp-info switch-info'>Slow 2Hko ${matchup.move}</div>` 
+                    // good matchup
+                    } else if (type_matchup < 2) {
+                        // analysis += "<div class='bp-info switch-info'>Good MU</div>" 
+                        analysis += `<div class='bp-info switch-info'>Good MU</div>` 
+                        switchInScore += 4000 * (2 - type_matchup)
+                    // wins 1v1
+                    } else {
+                        switchInScore += sub_index
+                        analysis += `<div class='bp-info switch-info'>${matchup.isFaster ? "Fast" : "Slow"} ${matchup.defenderFastestKill}Hko ${matchup.move}</div>` 
+                        switchInScore += 300
+                    }
+                // loses 1v1
+                } else {
+                    analysis += `<div class='bp-info switch-info'>Loses 1v1</div>` 
+                    if (!matchup.isOhkod) {
+                        switchInScore += sub_index / 100
+                        switchInScore += Math.min(matchup.maxDmg / 10, currentHp)
+                        analysis += `<div class='bp-info switch-info'>Deals ${Math.min(matchup.maxDmg, currentHp)} ${matchup.move}</div>` 
+                    } else {
+                        analysis += `<div class='bp-info switch-info'>Is Ohko'd</div>` 
+                    }
+                }    
+            }
+
+            if (switchInScore == 0) {
+                switchInScore += sub_index / 100
+            }
+
+            if (pok_name.includes("-Mega") || pok_name.includes("-Primal") ) {
+                switchInScore -= 100000
+            }
+
+            // Set ace to last or second to last if mega
+            if (pok_data["ai_tags"] && pok_data["ai_tags"].includes("Ace Pokemon") && (pok_data.sub_index == trainer_poks.length - 2))  {
+                analysis += `<div class='bp-info switch-info'>Ace</div>` 
+                switchInScore -= 50000
+            }
+
+        
+            let midTurnScore = 0
+
+            
+            if (isDoubles) {
+                analysis += `</div><div class="switch-infos"><div class='bp-info switch-info mt-switch-score'>Can't Switch</div>` 
+            } else {
+                if (matchup.winsMidTurn1v1) {
+                    // analysis += `<div class='bp-info switch-info'>Can Switch</div>` 
+                    if (matchup.isTrapper) {
+                        midTurnScore += 20000
+                    } 
+                    else if (type_matchup < 2) {
+                        midTurnScore += 4000 * (2 - type_matchup)
+                        midTurnScore -= sub_index
+
+                        
+                        if (matchup.aiHasSE) {
+                            midTurnScore += 8000
+                        }
+                    } 
+                    else if (wallCandidate && wallCandidate.sub_index == sub_index) {
+                        midTurnScore += 300
+                        midTurnScore += sub_index
+                        analysis += `<div class='bp-info switch-info'>Walls You (${wallCandidate.hits} hits)</div>` 
+                    }
+                    else {
+                        midTurnScore += sub_index
+                    }
+                    analysis += `</div><div class="switch-infos"><div class='bp-info switch-info mt-switch-score'>${Math.round(midTurnScore * 100) / 100 }</div>` 
+                } else {
+                    analysis += `</div><div class="switch-infos"><div class='bp-info switch-info mt-switch-score loses'>-1000</div>` 
+                    analysis += `<div class='bp-info switch-info mt-switch-move loses'>${matchup.attackerBestMove}</div>`         
+                }    
+            }
+            
+
+            analysis += `<div class='bp-info switch-info switch-score'>${Math.round(switchInScore * 100) / 100 }</div></div>` 
+
+        }
+
+
+        ranked_trainer_poks.push([trainerMatchup.trainer_pok, switchInScore, matchup.move, sub_index, pok_data["moves"], analysis, matchup,null,expYield])
+    }
+
+    
+    $('.bad-odds').hide()
+
+    if (localStorage.switchInfo == '1') {
+        let badOdds = isBadOdds(p1, currentp2)
+
+        if (badOdds[0]) {
+            $('.bad-odds').show()
+            $('.bad-odds').text(`Bad Odds: ${badOdds[1]}`)
+        }
+       
+    }
+
+
+
+    ranked_trainer_poks.sort(sort_subindex)
+
+
+    console.log(ranked_trainer_poks)
+    
+    return ranked_trainer_poks
+}
+
+function simplifySwitchScores() {
+    let scores = $('.switch-score')
+    let rawScores = []
+
+    scores.each(function() {
+        let score = parseFloat($(this).text())
+        rawScores.push(score)
+    })
+
+    rawScores = rawScores.sort((a,b) => b - a)
+
+    scores.each(function() {
+        let score = parseFloat($(this).text())
+        let order = rawScores.indexOf(score)
+        
+        if (score < -50000) {
+            $(this).text(`Alt Form`)
+        } else if ((score < 0) ) {
+            $(this).text(`Ace`)
+        } else {
+           $(this).text(`Post KO Prio: ${order + 1}`) 
+        }        
+    })
+
+    // mid turn
+    scores = $('.mt-switch-score')
+    rawScores = []
+
+    scores.each(function() {
+        let score = parseFloat($(this).text())
+        rawScores.push(score)
+    })
+
+    rawScores = rawScores.sort((a,b) => b - a)
+
+    scores.each(function() {
+        let score = parseFloat($(this).text())
+        let order = rawScores.indexOf(score)
+
+
+        if (score < 0) {
+            $(this).text("Loses 1v1 after")
+        } else {
+            if (isDoubles) {
+                $(this).text(`No MT Switch`)  
+            } else {
+                $(this).text(`Mid Turn Prio: ${order + 1}`)   
+            }
+            
+        }
+
+            
+    })
+}
+
+// sort by switch in score, break ties on trainer order
+function sort_trpoks(a, b) {
+    if (a[1] === b[1]) {
+        return (b[3] > a[3]) ? -1 : 1;
+    }
+    else {
+        return (b[1] < a[1]) ? -1 : 1;
+    }
+}
+
+function sort_subindex(a, b) {
+    if (a[3] === b[3]) {
+        return (parseInt(b[3]) < parseInt(a[3])) ? -1 : 1;
+    }
+    else {
+        return (parseInt(b[3]) > parseInt(a[3])) ? -1 : 1;
+    }
+}
+
+function handleTypeMatchupImmunityEI(matchup){
+  if (matchup === 0) { return 0.1 }
+  else {return matchup}
+}
+
+function getTypeMatchup(playerTypes, defenderTypes) {
+
+    let attType1 = playerTypes[0];
+    let attType2 = playerTypes[1] ?? attType1;
+    let defType1 = defenderTypes[0];
+    let defType2 = defenderTypes[1] ?? defType1;
+
+    let att1_vs_def1 = handleTypeMatchupImmunityEI(getTypeChartEffectiveness(attType1, defType1));
+    let att1_vs_def2 = (defType1 === defType2) ? 1.0 : handleTypeMatchupImmunityEI(getTypeChartEffectiveness(attType1, defType2));
+
+    let att2_vs_def1;
+    let att2_vs_def2;
+    if (attType1 === attType2){
+        att2_vs_def1 = att1_vs_def1;
+        att2_vs_def2 = att1_vs_def2;
+    } else {
+        att2_vs_def1 = handleTypeMatchupImmunityEI(getTypeChartEffectiveness(attType2, defType1));
+        att2_vs_def2 = (defType1 === defType2) ? 1.0 : handleTypeMatchupImmunityEI(getTypeChartEffectiveness(attType2, defType2));
+    }
+    return parseFloat(((att1_vs_def1 * att1_vs_def2) + (att2_vs_def1 * att2_vs_def2)).toFixed(2));
+}

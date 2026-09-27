@@ -1,0 +1,939 @@
+"use strict";
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+exports.__esModule = true;
+
+var util_1 = require("../util");
+var stats_1 = require("../stats");
+var EV_ITEMS = [
+    'Macho Brace',
+    'Power Anklet',
+    'Power Band',
+    'Power Belt',
+    'Power Bracer',
+    'Power Lens',
+    'Power Weight',
+];
+function isGrounded(pokemon, field) {
+    return (field.isGravity || pokemon.hasItem('Iron Ball') ||
+        (!pokemon.hasType('Flying') &&
+            !pokemon.hasAbility('Levitate', 'Eelevate', 'Ancient Chimes') &&
+            !pokemon.hasItem('Air Balloon')));
+}
+exports.isGrounded = isGrounded;
+function getModifiedStat(stat, mod, gen) {
+    if (gen && gen.num < 3) {
+        if (mod >= 0) {
+            var pastGenBoostTable = [1, 1.5, 2, 2.5, 3, 3.5, 4];
+            stat = Math.floor(stat * pastGenBoostTable[mod]);
+        }
+        else {
+            var numerators = [100, 66, 50, 40, 33, 28, 25];
+            stat = Math.floor((stat * numerators[-mod]) / 100);
+        }
+        return Math.min(999, Math.max(1, stat));
+    }
+    var numerator = 0;
+    var denominator = 1;
+    var modernGenBoostTable = [
+        [2, 8],
+        [2, 7],
+        [2, 6],
+        [2, 5],
+        [2, 4],
+        [2, 3],
+        [2, 2],
+        [3, 2],
+        [4, 2],
+        [5, 2],
+        [6, 2],
+        [7, 2],
+        [8, 2],
+    ];
+    stat = OF16(stat * modernGenBoostTable[6 + mod][numerator]);
+    stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator]);
+    return stat;
+}
+function checkRawStatChanges(pokemon, powerTrickActive, wonderRoomActive) {
+    var _a, _b;
+    if (powerTrickActive) {
+        _a = __read([pokemon.rawStats.def, pokemon.rawStats.atk], 2), pokemon.rawStats.atk = _a[0], pokemon.rawStats.def = _a[1];
+    }
+    if (wonderRoomActive) {
+        _b = __read([pokemon.rawStats.spd, pokemon.rawStats.def], 2), pokemon.rawStats.def = _b[0], pokemon.rawStats.spd = _b[1];
+    }
+}
+exports.checkRawStatChanges = checkRawStatChanges;
+
+exports.getModifiedStat = getModifiedStat;
+function computeFinalStats(gen, attacker, defender, field) {
+    var e_1, _a, e_2, _b;
+    var stats = [];
+    for (var _i = 4; _i < arguments.length; _i++) {
+        stats[_i - 4] = arguments[_i];
+    }
+    var sides = [[attacker, field.attackerSide], [defender, field.defenderSide]];
+    try {
+        for (var sides_1 = __values(sides), sides_1_1 = sides_1.next(); !sides_1_1.done; sides_1_1 = sides_1.next()) {
+            var _c = __read(sides_1_1.value, 2), pokemon = _c[0], side = _c[1];
+            try {
+                for (var stats_2 = (e_2 = void 0, __values(stats)), stats_2_1 = stats_2.next(); !stats_2_1.done; stats_2_1 = stats_2.next()) {
+                    var stat = stats_2_1.value;
+                    if (stat === 'spe') {
+                        pokemon.stats.spe = getFinalSpeed(gen, pokemon, field, side);
+                    }
+                    else {
+                        pokemon.stats[stat] = getModifiedStat(pokemon.rawStats[stat], pokemon.boosts[stat], gen);
+                    }
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (stats_2_1 && !stats_2_1.done && (_b = stats_2["return"])) _b.call(stats_2);
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+        }
+    }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+    finally {
+        try {
+            if (sides_1_1 && !sides_1_1.done && (_a = sides_1["return"])) _a.call(sides_1);
+        }
+        finally { if (e_1) throw e_1.error; }
+    }
+}
+exports.computeFinalStats = computeFinalStats;
+function getFinalSpeed(gen, pokemon, field, side) {
+    var weather = field.weather || '';
+    var terrain = field.terrain;
+    var speed = getModifiedStat(pokemon.rawStats.spe, pokemon.boosts.spe, gen);
+    var speedMods = [];
+    
+    if (TITLE.includes("Cascade")) {
+        if (pokemon.hasAbility("Light Metal")) {
+            speedMods.push(6144);
+        } else if (pokemon.hasAbility("Heavy Metal")) {
+            speedMods.push(2744);
+        }
+        if (pokemon.hasItem('Mascot Badge')) {
+            speedMods.push(6144);
+        }
+    }
+
+    if (side.isTailwind)
+        speedMods.push(8192);
+    if ((pokemon.hasAbility('Unburden') && pokemon.abilityOn) ||
+        (pokemon.hasAbility('Chlorophyll') && weather.includes('Sun')) ||
+        (pokemon.hasAbility('Sand Rush') && weather === 'Sand') ||
+        (pokemon.hasAbility('Swift Swim') && weather.includes('Rain')) ||
+        (pokemon.hasAbility('Slush Rush') && ['Hail', 'Snow'].includes(weather)) ||
+        (pokemon.hasAbility('Surge Surfer') && terrain === 'Electric')) {
+        speedMods.push(8192);
+    }
+    else if ((pokemon.named('Cherrim') && pokemon.hasAbility('Flower Gift') && weather.includes('Sun') && settings.damageGen >= 8) ||
+        (pokemon.hasAbility('Bull Rush', 'Quill Rush') && pokemon.abilityOn)) {
+        speedMods.push(6144);
+    }
+    else if (pokemon.hasAbility('Quick Feet') && pokemon.status) {
+        if (TITLE.includes("Imperium") || TITLE.includes("Radical")) {
+            speedMods.push(8192);
+        } else {
+            speedMods.push(6144);
+        }
+        
+    }
+    else if (pokemon.hasAbility('Slow Start') && pokemon.abilityOn) {
+        speedMods.push(2048);
+    }
+    else if (isQPActive(pokemon, field) && getQPBoostedStat(pokemon, gen) === 'spe') {
+        speedMods.push(6144);
+    }
+    if (pokemon.hasItem('Choice Scarf', 'Tera C-Scarf') ||
+        (pokemon.named('Farfetch\u2019d', 'Farfetch\u2019d-Galar') && pokemon.hasItem('Leek') && (TITLE.includes("Imperium") || TITLE.includes("Radical"))) ||
+        (pokemon.named('Porygon-Z') && pokemon.hasItem('Up-Grade') && (TITLE.includes("Imperium") || TITLE.includes("Radical")))) {
+        speedMods.push(6144);
+    }
+    else if (pokemon.hasItem.apply(pokemon, __spreadArray(['Iron Ball'], __read(EV_ITEMS), false))) {
+        speedMods.push(2048);
+    }
+    else if (pokemon.hasItem('Quick Powder') && pokemon.named('Ditto')) {
+        speedMods.push(8192);
+    }
+    speed = OF32(pokeRound((speed * chainMods(speedMods, 410, 131172)) / 4096));
+    if (pokemon.hasStatus('par') && !pokemon.hasAbility('Quick Feet')) {
+        speed = Math.floor(OF32(speed * ((gen.num < 7 || TITLE.includes(" Null")) ? 25 : 50)) / 100);
+    }
+    speed = Math.min(gen.num <= 2 ? 999 : 10000, speed);
+    return Math.max(0, speed);
+}
+exports.getFinalSpeed = getFinalSpeed;
+function invertTypeEffectiveness(effectiveness) {
+    if (effectiveness === 0 || effectiveness === 0.5) {
+        return 2;
+    }
+    if (effectiveness === 2) {
+        return 0.5;
+    }
+    return effectiveness;
+}
+exports.invertTypeEffectiveness = invertTypeEffectiveness;
+function shouldUseInverseEffectiveness(ctx) {
+    return !!(ctx && ctx.field && (ctx.field.isInverse || ctx.field.inverse || ctx.field.isInverseBattle));
+}
+exports.shouldUseInverseEffectiveness = shouldUseInverseEffectiveness;
+function applyInverseEffectiveness(effectiveness, ctx) {
+    return shouldUseInverseEffectiveness(ctx) ? invertTypeEffectiveness(effectiveness) : effectiveness;
+}
+exports.applyInverseEffectiveness = applyInverseEffectiveness;
+function getMoveEffectiveness(gen, move, type, isGhostRevealed, isGravity, isRingTarget, isBoneZone, isCorrosion, isDarkRevealed=false, profile, ctx) {
+    var effectiveness;
+    var skipProfileTypeEffectivenessHooks = false;
+    if ((isRingTarget || isGhostRevealed) && type === 'Ghost' && move.hasType('Normal', 'Fighting')) {
+        effectiveness = 1;
+    }
+    else if (isDarkRevealed) {
+        effectiveness = 1;
+    }
+    else if ((isRingTarget || isGravity) && type === 'Flying' && move.hasType('Ground')) {
+        effectiveness = 1;
+    }
+    else if ((isRingTarget) && type === 'Fairy' && move.hasType('Dragon')) {
+        effectiveness = 1;
+    }
+    else if ((isRingTarget) && type === 'Ground' && move.hasType('Electric')) {
+        effectiveness = 1;
+    }
+    else if ((isCorrosion || isRingTarget) && type === 'Steel' && move.hasType('Poison') && (TITLE.includes("Imperium") || TITLE.includes("Radical"))) {
+        effectiveness = 1;
+    }
+    else if (move.named('Freeze-Dry') && type === 'Water') {
+        effectiveness = 2;
+    }
+    else if (move.named('Flying Press')) {
+        effectiveness = (gen.types.get('fighting').effectiveness[type] *
+            gen.types.get('flying').effectiveness[type]);
+    }
+    else if (move.named('Draco Barrage') && type === 'Fairy') {
+        effectiveness = 1;
+    }
+    else {
+        effectiveness = typeChart[move.type][type]
+
+        // if (settings.damageGen != 4) {
+        //     effectiveness = gen.types.get((0, util_1.toID)(move.type)).effectiveness[type];
+        // }
+        
+
+        if (effectiveness === 0 && isBoneZone && move.flags.bone) {
+            effectiveness = 1;
+            skipProfileTypeEffectivenessHooks = true;
+        }
+        // if (invert) {
+        //     var inverted_dmg = (1 / gen.types.get((0, util_1.toID)(move.type)).effectiveness[type])
+        //     if (inverted_dmg == Infinity) {
+        //         inverted_dmg = 2
+        //     }
+        //     return inverted_dmg;
+        // }
+        if (!skipProfileTypeEffectivenessHooks && profile && profile.hooks && profile.hooks.typeEffectiveness && profile.hooks.typeEffectiveness.length) {
+            var hookCtx = ctx || {};
+            hookCtx.gen = hookCtx.gen || gen;
+            hookCtx.move = hookCtx.move || move;
+            hookCtx.state = hookCtx.state || {};
+            hookCtx.state.effectivenessType = type;
+            for (var i = 0; i < profile.hooks.typeEffectiveness.length; i++) {
+                var next = profile.hooks.typeEffectiveness[i](hookCtx, effectiveness);
+                if (next !== undefined) {
+                    effectiveness = next;
+                }
+            }
+        }
+    }
+    return applyInverseEffectiveness(effectiveness, ctx);
+}
+exports.getMoveEffectiveness = getMoveEffectiveness;
+function checkAirLock(pokemon, field) {
+    if (pokemon.hasAbility('Air Lock', 'Cloud Nine')) {
+        field.weather = undefined;
+    }
+}
+exports.checkAirLock = checkAirLock;
+function checkTeraformZero(pokemon, field) {
+    if (pokemon.hasAbility('Teraform Zero') && pokemon.abilityOn) {
+        field.weather = undefined;
+        field.terrain = undefined;
+    }
+}
+exports.checkTeraformZero = checkTeraformZero;
+function checkForecast(pokemon, weather) {
+    if (pokemon.hasAbility('Forecast') && pokemon.named('Castform')) {
+        switch (weather) {
+            case 'Sun':
+            case 'Harsh Sunshine':
+                pokemon.types = TITLE.includes("Cascade") ? ["Flying", "Fire"] : ["Fire"]   
+                break;
+            case 'Rain':
+            case 'Heavy Rain':
+                pokemon.types = TITLE.includes("Cascade") ? ["Flying", "Water"] : ["Water"]   
+                break;
+            case 'Hail':
+            case 'Snow':
+                pokemon.types = TITLE.includes("Cascade") ? ["Flying", "Ice"] : ["Ice"]   
+                break;
+            default:
+                pokemon.types = TITLE.includes("Cascade") ? ["Flying"] : ["Normal"]    
+        }
+    }
+}
+exports.checkForecast = checkForecast;
+function checkItem(pokemon, magicRoomActive) {
+    if (pokemon.gen.num === 4 && pokemon.hasItem('Iron Ball'))
+        return;
+    if (pokemon.hasAbility('Klutz') && !EV_ITEMS.includes(pokemon.item) ||
+        magicRoomActive) {
+        pokemon.item = '';
+    }
+}
+exports.checkItem = checkItem;
+function canNeutralizingGasSuppress(pokemon) {
+    return !!(pokemon && pokemon.ability && !pokemon.hasAbility('Neutralizing Gas'));
+}
+function checkNeutralizingGas(attacker, defender) {
+    var attackerGasActive = attacker.hasAbility('Neutralizing Gas');
+    var defenderGasActive = defender.hasAbility('Neutralizing Gas');
+    if (attackerGasActive && canNeutralizingGasSuppress(defender)) {
+        defender.ability = '';
+    }
+    if (defenderGasActive && canNeutralizingGasSuppress(attacker)) {
+        attacker.ability = '';
+    }
+}
+exports.checkNeutralizingGas = checkNeutralizingGas;
+function checkWonderRoom(pokemon, wonderRoomActive) {
+    var _a;
+    if (wonderRoomActive) {
+        _a = __read([pokemon.rawStats.spd, pokemon.rawStats.def], 2), pokemon.rawStats.def = _a[0], pokemon.rawStats.spd = _a[1];
+    }
+}
+exports.checkWonderRoom = checkWonderRoom;
+function checkIntimidate(gen, source, target) {
+    var blocked = target.hasAbility('Clear Body', 'White Smoke', 'Hyper Cutter', 'Full Metal Body', "Strong Body") ||
+        (gen.num >= 8 && target.hasAbility('Inner Focus', 'Own Tempo', 'Oblivious', 'Scrappy')) ||
+        target.hasItem('Clear Amulet');
+
+    if (TITLE.includes("Cascade") && target.hasAbility("Scrappy")) {
+        blocked = true;
+    } 
+
+    if (source.hasAbility('Intimidate') && source.abilityOn && !blocked) {
+        if (target.hasAbility('Contrary', 'Defiant', 'Guard Dog')) {
+            target.boosts.atk = Math.min(6, target.boosts.atk + 1);
+        }
+        else if (target.hasAbility('Simple')) {
+            target.boosts.atk = Math.max(-6, target.boosts.atk - 2);
+        }
+        else {
+            target.boosts.atk = Math.max(-6, target.boosts.atk - 1);
+        }
+        if (target.hasAbility('Competitive')) {
+            target.boosts.spa = Math.min(6, target.boosts.spa + 2);
+        }
+    }
+}
+exports.checkIntimidate = checkIntimidate;
+
+function checkIlluminate(gen, source, target) {
+    var blocked = target.hasAbility('Clear Body', 'White Smoke', 'Hyper Cutter', 'Full Metal Body', "Strong Body") ||
+        (gen.num >= 8 && target.hasAbility('Inner Focus', 'Own Tempo', 'Oblivious', 'Scrappy')) ||
+        target.hasItem('Clear Amulet');
+
+    if (source.hasAbility('Illuminate') && source.abilityOn && !blocked) {
+        if (target.hasAbility('Contrary', 'Defiant', 'Guard Dog')) {
+            target.boosts.spa = Math.min(6, target.boosts.spa + 1);
+        }
+        else if (target.hasAbility('Simple')) {
+            target.boosts.spa = Math.max(-6, target.boosts.spa - 2);
+        }
+        else {
+            target.boosts.spa = Math.max(-6, target.boosts.spa - 1);
+        }
+        if (target.hasAbility('Competitive')) {
+            target.boosts.spa = Math.min(6, target.boosts.spa + 2);
+        }
+    }
+}
+exports.checkIlluminate = checkIlluminate;
+
+function checkDownload(source, target, wonderRoomActive) {
+    var _a;
+    if (source.hasAbility('Download', "Exploit") && source.abilityOn) {
+        var def = target.stats.def;
+        var spd = target.stats.spd;
+        if (wonderRoomActive)
+            _a = __read([spd, def], 2), def = _a[0], spd = _a[1];
+        if (spd <= def) {
+            source.boosts.spa = Math.min(6, source.boosts.spa + 1);
+        }
+        else {
+            source.boosts.atk = Math.min(6, source.boosts.atk + 1);
+        }
+    }
+}
+exports.checkDownload = checkDownload;
+
+function checkCascItems(source) {
+    if (source.hasItem("CLRS Booster", "Proto Booster","Mysterious Device")) {
+        source.boosts.atk = Math.min(6, source.boosts.atk + 1);
+        source.boosts.spa = Math.min(6, source.boosts.spa + 1);
+    } else if (source.hasItem("CLRS Armor", "Proto Armor")) {
+        source.boosts.def = Math.min(6, source.boosts.def + 1);
+        source.boosts.spd = Math.min(6, source.boosts.spd + 1);
+    } else if (source.hasItem("CLRS Accelerator", "Proto Accelerator")) {
+        source.boosts.spe = Math.min(6, source.boosts.def + 2);
+    } else if (source.hasItem("CLRS Invention")) {
+        source.boosts.atk = Math.min(6, source.boosts.atk + 1);
+        source.boosts.spa = Math.min(6, source.boosts.spa + 1);
+        source.boosts.def = Math.min(6, source.boosts.def + 1);
+        source.boosts.spd = Math.min(6, source.boosts.spd + 1);
+        source.boosts.spe = Math.min(6, source.boosts.def + 1);
+    }
+}
+exports.checkCascItems = checkCascItems;
+
+function checkIntrepidSword(source, gen) {
+    if (source.hasAbility('Intrepid Sword') && gen.num > 7  && source.abilityOn) {
+        source.boosts.atk = Math.min(6, source.boosts.atk + 1);
+    }
+}
+exports.checkIntrepidSword = checkIntrepidSword;
+function checkDauntlessShield(source, gen) {
+    if (source.hasAbility('Dauntless Shield') && gen.num > 7 && source.abilityOn) {
+        source.boosts.def = Math.min(6, source.boosts.def + 1);
+    }
+}
+exports.checkDauntlessShield = checkDauntlessShield;
+function checkWindRider(source, attackingSide) {
+    if (source.hasAbility('Wind Rider') && attackingSide.isTailwind) {
+        source.boosts.atk = Math.min(6, source.boosts.atk + 1);
+    }
+}
+exports.checkWindRider = checkWindRider;
+function checkEmbody(source, gen) {
+    if (gen.num < 9)
+        return;
+    switch (source.ability) {
+        case 'Embody Aspect (Cornerstone)':
+            source.boosts.def = Math.min(6, source.boosts.def + 1);
+            break;
+        case 'Embody Aspect (Hearthflame)':
+            source.boosts.atk = Math.min(6, source.boosts.atk + 1);
+            break;
+        case 'Embody Aspect (Teal)':
+            source.boosts.spe = Math.min(6, source.boosts.spe + 1);
+            break;
+        case 'Embody Aspect (Wellspring)':
+            source.boosts.spd = Math.min(6, source.boosts.spd + 1);
+            break;
+    }
+}
+exports.checkEmbody = checkEmbody;
+function checkInfiltrator(pokemon, affectedSide) {
+    if (pokemon.hasAbility('Infiltrator')) {
+        affectedSide.isReflect = false;
+        affectedSide.isLightScreen = false;
+        affectedSide.isAuroraVeil = false;
+    }
+}
+exports.checkInfiltrator = checkInfiltrator;
+function checkSeedBoost(pokemon, field) {
+    if (!pokemon.item)
+        return;
+    if (field.terrain && pokemon.item.includes('Seed')) {
+        var terrainSeed = pokemon.item.substring(0, pokemon.item.indexOf(' '));
+        if (field.hasTerrain(terrainSeed)) {
+            if (terrainSeed === 'Grassy' || terrainSeed === 'Electric') {
+                pokemon.boosts.def = pokemon.hasAbility('Contrary')
+                    ? Math.max(-6, pokemon.boosts.def - 1)
+                    : Math.min(6, pokemon.boosts.def + 1);
+            }
+            else {
+                pokemon.boosts.spd = pokemon.hasAbility('Contrary')
+                    ? Math.max(-6, pokemon.boosts.spd - 1)
+                    : Math.min(6, pokemon.boosts.spd + 1);
+            }
+            pokemon.item = '';
+        }
+    }
+}
+exports.checkSeedBoost = checkSeedBoost;
+function checkMultihitBoost(gen, attacker, defender, move, field, desc, attackerUsedItem, defenderUsedItem) {
+    if (attackerUsedItem === void 0) { attackerUsedItem = false; }
+    if (defenderUsedItem === void 0) { defenderUsedItem = false; }
+    if (move.named('Gyro Ball', 'Electro Ball') && defender.hasAbility('Gooey', 'Tangling Hair')) {
+        if (attacker.hasItem('White Herb') && !attackerUsedItem) {
+            desc.attackerItem = attacker.item;
+            attackerUsedItem = true;
+        }
+        else {
+            attacker.boosts.spe = Math.max(attacker.boosts.spe - 1, -6);
+            attacker.stats.spe = getFinalSpeed(gen, attacker, field, field.attackerSide);
+            desc.defenderAbility = defender.ability;
+        }
+    }
+    else if (move.named('Power-Up Punch')) {
+        attacker.boosts.atk = Math.min(attacker.boosts.atk + 1, 6);
+        attacker.stats.atk = getModifiedStat(attacker.rawStats.atk, attacker.boosts.atk, gen);
+    }
+    var atkSimple = attacker.hasAbility('Simple') ? 2 : 1;
+    var defSimple = defender.hasAbility('Simple') ? 2 : 1;
+    if ((!defenderUsedItem) &&
+        (defender.hasItem('Luminous Moss') && move.hasType('Water')) ||
+        (defender.hasItem('Maranga Berry') && move.category === 'Special') ||
+        (defender.hasItem('Kee Berry') && move.category === 'Physical')) {
+        var defStat = defender.hasItem('Kee Berry') ? 'def' : 'spd';
+        if (attacker.hasAbility('Unaware')) {
+            desc.attackerAbility = attacker.ability;
+        }
+        else {
+            if (defender.hasAbility('Contrary')) {
+                desc.defenderAbility = defender.ability;
+                if (defender.hasItem('White Herb') && !defenderUsedItem) {
+                    desc.defenderItem = defender.item;
+                    defenderUsedItem = true;
+                }
+                else {
+                    defender.boosts[defStat] = Math.max(-6, defender.boosts[defStat] - defSimple);
+                }
+            }
+            else {
+                defender.boosts[defStat] = Math.min(6, defender.boosts[defStat] + defSimple);
+            }
+            if (defSimple === 2)
+                desc.defenderAbility = defender.ability;
+            defender.stats[defStat] = getModifiedStat(defender.rawStats[defStat], defender.boosts[defStat], gen);
+            desc.defenderItem = defender.item;
+            defenderUsedItem = true;
+        }
+    }
+    if (defender.hasAbility('Seed Sower')) {
+        field.terrain = 'Grassy';
+    }
+    if (defender.hasAbility('Sand Spit')) {
+        field.weather = 'Sand';
+    }
+    if (defender.hasAbility('Stamina')) {
+        if (attacker.hasAbility('Unaware')) {
+            desc.attackerAbility = attacker.ability;
+        }
+        else {
+            defender.boosts.def = Math.min(defender.boosts.def + 1, 6);
+            defender.stats.def = getModifiedStat(defender.rawStats.def, defender.boosts.def, gen);
+            desc.defenderAbility = defender.ability;
+        }
+    }
+    else if (defender.hasAbility('Water Compaction') && move.hasType('Water')) {
+        if (attacker.hasAbility('Unaware')) {
+            desc.attackerAbility = attacker.ability;
+        }
+        else {
+            defender.boosts.def = Math.min(defender.boosts.def + 2, 6);
+            defender.stats.def = getModifiedStat(defender.rawStats.def, defender.boosts.def, gen);
+            desc.defenderAbility = defender.ability;
+        }
+    }
+    else if (defender.hasAbility('Weak Armor')) {
+        if (attacker.hasAbility('Unaware')) {
+            desc.attackerAbility = attacker.ability;
+        }
+        else {
+            if (defender.hasItem('White Herb') && !defenderUsedItem && defender.boosts.def === 0) {
+                desc.defenderItem = defender.item;
+                defenderUsedItem = true;
+            }
+            else {
+                defender.boosts.def = Math.max(defender.boosts.def - 1, -6);
+                defender.stats.def = getModifiedStat(defender.rawStats.def, defender.boosts.def, gen);
+            }
+            desc.defenderAbility = defender.ability;
+        }
+        defender.boosts.spe = Math.min(defender.boosts.spe + 2, 6);
+        defender.stats.spe = getFinalSpeed(gen, defender, field, field.defenderSide);
+    }
+    if (move.dropsStats) {
+        if (attacker.hasAbility('Unaware')) {
+            desc.attackerAbility = attacker.ability;
+        }
+        else {
+            var stat = move.category === 'Special' ? 'spa' : 'atk';
+            var boosts = attacker.boosts[stat];
+            if (attacker.hasAbility('Contrary')) {
+                boosts = Math.min(6, boosts + move.dropsStats);
+                desc.attackerAbility = attacker.ability;
+            }
+            else {
+                boosts = Math.max(-6, boosts - move.dropsStats * atkSimple);
+            }
+            if (atkSimple === 2)
+                desc.attackerAbility = attacker.ability;
+            if (attacker.hasItem('White Herb') && attacker.boosts[stat] < 0 && !attackerUsedItem) {
+                boosts += move.dropsStats * atkSimple;
+                desc.attackerItem = attacker.item;
+                attackerUsedItem = true;
+            }
+            attacker.boosts[stat] = boosts;
+            attacker.stats[stat] = getModifiedStat(attacker.rawStats[stat], defender.boosts[stat], gen);
+        }
+    }
+    if (defender.hasAbility('Mummy', 'Wandering Spirit', 'Lingering Aroma') && move.flags.contact) {
+        var oldAttackerAbility = attacker.ability;
+        attacker.ability = defender.ability;
+        if (desc.attackerAbility) {
+            desc.defenderAbility = defender.ability;
+        }
+        if (defender.hasAbility('Wandering Spirit')) {
+            defender.ability = oldAttackerAbility;
+        }
+    }
+    return [attackerUsedItem, defenderUsedItem];
+}
+exports.checkMultihitBoost = checkMultihitBoost;
+function chainMods(mods, lowerBound, upperBound) {
+    var e_3, _a;
+    var M = 4096;
+    try {
+        for (var mods_1 = __values(mods), mods_1_1 = mods_1.next(); !mods_1_1.done; mods_1_1 = mods_1.next()) {
+            var mod = mods_1_1.value;
+            if (mod !== 4096) {
+                M = (M * mod + 2048) >> 12;
+            }
+        }
+    }
+    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+    finally {
+        try {
+            if (mods_1_1 && !mods_1_1.done && (_a = mods_1["return"])) _a.call(mods_1);
+        }
+        finally { if (e_3) throw e_3.error; }
+    }
+    return Math.max(Math.min(M, upperBound), lowerBound);
+}
+exports.chainMods = chainMods;
+function getBaseDamage(level, basePower, attack, defense) {
+    return Math.floor(OF32(Math.floor(OF32(OF32(Math.floor((2 * level) / 5 + 2) * basePower) * attack) / defense) / 50 + 2));
+}
+exports.getBaseDamage = getBaseDamage;
+function getCriticalHitMultiplier(gen) {
+    var configuredCritGen = typeof settings !== 'undefined' && settings
+        ? Number(settings.critGen)
+        : NaN;
+    var critGen = Number.isFinite(configuredCritGen) ? configuredCritGen : gen.num;
+    return critGen >= 6 ? 1.5 : 2;
+}
+exports.getCriticalHitMultiplier = getCriticalHitMultiplier;
+function getQPBoostedStat(pokemon, gen) {
+    var e_4, _a;
+    if (pokemon.boostedStat && pokemon.boostedStat !== 'auto') {
+        return pokemon.boostedStat;
+    }
+    var bestStat = 'atk';
+    try {
+        for (var _b = __values(['def', 'spa', 'spd', 'spe']), _c = _b.next(); !_c.done; _c = _b.next()) {
+            var stat = _c.value;
+            if (getModifiedStat(pokemon.rawStats[stat], pokemon.boosts[stat], gen) >
+                getModifiedStat(pokemon.rawStats[bestStat], pokemon.boosts[bestStat], gen)) {
+                bestStat = stat;
+            }
+        }
+    }
+    catch (e_4_1) { e_4 = { error: e_4_1 }; }
+    finally {
+        try {
+            if (_c && !_c.done && (_a = _b["return"])) _a.call(_b);
+        }
+        finally { if (e_4) throw e_4.error; }
+    }
+    return bestStat;
+}
+exports.getQPBoostedStat = getQPBoostedStat;
+function isQPActive(pokemon, field) {
+    if (!pokemon.boostedStat) {
+        return false;
+    }
+    var weather = field.weather || '';
+    var terrain = field.terrain;
+
+
+    return ((pokemon.hasAbility('Protosynthesis') &&
+        (weather.includes('Sun') || pokemon.hasItem('Booster Energy'))) ||
+        (pokemon.hasAbility('Quark Drive') &&
+            (terrain === 'Electric' || pokemon.hasItem('Booster Energy'))) ||
+        (pokemon.boostedStat !== 'auto'));
+}
+exports.isQPActive = isQPActive;
+function getFinalDamage(baseAmount, i, effectiveness, isBurned, stabMod, finalMod, protect, isFrostbitten) {
+    
+    var damageAmount = Math.floor(OF32(baseAmount * (85 + i)) / 100);
+    if (stabMod !== 4096)
+        damageAmount = OF32(damageAmount * stabMod) / 4096;
+    damageAmount = Math.floor(OF32(pokeRound(damageAmount) * effectiveness));
+    if (isBurned || isFrostbitten)
+        damageAmount = Math.floor(damageAmount / 2);
+    if (protect)
+        damageAmount = pokeRound(OF32(damageAmount * 1024) / 4096);
+
+
+    return OF16(pokeRound(Math.max(1, OF32(damageAmount * finalMod) / 4096)));
+}
+exports.getFinalDamage = getFinalDamage;
+function getShellSideArmCategory(source, target, wonderRoomActive, weather) {
+    var targetDef = target.stats.def
+    var targetSpd = target.stats.spd
+
+    // if (target.hasAbility("Fur Coat")) {
+    //     targetDef *= 2
+    // } else if (target.hasAbility("Ice Scales")) {
+    //     targetSpd *= 2
+    // }
+
+    // if (target.hasItem("Assault Vest") || (weather == "Sand" && target.hasType('Rock'))) {
+    //     targetSpd *= 1.5
+    // }
+
+    var physicalDamage = source.stats.atk / target.stats.def;
+    var specialDamage = source.stats.spa / target.stats.spd;
+    if (wonderRoomActive) {
+        physicalDamage = source.stats.atk / target.stats.spd;
+        specialDamage = source.stats.spa / target.stats.def;
+    }
+    return physicalDamage > specialDamage ? 'Physical' : 'Special';
+}
+exports.getShellSideArmCategory = getShellSideArmCategory;
+function getWeight(pokemon, desc, role) {
+    var weightHG = pokemon.weightkg * 10;
+    var abilityFactor = pokemon.hasAbility('Heavy Metal') ? 2
+        : pokemon.hasAbility('Light Metal') ? 0.5
+            : 1;
+    if (abilityFactor !== 1) {
+        weightHG = Math.max(Math.trunc(weightHG * abilityFactor), 1);
+        desc["".concat(role, "Ability")] = pokemon.ability;
+    }
+    if (pokemon.hasItem('Float Stone')) {
+        weightHG = Math.max(Math.trunc(weightHG * 0.5), 1);
+        desc["".concat(role, "Item")] = pokemon.item;
+    }
+    return weightHG / 10;
+}
+exports.getWeight = getWeight;
+
+function getWeightFactor(pokemon) {
+        return pokemon.hasAbility('Heavy Metal') ? 2
+            : (pokemon.hasAbility('Light Metal') || pokemon.hasItem('Float Stone')) ? 0.5 : 1;
+    }
+exports.getWeightFactor = getWeightFactor;
+
+function getStabMod(pokemon, move, desc) {
+    var stabMod = 4096;
+    if (pokemon.hasOriginalType(move.type)) {
+        stabMod += 2048;
+    }
+    else if (pokemon.hasAbility('Protean', 'Libero') && !pokemon.teraType) {
+        stabMod += 2048;
+        desc.attackerAbility = pokemon.ability;
+    }
+    var teraType = pokemon.teraType;
+    if (teraType === move.type && teraType !== 'Stellar') {
+        stabMod += 2048;
+        desc.attackerTera = teraType;
+    }
+    if (pokemon.hasAbility('Adaptability') && pokemon.hasType(move.type)) {
+        stabMod += teraType && pokemon.hasOriginalType(teraType) ? 1024 : 2048;
+        desc.attackerAbility = pokemon.ability;
+    }
+    return stabMod;
+}
+exports.getStabMod = getStabMod;
+function getStellarStabMod(pokemon, move, stabMod, turns) {
+    if (stabMod === void 0) { stabMod = 1; }
+    if (turns === void 0) { turns = 0; }
+    var isStellarBoosted = pokemon.teraType === 'Stellar' &&
+        ((move.isStellarFirstUse && turns === 0) || pokemon.named('Terapagos-Stellar'));
+    if (isStellarBoosted) {
+        if (pokemon.hasOriginalType(move.type)) {
+            stabMod += 2048;
+        }
+        else {
+            stabMod = 4915;
+        }
+    }
+    return stabMod;
+}
+exports.getStellarStabMod = getStellarStabMod;
+function countBoosts(gen, boosts) {
+    var e_5, _a;
+    var sum = 0;
+    var STATS = gen.num === 1
+        ? ['atk', 'def', 'spa', 'spe']
+        : ['atk', 'def', 'spa', 'spd', 'spe'];
+    try {
+        for (var STATS_1 = __values(STATS), STATS_1_1 = STATS_1.next(); !STATS_1_1.done; STATS_1_1 = STATS_1.next()) {
+            var stat = STATS_1_1.value;
+            var boost = boosts[stat];
+            if (boost && boost > 0)
+                sum += boost;
+        }
+    }
+    catch (e_5_1) { e_5 = { error: e_5_1 }; }
+    finally {
+        try {
+            if (STATS_1_1 && !STATS_1_1.done && (_a = STATS_1["return"])) _a.call(STATS_1);
+        }
+        finally { if (e_5) throw e_5.error; }
+    }
+    return sum;
+}
+exports.countBoosts = countBoosts;
+function getStatDescriptionText(gen, pokemon, stat, powerTrickActive, wonderRoomActive) {
+    var initialStat = stat;
+    if (wonderRoomActive) {
+        if (stat === 'def') {
+            stat = 'spd';
+        }
+        else if (stat === 'spd') {
+            stat = 'def';
+        }
+    }
+    if (powerTrickActive) {
+        if (stat === 'atk') {
+            stat = 'def';
+        }
+        else if (stat === 'def') {
+            stat = 'atk';
+        }
+    }
+    var nature = gen.natures.get((0, util_1.toID)(pokemon.nature));
+    var desc = pokemon.evs[stat] +
+        (stat === 'hp' || nature.plus === nature.minus ? ''
+            : nature.plus === stat ? '+'
+                : nature.minus === stat ? '-'
+                    : '') + ' ' +
+        stats_1.Stats.displayStat(initialStat);
+    if (stat !== initialStat) {
+        desc = desc + ' (' + stats_1.Stats.displayStat(stat) + ')';
+    }
+    var iv = pokemon.ivs[stat];
+    if (iv !== 31)
+        desc += " ".concat(iv, " IVs");
+    return desc;
+}
+exports.getStatDescriptionText = getStatDescriptionText;
+
+function calculateLegacyBeatUpDamage(gen, move, defender) {
+    if (!move.named('Beat Up') || !Array.isArray(move.beatUpParty)) {
+        return null;
+    }
+    if (move.beatUpParty.length === 0) {
+        return 0;
+    }
+    var defense = Math.max(1, Number(defender.species && defender.species.baseStats && defender.species.baseStats.def) || 1);
+    var damageMatrix = move.beatUpParty.map(function (member) {
+        var level = Math.max(1, Number(member.level) || 1);
+        var attack = Math.max(1, Number(member.baseAttack) || 1);
+        var baseDamage = Math.floor(Math.floor((Math.floor((2 * level) / 5 + 2) * attack * 10) / defense) / 50);
+        baseDamage = (gen.num === 2 ? Math.min(997, baseDamage) : Math.max(1, baseDamage)) + 2;
+        var damage = [];
+        if (gen.num === 2) {
+            for (var roll = 217; roll <= 255; roll++) {
+                damage[roll - 217] = Math.max(1, Math.floor((baseDamage * roll) / 255));
+            }
+        }
+        else {
+            for (var roll = 85; roll <= 100; roll++) {
+                damage[roll - 85] = Math.max(1, Math.floor((baseDamage * roll) / 100));
+            }
+        }
+        return damage;
+    });
+    return damageMatrix.length === 1 ? damageMatrix[0] : damageMatrix;
+}
+exports.calculateLegacyBeatUpDamage = calculateLegacyBeatUpDamage;
+
+function applyBeatUpTitleOverride(move, title) {
+    var isBeatUp = move && (typeof move.named === 'function'
+        ? move.named('Beat Up')
+        : move.name === 'Beat Up' || move.originalName === 'Beat Up');
+    if (!isBeatUp || typeof title !== 'string') {
+        return false;
+    }
+    var usesListedMoveData = title.includes('Emerald Imperium') || title.includes('Radical Red');
+    var isPlatinumKaizo = title === 'Platinum Kaizo';
+    if (!usesListedMoveData && !isPlatinumKaizo) {
+        return false;
+    }
+    move.beatUpParty = undefined;
+    move.hits = isPlatinumKaizo ? 1 : Math.max(1, Number(move.listedHits) || Number(move.hits) || 1);
+    return true;
+}
+exports.applyBeatUpTitleOverride = applyBeatUpTitleOverride;
+
+function handleFixedDamageMoves(attacker, move, defender=null) {
+    if (move.named('Seismic Toss', 'Night Shade')) {
+        return attacker.level;
+    }
+    else if (move.named('Dragon Rage') && !TITLE.includes("Cascade") && !TITLE.includes("Pokemon Colors")) {
+        return 40;
+    }
+    else if (move.named('Sonic Boom')) {
+        return 20;
+    } 
+    return 0;
+}
+exports.handleFixedDamageMoves = handleFixedDamageMoves;
+function pokeRound(num) {
+    return num % 1 > 0.5 ? Math.ceil(num) : Math.floor(num);
+}
+exports.pokeRound = pokeRound;
+function OF16(n) {
+    return n > 65535 ? n % 65536 : n;
+}
+exports.OF16 = OF16;
+function OF32(n) {
+    return n > 4294967295 ? n % 4294967296 : n;
+}
+exports.OF32 = OF32;
+//# sourceMappingURL=util.js.map

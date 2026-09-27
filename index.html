@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kudzu Nuzlocke Tracker</title>
+<link rel="stylesheet" href="style.css?v=20260927181122">
+<link rel="stylesheet" href="web.css?v=20260927181122">
+</head>
+<body>
+
+<header id="bar">
+  <div class="brand">Kudzu<span>tracker</span></div>
+  <!-- The version sits with the brand; then the sections (filled by nav.js from
+       NAV_SECTIONS - their pages are the #tabs row below the bar) with the level
+       cap beside them; the save, data and refresh controls cluster on the right. -->
+  <div id="hackver" class="cap" hidden></div>
+  <nav id="groups" aria-label="Sections"></nav>
+  <div id="cap" class="cap" hidden></div>
+  <div class="grow"></div>
+  <div id="sync" class="cap sync" hidden></div>
+  <div id="status" class="status" title="Dataset status">
+    <span id="status-dot" class="dot"></span>
+    <span id="status-text">loading…</span>
+  </div>
+  <button id="refresh" class="btn">Refresh data</button>
+</header>
+
+<!-- The pages of the open section. One button per page, every one always in
+     the DOM (nav.js hides the other sections'), because the rest of the app
+     finds a page by '#tabs button[data-tab=...]'. -->
+<div id="subbar">
+  <!-- Shipped as nav.js leaves it on the Overview - Run's pages showing, the rest
+       hidden - so the first frame is already right. nav.js owns order and labels. -->
+  <nav id="tabs" aria-label="Pages in this section">
+    <button data-tab="home" class="on">Overview</button>
+    <button data-tab="splits">Splits</button>
+    <button data-tab="runs">All runs</button>
+    <button data-tab="sav">Save file</button>
+    <button data-tab="enc" hidden>Encounters</button>
+    <button data-tab="trainers" hidden>Trainers</button>
+    <button data-tab="box" hidden>Box</button>
+    <button data-tab="items" hidden>Items</button>
+    <button data-tab="caps" hidden>Bottle Caps</button>
+    <button data-tab="frags" hidden>Frags</button>
+    <button data-tab="sandbox" hidden>Sandbox</button>
+    <button data-tab="calc" hidden>Calc</button>
+    <button data-tab="dex" hidden>Pokédex</button>
+  </nav>
+</div>
+
+<div id="banner" hidden></div>
+
+<main>
+  <!-- ───────────────────────────── Run ────────────────────────────── -->
+  <section id="tab-home" class="tab wide on">
+    <aside class="filters">
+      <h4>This run</h4>
+      <div class="hint" id="home-note">
+        Where the run is, what is next, who is alive. Everything here comes from
+        the save and the other tabs.
+      </div>
+      <div class="row">
+        <button id="home-readnow" class="btn">Read the save now</button>
+      </div>
+      <div class="row">
+        <button id="home-runs" class="btn ghost">Manage runs</button>
+      </div>
+    </aside>
+    <div class="main" id="home-main"></div>
+  </section>
+
+  <!-- ─────────────────────────── Pokédex ─────────────────────────── -->
+  <section id="tab-dex" class="tab">
+    <aside class="filters">
+      <label class="f">
+        <span>Search</span>
+        <input id="dex-q" type="search" placeholder="name or SPECIES_ constant" autocomplete="off">
+      </label>
+      <label class="f">
+        <span>Type</span>
+        <select id="dex-type"><option value="">any</option></select>
+      </label>
+      <label class="f">
+        <span>Ability</span>
+        <select id="dex-ability"><option value="">any</option></select>
+      </label>
+      <label class="f">
+        <span>Egg group</span>
+        <select id="dex-egg"><option value="">any</option></select>
+      </label>
+      <label class="f">
+        <span>Stat</span>
+        <div class="row">
+          <select id="dex-stat">
+            <option value="bst">BST</option>
+            <option value="hp">HP</option>
+            <option value="attack">Atk</option>
+            <option value="defense">Def</option>
+            <option value="spAttack">SpA</option>
+            <option value="spDefense">SpD</option>
+            <option value="speed">Spe</option>
+          </select>
+          <span class="ge">≥</span>
+          <input id="dex-stat-min" type="number" min="0" max="800" step="5" placeholder="0">
+        </div>
+      </label>
+      <label class="chk"><input id="dex-obtainable" type="checkbox"> Obtainable in this run</label>
+      <label class="chk"><input id="dex-forms" type="checkbox"> Show cosmetic forms</label>
+      <label class="chk"><input id="dex-lines" type="checkbox" checked> Group by evolution line</label>
+      <div class="count" id="dex-count"></div>
+    </aside>
+    <div class="list" id="dex-list"></div>
+    <div class="detail" id="dex-detail"><div class="empty">Select a Pokémon</div></div>
+  </section>
+
+  <!-- ────────────────────────── Encounters ────────────────────────── -->
+  <section id="tab-enc" class="tab wide">
+    <aside class="filters">
+      <div class="seg" id="enc-mode">
+        <button data-mode="tracker" class="on">Tracker</button>
+        <button data-mode="viewer">Viewer</button>
+        <button data-mode="grave">Graveyard</button>
+      </div>
+
+      <label class="f">
+        <span>Search</span>
+        <input id="enc-q" type="search" placeholder="area or species" autocomplete="off">
+      </label>
+      <label class="f">
+        <span>Split</span>
+        <select id="enc-split"><option value="">all</option></select>
+      </label>
+      <label class="chk"><input id="enc-todo" type="checkbox"> Unencountered only</label>
+      <label class="chk"><input id="enc-nonwild" type="checkbox" checked> Include gifts / statics / trades</label>
+
+      <h4>Progress</h4>
+      <div class="hint" id="prog-summary">—</div>
+      <label class="f">
+        <span>Current split</span>
+        <select id="rule-split"></select>
+      </label>
+      <div class="row" id="prog-follow-wrap" hidden>
+        <button id="prog-follow" class="btn ghost">Follow the save again</button>
+      </div>
+
+      <h4>Run</h4>
+      <div class="hint" id="run-status">—</div>
+      <div class="row">
+        <button id="run-manage" class="btn ghost">Manage runs</button>
+      </div>
+
+      <h4>Rules</h4>
+      <label class="f">
+        <span>One encounter per</span>
+        <select id="rule-unit">
+          <option value="location">Location (Mt. Moon counts once)</option>
+          <option value="map">Map (each floor counts)</option>
+        </select>
+      </label>
+      <label class="f">
+        <span>Dupes clause</span>
+        <select id="rule-dupes">
+          <option value="line">By evolution line</option>
+          <option value="species">By species</option>
+          <option value="off">Off</option>
+        </select>
+      </label>
+      <label class="chk"><input id="rule-shiny" type="checkbox" checked> Shiny clause</label>
+      <label class="chk"><input id="rule-species" type="checkbox" checked> Species clause</label>
+      <label class="chk"><input id="rule-reroll" type="checkbox"> Dupes reroll encounter</label>
+      <label class="f">
+        <span>Battle mode</span>
+        <select id="rule-mode"><option value="set">Set</option><option value="shift">Shift</option></select>
+      </label>
+      <label class="chk"><input id="rule-items" type="checkbox"> Items allowed in battle</label>
+      <label class="f">
+        <span>Level cap source</span>
+        <select id="rule-capsrc">
+          <option value="save">From the save (VAR_LEVEL_CAP)</option>
+          <option value="split">Split progress</option>
+          <option value="manual">Manual</option>
+          <option value="off">No cap</option>
+        </select>
+      </label>
+      <label class="f" id="rule-manual-wrap" hidden>
+        <span>Manual cap</span>
+        <input id="rule-cap" type="number" min="1" max="100" value="100">
+      </label>
+      <div class="count" id="enc-count"></div>
+    </aside>
+    <div class="main" id="enc-main"></div>
+  </section>
+
+  <!-- ───────────────────────────── Box ────────────────────────────── -->
+  <section id="tab-box" class="tab pc">
+    <aside class="filters">
+      <h4>Boxes</h4>
+      <div class="boxrail" id="box-rail"></div>
+      <div class="count">
+        Grouped by whether they are alive, not by which box they sit in — a
+        death moves a Pokémon to Dead straight away. In game the convention is
+        boxes 1–3 for the living PC and 13–14 for the graveyard; each card
+        shows the box it is really in.
+      </div>
+      <div class="count" id="box-note"></div>
+    </aside>
+    <div class="main" id="box-main"></div>
+    <div class="detail" id="box-detail"></div>
+  </section>
+
+  <!-- ──────────────────────────── Items ───────────────────────────── -->
+  <section id="tab-items" class="tab wide">
+    <aside class="filters">
+      <div class="seg" id="items-mode">
+        <button data-mode="all" class="on">All</button>
+        <button data-mode="have">Have</button>
+        <button data-mode="missing">Missing</button>
+      </div>
+      <label class="f">
+        <span>Search</span>
+        <input id="items-q" type="search" placeholder="item, effect or place" autocomplete="off">
+      </label>
+      <label class="f">
+        <span>Kind</span>
+        <select id="items-kind">
+          <option value="">held items, berries, mega stones</option>
+          <option value="held">Held items</option>
+          <option value="berry">Berries</option>
+          <option value="mega">Mega Stones</option>
+        </select>
+      </label>
+      <label class="f">
+        <span>Group by</span>
+        <select id="items-group">
+          <option value="kind">Kind</option>
+          <option value="split">Split it first appears in</option>
+        </select>
+      </label>
+      <label class="chk"><input id="items-reach" type="checkbox" checked> Only up to the current split</label>
+      <label class="chk"><input id="items-battle" type="checkbox" checked> Only items that do something in battle</label>
+      <label class="chk"><input id="items-nosource" type="checkbox"> Include items with no known source</label>
+      <div class="hint" id="items-source">—</div>
+      <div class="count" id="items-count"></div>
+    </aside>
+    <div class="main" id="items-main"></div>
+  </section>
+
+  <!-- ──────────────────────────── Splits ──────────────────────────── -->
+  <section id="tab-splits" class="tab wide">
+    <aside class="filters">
+      <h4>Compare</h4>
+      <div class="row">
+        <button id="splits-compare" class="btn">Load a run</button>
+        <button id="splits-clear" class="btn ghost">Clear</button>
+      </div>
+      <input id="splits-file" type="file" accept="application/json" hidden>
+      <div class="count" id="splits-status">
+        Load an exported run to measure this one against it.
+      </div>
+    </aside>
+    <div class="main" id="splits-main"></div>
+  </section>
+
+  <!-- ──────────────────────────── Calc ────────────────────────────── -->
+  <section id="tab-calc" class="tab calc">
+    <aside class="filters">
+      <label class="f">
+        <span>Location</span>
+        <select id="calc-location"></select>
+      </label>
+      <label class="f">
+        <span>Opposing trainer</span>
+        <select id="calc-trainer"></select>
+      </label>
+      <div class="count">
+        Picking a trainer loads their team into the calculator. Everything else
+        - field, items, boosts - is set in the calculator itself, which is
+        Kudzu Calc carrying this ROM's data.
+      </div>
+
+      <h4>Your team</h4>
+      <button id="calc-send-team" class="btn">Send my team to the calc</button>
+      <div class="count" id="calc-team-note"></div>
+
+      <h4>Fit</h4>
+      <label class="f">
+        <span>Zoom</span>
+        <select id="calc-zoom">
+          <option value="fit" selected>Fit width</option>
+          <option value="fit-all">Fit everything (small)</option>
+          <option value="0.5">50%</option>
+          <option value="0.6">60%</option>
+          <option value="0.7">70%</option>
+          <option value="0.8">80%</option>
+          <option value="0.9">90%</option>
+          <option value="1">100%</option>
+          <option value="1.1">110%</option>
+        </select>
+      </label>
+      <div class="count" id="calc-zoom-actual"></div>
+      <label class="chk"><input id="calc-wide" type="checkbox"> Hide this panel</label>
+      <div class="count" id="calc-data-note"></div>
+    </aside>
+    <div class="calc-stage">
+      <button id="calc-unhide" class="btn ghost" hidden>Show panel</button>
+      <iframe id="calc-frame" title="Kudzu damage calculator" hidden></iframe>
+      <div id="calc-missing" class="empty" hidden></div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────── Save ────────────────────────────── -->
+  <section id="tab-sav" class="tab wide">
+    <aside class="filters">
+      <h4>Save file</h4>
+      <div class="hint" id="sav-path">Checking…</div>
+      <div class="row">
+        <button id="sav-browse" class="btn">Browse…</button>
+        <button id="sav-readnow" class="btn ghost">Read now</button>
+      </div>
+      <label class="f">
+        <span>Or type the path</span>
+        <input id="sav-path-input" type="text" placeholder="C:\Users\...\pokefirered.sav" autocomplete="off" spellcheck="false">
+      </label>
+      <button id="sav-path-apply" class="btn ghost">Use this path</button>
+      <label class="chk"><input id="sav-auto" type="checkbox" checked> Follow the save automatically</label>
+      <div class="hint" id="sav-status">Not read yet.</div>
+
+      <h4>One-off import</h4>
+      <button id="sav-pick" class="btn ghost">Import a .sav file once</button>
+      <input id="sav-file" type="file" accept=".sav,.sa1,.sa2,.srm,application/octet-stream" hidden>
+      <div class="count">
+        Boxes 1–3 are the living PC, 13–14 the graveyard. Reading the save
+        records everything straight into the run — catches, deaths, levels,
+        KOs, met locations, the level cap, badges and beaten trainers. Only a
+        death you marked by hand is held back for a decision.
+      </div>
+    </aside>
+    <div class="main" id="sav-main"></div>
+  </section>
+
+  <!-- ──────────────────────────── Runs ────────────────────────────── -->
+  <section id="tab-runs" class="tab wide">
+    <aside class="filters">
+      <div class="seg" id="runs-mode">
+        <button data-mode="manage" class="on">Manage</button>
+        <button data-mode="stats">Across all runs</button>
+      </div>
+      <label class="f">
+        <span>Run name</span>
+        <input id="runs-name" type="text" autocomplete="off" spellcheck="false">
+      </label>
+      <div class="row">
+        <button id="runs-new" class="btn">New run</button>
+        <button id="runs-rename" class="btn ghost">Rename</button>
+      </div>
+      <div class="row">
+        <button id="runs-export" class="btn ghost">Export</button>
+        <button id="runs-import" class="btn ghost">Import</button>
+        <input id="runs-file" type="file" accept="application/json" hidden>
+      </div>
+      <div class="hint" id="runs-status">
+        The run you are playing is kept in this browser and saved on every change.
+        New starts another file; Switch to changes which one is played.
+      </div>
+    </aside>
+    <div class="main" id="runs-main"></div>
+  </section>
+
+  <!-- ─────────────────────────── Frags ────────────────────────────── -->
+  <section id="tab-frags" class="tab wide">
+    <aside class="filters">
+      <div class="count">
+        KOs per Pokémon, from the game's own <code>killCount</code> field.
+        Typed in for now; save ingestion will read the real values.
+      </div>
+    </aside>
+    <div class="main" id="frags-main"></div>
+  </section>
+
+  <!-- ─────────────────────────── Sandbox ──────────────────────────── -->
+  <section id="tab-sandbox" class="tab">
+    <aside class="filters">
+      <h4>Sandbox</h4>
+      <div class="hint">
+        Edits a Pokémon <b>in the save file</b>: species, level, nature,
+        ability, held item, IVs and moves. For trying things out, and for
+        bringing a Pokémon into line after the ROM changed under it.
+      </div>
+      <div class="hint" id="sbx-file">The save has not been loaded yet.</div>
+      <div class="row">
+        <button id="sbx-reload" class="btn ghost">Reload the save</button>
+      </div>
+      <label class="f">
+        <span>Search</span>
+        <input id="sbx-q" type="search" placeholder="nickname or species" autocomplete="off">
+      </label>
+
+      <h4>Backups</h4>
+      <div id="sbx-backups"></div>
+      <div class="count">
+        Close the game in the emulator before writing: a running game holds
+        the save in memory and would overwrite the edit. The save as it was is
+        copied to sav_backups/ before every write.
+      </div>
+    </aside>
+    <div class="list" id="sbx-list"></div>
+    <div class="detail" id="sbx-detail"><div class="empty">Select a Pokémon</div></div>
+    <datalist id="sbx-dl-species"></datalist>
+    <datalist id="sbx-dl-item"></datalist>
+    <datalist id="sbx-dl-move"></datalist>
+  </section>
+
+  <!-- ────────────────────────── Bottle Caps ───────────────────────── -->
+  <section id="tab-caps" class="tab wide">
+    <aside class="filters">
+      <div class="seg" id="caps-mode">
+        <button data-mode="ledger" class="on">Ledger</button>
+        <button data-mode="sources">Sources</button>
+        <button data-mode="shop">What caps buy</button>
+      </div>
+
+      <h4>Spend a cap</h4>
+      <label class="f">
+        <span>On</span>
+        <select id="spend-what"></select>
+      </label>
+      <label class="f">
+        <span>For which Pokémon</span>
+        <select id="spend-mon"></select>
+      </label>
+      <label class="f">
+        <span>Note</span>
+        <input id="spend-note" type="text" placeholder="e.g. Spe IV" autocomplete="off">
+      </label>
+      <button id="spend-add" class="btn">Record spend</button>
+
+      <h4>Sources</h4>
+      <label class="f">
+        <span>Search</span>
+        <input id="caps-q" type="search" placeholder="area" autocomplete="off">
+      </label>
+      <label class="chk"><input id="caps-todo" type="checkbox"> Not yet collected</label>
+      <div class="count" id="caps-count"></div>
+    </aside>
+    <div class="main" id="caps-main"></div>
+  </section>
+
+  <!-- ─────────────────────────── Trainers ─────────────────────────── -->
+  <section id="tab-trainers" class="tab">
+    <aside class="filters">
+      <label class="f">
+        <span>Search</span>
+        <input id="tr-q" type="search" placeholder="name, class or TRAINER_ constant" autocomplete="off">
+      </label>
+      <label class="f">
+        <span>Kind</span>
+        <select id="tr-kind"><option value="">any</option></select>
+      </label>
+      <label class="f">
+        <span>Class</span>
+        <select id="tr-class"><option value="">any</option></select>
+      </label>
+      <label class="f">
+        <span>Split</span>
+        <select id="tr-split"><option value="">any</option></select>
+      </label>
+      <label class="chk"><input id="tr-bosses" type="checkbox"> Bosses only</label>
+      <label class="chk"><input id="tr-double" type="checkbox"> Double battles only</label>
+      <label class="chk"><input id="tr-unreachable" type="checkbox"> Include unreachable</label>
+      <label class="chk"><input id="tr-undefeated" type="checkbox"> Hide defeated</label>
+      <label class="chk"><input id="tr-unplaced" type="checkbox"> Include unplaced (no map starts them)</label>
+      <div class="count" id="tr-count"></div>
+    </aside>
+    <div class="list" id="tr-list"></div>
+    <div class="detail" id="tr-detail"><div class="empty">Select a trainer</div></div>
+  </section>
+</main>
+
+<div id="modal" hidden>
+  <div class="modal-card">
+    <header><strong id="modal-title">Refreshing data</strong>
+      <button id="modal-close" class="btn ghost">Close</button></header>
+    <div id="modal-progress" hidden>
+      <div class="bar"><div id="modal-bar"></div></div>
+      <span id="modal-step"></span>
+    </div>
+    <pre id="modal-log"></pre>
+  </div>
+</div>
+
+<script src="web.js?v=20260927181122" data-build="20260927181122"></script>
+<script src="app.js?v=20260927181122"></script>
+<script src="tracker.js?v=20260927181122"></script>
+<script src="nav.js?v=20260927181122"></script>
+<script src="progress.js?v=20260927181122"></script>
+<script src="box.js?v=20260927181122"></script>
+<script src="items.js?v=20260927181122"></script>
+<script src="caps.js?v=20260927181122"></script>
+<script src="splits.js?v=20260927181122"></script>
+<script src="frags.js?v=20260927181122"></script>
+<script src="sav.js?v=20260927181122"></script>
+<script src="savui.js?v=20260927181122"></script>
+<script src="savwrite.js?v=20260927181122"></script>
+<script src="sandbox.js?v=20260927181122"></script>
+<script src="ending.js?v=20260927181122"></script>
+<script src="runs.js?v=20260927181122"></script>
+<script src="calc.js?v=20260927181122"></script>
+<script src="calcui.js?v=20260927181122"></script>
+<script src="home.js?v=20260927181122"></script>
+</body>
+</html>

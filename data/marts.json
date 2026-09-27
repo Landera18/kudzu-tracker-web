@@ -1,0 +1,2106 @@
+{
+ "marts": [
+  {
+   "map": "CeladonCity_DepartmentStore_2F_Frlg",
+   "list": "CeladonCity_DepartmentStore_2F_Items",
+   "script": "CeladonCity_DepartmentStore_2F_EventScript_ClerkItems",
+   "file": "data/maps/CeladonCity_DepartmentStore_2F_Frlg/scripts.inc",
+   "line": 21,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_FULL_RESTORE",
+     "listed": "ITEM_FULL_RESTORE",
+     "name": "Full Restore",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_MAX_POTION",
+     "listed": "ITEM_MAX_POTION",
+     "name": "Max Potion",
+     "price": 250,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_HYPER_POTION",
+     "listed": "ITEM_HYPER_POTION",
+     "name": "Hyper Potion",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SUPER_POTION",
+     "listed": "ITEM_SUPER_POTION",
+     "name": "Super Potion",
+     "price": 100,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_POTION",
+     "listed": "ITEM_POTION",
+     "name": "Potion",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 2,
+   "conditional": false,
+   "kind": "counter"
+  },
+  {
+   "map": "CeladonCity_DepartmentStore_2F_Frlg",
+   "list": "CeladonCity_DepartmentStore_2F_TMs",
+   "script": "CeladonCity_DepartmentStore_2F_EventScript_ClerkTMs",
+   "file": "data/maps/CeladonCity_DepartmentStore_2F_Frlg/scripts.inc",
+   "line": 44,
+   "stage": 2,
+   "items": [
+    {
+     "constant": "ITEM_TM_BRUTAL_SWING",
+     "listed": "ITEM_TM01",
+     "name": "TM01 Brutal Swing",
+     "price": 3000,
+     "pocket": "POCKET_TM_HM"
+    },
+    {
+     "constant": "ITEM_TM_BREAKING_SWIPE",
+     "listed": "ITEM_TM08",
+     "name": "TM08 Breaking Swipe",
+     "price": 3000,
+     "pocket": "POCKET_TM_HM"
+    },
+    {
+     "constant": "ITEM_TM_ICY_WIND",
+     "listed": "ITEM_TM14",
+     "name": "TM14 Icy Wind",
+     "price": 2000,
+     "pocket": "POCKET_TM_HM"
+    },
+    {
+     "constant": "ITEM_TM_ELECTROWEB",
+     "listed": "ITEM_TM25",
+     "name": "TM25 Electroweb",
+     "price": 2000,
+     "pocket": "POCKET_TM_HM"
+    },
+    {
+     "constant": "ITEM_TM_LOW_SWEEP",
+     "listed": "ITEM_TM31",
+     "name": "TM31 Low Sweep",
+     "price": 2000,
+     "pocket": "POCKET_TM_HM"
+    },
+    {
+     "constant": "ITEM_TM_ROCK_BLAST",
+     "listed": "ITEM_TM32",
+     "name": "TM32 Rock Blast",
+     "price": 2000,
+     "pocket": "POCKET_TM_HM"
+    },
+    {
+     "constant": "ITEM_TM_ICICLE_SPEAR",
+     "listed": "ITEM_TM33",
+     "name": "TM33 Icicle Spear",
+     "price": 2000,
+     "pocket": "POCKET_TM_HM"
+    },
+    {
+     "constant": "ITEM_TM_ARM_THRUST",
+     "listed": "ITEM_TM34",
+     "name": "TM34 Arm Thrust",
+     "price": 1000,
+     "pocket": "POCKET_TM_HM"
+    },
+    {
+     "constant": "ITEM_TM_ROCK_TOMB",
+     "listed": "ITEM_TM39",
+     "name": "TM39 Rock Tomb",
+     "price": 3000,
+     "pocket": "POCKET_TM_HM"
+    },
+    {
+     "constant": "ITEM_TM_AERIAL_ACE",
+     "listed": "ITEM_TM40",
+     "name": "TM40 Aerial Ace",
+     "price": 3000,
+     "pocket": "POCKET_TM_HM"
+    },
+    {
+     "constant": "ITEM_TM_GRASS_KNOT",
+     "listed": "ITEM_TM52",
+     "name": "TM52 Grass Knot",
+     "price": 2000,
+     "pocket": "POCKET_TM_HM"
+    },
+    {
+     "constant": "ITEM_TM_POUNCE",
+     "listed": "ITEM_TM53",
+     "name": "TM53 Pounce",
+     "price": 1000,
+     "pocket": "POCKET_TM_HM"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 2,
+   "conditional": false,
+   "kind": "counter"
+  },
+  {
+   "map": "CeladonCity_DepartmentStore_4F_Frlg",
+   "list": "CeladonCity_DepartmentStore_4F_Items",
+   "script": "CeladonCity_DepartmentStore_4F_EventScript_Clerk",
+   "file": "data/maps/CeladonCity_DepartmentStore_4F_Frlg/scripts.inc",
+   "line": 21,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_FIRE_STONE",
+     "listed": "ITEM_FIRE_STONE",
+     "name": "Fire Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_WATER_STONE",
+     "listed": "ITEM_WATER_STONE",
+     "name": "Water Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_THUNDER_STONE",
+     "listed": "ITEM_THUNDER_STONE",
+     "name": "Thunder Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_LEAF_STONE",
+     "listed": "ITEM_LEAF_STONE",
+     "name": "Leaf Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_MOON_STONE",
+     "listed": "ITEM_MOON_STONE",
+     "name": "Moon Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SUN_STONE",
+     "listed": "ITEM_SUN_STONE",
+     "name": "Sun Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SHINY_STONE",
+     "listed": "ITEM_SHINY_STONE",
+     "name": "Shiny Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_DUSK_STONE",
+     "listed": "ITEM_DUSK_STONE",
+     "name": "Dusk Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_DAWN_STONE",
+     "listed": "ITEM_DAWN_STONE",
+     "name": "Dawn Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_ICE_STONE",
+     "listed": "ITEM_ICE_STONE",
+     "name": "Ice Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_METAL_COAT",
+     "listed": "ITEM_METAL_COAT",
+     "name": "Metal Coat",
+     "price": 3000,
+     "pocket": "POCKET_HELD_ITEMS"
+    },
+    {
+     "constant": "ITEM_KINGS_ROCK",
+     "listed": "ITEM_KINGS_ROCK",
+     "name": "King's Rock",
+     "price": 10000,
+     "pocket": "POCKET_HELD_ITEMS"
+    },
+    {
+     "constant": "ITEM_DRAGON_SCALE",
+     "listed": "ITEM_DRAGON_SCALE",
+     "name": "Dragon Scale",
+     "price": 4000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_DUBIOUS_DISC",
+     "listed": "ITEM_DUBIOUS_DISC",
+     "name": "Dubious Disc",
+     "price": 4000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_PROTECTOR",
+     "listed": "ITEM_PROTECTOR",
+     "name": "Protector",
+     "price": 4000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_REAPER_CLOTH",
+     "listed": "ITEM_REAPER_CLOTH",
+     "name": "Reaper Cloth",
+     "price": 4000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_RAZOR_CLAW",
+     "listed": "ITEM_RAZOR_CLAW",
+     "name": "Razor Claw",
+     "price": 15000,
+     "pocket": "POCKET_HELD_ITEMS"
+    },
+    {
+     "constant": "ITEM_RAZOR_FANG",
+     "listed": "ITEM_RAZOR_FANG",
+     "name": "Razor Fang",
+     "price": 15000,
+     "pocket": "POCKET_HELD_ITEMS"
+    },
+    {
+     "constant": "ITEM_SYRUPY_APPLE",
+     "listed": "ITEM_SYRUPY_APPLE",
+     "name": "Syrupy Apple",
+     "price": 2200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_PINK_NECTAR",
+     "listed": "ITEM_PINK_NECTAR",
+     "name": "Pink Nectar",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_RED_NECTAR",
+     "listed": "ITEM_RED_NECTAR",
+     "name": "Red Nectar",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_YELLOW_NECTAR",
+     "listed": "ITEM_YELLOW_NECTAR",
+     "name": "Yellow Nectar",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_PURPLE_NECTAR",
+     "listed": "ITEM_PURPLE_NECTAR",
+     "name": "Purple Nectar",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "CeladonCity_DepartmentStore_5F_Frlg",
+   "list": "CeladonCity_DepartmentStore_5F_XItems",
+   "script": "CeladonCity_DepartmentStore_5F_EventScript_ClerkXItems",
+   "file": "data/maps/CeladonCity_DepartmentStore_5F_Frlg/scripts.inc",
+   "line": 21,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_REVIVE",
+     "listed": "ITEM_REVIVE",
+     "name": "Revive",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_MAX_REVIVE",
+     "listed": "ITEM_MAX_REVIVE",
+     "name": "Max Revive",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 2,
+   "conditional": false,
+   "kind": "counter"
+  },
+  {
+   "map": "CeladonCity_DepartmentStore_5F_Frlg",
+   "list": "CeladonCity_DepartmentStore_5F_Vitamins",
+   "script": "CeladonCity_DepartmentStore_5F_EventScript_ClerkVitamins",
+   "file": "data/maps/CeladonCity_DepartmentStore_5F_Frlg/scripts.inc",
+   "line": 39,
+   "stage": 2,
+   "items": [
+    {
+     "constant": "ITEM_POKE_BALL",
+     "listed": "ITEM_POKE_BALL",
+     "name": "Poké Ball",
+     "price": 50,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_PREMIER_BALL",
+     "listed": "ITEM_PREMIER_BALL",
+     "name": "Premier Ball",
+     "price": 20,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_HEAL_BALL",
+     "listed": "ITEM_HEAL_BALL",
+     "name": "Heal Ball",
+     "price": 50,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_NET_BALL",
+     "listed": "ITEM_NET_BALL",
+     "name": "Net Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_NEST_BALL",
+     "listed": "ITEM_NEST_BALL",
+     "name": "Nest Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_DIVE_BALL",
+     "listed": "ITEM_DIVE_BALL",
+     "name": "Dive Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_DUSK_BALL",
+     "listed": "ITEM_DUSK_BALL",
+     "name": "Dusk Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_TIMER_BALL",
+     "listed": "ITEM_TIMER_BALL",
+     "name": "Timer Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_QUICK_BALL",
+     "listed": "ITEM_QUICK_BALL",
+     "name": "Quick Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_REPEAT_BALL",
+     "listed": "ITEM_REPEAT_BALL",
+     "name": "Repeat Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_LUXURY_BALL",
+     "listed": "ITEM_LUXURY_BALL",
+     "name": "Luxury Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_LEVEL_BALL",
+     "listed": "ITEM_LEVEL_BALL",
+     "name": "Level Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_LURE_BALL",
+     "listed": "ITEM_LURE_BALL",
+     "name": "Lure Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_MOON_BALL",
+     "listed": "ITEM_MOON_BALL",
+     "name": "Moon Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_FRIEND_BALL",
+     "listed": "ITEM_FRIEND_BALL",
+     "name": "Friend Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_LOVE_BALL",
+     "listed": "ITEM_LOVE_BALL",
+     "name": "Love Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_FAST_BALL",
+     "listed": "ITEM_FAST_BALL",
+     "name": "Fast Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_HEAVY_BALL",
+     "listed": "ITEM_HEAVY_BALL",
+     "name": "Heavy Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_DREAM_BALL",
+     "listed": "ITEM_DREAM_BALL",
+     "name": "Dream Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_SPORT_BALL",
+     "listed": "ITEM_SPORT_BALL",
+     "name": "Sport Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_BEAST_BALL",
+     "listed": "ITEM_BEAST_BALL",
+     "name": "Beast Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_CHERISH_BALL",
+     "listed": "ITEM_CHERISH_BALL",
+     "name": "Cherish Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 2,
+   "conditional": false,
+   "kind": "counter"
+  },
+  {
+   "map": "CeruleanCity_Mart_Frlg",
+   "list": "CeruleanCity_Mart_Items",
+   "script": "CeruleanCity_Mart_EventScript_Clerk",
+   "file": "data/maps/CeruleanCity_Mart_Frlg/scripts.inc",
+   "line": 17,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_QUICK_BALL",
+     "listed": "ITEM_QUICK_BALL",
+     "name": "Quick Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_TIMER_BALL",
+     "listed": "ITEM_TIMER_BALL",
+     "name": "Timer Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_SUPER_POTION",
+     "listed": "ITEM_SUPER_POTION",
+     "name": "Super Potion",
+     "price": 100,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_HYPER_POTION",
+     "listed": "ITEM_HYPER_POTION",
+     "name": "Hyper Potion",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_MOON_STONE",
+     "listed": "ITEM_MOON_STONE",
+     "name": "Moon Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SUN_STONE",
+     "listed": "ITEM_SUN_STONE",
+     "name": "Sun Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SHINY_STONE",
+     "listed": "ITEM_SHINY_STONE",
+     "name": "Shiny Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_DAWN_STONE",
+     "listed": "ITEM_DAWN_STONE",
+     "name": "Dawn Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_DUSK_STONE",
+     "listed": "ITEM_DUSK_STONE",
+     "name": "Dusk Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_LEAF_STONE",
+     "listed": "ITEM_LEAF_STONE",
+     "name": "Leaf Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FIRE_STONE",
+     "listed": "ITEM_FIRE_STONE",
+     "name": "Fire Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_WATER_STONE",
+     "listed": "ITEM_WATER_STONE",
+     "name": "Water Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_THUNDER_STONE",
+     "listed": "ITEM_THUNDER_STONE",
+     "name": "Thunder Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_ICE_STONE",
+     "listed": "ITEM_ICE_STONE",
+     "name": "Ice Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_METAL_COAT",
+     "listed": "ITEM_METAL_COAT",
+     "name": "Metal Coat",
+     "price": 3000,
+     "pocket": "POCKET_HELD_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "CinnabarIsland_Mart_Frlg",
+   "list": "CinnabarIsland_Mart_Items",
+   "script": "CinnabarIsland_Mart_EventScript_Clerk",
+   "file": "data/maps/CinnabarIsland_Mart_Frlg/scripts.inc",
+   "line": 17,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_QUICK_BALL",
+     "listed": "ITEM_QUICK_BALL",
+     "name": "Quick Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_DUSK_BALL",
+     "listed": "ITEM_DUSK_BALL",
+     "name": "Dusk Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_TIMER_BALL",
+     "listed": "ITEM_TIMER_BALL",
+     "name": "Timer Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_FULL_RESTORE",
+     "listed": "ITEM_FULL_RESTORE",
+     "name": "Full Restore",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_HYPER_POTION",
+     "listed": "ITEM_HYPER_POTION",
+     "name": "Hyper Potion",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "FourIsland_Mart_Frlg",
+   "list": "FourIsland_Mart_Items",
+   "script": "FourIsland_Mart_EventScript_Clerk",
+   "file": "data/maps/FourIsland_Mart_Frlg/scripts.inc",
+   "line": 9,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_QUICK_BALL",
+     "listed": "ITEM_QUICK_BALL",
+     "name": "Quick Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_DUSK_BALL",
+     "listed": "ITEM_DUSK_BALL",
+     "name": "Dusk Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_TIMER_BALL",
+     "listed": "ITEM_TIMER_BALL",
+     "name": "Timer Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_FULL_RESTORE",
+     "listed": "ITEM_FULL_RESTORE",
+     "name": "Full Restore",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_HYPER_POTION",
+     "listed": "ITEM_HYPER_POTION",
+     "name": "Hyper Potion",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "FuchsiaCity_Mart_Frlg",
+   "list": "FuchsiaCity_Mart_Items",
+   "script": "FuchsiaCity_Mart_EventScript_Clerk",
+   "file": "data/maps/FuchsiaCity_Mart_Frlg/scripts.inc",
+   "line": 17,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_QUICK_BALL",
+     "listed": "ITEM_QUICK_BALL",
+     "name": "Quick Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_DUSK_BALL",
+     "listed": "ITEM_DUSK_BALL",
+     "name": "Dusk Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_TIMER_BALL",
+     "listed": "ITEM_TIMER_BALL",
+     "name": "Timer Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_FULL_RESTORE",
+     "listed": "ITEM_FULL_RESTORE",
+     "name": "Full Restore",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_HYPER_POTION",
+     "listed": "ITEM_HYPER_POTION",
+     "name": "Hyper Potion",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "IndigoPlateau_PokemonCenter_1F_Frlg",
+   "list": "IndigoPlateau_PokemonCenter_1F_Items",
+   "script": "IndigoPlateau_PokemonCenter_1F_EventScript_Clerk",
+   "file": "data/maps/IndigoPlateau_PokemonCenter_1F_Frlg/scripts.inc",
+   "line": 43,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_FULL_RESTORE",
+     "listed": "ITEM_FULL_RESTORE",
+     "name": "Full Restore",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_MAX_POTION",
+     "listed": "ITEM_MAX_POTION",
+     "name": "Max Potion",
+     "price": 250,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_REVIVE",
+     "listed": "ITEM_REVIVE",
+     "name": "Revive",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_MAX_REPEL",
+     "listed": "ITEM_MAX_REPEL",
+     "name": "Max Repel",
+     "price": 900,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "LavenderTown_Mart_Frlg",
+   "list": "LavenderTown_Mart_Items",
+   "script": "LavenderTown_Mart_EventScript_Clerk",
+   "file": "data/maps/LavenderTown_Mart_Frlg/scripts.inc",
+   "line": 21,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_MAX_POTION",
+     "listed": "ITEM_MAX_POTION",
+     "name": "Max Potion",
+     "price": 250,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_DRAGON_SCALE",
+     "listed": "ITEM_DRAGON_SCALE",
+     "name": "Dragon Scale",
+     "price": 4000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_PROTECTOR",
+     "listed": "ITEM_PROTECTOR",
+     "name": "Protector",
+     "price": 4000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_ELECTIRIZER",
+     "listed": "ITEM_ELECTIRIZER",
+     "name": "Electirizer",
+     "price": 4000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_MAGMARIZER",
+     "listed": "ITEM_MAGMARIZER",
+     "name": "Magmarizer",
+     "price": 4000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_RAZOR_CLAW",
+     "listed": "ITEM_RAZOR_CLAW",
+     "name": "Razor Claw",
+     "price": 15000,
+     "pocket": "POCKET_HELD_ITEMS"
+    },
+    {
+     "constant": "ITEM_RAZOR_FANG",
+     "listed": "ITEM_RAZOR_FANG",
+     "name": "Razor Fang",
+     "price": 15000,
+     "pocket": "POCKET_HELD_ITEMS"
+    },
+    {
+     "constant": "ITEM_REAPER_CLOTH",
+     "listed": "ITEM_REAPER_CLOTH",
+     "name": "Reaper Cloth",
+     "price": 4000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_DUBIOUS_DISC",
+     "listed": "ITEM_DUBIOUS_DISC",
+     "name": "Dubious Disc",
+     "price": 4000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SYRUPY_APPLE",
+     "listed": "ITEM_SYRUPY_APPLE",
+     "name": "Syrupy Apple",
+     "price": 2200,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "PewterCity_Mart_Frlg",
+   "list": "PewterCity_Mart_Items",
+   "script": "PewterCity_Mart_EventScript_Clerk",
+   "file": "data/maps/PewterCity_Mart_Frlg/scripts.inc",
+   "line": 17,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_HYPER_POTION",
+     "listed": "ITEM_HYPER_POTION",
+     "name": "Hyper Potion",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_LEAF_STONE",
+     "listed": "ITEM_LEAF_STONE",
+     "name": "Leaf Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FIRE_STONE",
+     "listed": "ITEM_FIRE_STONE",
+     "name": "Fire Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_WATER_STONE",
+     "listed": "ITEM_WATER_STONE",
+     "name": "Water Stone",
+     "price": 3000,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "Route10_PokemonCenter_1F_Frlg",
+   "list": "Route10_Fossils",
+   "script": "Route10_PokemonCenter_1F_EventScript_FossilMerchant",
+   "file": "data/maps/Route10_PokemonCenter_1F_Frlg/scripts.inc",
+   "line": 91,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_HELIX_FOSSIL",
+     "listed": "ITEM_HELIX_FOSSIL",
+     "name": "Helix Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_DOME_FOSSIL",
+     "listed": "ITEM_DOME_FOSSIL",
+     "name": "Dome Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_OLD_AMBER",
+     "listed": "ITEM_OLD_AMBER",
+     "name": "Old Amber",
+     "price": 1000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_ROOT_FOSSIL",
+     "listed": "ITEM_ROOT_FOSSIL",
+     "name": "Root Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_CLAW_FOSSIL",
+     "listed": "ITEM_CLAW_FOSSIL",
+     "name": "Claw Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_ARMOR_FOSSIL",
+     "listed": "ITEM_ARMOR_FOSSIL",
+     "name": "Armor Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SKULL_FOSSIL",
+     "listed": "ITEM_SKULL_FOSSIL",
+     "name": "Skull Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_COVER_FOSSIL",
+     "listed": "ITEM_COVER_FOSSIL",
+     "name": "Cover Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_PLUME_FOSSIL",
+     "listed": "ITEM_PLUME_FOSSIL",
+     "name": "Plume Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_JAW_FOSSIL",
+     "listed": "ITEM_JAW_FOSSIL",
+     "name": "Jaw Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SAIL_FOSSIL",
+     "listed": "ITEM_SAIL_FOSSIL",
+     "name": "Sail Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [
+    {
+     "flag": "FLAG_REVIVED_WEIRD_FOSSIL",
+     "set": true
+    }
+   ],
+   "until": [
+    {
+     "flag": "FLAG_DEFEATED_ERIKA",
+     "set": true
+    }
+   ],
+   "stageFlags": [],
+   "when": "until Erika is beaten, opens after reviving the weird fossil",
+   "stages": 2,
+   "conditional": true,
+   "kind": "stage"
+  },
+  {
+   "map": "Route10_PokemonCenter_1F_Frlg",
+   "list": "Route10_FossilsPostErika",
+   "script": "Route10_PokemonCenter_1F_EventScript_FossilMerchantFullStock",
+   "file": "data/maps/Route10_PokemonCenter_1F_Frlg/scripts.inc",
+   "line": 97,
+   "stage": 2,
+   "items": [
+    {
+     "constant": "ITEM_HELIX_FOSSIL",
+     "listed": "ITEM_HELIX_FOSSIL",
+     "name": "Helix Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_DOME_FOSSIL",
+     "listed": "ITEM_DOME_FOSSIL",
+     "name": "Dome Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_OLD_AMBER",
+     "listed": "ITEM_OLD_AMBER",
+     "name": "Old Amber",
+     "price": 1000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_ROOT_FOSSIL",
+     "listed": "ITEM_ROOT_FOSSIL",
+     "name": "Root Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_CLAW_FOSSIL",
+     "listed": "ITEM_CLAW_FOSSIL",
+     "name": "Claw Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_ARMOR_FOSSIL",
+     "listed": "ITEM_ARMOR_FOSSIL",
+     "name": "Armor Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SKULL_FOSSIL",
+     "listed": "ITEM_SKULL_FOSSIL",
+     "name": "Skull Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_COVER_FOSSIL",
+     "listed": "ITEM_COVER_FOSSIL",
+     "name": "Cover Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_PLUME_FOSSIL",
+     "listed": "ITEM_PLUME_FOSSIL",
+     "name": "Plume Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_JAW_FOSSIL",
+     "listed": "ITEM_JAW_FOSSIL",
+     "name": "Jaw Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SAIL_FOSSIL",
+     "listed": "ITEM_SAIL_FOSSIL",
+     "name": "Sail Fossil",
+     "price": 7000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FOSSILIZED_BIRD",
+     "listed": "ITEM_FOSSILIZED_BIRD",
+     "name": "Fossilized Bird",
+     "price": 5000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FOSSILIZED_FISH",
+     "listed": "ITEM_FOSSILIZED_FISH",
+     "name": "Fossilized Fish",
+     "price": 5000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FOSSILIZED_DRAKE",
+     "listed": "ITEM_FOSSILIZED_DRAKE",
+     "name": "Fossilized Drake",
+     "price": 5000,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FOSSILIZED_DINO",
+     "listed": "ITEM_FOSSILIZED_DINO",
+     "name": "Fossilized Dino",
+     "price": 5000,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [
+    {
+     "flag": "FLAG_DEFEATED_ERIKA",
+     "set": true
+    }
+   ],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": "after Erika is beaten",
+   "stages": 2,
+   "conditional": true,
+   "kind": "stage"
+  },
+  {
+   "map": "SaffronCity_Mart_Frlg",
+   "list": "SaffronCity_Mart_Items",
+   "script": "SaffronCity_Mart_EventScript_Clerk",
+   "file": "data/maps/SaffronCity_Mart_Frlg/scripts.inc",
+   "line": 17,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_HYPER_POTION",
+     "listed": "ITEM_HYPER_POTION",
+     "name": "Hyper Potion",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_REVIVE",
+     "listed": "ITEM_REVIVE",
+     "name": "Revive",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "SevenIsland_Mart_Frlg",
+   "list": "SevenIsland_Mart_Items",
+   "script": "SevenIsland_Mart_EventScript_Clerk",
+   "file": "data/maps/SevenIsland_Mart_Frlg/scripts.inc",
+   "line": 9,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_QUICK_BALL",
+     "listed": "ITEM_QUICK_BALL",
+     "name": "Quick Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_DUSK_BALL",
+     "listed": "ITEM_DUSK_BALL",
+     "name": "Dusk Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_TIMER_BALL",
+     "listed": "ITEM_TIMER_BALL",
+     "name": "Timer Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_FULL_RESTORE",
+     "listed": "ITEM_FULL_RESTORE",
+     "name": "Full Restore",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_HYPER_POTION",
+     "listed": "ITEM_HYPER_POTION",
+     "name": "Hyper Potion",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "SixIsland_Mart_Frlg",
+   "list": "SixIsland_Mart_Items",
+   "script": "SixIsland_Mart_EventScript_Clerk",
+   "file": "data/maps/SixIsland_Mart_Frlg/scripts.inc",
+   "line": 9,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_QUICK_BALL",
+     "listed": "ITEM_QUICK_BALL",
+     "name": "Quick Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_DUSK_BALL",
+     "listed": "ITEM_DUSK_BALL",
+     "name": "Dusk Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_TIMER_BALL",
+     "listed": "ITEM_TIMER_BALL",
+     "name": "Timer Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_FULL_RESTORE",
+     "listed": "ITEM_FULL_RESTORE",
+     "name": "Full Restore",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_HYPER_POTION",
+     "listed": "ITEM_HYPER_POTION",
+     "name": "Hyper Potion",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "ThreeIsland_Mart_Frlg",
+   "list": "ThreeIsland_Mart_Items",
+   "script": "ThreeIsland_Mart_EventScript_Clerk",
+   "file": "data/maps/ThreeIsland_Mart_Frlg/scripts.inc",
+   "line": 9,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_SUPER_POTION",
+     "listed": "ITEM_SUPER_POTION",
+     "name": "Super Potion",
+     "price": 100,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "TrainerTower_Lobby_Frlg",
+   "list": "TrainerTower_Lobby_Mart_Items",
+   "script": "TrainerTower_Lobby_EventScript_MartClerk",
+   "file": "data/maps/TrainerTower_Lobby_Frlg/scripts.inc",
+   "line": 122,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_FULL_RESTORE",
+     "listed": "ITEM_FULL_RESTORE",
+     "name": "Full Restore",
+     "price": 300,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_MAX_POTION",
+     "listed": "ITEM_MAX_POTION",
+     "name": "Max Potion",
+     "price": 250,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_HYPER_POTION",
+     "listed": "ITEM_HYPER_POTION",
+     "name": "Hyper Potion",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_REVIVE",
+     "listed": "ITEM_REVIVE",
+     "name": "Revive",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FULL_HEAL",
+     "listed": "ITEM_FULL_HEAL",
+     "name": "Full Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_ESCAPE_ROPE",
+     "listed": "ITEM_ESCAPE_ROPE",
+     "name": "Escape Rope",
+     "price": 0,
+     "pocket": "POCKET_KEY_ITEMS"
+    },
+    {
+     "constant": "ITEM_MAX_REPEL",
+     "listed": "ITEM_MAX_REPEL",
+     "name": "Max Repel",
+     "price": 900,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "TwoIsland_Frlg",
+   "list": "TwoIsland_Items_ShopInitial",
+   "script": "TwoIsland_EventScript_ShopInitial",
+   "file": "data/maps/TwoIsland_Frlg/scripts.inc",
+   "line": 111,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_FRESH_WATER",
+     "listed": "ITEM_FRESH_WATER",
+     "name": "Fresh Water",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": "at first",
+   "stages": 4,
+   "conditional": false,
+   "kind": "stage"
+  },
+  {
+   "map": "TwoIsland_Frlg",
+   "list": "TwoIsland_Items_ShopExpanded1",
+   "script": "TwoIsland_EventScript_ShopExpanded1",
+   "file": "data/maps/TwoIsland_Frlg/scripts.inc",
+   "line": 125,
+   "stage": 2,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_SODA_POP",
+     "listed": "ITEM_SODA_POP",
+     "name": "Soda Pop",
+     "price": 100,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FRESH_WATER",
+     "listed": "ITEM_FRESH_WATER",
+     "name": "Fresh Water",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SYRUPY_APPLE",
+     "listed": "ITEM_SYRUPY_APPLE",
+     "name": "Syrupy Apple",
+     "price": 2200,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [
+    {
+     "var": "VAR_MAP_SCENE_TWO_ISLAND",
+     "op": "=",
+     "value": "2"
+    }
+   ],
+   "requires": [],
+   "until": [],
+   "stageFlags": [
+    [
+     "FLAG_IS_CHAMPION"
+    ],
+    [
+     "FLAG_SYS_GAME_CLEAR"
+    ],
+    [
+     "FLAG_RESCUED_LOSTELLE"
+    ]
+   ],
+   "when": "after rescuing Lostelle",
+   "stages": 4,
+   "conditional": true,
+   "kind": "stage"
+  },
+  {
+   "map": "TwoIsland_Frlg",
+   "list": "TwoIsland_Items_ShopExpanded2",
+   "script": "TwoIsland_EventScript_ShopExpanded2",
+   "file": "data/maps/TwoIsland_Frlg/scripts.inc",
+   "line": 142,
+   "stage": 3,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_LEMONADE",
+     "listed": "ITEM_LEMONADE",
+     "name": "Lemonade",
+     "price": 150,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SODA_POP",
+     "listed": "ITEM_SODA_POP",
+     "name": "Soda Pop",
+     "price": 100,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FRESH_WATER",
+     "listed": "ITEM_FRESH_WATER",
+     "name": "Fresh Water",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_MOOMOO_MILK",
+     "listed": "ITEM_MOOMOO_MILK",
+     "name": "Moomoo Milk",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SYRUPY_APPLE",
+     "listed": "ITEM_SYRUPY_APPLE",
+     "name": "Syrupy Apple",
+     "price": 2200,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [
+    {
+     "var": "VAR_MAP_SCENE_TWO_ISLAND",
+     "op": "=",
+     "value": "3"
+    }
+   ],
+   "requires": [],
+   "until": [],
+   "stageFlags": [
+    [
+     "FLAG_IS_CHAMPION"
+    ],
+    [
+     "FLAG_SYS_GAME_CLEAR"
+    ]
+   ],
+   "when": "after the Hall of Fame",
+   "stages": 4,
+   "conditional": true,
+   "kind": "stage"
+  },
+  {
+   "map": "TwoIsland_Frlg",
+   "list": "TwoIsland_Items_ShopExpanded3",
+   "script": "TwoIsland_EventScript_ShopExpanded3",
+   "file": "data/maps/TwoIsland_Frlg/scripts.inc",
+   "line": 161,
+   "stage": 4,
+   "items": [
+    {
+     "constant": "ITEM_ULTRA_BALL",
+     "listed": "ITEM_ULTRA_BALL",
+     "name": "Ultra Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_REPEAT_BALL",
+     "listed": "ITEM_REPEAT_BALL",
+     "name": "Repeat Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_TIMER_BALL",
+     "listed": "ITEM_TIMER_BALL",
+     "name": "Timer Ball",
+     "price": 200,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_LEMONADE",
+     "listed": "ITEM_LEMONADE",
+     "name": "Lemonade",
+     "price": 150,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SODA_POP",
+     "listed": "ITEM_SODA_POP",
+     "name": "Soda Pop",
+     "price": 100,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_FRESH_WATER",
+     "listed": "ITEM_FRESH_WATER",
+     "name": "Fresh Water",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_MOOMOO_MILK",
+     "listed": "ITEM_MOOMOO_MILK",
+     "name": "Moomoo Milk",
+     "price": 200,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_LAVA_COOKIE",
+     "listed": "ITEM_LAVA_COOKIE",
+     "name": "Lava Cookie",
+     "price": 350,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_SYRUPY_APPLE",
+     "listed": "ITEM_SYRUPY_APPLE",
+     "name": "Syrupy Apple",
+     "price": 2200,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [
+    {
+     "var": "VAR_MAP_SCENE_TWO_ISLAND",
+     "op": "=",
+     "value": "4"
+    }
+   ],
+   "requires": [],
+   "until": [],
+   "stageFlags": [
+    [
+     "FLAG_IS_CHAMPION"
+    ]
+   ],
+   "when": "after the Hoenn link (post-game)",
+   "stages": 4,
+   "conditional": true,
+   "kind": "stage"
+  },
+  {
+   "map": "VermilionCity_Mart_Frlg",
+   "list": "VermilionCity_Mart_Items",
+   "script": "VermilionCity_Mart_EventScript_Clerk",
+   "file": "data/maps/VermilionCity_Mart_Frlg/scripts.inc",
+   "line": 17,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_POKE_BALL",
+     "listed": "ITEM_POKE_BALL",
+     "name": "Poké Ball",
+     "price": 50,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_SUPER_POTION",
+     "listed": "ITEM_SUPER_POTION",
+     "name": "Super Potion",
+     "price": 100,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_ANTIDOTE",
+     "listed": "ITEM_ANTIDOTE",
+     "name": "Antidote",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_PARALYZE_HEAL",
+     "listed": "ITEM_PARALYZE_HEAL",
+     "name": "Paralyze Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_AWAKENING",
+     "listed": "ITEM_AWAKENING",
+     "name": "Awakening",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_ICE_HEAL",
+     "listed": "ITEM_ICE_HEAL",
+     "name": "Ice Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  },
+  {
+   "map": "ViridianCity_Mart_Frlg",
+   "list": "ViridianCity_Mart_Items",
+   "script": "ViridianCity_Mart_EventScript_Clerk",
+   "file": "data/maps/ViridianCity_Mart_Frlg/scripts.inc",
+   "line": 58,
+   "stage": 1,
+   "items": [
+    {
+     "constant": "ITEM_POKE_BALL",
+     "listed": "ITEM_POKE_BALL",
+     "name": "Poké Ball",
+     "price": 50,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_GREAT_BALL",
+     "listed": "ITEM_GREAT_BALL",
+     "name": "Great Ball",
+     "price": 100,
+     "pocket": "POCKET_POKE_BALLS"
+    },
+    {
+     "constant": "ITEM_POTION",
+     "listed": "ITEM_POTION",
+     "name": "Potion",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_ANTIDOTE",
+     "listed": "ITEM_ANTIDOTE",
+     "name": "Antidote",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    },
+    {
+     "constant": "ITEM_PARALYZE_HEAL",
+     "listed": "ITEM_PARALYZE_HEAL",
+     "name": "Paralyze Heal",
+     "price": 50,
+     "pocket": "POCKET_ITEMS"
+    }
+   ],
+   "after": [],
+   "requires": [
+    {
+     "var": "VAR_MAP_SCENE_VIRIDIAN_CITY_MART",
+     "op": "!=",
+     "value": "1"
+    }
+   ],
+   "until": [],
+   "stageFlags": [],
+   "when": null,
+   "stages": 1,
+   "conditional": false,
+   "kind": "single"
+  }
+ ],
+ "mapCount": 19,
+ "listCount": 25,
+ "note": "Every `pokemart` list in a map script. `when` is read from the branches around the list; the raw conditions are in after / requires / until."
+}

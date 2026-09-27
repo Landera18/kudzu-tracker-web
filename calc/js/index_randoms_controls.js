@@ -1,0 +1,831 @@
+
+
+$("#p2 .ability").bind("keyup change", function () {
+	// autosetWeather($(this).val(), 1);
+	// autosetTerrain($(this).val(), 1);
+});
+
+var resultLocations = [[], []];
+for (var i = 0; i < 4; i++) {
+	resultLocations[0].push({
+		"move": "#resultMoveL" + (i + 1),
+		"damage": "#resultDamageL" + (i + 1)
+	});
+	resultLocations[1].push({
+		"move": "#resultMoveR" + (i + 1),
+		"damage": "#resultDamageR" + (i + 1)
+	});
+}
+
+var damageResults;
+
+function isMobileDamageDisplayViewport() {
+	return typeof window !== "undefined" && window.innerWidth <= 960;
+}
+
+function formatMobileDamagePercentNumber(value) {
+	var numberValue = Number(value);
+	if (!Number.isFinite(numberValue)) return value;
+	if (numberValue === 0) return "0";
+
+	var absoluteValue = Math.abs(numberValue);
+	var decimals = 0;
+	if (absoluteValue < 10) {
+		decimals = absoluteValue >= 1 ? 1 : Math.ceil(-Math.log10(absoluteValue)) + 1;
+	}
+
+	return numberValue.toFixed(Math.max(0, decimals)).replace(/\.?0+$/, "");
+}
+
+function formatMobileDamageDisplayText(text) {
+	if (!isMobileDamageDisplayViewport() || typeof text !== "string") return text;
+
+	return text
+		.replace(/(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)(%)/g, function (_match, min, max, percentSign) {
+			return formatMobileDamagePercentNumber(min) + " - " + formatMobileDamagePercentNumber(max) + percentSign;
+		})
+		.replace(/(\d+(?:\.\d+)?)(%)/g, function (_match, value, percentSign) {
+			return formatMobileDamagePercentNumber(value) + percentSign;
+		});
+}
+
+function setDamageResultText(selector, text) {
+	$(selector)
+		.attr("data-full-damage-text", text)
+		.text(formatMobileDamageDisplayText(text));
+}
+
+function refreshDamageResultTextForViewport() {
+	$(".resultDamage").each(function () {
+		var fullDamageText = $(this).attr("data-full-damage-text");
+		if (fullDamageText) {
+			$(this).text(formatMobileDamageDisplayText(fullDamageText));
+		}
+	});
+}
+
+$(window).on("resize.mobile-damage-display orientationchange.mobile-damage-display", refreshDamageResultTextForViewport);
+
+function isAirborne(mon) {
+	return (mon.hasItem("Air Balloon") || mon.hasAbility("Levitate") || mon.hasType("Flying")) ? true : false;
+}
+
+function performCalculations() {
+	var p1info = $("#p1");
+	var p2info = $("#p2");
+
+
+
+	var p1 = createPokemon(p1info);
+	var p2 = createPokemon(p2info);
+	var p1field = createField();
+	var p2field = p1field.clone().swap();
+
+
+	refreshChipDamageDisplays();
+	damageResults = calculateAllMoves(settings.damageGen, p1, p1field, p2, p2field);
+
+	p1 = damageResults[0][0].attacker;
+	p2 = damageResults[1][0].attacker;
+	var battling = [p1, p2];
+	p1.maxDamages = [];
+	p2.maxDamages = [];
+	
+
+	if ($('#SpeL').prop('checked')) {
+		p1.stats.spe = Math.floor(p1.stats.spe * 1.1)
+		p1info.find(".sp .totalMod").css('color', '#bd93f9')
+	} else {
+		p1info.find(".sp .totalMod").attr('style', '')	
+	}
+
+
+	if ($('#mistralton').prop('checked')) {
+		if (isAirborne(p1)) {
+			p1.stats.spe = Math.floor(p1.stats.spe * 1.5)
+		}
+		if (isAirborne(p2)) {
+			p2.stats.spe = Math.floor(p2.stats.spe * 1.5)
+		}
+	}
+
+	for (stat of [["at", "atk"],["df","def"],["sa", "spa"],["sd","spd"]]){
+		let total = p1info.find(`.${stat[0]} .total`)
+		total.text(p1.stats[stat[1]])
+		if (p1.boosts[stat[1]] > 0) {
+			total.css('color', "#bb86fc")
+		} else {
+			total.css('color', "")
+		}
+	}
+
+	for (stat of [["at", "atk"],["df","def"],["sa", "spa"],["sd","spd"]]){
+		let total = p2info.find(`.${stat[0]} .total`)
+		total.text(p2.stats[stat[1]])
+		if (p2.boosts[stat[1]] > 0) {
+			total.css('color', "#bb86fc")
+		} else {
+			total.css('color', "")
+		}
+	}
+
+	
+
+	p1info.find(".sp .totalMod").text(p1.stats.spe);
+	p2info.find(".sp .totalMod").text(p2.stats.spe);
+
+	if (p1.stats.spe > p2.stats.spe) {
+		p1info.find(".sp .totalMod").css('color', '#8be9fd')
+		p2info.find(".sp .totalMod").css('color', '#ff5555')
+	} else if (p1.stats.spe === p2.stats.spe) {
+		p1info.find(".sp .totalMod").css('color', '#f0cf63')
+		p2info.find(".sp .totalMod").css('color', '#f0cf63')
+	} else {
+		p2info.find(".sp .totalMod").css('color', '#8be9fd')
+		p1info.find(".sp .totalMod").css('color', '#ff5555')
+	}
+
+
+
+
+
+
+
+	var fastestSide = p1.stats.spe > p2.stats.spe ? 0 : p1.stats.spe === p2.stats.spe ? "tie" : 1;
+
+	var result, maxDamage;
+	var bestResult;
+	var zProtectAlerted = false;
+	var is100 = false
+	
+	for (var i = 0; i < 4; i++) {
+		// P1
+		result = damageResults[0][i];
+		maxDamage = getMaximumResultDamage(result);
+		if (!zProtectAlerted && maxDamage > 0 && p1.item.indexOf(" Z") === -1 && p1field.defenderSide.isProtected && p1.moves[i].isZ) {
+			alert('Although only possible while hacking, Z-Moves fully damage through protect without a Z-Crystal');
+			zProtectAlerted = true;
+		}
+		p1.maxDamages.push({moveOrder: i, maxDamage: maxDamage});
+		p1.maxDamages.sort(function (firstMove, secondMove) {
+			return secondMove.maxDamage - firstMove.maxDamage;
+		});
+		var p1MoveName = p1.moves[i].originalName || p1.moves[i].name;
+		var shouldAbbreviateMoveResults = isMobileDamageDisplayViewport();
+		var p1MoveLabel = shouldAbbreviateMoveResults && typeof abv === "function" ?
+			abv(p1MoveName.replace("Hidden Power", "HP"), ".move-result-group", 10, true) :
+			p1MoveName.replace("Hidden Power", "HP");
+		$(resultLocations[0][i].move + " + label").text(p1MoveLabel);
+		$(resultLocations[0][i].move + " + label").attr("title", p1MoveName);
+		
+
+		var p1DamageText = result.moveDesc(notation);
+		var doublePowerMoves = ["Avalanche", "Payback", "Assurance", "Revenge", "Retaliate", "Stomping Tantrum"]
+		if (TITLE.includes("Cascade")) {
+			doublePowerMoves = doublePowerMoves.concat(["Thrash", "Temper Flare", "Seething Cold", "Uproar"])
+		}
+		if (doublePowerMoves.indexOf(p1.moves[i].name) != -1) {
+			p1DamageText += " (can double power)";
+		}
+		setDamageResultText(resultLocations[0][i].damage, p1DamageText);
+
+		// P2
+		result = damageResults[1][i];
+		maxDamage = getMaximumResultDamage(result);
+		if (!zProtectAlerted && maxDamage > 0 && p2.item.indexOf(" Z") === -1 && p2field.defenderSide.isProtected && p2.moves[i].isZ) {
+			alert('Although only possible while hacking, Z-Moves fully damage through protect without a Z-Crystal');
+			zProtectAlerted = true;
+		}
+		p2.maxDamages.push({moveOrder: i, maxDamage: maxDamage});
+		p2.maxDamages.sort(function (firstMove, secondMove) {
+			return secondMove.maxDamage - firstMove.maxDamage;
+		});
+		var p2MoveName = p2.moves[i].originalName || p2.moves[i].name;
+		var p2MoveLabel = shouldAbbreviateMoveResults && typeof abv === "function" ?
+			abv(p2MoveName.replace("Hidden Power", "HP"), ".move-result-group", 10, true) :
+			p2MoveName.replace("Hidden Power", "HP");
+		$(resultLocations[1][i].move + " + label").text(p2MoveLabel);
+		$(resultLocations[1][i].move + " + label").attr("title", p2MoveName);
+		var p2DamageText = result.moveDesc(notation);
+
+		if (doublePowerMoves.indexOf(p2.moves[i].name) != -1) {
+			p2DamageText += " (can double power)";
+		}
+
+		if (["Counter", "Mirror Coat", "Destiny Bond"].indexOf(p2.moves[i].name) != -1) {
+			p2DamageText += " (variable dmg)";
+		}
+		setDamageResultText(resultLocations[1][i].damage, p2DamageText);
+
+		// BOTH
+		var bestMove;
+		if (fastestSide === "tie") {
+			// Technically the order should be random in a speed tie, but this non-determinism makes manual testing more difficult.
+			// battling.sort(function () { return 0.5 - Math.random(); });
+			bestMove = battling[0].maxDamages[0].moveOrder;
+			var chosenPokemon = battling[0] === p1 ? "0" : "1";
+			bestResult = $(resultLocations[chosenPokemon][bestMove].move);
+		} else {
+			bestMove = battling[fastestSide].maxDamages[0].moveOrder;
+			bestResult = $(resultLocations[fastestSide][bestMove].move);
+		}
+	}
+	if ($('.locked-move').length) {
+		bestResult = $('.locked-move');
+	} else {
+		stickyMoves.setSelectedMove(bestResult.prop("id"));
+	}
+	bestResult.prop("checked", true);
+	bestResult.change();
+	$("#resultHeaderL .result-move-header-label").text(p1.name + "'s Moves");
+	$("#resultHeaderR .result-move-header-label").text(p2.name + "'s Moves");
+	highlightMoves()
+	if (typeof syncAllResultCritStates === "function") {
+		syncAllResultCritStates();
+	}
+	if (typeof PlatinumMoveAiPreviewUI !== "undefined" && PlatinumMoveAiPreviewUI.refresh) {
+		PlatinumMoveAiPreviewUI.refresh();
+	}
+	if (typeof KudzuAIUI !== "undefined" && KudzuAIUI.refresh) {
+		KudzuAIUI.refresh();
+	}
+
+}
+
+$(".result-move").change(function () {
+	
+	if (damageResults) {
+		var result = findDamageResult($(this));
+
+		if (result) {
+			var desc = result.fullDesc(notation, false);
+			desc = correctImpossibleMultihitOHKOText(result, desc);
+			if (desc.indexOf('--') === -1) desc += ' -- possibly the worst move ever';
+			$("#mainResult").text(desc);
+			var summary = displayDamageHits(normalizeDamageForDisplay(result), getBeatUpHitLabels(result));
+			var rest = "";
+			var newLine = summary.indexOf('\n');
+			if (newLine > -1) {
+				rest = summary.substring(newLine + 1);
+				summary = summary.substring(0, newLine);
+			}
+			$("#firstDmgValues").html("Rolls: (" + summary + ")");
+			if (rest !== "") {
+				$("#restDmgValues").html("(" + rest.split('\n').join(")<br>(") + ")");
+			}
+
+			if (rest.trim() === "") {
+				$("#firstDmgValues").css("display", "block");
+				$("#restDmgValues").html("");
+			} else {
+				$("#damageValues").removeAttr("open");
+				$("#firstDmgValues").css("display", "revert");
+			}
+		}
+	}
+
+
+	var move = $(".results-right .visually-hidden:checked + .btn").text()    
+});
+
+function getBeatUpHitLabels(result) {
+	if (!result || !result.move || !Array.isArray(result.move.beatUpParty)) return [];
+	return result.move.beatUpParty.map(function(member) { return member.name || "Party member"; });
+}
+
+function displayDamageHits(damage, hitLabels) {
+	hitLabels = Array.isArray(hitLabels) ? hitLabels : [];
+	// Fixed Damage
+	if (typeof damage === 'number') return (hitLabels[0] ? "1st Hit (" + hitLabels[0] + "): " : "") + damage.toString();
+
+	if (damage.length == 16 && typeof damage[0] === 'number') {
+		var medianIndex = 8;
+		if (settings && settings.damageGen === 4) {
+			medianIndex = 15;
+		} else if (settings && settings.damageGen === 5) {
+			medianIndex = 0;
+		}
+		var formatted = damage.map(function (value, index) {
+			if (index === medianIndex) {
+				return `<span id='dmg-median' title='AI Simulated Dmg Roll'>${value}</span>`;
+			}
+			return value;
+		});
+		var singleHitPrefix = hitLabels[0] ? "1st Hit (" + hitLabels[0] + "): " : "";
+		return singleHitPrefix + formatted.join(', ');
+	}
+
+	// Standard Damage
+	if (damage.length > 2 && typeof damage[0] === 'number') {
+		return (hitLabels[0] ? "1st Hit (" + hitLabels[0] + "): " : "") + damage.join(', ');
+	}
+	// Fixed Parental Bond Damage
+	if (typeof damage[0] === 'number' && typeof damage[1] === 'number') {
+		return '1st Hit: ' + damage[0] + '; 2nd Hit: ' + damage[1];
+	}
+	// Multihit Damage
+	var fullText = "";
+	for (var i = 1; i <= damage.length; i++) {
+		var contributor = hitLabels[i - 1] ? " (" + hitLabels[i - 1] + ")" : "";
+		var txt = toOrdinal(i) + " Hit" + contributor + ": " + damage[i - 1].join(', ');
+		fullText += txt;
+		if (i < damage.length) fullText += "\n";
+	}
+	return fullText;
+}
+
+function normalizeDamageForDisplay(result) {
+	var damage = result.damage;
+	if (!result || !result.gen || !result.move) return damage;
+	var genNum = result.gen.num;
+	var hits = result.move.hits || 1;
+	if (genNum >= 5 && genNum <= 6 && hits > 1 &&
+		Array.isArray(damage) && typeof damage[0] === 'number' && damage.length >= 16) {
+		return squashMultihitDisplay(damage, hits);
+	}
+	return damage;
+}
+
+function correctImpossibleMultihitOHKOText(result, desc) {
+	if (!result || !result.move || !desc || desc.indexOf("-- guaranteed OHKO") === -1) return desc;
+	if ((result.move.hits || 1) <= 1) return desc;
+
+	var damage = combineSelectedHitDamage(normalizeDamageForDisplay(result));
+	var range = getDisplayDamageRange(damage);
+	var currentHP = result.defender && typeof result.defender.curHP === "function"
+		? result.defender.curHP()
+		: result.defender && typeof result.defender.maxHP === "function" ? result.defender.maxHP() : undefined;
+	if (!range || currentHP === undefined || range[0] >= currentHP) return desc;
+
+	var getChance = typeof getKOChance === "function"
+		? getKOChance
+		: typeof calc !== "undefined" && calc && typeof calc.getKOChance === "function" ? calc.getKOChance : undefined;
+	if (!getChance) return desc;
+
+	var move = typeof result.move.clone === "function" ? result.move.clone() : Object.assign({}, result.move);
+	move.hits = 1;
+	var koText = getChance(result.gen, result.attacker, result.defender, move, result.field, damage, false, true).text;
+	if (!koText || koText === "guaranteed OHKO") return desc;
+	return desc.replace("-- guaranteed OHKO", "-- " + koText);
+}
+
+function combineSelectedHitDamage(damage) {
+	if (!Array.isArray(damage) || damage.length !== 2) return damage;
+	var first = damage[0];
+	var second = damage[1];
+	if (Array.isArray(first) && Array.isArray(second) &&
+		typeof first[0] === "number" && typeof second[0] === "number") {
+		var combined = [];
+		var len = Math.min(first.length, second.length);
+		for (var i = 0; i < len; i++) {
+			combined[i] = first[i] + second[i];
+		}
+		return combined;
+	}
+	if (Array.isArray(first) && typeof first[0] === "number" && typeof second === "number") {
+		return first.map(function (value) { return value + second; });
+	}
+	if (Array.isArray(second) && typeof second[0] === "number" && typeof first === "number") {
+		return second.map(function (value) { return value + first; });
+	}
+	return damage;
+}
+
+function getDisplayDamageRange(damage) {
+	if (typeof damage === "number") return [damage, damage];
+	if (!Array.isArray(damage) || damage.length === 0) return undefined;
+	if (typeof damage[0] === "number") {
+		return [Math.min.apply(Math, damage), Math.max.apply(Math, damage)];
+	}
+	if (Array.isArray(damage[0])) {
+		var minSum = 0;
+		var maxSum = 0;
+		for (var i = 0; i < damage.length; i++) {
+			var dist = damage[i];
+			if (!Array.isArray(dist) || dist.length === 0) continue;
+			minSum += Math.min.apply(Math, dist);
+			maxSum += Math.max.apply(Math, dist);
+		}
+		return [minSum, maxSum];
+	}
+	return undefined;
+}
+
+function squashMultihitDisplay(d, hits) {
+	if (hits === 1) return d;
+	if (d.length === 1) return [d[0] * hits];
+	if (d.length === 16) {
+		switch (hits) {
+		case 2:
+			return [
+				2 * d[0], d[2] + d[3], d[4] + d[4], d[4] + d[5], d[5] + d[6], d[6] + d[6],
+				d[6] + d[7], d[7] + d[7], d[8] + d[8], d[8] + d[9], d[9] + d[9], d[9] + d[10],
+				d[10] + d[11], d[11] + d[11], d[12] + d[13], 2 * d[15],
+			];
+		case 3:
+			return [
+				3 * d[0], d[3] + d[3] + d[4], d[4] + d[4] + d[5], d[5] + d[5] + d[6],
+				d[5] + d[6] + d[6], d[6] + d[6] + d[7], d[6] + d[7] + d[7], d[7] + d[7] + d[8],
+				d[7] + d[8] + d[8], d[8] + d[8] + d[9], d[8] + d[9] + d[9], d[9] + d[9] + d[10],
+				d[9] + d[10] + d[10], d[10] + d[11] + d[11], d[11] + d[12] + d[12], 3 * d[15],
+			];
+		case 4:
+			return [
+				4 * d[0], 4 * d[4], d[4] + d[5] + d[5] + d[5], d[5] + d[5] + d[6] + d[6],
+				4 * d[6], d[6] + d[6] + d[7] + d[7], 4 * d[7], d[7] + d[7] + d[7] + d[8],
+				d[7] + d[8] + d[8] + d[8], 4 * d[8], d[8] + d[8] + d[9] + d[9], 4 * d[9],
+				d[9] + d[9] + d[10] + d[10], d[10] + d[10] + d[10] + d[11], 4 * d[11], 4 * d[15],
+			];
+		case 5:
+			return [
+				5 * d[0], d[4] + d[4] + d[4] + d[5] + d[5], d[5] + d[5] + d[5] + d[5] + d[6],
+				d[5] + d[6] + d[6] + d[6] + d[6], d[6] + d[6] + d[6] + d[6] + d[7],
+				d[6] + d[6] + d[7] + d[7] + d[7], 5 * d[7], d[7] + d[7] + d[7] + d[8] + d[8],
+				d[7] + d[7] + d[8] + d[8] + d[8], 5 * d[8], d[8] + d[8] + d[8] + d[9] + d[9],
+				d[8] + d[9] + d[9] + d[9] + d[9], d[9] + d[9] + d[9] + d[9] + d[10],
+				d[9] + d[10] + d[10] + d[10] + d[10], d[10] + d[10] + d[11] + d[11] + d[11], 5 * d[15],
+			];
+		case 10:
+			return [
+				10 * d[0], 10 * d[4], 3 * d[4] + 7 * d[5], 5 * d[5] + 5 * d[6], 10 * d[6],
+				5 * d[6] + 5 * d[7], 10 * d[7], 7 * d[7] + 3 * d[8], 3 * d[7] + 7 * d[8], 10 * d[8],
+				5 * d[8] + 5 * d[9], 4 * d[9], 5 * d[9] + 5 * d[10], 7 * d[10] + 3 * d[11], 10 * d[11],
+				10 * d[15],
+			];
+		default:
+			return d;
+		}
+	}
+	return d;
+}
+
+function toOrdinal(num) {
+	if (typeof num !== "number" || !Number.isInteger(num)) {
+		return "Input must be an integer.";
+	}
+	switch (num) {
+	case 1:
+		return num + "st";
+	case 2:
+		return num + "nd";
+	case 3:
+		return num + "rd";
+	default:
+		return num + "th";
+	}
+
+	setGen3LastMoveFromDamage(p1, damageResults);
+}
+
+function setGen3LastMoveFromDamage(p1, damageResults) {
+	if (typeof settings === "undefined" || settings.gameSwitchIn != 3) return;
+	// Intentionally no-op: do not auto-select a last move from P1 damage.
+	return;
+}
+
+function findDamageResult(resultMoveObj) {
+	var selector = "#" + resultMoveObj.attr("id");
+	for (var i = 0; i < resultLocations.length; i++) {
+		for (var j = 0; j < resultLocations[i].length; j++) {
+			if (resultLocations[i][j].move === selector) {
+				return damageResults[i][j];
+			}
+		}
+	}
+}
+
+function checkStatBoost(p1, p2) {
+	if ($('#StatBoostL').prop("checked")) {
+		for (var stat in p1.boosts) {
+			if (stat === 'hp') continue;
+			p1.boosts[stat] = Math.min(6, p1.boosts[stat] + 1);
+		}
+	}
+	if ($('#StatBoostR').prop("checked")) {
+		for (var stat in p2.boosts) {
+			if (stat === 'hp') continue;
+			p2.boosts[stat] = Math.min(6, p2.boosts[stat] + 1);
+		}
+	}
+}
+
+function getBeatUpBaseAttack(speciesName) {
+	var speciesData = pokedex && (pokedex[speciesName] || pokedex[speciesName.replace(" ", "-")] || pokedex[speciesName.replace("-", " ")] || pokedex[speciesName.split("-")[0]]);
+	var baseStats = speciesData && (speciesData.baseStats || speciesData.bs);
+	if (!baseStats) return null;
+	var baseAttack = Number(typeof baseStats.atk !== "undefined" ? baseStats.atk : baseStats.at);
+	return Number.isFinite(baseAttack) ? baseAttack : null;
+}
+
+function getBeatUpMemberLevel(setData, fallbackLevel) {
+	var level = Number(setData && setData.level);
+	if (setData && (level < 1 || typeof setData.sublevel !== "undefined") && typeof resolveRelativeSetLevel === "function") {
+		level = Number(resolveRelativeSetLevel(setData, fallbackLevel));
+	}
+	if (!Number.isFinite(level) || level < 1) {
+		level = Number(fallbackLevel) || 1;
+	}
+	return Math.max(1, Math.min(100, Math.floor(level)));
+}
+
+function hasBeatUpBlockingStatus(status) {
+	var normalized = typeof normalizeStoredStatus === "function" ? normalizeStoredStatus(status) : String(status || "Healthy");
+	return normalized !== "Healthy" && normalized !== "Confused";
+}
+
+function buildBeatUpMember(speciesName, setData, fallbackLevel) {
+	if (!speciesName || !setData || Number(setData.currentHp) === 0 || hasBeatUpBlockingStatus(setData.status)) {
+		return null;
+	}
+	var baseAttack = getBeatUpBaseAttack(speciesName);
+	if (baseAttack === null) return null;
+	return {
+		name: speciesName,
+		level: getBeatUpMemberLevel(setData, fallbackLevel),
+		baseAttack: baseAttack
+	};
+}
+
+function getLeftBeatUpParty() {
+	var party = [];
+	var preview = typeof currentParty !== "undefined" && Array.isArray(currentParty) ? currentParty.slice(0, 6) : [];
+	var selectedSetId = $('#p1 input.set-selector').val() || "";
+	var selectedSpecies = selectedSetId.split(" (")[0];
+	for (var i = 0; i < preview.length; i++) {
+		var speciesName = preview[i];
+		var slotOverride = typeof getPartyPreviewSlotOverride === "function" ? getPartyPreviewSlotOverride(speciesName, i) : null;
+		var setData = slotOverride || (setdex[speciesName] && setdex[speciesName]["My Box"]);
+		if (setData && speciesName === selectedSpecies) {
+			setData = Object.assign({}, setData, {
+				status: $('#p1 .status').val(),
+				currentHp: $('#p1 .current-hp').val()
+			});
+		}
+		var member = buildBeatUpMember(speciesName, setData, $('#levelL1').val());
+		if (member) party.push(member);
+	}
+	return party;
+}
+
+function getRightBeatUpParty() {
+	var selectedSetId = $('#p2 input.set-selector').val() || $('.opposing.set-selector').first().val() || "";
+	var selectedSetData = typeof getSetDataBySetId === "function" ? getSetDataBySetId(selectedSetId) : null;
+	var selectedTrainerId = selectedSetData && Number(selectedSetData.tr_id);
+	var trainerSets = typeof CURRENT_TRAINER_POKS !== "undefined" && Array.isArray(CURRENT_TRAINER_POKS) ? CURRENT_TRAINER_POKS.slice() : [];
+	var rememberedStates = typeof getRememberedEnemyStateMap === "function" ? getRememberedEnemyStateMap() : {};
+	var party = [];
+
+	var consideredMembers = 0;
+	for (var i = 0; i < trainerSets.length && consideredMembers < 6; i++) {
+		var setId = Array.isArray(trainerSets[i]) ? trainerSets[i][0] : trainerSets[i];
+		var setData = typeof getSetDataBySetId === "function" ? getSetDataBySetId(setId) : null;
+		if (!setData || (selectedTrainerId && Number(setData.tr_id) !== selectedTrainerId)) continue;
+		consideredMembers++;
+
+		var dataId = typeof getTrainerPreviewDataId === "function" ? getTrainerPreviewDataId(setId) : setId;
+		if (Array.isArray(fainted) && (fainted.includes(dataId) || fainted.includes(setId))) continue;
+
+		var effectiveSetData = Object.assign({}, setData);
+		var rememberedState = rememberedStates[dataId] || rememberedStates[setId];
+		if (rememberedState && typeof rememberedState.status !== "undefined") {
+			effectiveSetData.status = rememberedState.status;
+		}
+		if (dataId && dataId === (typeof getTrainerPreviewDataId === "function" ? getTrainerPreviewDataId(selectedSetId) : selectedSetId)) {
+			effectiveSetData.status = $('#p2 .status').val();
+		}
+
+		var speciesName = String(setId).split(" (")[0];
+		var member = buildBeatUpMember(speciesName, effectiveSetData, $('#levelR1').val());
+		if (member) party.push(member);
+	}
+	return party;
+}
+
+function configureBeatUpMove(move, party) {
+	if (!move || (move.name !== "Beat Up" && move.originalName !== "Beat Up")) return;
+	if (typeof TITLE === "string" && TITLE === "Platinum Kaizo") {
+		move.beatUpParty = undefined;
+		move.hits = 1;
+		return;
+	}
+	if (typeof TITLE === "string" && (TITLE.includes("Emerald Imperium") || TITLE.includes("Radical Red"))) {
+		move.beatUpParty = undefined;
+		move.hits = Math.max(1, Number(move.listedHits) || Number(move.hits) || 1);
+		return;
+	}
+	move.beatUpParty = party.slice(0, 6).map(function(member) { return Object.assign({}, member); });
+	move.hits = move.beatUpParty.length;
+}
+
+function getMaximumResultDamage(result) {
+	var maximum = result.range()[1];
+	var hasPerHitDistributions = Array.isArray(result.damage) && Array.isArray(result.damage[0]);
+	return hasPerHitDistributions ? maximum : maximum * (result.move.hits || 1);
+}
+
+
+function rolls_less_than(rolls, k, winsTie) {
+
+	if (k == 0) {
+		return 0
+	}
+
+	if (rolls == 0) {
+		return 16
+	}
+
+	for (n in rolls) {
+		
+		if (winsTie) {
+			if (rolls[n] > k) {
+				return parseInt(n)
+			} 
+		} else {
+			if (rolls[n] >= k) {
+				return parseInt(n)
+			} 
+		}
+		
+	}
+
+	return 16
+}
+
+function calculate_probabilities(results) {
+	// for each move's damage range
+	var probabilities = []
+
+	for (let i = 0; i < 4; i++) {
+		var probability = 0
+		// for each damage roll
+
+		for (let n = 0; n < 16; n++) {
+			// get number of rolls in other moves that are less than current roll
+
+			if (results[i].damage == 0) {
+				break
+			}
+
+			m1_roll_count = rolls_less_than(results[(i + 1) % 4].damage, results[i].damage[n], (i < 3))
+			if (m1_roll_count == 0) {
+				continue
+			}
+			m2_roll_count = rolls_less_than(results[(i + 2) % 4].damage, results[i].damage[n], (i < 2))
+			if (m2_roll_count == 0) {
+				continue
+			}
+			m3_roll_count = rolls_less_than(results[(i + 3) % 4].damage, results[i].damage[n], (i < 1))
+			if (m3_roll_count == 0) {
+				continue
+			}
+			probability += (0.0625) * (m1_roll_count / 16) * (m2_roll_count / 16) * (m3_roll_count / 16)
+		}
+		probabilities.push(probability)
+	}
+	return probabilities
+}
+
+
+
+function calculateAllMoves(gen, p1, p1field, p2, p2field, displayProbabilities=true) {
+	if (typeof applyActiveImposterTransforms === "function") {
+		var transformedPokemon = applyActiveImposterTransforms(p1, p2);
+		p1 = transformedPokemon[0];
+		p2 = transformedPokemon[1];
+	}
+
+	var results = [[], []];
+	var p1BeatUpParty = getLeftBeatUpParty();
+	var p2BeatUpParty = getRightBeatUpParty();
+	for (var i = 0; i < 4; i++) {
+		configureBeatUpMove(p1.moves[i], p1BeatUpParty);
+		configureBeatUpMove(p2.moves[i], p2BeatUpParty);
+		var p2MoveName = p2.moves[i] && p2.moves[i].name;
+		var p2OriginalMoveName = p2.moves[i] && p2.moves[i].originalName;
+		var isEmptyMove = !p2.moves[i] || p2MoveName == "(No Move)" || p2OriginalMoveName == "(No Move)";
+		var isUnknownMove = !isEmptyMove && !moves[p2OriginalMoveName] && !moves[p2MoveName];
+
+		if (isEmptyMove || isUnknownMove || p2MoveName == "Smokescreen") {
+			p2.moves[i].name = "Growl"
+			p2.moves[i].category = "Status"
+			p2.moves[i].type = p2.moves[i].type || "Normal"
+		} else {
+			try {
+				p2.moves[i].category = moves[p2.moves[i].originalName]["category"]
+			} catch {
+				console.log(`Resolving unknown move ${p2.moves[i].originalName}`)
+				p2.moves[i].category = moves[p2.moves[i].name]["category"]
+			}
+			
+		}
+		
+		// p2.moves[i].overrides = {}
+
+		// In case p2 comes up as empty
+		if (!p2.name) {
+			// console.log(p2)
+			var p2info = $("#p2");
+			p2 = createPokemon(p2info);
+		}
+
+		if (!p1.name) {
+			// console.log(p1)
+			var p1info = $("#p1");
+			p1 = createPokemon(p1info);
+		}
+
+
+		
+
+
+		results[0][i] = calc.calculate(gen, p1, getDefensiveMoveTypeOverridePokemon(p2, $("#p2")), p1.moves[i], p1field);
+		results[1][i] = calc.calculate(gen, p2, getDefensiveMoveTypeOverridePokemon(p1, $("#p1")), p2.moves[i], p2field);
+	}
+	return results;
+}
+
+function calculateLeftMoves(gen, p1, p1field, p2, p2field) {
+	var results = [[], []];
+	
+	var movePool = p1.getDamagingMovePool()
+
+	for (var i = 0; i < movePool.length; i++) {
+		results[0][i] = calc.calculate(gen, p1, getDefensiveMoveTypeOverridePokemon(p2, $("#p2")), movePool[i], p1field);
+	}
+	return results;
+}
+
+
+function calculateSingleSidedMoves(gen, attacker, defender, field) {
+	var results = [];
+
+	for (var i = 0; i < 4; i++) {
+		results[i] = calc.calculate(gen, attacker, defender, attacker.moves[i], field);
+	}
+	return results;
+}
+
+function calculateAllLeftVisibleRight(gen, p1, p1field, p2, p2field) {
+	var results = [[], []];
+	
+	var movePool = p1.getDamagingMovePool()
+
+
+	for (var i = 0; i < Math.max(movePool.length, 4); i++) {
+		results[0][i] = calc.calculate(gen, p1, getDefensiveMoveTypeOverridePokemon(p2, $("#p2")), movePool[i] || movePool[i - 1], p1field);
+		if (i < p2.moves.length) {
+			results[1][i] = calc.calculate(gen, p2, getDefensiveMoveTypeOverridePokemon(p1, $("#p1")), p2.moves[i] || p2.moves[i - 1], p2field);
+		}
+	}
+	return results;
+}
+
+
+
+$(".mode").change(function () {
+	var params = new URLSearchParams(window.location.search);
+	params.set('mode', $(this).attr("id"));
+	var mode = params.get('mode');
+	if (mode === 'randoms') {
+		window.location.replace('randoms' + linkExtension + '?' + params);
+	} else if (mode === 'one-vs-one') {
+		window.location.replace('index' + linkExtension + '?' + params);
+	} else {
+		window.location.replace('honkalculate' + linkExtension + '?' + params);
+	}
+});
+
+$(".notation").change(function () {
+	performCalculations();
+});
+
+$(document).ready(function () {
+	var params = new URLSearchParams(window.location.search);
+	var m = params.get('mode');
+	if (m) {
+		if (m !== 'one-vs-one' && m !== 'randoms') {
+			window.location.replace('honkalculate' + linkExtension + '?' + params);
+		} else {
+			if ($('#randoms').prop('checked')) {
+				if (m === 'one-vs-one') {
+					window.location.replace('index' + linkExtension + '?' + params);
+				}
+			} else {
+				if (m === 'randoms') {
+					window.location.replace('randoms' + linkExtension + '?' + params);
+				}
+			}
+		}
+	}
+	$(".calc-trigger").on("change keyup", function () {
+		setTimeout(performCalculations, 0);
+		if (settings.switchIn == 10) {
+			if (typeof queueRefreshNextIn === "function") {
+				queueRefreshNextIn();
+			} else {
+				setTimeout(refresh_next_in, 0);
+			}
+		}
+	});
+	performCalculations();
+});

@@ -1,0 +1,6120 @@
+[
+ {
+  "constant": "ABILITY_NONE",
+  "id": 0,
+  "displayName": "-------",
+  "description": "No special ability.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 3
+ },
+ {
+  "constant": "ABILITY_STENCH",
+  "id": 1,
+  "displayName": "Stench",
+  "description": "May cause a foe to flinch.",
+  "aiRating": 1,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 12
+ },
+ {
+  "constant": "ABILITY_DRIZZLE",
+  "id": 2,
+  "displayName": "Drizzle",
+  "description": "Summons rain in battle.",
+  "aiRating": 9,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 19
+ },
+ {
+  "constant": "ABILITY_SPEED_BOOST",
+  "id": 3,
+  "displayName": "Speed Boost",
+  "description": "Gradually boosts Speed.",
+  "aiRating": 9,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 26
+ },
+ {
+  "constant": "ABILITY_BATTLE_ARMOR",
+  "id": 4,
+  "displayName": "Battle Armor",
+  "description": "Blocks critical hits.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 33
+ },
+ {
+  "constant": "ABILITY_STURDY",
+  "id": 5,
+  "displayName": "Sturdy",
+  "description": "Negates 1-hit KO attacks.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 41
+ },
+ {
+  "constant": "ABILITY_DAMP",
+  "id": 6,
+  "displayName": "Damp",
+  "description": "Prevents self-destruction.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 49
+ },
+ {
+  "constant": "ABILITY_LIMBER",
+  "id": 7,
+  "displayName": "Limber",
+  "description": "Prevents paralysis.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 57
+ },
+ {
+  "constant": "ABILITY_SAND_VEIL",
+  "id": 8,
+  "displayName": "Sand Veil",
+  "description": "Ups evasion in a sandstorm.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 65
+ },
+ {
+  "constant": "ABILITY_STATIC",
+  "id": 9,
+  "displayName": "Static",
+  "description": "Paralyzes on contact.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 73
+ },
+ {
+  "constant": "ABILITY_VOLT_ABSORB",
+  "id": 10,
+  "displayName": "Volt Absorb",
+  "description": "Turns electricity into HP.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 80
+ },
+ {
+  "constant": "ABILITY_WATER_ABSORB",
+  "id": 11,
+  "displayName": "Water Absorb",
+  "description": "Changes water into HP.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 88
+ },
+ {
+  "constant": "ABILITY_OBLIVIOUS",
+  "id": 12,
+  "displayName": "Oblivious",
+  "description": "Prevents attraction.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 96
+ },
+ {
+  "constant": "ABILITY_CLOUD_NINE",
+  "id": 13,
+  "displayName": "Cloud Nine",
+  "description": "Negates weather effects.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 104
+ },
+ {
+  "constant": "ABILITY_COMPOUND_EYES",
+  "id": 14,
+  "displayName": "Compound Eyes",
+  "description": "Raises accuracy.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 111
+ },
+ {
+  "constant": "ABILITY_INSOMNIA",
+  "id": 15,
+  "displayName": "Insomnia",
+  "description": "Prevents sleep.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 118
+ },
+ {
+  "constant": "ABILITY_COLOR_CHANGE",
+  "id": 16,
+  "displayName": "Color Change",
+  "description": "Changes type to foe's move.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 126
+ },
+ {
+  "constant": "ABILITY_IMMUNITY",
+  "id": 17,
+  "displayName": "Immunity",
+  "description": "Prevents poisoning.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 133
+ },
+ {
+  "constant": "ABILITY_FLASH_FIRE",
+  "id": 18,
+  "displayName": "Flash Fire",
+  "description": "Powers up if hit by fire.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 141
+ },
+ {
+  "constant": "ABILITY_SHIELD_DUST",
+  "id": 19,
+  "displayName": "Shield Dust",
+  "description": "Prevents added effects.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 149
+ },
+ {
+  "constant": "ABILITY_OWN_TEMPO",
+  "id": 20,
+  "displayName": "Own Tempo",
+  "description": "Prevents confusion.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 157
+ },
+ {
+  "constant": "ABILITY_SUCTION_CUPS",
+  "id": 21,
+  "displayName": "Suction Cups",
+  "description": "Firmly anchors the body.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 165
+ },
+ {
+  "constant": "ABILITY_INTIMIDATE",
+  "id": 22,
+  "displayName": "Intimidate",
+  "description": "Lowers the foe's Attack.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 173
+ },
+ {
+  "constant": "ABILITY_SHADOW_TAG",
+  "id": 23,
+  "displayName": "Shadow Tag",
+  "description": "Prevents the foe's escape.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 180
+ },
+ {
+  "constant": "ABILITY_ROUGH_SKIN",
+  "id": 24,
+  "displayName": "Rough Skin",
+  "description": "Hurts to touch.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 187
+ },
+ {
+  "constant": "ABILITY_WONDER_GUARD",
+  "id": 25,
+  "displayName": "Wonder Guard",
+  "description": "Only “Supereffective” hits.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 194
+ },
+ {
+  "constant": "ABILITY_LEVITATE",
+  "id": 26,
+  "displayName": "Levitate",
+  "description": "Not hit by Ground attacks.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 204
+ },
+ {
+  "constant": "ABILITY_EFFECT_SPORE",
+  "id": 27,
+  "displayName": "Effect Spore",
+  "description": "Leaves spores on contact.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 212
+ },
+ {
+  "constant": "ABILITY_SYNCHRONIZE",
+  "id": 28,
+  "displayName": "Synchronize",
+  "description": "Passes on status problems.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 219
+ },
+ {
+  "constant": "ABILITY_CLEAR_BODY",
+  "id": 29,
+  "displayName": "Clear Body",
+  "description": "Prevents ability reduction.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 226
+ },
+ {
+  "constant": "ABILITY_NATURAL_CURE",
+  "id": 30,
+  "displayName": "Natural Cure",
+  "description": "Heals upon switching out.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 234
+ },
+ {
+  "constant": "ABILITY_LIGHTNING_ROD",
+  "id": 31,
+  "displayName": "Lightning Rod",
+  "description": "Draws electrical moves.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 241
+ },
+ {
+  "constant": "ABILITY_SERENE_GRACE",
+  "id": 32,
+  "displayName": "Serene Grace",
+  "description": "Promotes added effects.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 249
+ },
+ {
+  "constant": "ABILITY_SWIFT_SWIM",
+  "id": 33,
+  "displayName": "Swift Swim",
+  "description": "Raises Speed in rain.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 256
+ },
+ {
+  "constant": "ABILITY_CHLOROPHYLL",
+  "id": 34,
+  "displayName": "Chlorophyll",
+  "description": "Raises Speed in sunshine.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 263
+ },
+ {
+  "constant": "ABILITY_ILLUMINATE",
+  "id": 35,
+  "displayName": "Illuminate",
+  "description": "Lowers the foe's Sp. Atk.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 270
+ },
+ {
+  "constant": "ABILITY_TRACE",
+  "id": 36,
+  "displayName": "Trace",
+  "description": "Copies special ability.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": false,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 277
+ },
+ {
+  "constant": "ABILITY_HUGE_POWER",
+  "id": 37,
+  "displayName": "Huge Power",
+  "description": "Raises Attack.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 286
+ },
+ {
+  "constant": "ABILITY_POISON_POINT",
+  "id": 38,
+  "displayName": "Poison Point",
+  "description": "Poisons foe on contact.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 293
+ },
+ {
+  "constant": "ABILITY_INNER_FOCUS",
+  "id": 39,
+  "displayName": "Inner Focus",
+  "description": "Prevents flinching.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 300
+ },
+ {
+  "constant": "ABILITY_MAGMA_ARMOR",
+  "id": 40,
+  "displayName": "Magma Armor",
+  "description": "Prevents freezing.",
+  "aiRating": 1,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 308
+ },
+ {
+  "constant": "ABILITY_WATER_VEIL",
+  "id": 41,
+  "displayName": "Water Veil",
+  "description": "Prevents burns.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 316
+ },
+ {
+  "constant": "ABILITY_MAGNET_PULL",
+  "id": 42,
+  "displayName": "Magnet Pull",
+  "description": "Traps Steel-type Pokémon.",
+  "aiRating": 9,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 324
+ },
+ {
+  "constant": "ABILITY_SOUNDPROOF",
+  "id": 43,
+  "displayName": "Soundproof",
+  "description": "Avoids sound-based moves.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 331
+ },
+ {
+  "constant": "ABILITY_RAIN_DISH",
+  "id": 44,
+  "displayName": "Rain Dish",
+  "description": "Slight HP recovery in rain.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 339
+ },
+ {
+  "constant": "ABILITY_SAND_STREAM",
+  "id": 45,
+  "displayName": "Sand Stream",
+  "description": "Summons a sandstorm.",
+  "aiRating": 9,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 346
+ },
+ {
+  "constant": "ABILITY_PRESSURE",
+  "id": 46,
+  "displayName": "Pressure",
+  "description": "Raises foe's PP usage.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 353
+ },
+ {
+  "constant": "ABILITY_THICK_FAT",
+  "id": 47,
+  "displayName": "Thick Fat",
+  "description": "Heat-and-cold protection.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 360
+ },
+ {
+  "constant": "ABILITY_EARLY_BIRD",
+  "id": 48,
+  "displayName": "Early Bird",
+  "description": "Awakens quickly from sleep.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 368
+ },
+ {
+  "constant": "ABILITY_FLAME_BODY",
+  "id": 49,
+  "displayName": "Flame Body",
+  "description": "Burns the foe on contact.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 375
+ },
+ {
+  "constant": "ABILITY_RUN_AWAY",
+  "id": 50,
+  "displayName": "Run Away",
+  "description": "Can always flee or switch out.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 382
+ },
+ {
+  "constant": "ABILITY_KEEN_EYE",
+  "id": 51,
+  "displayName": "Keen Eye",
+  "description": "Prevents loss of accuracy.",
+  "aiRating": 1,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 389
+ },
+ {
+  "constant": "ABILITY_HYPER_CUTTER",
+  "id": 52,
+  "displayName": "Hyper Cutter",
+  "description": "Prevents Attack reduction.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 397
+ },
+ {
+  "constant": "ABILITY_PICKUP",
+  "id": 53,
+  "displayName": "Pickup",
+  "description": "May pick up items.",
+  "aiRating": 1,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 405
+ },
+ {
+  "constant": "ABILITY_TRUANT",
+  "id": 54,
+  "displayName": "Truant",
+  "description": "Moves only every two turns.",
+  "aiRating": -2,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 412
+ },
+ {
+  "constant": "ABILITY_HUSTLE",
+  "id": 55,
+  "displayName": "Hustle",
+  "description": "Trades accuracy for power.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 420
+ },
+ {
+  "constant": "ABILITY_CUTE_CHARM",
+  "id": 56,
+  "displayName": "Cute Charm",
+  "description": "Infatuates on contact.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 427
+ },
+ {
+  "constant": "ABILITY_PLUS",
+  "id": 57,
+  "displayName": "Plus",
+  "description": "Powers up with Minus.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 434
+ },
+ {
+  "constant": "ABILITY_MINUS",
+  "id": 58,
+  "displayName": "Minus",
+  "description": "Powers up with Plus.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 441
+ },
+ {
+  "constant": "ABILITY_FORECAST",
+  "id": 59,
+  "displayName": "Forecast",
+  "description": "Changes with the weather.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": false,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 448
+ },
+ {
+  "constant": "ABILITY_STICKY_HOLD",
+  "id": 60,
+  "displayName": "Sticky Hold",
+  "description": "Prevents item theft.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 457
+ },
+ {
+  "constant": "ABILITY_SHED_SKIN",
+  "id": 61,
+  "displayName": "Shed Skin",
+  "description": "Heals the body by shedding.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 465
+ },
+ {
+  "constant": "ABILITY_GUTS",
+  "id": 62,
+  "displayName": "Guts",
+  "description": "Ups Attack if suffering.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 472
+ },
+ {
+  "constant": "ABILITY_MARVEL_SCALE",
+  "id": 63,
+  "displayName": "Marvel Scale",
+  "description": "Ups Defense if suffering.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 479
+ },
+ {
+  "constant": "ABILITY_LIQUID_OOZE",
+  "id": 64,
+  "displayName": "Liquid Ooze",
+  "description": "Draining causes injury.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 487
+ },
+ {
+  "constant": "ABILITY_OVERGROW",
+  "id": 65,
+  "displayName": "Overgrow",
+  "description": "Ups Grass moves in a pinch.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 494
+ },
+ {
+  "constant": "ABILITY_BLAZE",
+  "id": 66,
+  "displayName": "Blaze",
+  "description": "Ups Fire moves in a pinch.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 501
+ },
+ {
+  "constant": "ABILITY_TORRENT",
+  "id": 67,
+  "displayName": "Torrent",
+  "description": "Ups Water moves in a pinch.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 508
+ },
+ {
+  "constant": "ABILITY_SWARM",
+  "id": 68,
+  "displayName": "Swarm",
+  "description": "Ups Bug moves in a pinch.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 515
+ },
+ {
+  "constant": "ABILITY_ROCK_HEAD",
+  "id": 69,
+  "displayName": "Rock Head",
+  "description": "Prevents recoil damage.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 522
+ },
+ {
+  "constant": "ABILITY_DROUGHT",
+  "id": 70,
+  "displayName": "Drought",
+  "description": "Summons sunlight in battle.",
+  "aiRating": 9,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 529
+ },
+ {
+  "constant": "ABILITY_ARENA_TRAP",
+  "id": 71,
+  "displayName": "Arena Trap",
+  "description": "Prevents fleeing.",
+  "aiRating": 9,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 536
+ },
+ {
+  "constant": "ABILITY_VITAL_SPIRIT",
+  "id": 72,
+  "displayName": "Vital Spirit",
+  "description": "Prevents sleep.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 543
+ },
+ {
+  "constant": "ABILITY_WHITE_SMOKE",
+  "id": 73,
+  "displayName": "White Smoke",
+  "description": "Prevents ability reduction.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 551
+ },
+ {
+  "constant": "ABILITY_PURE_POWER",
+  "id": 74,
+  "displayName": "Pure Power",
+  "description": "Raises Attack.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 559
+ },
+ {
+  "constant": "ABILITY_SHELL_ARMOR",
+  "id": 75,
+  "displayName": "Shell Armor",
+  "description": "Blocks critical hits.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 566
+ },
+ {
+  "constant": "ABILITY_AIR_LOCK",
+  "id": 76,
+  "displayName": "Air Lock",
+  "description": "Negates weather effects.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 3,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 574
+ },
+ {
+  "constant": "ABILITY_TANGLED_FEET",
+  "id": 77,
+  "displayName": "Tangled Feet",
+  "description": "Ups evasion if confused.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 581
+ },
+ {
+  "constant": "ABILITY_MOTOR_DRIVE",
+  "id": 78,
+  "displayName": "Motor Drive",
+  "description": "Electricity raises Speed.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 589
+ },
+ {
+  "constant": "ABILITY_RIVALRY",
+  "id": 79,
+  "displayName": "Rivalry",
+  "description": "Powers up against rivals.",
+  "aiRating": 1,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 597
+ },
+ {
+  "constant": "ABILITY_STEADFAST",
+  "id": 80,
+  "displayName": "Steadfast",
+  "description": "Flinching raises Speed.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 604
+ },
+ {
+  "constant": "ABILITY_SNOW_CLOAK",
+  "id": 81,
+  "displayName": "Snow Cloak",
+  "description": "Ups evasion in Hail or Snow.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 611
+ },
+ {
+  "constant": "ABILITY_GLUTTONY",
+  "id": 82,
+  "displayName": "Gluttony",
+  "description": "Eats Berries early.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 619
+ },
+ {
+  "constant": "ABILITY_ANGER_POINT",
+  "id": 83,
+  "displayName": "Anger Point",
+  "description": "Critical hits raise Attack.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 626
+ },
+ {
+  "constant": "ABILITY_UNBURDEN",
+  "id": 84,
+  "displayName": "Unburden",
+  "description": "Using a hold item ups Speed.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 633
+ },
+ {
+  "constant": "ABILITY_HEATPROOF",
+  "id": 85,
+  "displayName": "Heatproof",
+  "description": "Heat and burn protection.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 640
+ },
+ {
+  "constant": "ABILITY_SIMPLE",
+  "id": 86,
+  "displayName": "Simple",
+  "description": "Prone to wild stat changes.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 648
+ },
+ {
+  "constant": "ABILITY_DRY_SKIN",
+  "id": 87,
+  "displayName": "Dry Skin",
+  "description": "Prefers moisture to heat.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 656
+ },
+ {
+  "constant": "ABILITY_DOWNLOAD",
+  "id": 88,
+  "displayName": "Download",
+  "description": "Adjusts power favorably.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 664
+ },
+ {
+  "constant": "ABILITY_IRON_FIST",
+  "id": 89,
+  "displayName": "Iron Fist",
+  "description": "Boosts punching moves.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 671
+ },
+ {
+  "constant": "ABILITY_POISON_HEAL",
+  "id": 90,
+  "displayName": "Poison Heal",
+  "description": "Restores HP if poisoned.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 678
+ },
+ {
+  "constant": "ABILITY_ADAPTABILITY",
+  "id": 91,
+  "displayName": "Adaptability",
+  "description": "Boosts same type attacks.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 685
+ },
+ {
+  "constant": "ABILITY_SKILL_LINK",
+  "id": 92,
+  "displayName": "Skill Link",
+  "description": "Multi-hit moves hit 5 times.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 692
+ },
+ {
+  "constant": "ABILITY_HYDRATION",
+  "id": 93,
+  "displayName": "Hydration",
+  "description": "Cures status in rain.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 699
+ },
+ {
+  "constant": "ABILITY_SOLAR_POWER",
+  "id": 94,
+  "displayName": "Solar Power",
+  "description": "Powers up in sunshine.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 706
+ },
+ {
+  "constant": "ABILITY_QUICK_FEET",
+  "id": 95,
+  "displayName": "Quick Feet",
+  "description": "Ups Speed if suffering.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 713
+ },
+ {
+  "constant": "ABILITY_NORMALIZE",
+  "id": 96,
+  "displayName": "Normalize",
+  "description": "Moves become Normal-type.",
+  "aiRating": -1,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 720
+ },
+ {
+  "constant": "ABILITY_SNIPER",
+  "id": 97,
+  "displayName": "Sniper",
+  "description": "Boosts critical hits.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 727
+ },
+ {
+  "constant": "ABILITY_MAGIC_GUARD",
+  "id": 98,
+  "displayName": "Magic Guard",
+  "description": "Only damaged by attacks.",
+  "aiRating": 9,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 734
+ },
+ {
+  "constant": "ABILITY_NO_GUARD",
+  "id": 99,
+  "displayName": "No Guard",
+  "description": "Ensures that all moves hit.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 741
+ },
+ {
+  "constant": "ABILITY_STALL",
+  "id": 100,
+  "displayName": "Stall",
+  "description": "Always moves last.",
+  "aiRating": -1,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 748
+ },
+ {
+  "constant": "ABILITY_TECHNICIAN",
+  "id": 101,
+  "displayName": "Technician",
+  "description": "Boosts weaker moves.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 755
+ },
+ {
+  "constant": "ABILITY_LEAF_GUARD",
+  "id": 102,
+  "displayName": "Leaf Guard",
+  "description": "Blocks status in sunshine.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 762
+ },
+ {
+  "constant": "ABILITY_KLUTZ",
+  "id": 103,
+  "displayName": "Klutz",
+  "description": "Can't use hold items.",
+  "aiRating": -1,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 770
+ },
+ {
+  "constant": "ABILITY_MOLD_BREAKER",
+  "id": 104,
+  "displayName": "Mold Breaker",
+  "description": "Moves hit through abilities.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 777
+ },
+ {
+  "constant": "ABILITY_SUPER_LUCK",
+  "id": 105,
+  "displayName": "Super Luck",
+  "description": "Critical hits land often.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 784
+ },
+ {
+  "constant": "ABILITY_AFTERMATH",
+  "id": 106,
+  "displayName": "Aftermath",
+  "description": "Fainting damages the foe.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 791
+ },
+ {
+  "constant": "ABILITY_ANTICIPATION",
+  "id": 107,
+  "displayName": "Anticipation",
+  "description": "Senses dangerous moves.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 798
+ },
+ {
+  "constant": "ABILITY_FOREWARN",
+  "id": 108,
+  "displayName": "Forewarn",
+  "description": "Determines a foe's move.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 805
+ },
+ {
+  "constant": "ABILITY_UNAWARE",
+  "id": 109,
+  "displayName": "Unaware",
+  "description": "Ignores stat changes.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 812
+ },
+ {
+  "constant": "ABILITY_TINTED_LENS",
+  "id": 110,
+  "displayName": "Tinted Lens",
+  "description": "Ups “not very effective”.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 820
+ },
+ {
+  "constant": "ABILITY_FILTER",
+  "id": 111,
+  "displayName": "Filter",
+  "description": "Weakens “supereffective”.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 827
+ },
+ {
+  "constant": "ABILITY_SLOW_START",
+  "id": 112,
+  "displayName": "Slow Start",
+  "description": "Takes a while to get going.",
+  "aiRating": -2,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 835
+ },
+ {
+  "constant": "ABILITY_SCRAPPY",
+  "id": 113,
+  "displayName": "Scrappy",
+  "description": "Hits Ghost-type Pokémon.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 842
+ },
+ {
+  "constant": "ABILITY_STORM_DRAIN",
+  "id": 114,
+  "displayName": "Storm Drain",
+  "description": "Draws in Water moves.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 849
+ },
+ {
+  "constant": "ABILITY_ICE_BODY",
+  "id": 115,
+  "displayName": "Ice Body",
+  "description": "HP recovery in Hail or Snow.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 857
+ },
+ {
+  "constant": "ABILITY_SOLID_ROCK",
+  "id": 116,
+  "displayName": "Solid Rock",
+  "description": "Weakens “supereffective”.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 864
+ },
+ {
+  "constant": "ABILITY_SNOW_WARNING",
+  "id": 117,
+  "displayName": "Snow Warning",
+  "description": "Summons snow in battle.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 872
+ },
+ {
+  "constant": "ABILITY_HONEY_GATHER",
+  "id": 118,
+  "displayName": "Honey Gather",
+  "description": "May gather Honey.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 883
+ },
+ {
+  "constant": "ABILITY_FRISK",
+  "id": 119,
+  "displayName": "Frisk",
+  "description": "Checks a foe's item.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 890
+ },
+ {
+  "constant": "ABILITY_RECKLESS",
+  "id": 120,
+  "displayName": "Reckless",
+  "description": "Boosts moves with recoil.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 897
+ },
+ {
+  "constant": "ABILITY_MULTITYPE",
+  "id": 121,
+  "displayName": "Multitype",
+  "description": "Changes type to its Plate.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 904
+ },
+ {
+  "constant": "ABILITY_FLOWER_GIFT",
+  "id": 122,
+  "displayName": "Flower Gift",
+  "description": "Allies power up in sunshine.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": false,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 916
+ },
+ {
+  "constant": "ABILITY_BAD_DREAMS",
+  "id": 123,
+  "displayName": "Bad Dreams",
+  "description": "Damages sleeping Pokémon.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 4,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 926
+ },
+ {
+  "constant": "ABILITY_PICKPOCKET",
+  "id": 124,
+  "displayName": "Pickpocket",
+  "description": "Steals the foe's held item.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 933
+ },
+ {
+  "constant": "ABILITY_SHEER_FORCE",
+  "id": 125,
+  "displayName": "Sheer Force",
+  "description": "Trades effects for power.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 940
+ },
+ {
+  "constant": "ABILITY_CONTRARY",
+  "id": 126,
+  "displayName": "Contrary",
+  "description": "Inverts stat changes.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 947
+ },
+ {
+  "constant": "ABILITY_UNNERVE",
+  "id": 127,
+  "displayName": "Unnerve",
+  "description": "Foes can't eat Berries.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 955
+ },
+ {
+  "constant": "ABILITY_DEFIANT",
+  "id": 128,
+  "displayName": "Defiant",
+  "description": "Lowered stats up Attack.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 962
+ },
+ {
+  "constant": "ABILITY_DEFEATIST",
+  "id": 129,
+  "displayName": "Defeatist",
+  "description": "Gives up at half HP.",
+  "aiRating": -1,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 969
+ },
+ {
+  "constant": "ABILITY_CURSED_BODY",
+  "id": 130,
+  "displayName": "Cursed Body",
+  "description": "Disables moves on contact.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 976
+ },
+ {
+  "constant": "ABILITY_HEALER",
+  "id": 131,
+  "displayName": "Healer",
+  "description": "Heals partner Pokémon.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 983
+ },
+ {
+  "constant": "ABILITY_FRIEND_GUARD",
+  "id": 132,
+  "displayName": "Friend Guard",
+  "description": "Lowers damage to partner.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 990
+ },
+ {
+  "constant": "ABILITY_WEAK_ARMOR",
+  "id": 133,
+  "displayName": "Weak Armor",
+  "description": "Its stats change when hit.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 998
+ },
+ {
+  "constant": "ABILITY_HEAVY_METAL",
+  "id": 134,
+  "displayName": "Heavy Metal",
+  "description": "Doubles weight.",
+  "aiRating": -1,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1005
+ },
+ {
+  "constant": "ABILITY_LIGHT_METAL",
+  "id": 135,
+  "displayName": "Light Metal",
+  "description": "Halves weight.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1013
+ },
+ {
+  "constant": "ABILITY_MULTISCALE",
+  "id": 136,
+  "displayName": "Multiscale",
+  "description": "Halves damage at full HP.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1021
+ },
+ {
+  "constant": "ABILITY_TOXIC_BOOST",
+  "id": 137,
+  "displayName": "Toxic Boost",
+  "description": "Ups Attack if poisoned.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1029
+ },
+ {
+  "constant": "ABILITY_FLARE_BOOST",
+  "id": 138,
+  "displayName": "Flare Boost",
+  "description": "Ups Sp. Atk if burned.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1036
+ },
+ {
+  "constant": "ABILITY_HARVEST",
+  "id": 139,
+  "displayName": "Harvest",
+  "description": "May recycle a used Berry.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1043
+ },
+ {
+  "constant": "ABILITY_TELEPATHY",
+  "id": 140,
+  "displayName": "Telepathy",
+  "description": "Can't be damaged by an ally.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1050
+ },
+ {
+  "constant": "ABILITY_MOODY",
+  "id": 141,
+  "displayName": "Moody",
+  "description": "Stats change gradually.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1058
+ },
+ {
+  "constant": "ABILITY_OVERCOAT",
+  "id": 142,
+  "displayName": "Overcoat",
+  "description": "Blocks weather and powder.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1065
+ },
+ {
+  "constant": "ABILITY_POISON_TOUCH",
+  "id": 143,
+  "displayName": "Poison Touch",
+  "description": "Poisons foe on contact.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1073
+ },
+ {
+  "constant": "ABILITY_REGENERATOR",
+  "id": 144,
+  "displayName": "Regenerator",
+  "description": "Heals upon switching out.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1080
+ },
+ {
+  "constant": "ABILITY_BIG_PECKS",
+  "id": 145,
+  "displayName": "Big Pecks",
+  "description": "Prevents Defense loss.",
+  "aiRating": 1,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1087
+ },
+ {
+  "constant": "ABILITY_SAND_RUSH",
+  "id": 146,
+  "displayName": "Sand Rush",
+  "description": "Ups Speed in a sandstorm.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1095
+ },
+ {
+  "constant": "ABILITY_WONDER_SKIN",
+  "id": 147,
+  "displayName": "Wonder Skin",
+  "description": "May avoid status problems.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1102
+ },
+ {
+  "constant": "ABILITY_ANALYTIC",
+  "id": 148,
+  "displayName": "Analytic",
+  "description": "Moving last boosts power.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1110
+ },
+ {
+  "constant": "ABILITY_ILLUSION",
+  "id": 149,
+  "displayName": "Illusion",
+  "description": "Appears as a partner.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1117
+ },
+ {
+  "constant": "ABILITY_IMPOSTER",
+  "id": 150,
+  "displayName": "Imposter",
+  "description": "Transforms into the foe.",
+  "aiRating": 9,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": false,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1127
+ },
+ {
+  "constant": "ABILITY_INFILTRATOR",
+  "id": 151,
+  "displayName": "Infiltrator",
+  "description": "Passes through barriers.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1136
+ },
+ {
+  "constant": "ABILITY_MUMMY",
+  "id": 152,
+  "displayName": "Mummy",
+  "description": "Spreads with contact.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1143
+ },
+ {
+  "constant": "ABILITY_MOXIE",
+  "id": 153,
+  "displayName": "Moxie",
+  "description": "KOs raise Attack.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1150
+ },
+ {
+  "constant": "ABILITY_JUSTIFIED",
+  "id": 154,
+  "displayName": "Justified",
+  "description": "Dark hits raise Attack.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1157
+ },
+ {
+  "constant": "ABILITY_RATTLED",
+  "id": 155,
+  "displayName": "Rattled",
+  "description": "Raises Speed when scared.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1164
+ },
+ {
+  "constant": "ABILITY_MAGIC_BOUNCE",
+  "id": 156,
+  "displayName": "Magic Bounce",
+  "description": "Reflects status moves.",
+  "aiRating": 9,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1171
+ },
+ {
+  "constant": "ABILITY_SAP_SIPPER",
+  "id": 157,
+  "displayName": "Sap Sipper",
+  "description": "Grass increases Attack.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1179
+ },
+ {
+  "constant": "ABILITY_PRANKSTER",
+  "id": 158,
+  "displayName": "Prankster",
+  "description": "Status moves go first.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1187
+ },
+ {
+  "constant": "ABILITY_SAND_FORCE",
+  "id": 159,
+  "displayName": "Sand Force",
+  "description": "Powers up in a sandstorm.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1194
+ },
+ {
+  "constant": "ABILITY_IRON_BARBS",
+  "id": 160,
+  "displayName": "Iron Barbs",
+  "description": "Hurts to touch.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1201
+ },
+ {
+  "constant": "ABILITY_ZEN_MODE",
+  "id": 161,
+  "displayName": "Zen Mode",
+  "description": "Transforms at half HP.",
+  "aiRating": -1,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1208
+ },
+ {
+  "constant": "ABILITY_VICTORY_STAR",
+  "id": 162,
+  "displayName": "Victory Star",
+  "description": "Raises party accuracy.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1219
+ },
+ {
+  "constant": "ABILITY_TURBOBLAZE",
+  "id": 163,
+  "displayName": "Turboblaze",
+  "description": "Moves hit through abilities.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1226
+ },
+ {
+  "constant": "ABILITY_TERAVOLT",
+  "id": 164,
+  "displayName": "Teravolt",
+  "description": "Moves hit through abilities.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 5,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1233
+ },
+ {
+  "constant": "ABILITY_AROMA_VEIL",
+  "id": 165,
+  "displayName": "Aroma Veil",
+  "description": "Prevents limiting of moves.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1240
+ },
+ {
+  "constant": "ABILITY_FLOWER_VEIL",
+  "id": 166,
+  "displayName": "Flower Veil",
+  "description": "Protects Grass-types.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1248
+ },
+ {
+  "constant": "ABILITY_CHEEK_POUCH",
+  "id": 167,
+  "displayName": "Cheek Pouch",
+  "description": "Eating Berries restores HP.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1256
+ },
+ {
+  "constant": "ABILITY_PROTEAN",
+  "id": 168,
+  "displayName": "Protean",
+  "description": "Changes type to used move.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1263
+ },
+ {
+  "constant": "ABILITY_FUR_COAT",
+  "id": 169,
+  "displayName": "Fur Coat",
+  "description": "Raises Defense.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1270
+ },
+ {
+  "constant": "ABILITY_MAGICIAN",
+  "id": 170,
+  "displayName": "Magician",
+  "description": "Steals the foe's held item.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1278
+ },
+ {
+  "constant": "ABILITY_BULLETPROOF",
+  "id": 171,
+  "displayName": "Bulletproof",
+  "description": "Avoids some projectiles.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1285
+ },
+ {
+  "constant": "ABILITY_COMPETITIVE",
+  "id": 172,
+  "displayName": "Competitive",
+  "description": "Lowered stats up Sp. Atk.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1293
+ },
+ {
+  "constant": "ABILITY_STRONG_JAW",
+  "id": 173,
+  "displayName": "Strong Jaw",
+  "description": "Boosts biting moves.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1300
+ },
+ {
+  "constant": "ABILITY_REFRIGERATE",
+  "id": 174,
+  "displayName": "Refrigerate",
+  "description": "Normal moves become Ice.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1307
+ },
+ {
+  "constant": "ABILITY_SWEET_VEIL",
+  "id": 175,
+  "displayName": "Sweet Veil",
+  "description": "Prevents party from sleep.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1314
+ },
+ {
+  "constant": "ABILITY_STANCE_CHANGE",
+  "id": 176,
+  "displayName": "Stance Change",
+  "description": "Transforms as it battles.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1322
+ },
+ {
+  "constant": "ABILITY_GALE_WINGS",
+  "id": 177,
+  "displayName": "Gale Wings",
+  "description": "Flying moves go first.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1334
+ },
+ {
+  "constant": "ABILITY_MEGA_LAUNCHER",
+  "id": 178,
+  "displayName": "Mega Launcher",
+  "description": "Boosts pulse moves.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1341
+ },
+ {
+  "constant": "ABILITY_GRASS_PELT",
+  "id": 179,
+  "displayName": "Grass Pelt",
+  "description": "Ups Defense in grass.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1348
+ },
+ {
+  "constant": "ABILITY_SYMBIOSIS",
+  "id": 180,
+  "displayName": "Symbiosis",
+  "description": "Passes its item to an ally.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1356
+ },
+ {
+  "constant": "ABILITY_TOUGH_CLAWS",
+  "id": 181,
+  "displayName": "Tough Claws",
+  "description": "Boosts contact moves.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1363
+ },
+ {
+  "constant": "ABILITY_PIXILATE",
+  "id": 182,
+  "displayName": "Pixilate",
+  "description": "Normal moves become Fairy.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1370
+ },
+ {
+  "constant": "ABILITY_GOOEY",
+  "id": 183,
+  "displayName": "Gooey",
+  "description": "Lowers Speed on contact.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1377
+ },
+ {
+  "constant": "ABILITY_AERILATE",
+  "id": 184,
+  "displayName": "Aerilate",
+  "description": "Normal moves become Flying.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1384
+ },
+ {
+  "constant": "ABILITY_PARENTAL_BOND",
+  "id": 185,
+  "displayName": "Parental Bond",
+  "description": "Moves hit twice.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1391
+ },
+ {
+  "constant": "ABILITY_DARK_AURA",
+  "id": 186,
+  "displayName": "Dark Aura",
+  "description": "Boosts Dark moves.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1398
+ },
+ {
+  "constant": "ABILITY_FAIRY_AURA",
+  "id": 187,
+  "displayName": "Fairy Aura",
+  "description": "Boosts Fairy moves.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1405
+ },
+ {
+  "constant": "ABILITY_AURA_BREAK",
+  "id": 188,
+  "displayName": "Aura Break",
+  "description": "Reverse aura abilities.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1412
+ },
+ {
+  "constant": "ABILITY_PRIMORDIAL_SEA",
+  "id": 189,
+  "displayName": "Primordial Sea",
+  "description": "Summons heavy rain.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1420
+ },
+ {
+  "constant": "ABILITY_DESOLATE_LAND",
+  "id": 190,
+  "displayName": "Desolate Land",
+  "description": "Summons intense sunlight.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1427
+ },
+ {
+  "constant": "ABILITY_DELTA_STREAM",
+  "id": 191,
+  "displayName": "Delta Stream",
+  "description": "Summons strong winds.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 6,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1434
+ },
+ {
+  "constant": "ABILITY_STAMINA",
+  "id": 192,
+  "displayName": "Stamina",
+  "description": "Boosts Defense when hit.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1441
+ },
+ {
+  "constant": "ABILITY_WIMP_OUT",
+  "id": 193,
+  "displayName": "Wimp Out",
+  "description": "Flees at half HP.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1448
+ },
+ {
+  "constant": "ABILITY_EMERGENCY_EXIT",
+  "id": 194,
+  "displayName": "Emergency Exit",
+  "description": "Flees at half HP.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1455
+ },
+ {
+  "constant": "ABILITY_WATER_COMPACTION",
+  "id": 195,
+  "displayName": "Water Compaction",
+  "description": "Water boosts Defense.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1462
+ },
+ {
+  "constant": "ABILITY_MERCILESS",
+  "id": 196,
+  "displayName": "Merciless",
+  "description": "Criticals poisoned foes.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1469
+ },
+ {
+  "constant": "ABILITY_SHIELDS_DOWN",
+  "id": 197,
+  "displayName": "Shields Down",
+  "description": "Shell breaks at half HP.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1476
+ },
+ {
+  "constant": "ABILITY_STAKEOUT",
+  "id": 198,
+  "displayName": "Stakeout",
+  "description": "Stronger as foes switch in.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1488
+ },
+ {
+  "constant": "ABILITY_WATER_BUBBLE",
+  "id": 199,
+  "displayName": "Water Bubble",
+  "description": "Guards from fire and burns.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1495
+ },
+ {
+  "constant": "ABILITY_STEELWORKER",
+  "id": 200,
+  "displayName": "Steelworker",
+  "description": "Powers up Steel moves.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1503
+ },
+ {
+  "constant": "ABILITY_BERSERK",
+  "id": 201,
+  "displayName": "Berserk",
+  "description": "Boosts Sp. Atk at low HP.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1510
+ },
+ {
+  "constant": "ABILITY_SLUSH_RUSH",
+  "id": 202,
+  "displayName": "Slush Rush",
+  "description": "Raises Speed in Hail/Snow.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1517
+ },
+ {
+  "constant": "ABILITY_LONG_REACH",
+  "id": 203,
+  "displayName": "Long Reach",
+  "description": "Never makes contact.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1524
+ },
+ {
+  "constant": "ABILITY_LIQUID_VOICE",
+  "id": 204,
+  "displayName": "Liquid Voice",
+  "description": "Makes sound moves Water.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1531
+ },
+ {
+  "constant": "ABILITY_TRIAGE",
+  "id": 205,
+  "displayName": "Triage",
+  "description": "Healing moves go first.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1538
+ },
+ {
+  "constant": "ABILITY_GALVANIZE",
+  "id": 206,
+  "displayName": "Galvanize",
+  "description": "Normal moves turn Electric.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1545
+ },
+ {
+  "constant": "ABILITY_SURGE_SURFER",
+  "id": 207,
+  "displayName": "Surge Surfer",
+  "description": "Faster on electricity.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1552
+ },
+ {
+  "constant": "ABILITY_SCHOOLING",
+  "id": 208,
+  "displayName": "Schooling",
+  "description": "Forms a school when strong.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1559
+ },
+ {
+  "constant": "ABILITY_DISGUISE",
+  "id": 209,
+  "displayName": "Disguise",
+  "description": "Decoy protects it once.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": true,
+   "failsOnImposter": true
+  },
+  "sourceLine": 1571
+ },
+ {
+  "constant": "ABILITY_BATTLE_BOND",
+  "id": 210,
+  "displayName": "Battle Bond",
+  "description": "Changes form after a KO.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1585
+ },
+ {
+  "constant": "ABILITY_POWER_CONSTRUCT",
+  "id": 211,
+  "displayName": "Power Construct",
+  "description": "Cells aid it when weakened.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1597
+ },
+ {
+  "constant": "ABILITY_CORROSION",
+  "id": 212,
+  "displayName": "Corrosion",
+  "description": "Poisons any type.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1609
+ },
+ {
+  "constant": "ABILITY_COMATOSE",
+  "id": 213,
+  "displayName": "Comatose",
+  "description": "Always drowsing.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1616
+ },
+ {
+  "constant": "ABILITY_QUEENLY_MAJESTY",
+  "id": 214,
+  "displayName": "Queenly Majesty",
+  "description": "Protects from priority.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1628
+ },
+ {
+  "constant": "ABILITY_INNARDS_OUT",
+  "id": 215,
+  "displayName": "Innards Out",
+  "description": "Hurts foe when defeated.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1636
+ },
+ {
+  "constant": "ABILITY_DANCER",
+  "id": 216,
+  "displayName": "Dancer",
+  "description": "Dances along with others.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1643
+ },
+ {
+  "constant": "ABILITY_BATTERY",
+  "id": 217,
+  "displayName": "Battery",
+  "description": "Boosts ally's Sp. Atk.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1650
+ },
+ {
+  "constant": "ABILITY_FLUFFY",
+  "id": 218,
+  "displayName": "Fluffy",
+  "description": "Tougher but flammable.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1657
+ },
+ {
+  "constant": "ABILITY_DAZZLING",
+  "id": 219,
+  "displayName": "Dazzling",
+  "description": "Protects from priority.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1665
+ },
+ {
+  "constant": "ABILITY_SOUL_HEART",
+  "id": 220,
+  "displayName": "Soul-Heart",
+  "description": "KOs raise Sp. Atk.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1673
+ },
+ {
+  "constant": "ABILITY_TANGLING_HAIR",
+  "id": 221,
+  "displayName": "Tangling Hair",
+  "description": "Lowers Speed on contact.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1680
+ },
+ {
+  "constant": "ABILITY_RECEIVER",
+  "id": 222,
+  "displayName": "Receiver",
+  "description": "Copies ally's ability.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": false,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1687
+ },
+ {
+  "constant": "ABILITY_POWER_OF_ALCHEMY",
+  "id": 223,
+  "displayName": "Power Of Alchemy",
+  "description": "Copies ally's ability.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": false,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1696
+ },
+ {
+  "constant": "ABILITY_BEAST_BOOST",
+  "id": 224,
+  "displayName": "Beast Boost",
+  "description": "KOs boost best stat.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1705
+ },
+ {
+  "constant": "ABILITY_RKS_SYSTEM",
+  "id": 225,
+  "displayName": "RKS System",
+  "description": "Memories change its type.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1712
+ },
+ {
+  "constant": "ABILITY_ELECTRIC_SURGE",
+  "id": 226,
+  "displayName": "Electric Surge",
+  "description": "Field becomes Electric.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1724
+ },
+ {
+  "constant": "ABILITY_PSYCHIC_SURGE",
+  "id": 227,
+  "displayName": "Psychic Surge",
+  "description": "Field becomes weird.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1731
+ },
+ {
+  "constant": "ABILITY_MISTY_SURGE",
+  "id": 228,
+  "displayName": "Misty Surge",
+  "description": "Field becomes misty.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1738
+ },
+ {
+  "constant": "ABILITY_GRASSY_SURGE",
+  "id": 229,
+  "displayName": "Grassy Surge",
+  "description": "Field becomes grassy.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1745
+ },
+ {
+  "constant": "ABILITY_FULL_METAL_BODY",
+  "id": 230,
+  "displayName": "Full Metal Body",
+  "description": "Prevents stat reduction.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1752
+ },
+ {
+  "constant": "ABILITY_SHADOW_SHIELD",
+  "id": 231,
+  "displayName": "Shadow Shield",
+  "description": "Halves damage at full HP.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1759
+ },
+ {
+  "constant": "ABILITY_PRISM_ARMOR",
+  "id": 232,
+  "displayName": "Prism Armor",
+  "description": "Weakens “supereffective”.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1766
+ },
+ {
+  "constant": "ABILITY_NEUROFORCE",
+  "id": 233,
+  "displayName": "Neuroforce",
+  "description": "Ups “supereffective”.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 7,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1773
+ },
+ {
+  "constant": "ABILITY_INTREPID_SWORD",
+  "id": 234,
+  "displayName": "Intrepid Sword",
+  "description": "Ups Attack on entry.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1780
+ },
+ {
+  "constant": "ABILITY_DAUNTLESS_SHIELD",
+  "id": 235,
+  "displayName": "Dauntless Shield",
+  "description": "Ups Defense on entry.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1787
+ },
+ {
+  "constant": "ABILITY_LIBERO",
+  "id": 236,
+  "displayName": "Libero",
+  "description": "Changes type to move's.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1794
+ },
+ {
+  "constant": "ABILITY_BALL_FETCH",
+  "id": 237,
+  "displayName": "Ball Fetch",
+  "description": "Fetches failed Poké Ball.",
+  "aiRating": 0,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1800
+ },
+ {
+  "constant": "ABILITY_COTTON_DOWN",
+  "id": 238,
+  "displayName": "Cotton Down",
+  "description": "Lower Speed of all when hit.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1807
+ },
+ {
+  "constant": "ABILITY_PROPELLER_TAIL",
+  "id": 239,
+  "displayName": "Propeller Tail",
+  "description": "Ignores foe's redirection.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1814
+ },
+ {
+  "constant": "ABILITY_MIRROR_ARMOR",
+  "id": 240,
+  "displayName": "Mirror Armor",
+  "description": "Reflect stat decreases.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1821
+ },
+ {
+  "constant": "ABILITY_GULP_MISSILE",
+  "id": 241,
+  "displayName": "Gulp Missile",
+  "description": "If hit, spits prey from sea.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 1829
+ },
+ {
+  "constant": "ABILITY_STALWART",
+  "id": 242,
+  "displayName": "Stalwart",
+  "description": "Ignores foe's redirection.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1841
+ },
+ {
+  "constant": "ABILITY_STEAM_ENGINE",
+  "id": 243,
+  "displayName": "Steam Engine",
+  "description": "Fire or Water hits up Speed.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1848
+ },
+ {
+  "constant": "ABILITY_PUNK_ROCK",
+  "id": 244,
+  "displayName": "Punk Rock",
+  "description": "Ups and resists sound.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1855
+ },
+ {
+  "constant": "ABILITY_SAND_SPIT",
+  "id": 245,
+  "displayName": "Sand Spit",
+  "description": "Creates a sandstorm if hit.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1863
+ },
+ {
+  "constant": "ABILITY_ICE_SCALES",
+  "id": 246,
+  "displayName": "Ice Scales",
+  "description": "Halves special damage.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1870
+ },
+ {
+  "constant": "ABILITY_RIPEN",
+  "id": 247,
+  "displayName": "Ripen",
+  "description": "Doubles effect of Berries.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1878
+ },
+ {
+  "constant": "ABILITY_ICE_FACE",
+  "id": 248,
+  "displayName": "Ice Face",
+  "description": "Hail or Snow renew free hit.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": true,
+   "failsOnImposter": true
+  },
+  "sourceLine": 1885
+ },
+ {
+  "constant": "ABILITY_POWER_SPOT",
+  "id": 249,
+  "displayName": "Power Spot",
+  "description": "Powers up ally moves.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1899
+ },
+ {
+  "constant": "ABILITY_MIMICRY",
+  "id": 250,
+  "displayName": "Mimicry",
+  "description": "Changes type on terrain.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1906
+ },
+ {
+  "constant": "ABILITY_SCREEN_CLEANER",
+  "id": 251,
+  "displayName": "Screen Cleaner",
+  "description": "Removes walls of light.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1913
+ },
+ {
+  "constant": "ABILITY_STEELY_SPIRIT",
+  "id": 252,
+  "displayName": "Steely Spirit",
+  "description": "Boosts ally's Steel moves.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1920
+ },
+ {
+  "constant": "ABILITY_PERISH_BODY",
+  "id": 253,
+  "displayName": "Perish Body",
+  "description": "Foe faints in 3 turns if hit.",
+  "aiRating": -1,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1927
+ },
+ {
+  "constant": "ABILITY_WANDERING_SPIRIT",
+  "id": 254,
+  "displayName": "Wandering Spirit",
+  "description": "Trade abilities on contact.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1934
+ },
+ {
+  "constant": "ABILITY_GORILLA_TACTICS",
+  "id": 255,
+  "displayName": "Gorilla Tactics",
+  "description": "Ups Attack and locks move.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1941
+ },
+ {
+  "constant": "ABILITY_NEUTRALIZING_GAS",
+  "id": 256,
+  "displayName": "Neutralizing Gas",
+  "description": "All Abilities are nullified.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 1948
+ },
+ {
+  "constant": "ABILITY_PASTEL_VEIL",
+  "id": 257,
+  "displayName": "Pastel Veil",
+  "description": "Protects team from poison.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1959
+ },
+ {
+  "constant": "ABILITY_HUNGER_SWITCH",
+  "id": 258,
+  "displayName": "Hunger Switch",
+  "description": "Changes form each turn.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 1967
+ },
+ {
+  "constant": "ABILITY_QUICK_DRAW",
+  "id": 259,
+  "displayName": "Quick Draw",
+  "description": "Moves first occasionally.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1978
+ },
+ {
+  "constant": "ABILITY_UNSEEN_FIST",
+  "id": 260,
+  "displayName": "Unseen Fist",
+  "description": "Contact evades protection.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1985
+ },
+ {
+  "constant": "ABILITY_CURIOUS_MEDICINE",
+  "id": 261,
+  "displayName": "Curious Medicine",
+  "description": "Remove ally's stat changes.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1992
+ },
+ {
+  "constant": "ABILITY_TRANSISTOR",
+  "id": 262,
+  "displayName": "Transistor",
+  "description": "Ups Electric-type moves.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 1999
+ },
+ {
+  "constant": "ABILITY_DRAGONS_MAW",
+  "id": 263,
+  "displayName": "Dragon's Maw",
+  "description": "Ups Dragon-type moves.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2006
+ },
+ {
+  "constant": "ABILITY_CHILLING_NEIGH",
+  "id": 264,
+  "displayName": "Chilling Neigh",
+  "description": "KOs boost Attack stat.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2013
+ },
+ {
+  "constant": "ABILITY_GRIM_NEIGH",
+  "id": 265,
+  "displayName": "Grim Neigh",
+  "description": "KOs boost Sp. Atk stat.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2020
+ },
+ {
+  "constant": "ABILITY_AS_ONE_ICE_RIDER",
+  "id": 266,
+  "displayName": "As One",
+  "description": "Unnerve and Chilling Neigh.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2027
+ },
+ {
+  "constant": "ABILITY_AS_ONE_SHADOW_RIDER",
+  "id": 267,
+  "displayName": "As One",
+  "description": "Unnerve and Grim Neigh.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 8,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2039
+ },
+ {
+  "constant": "ABILITY_LINGERING_AROMA",
+  "id": 268,
+  "displayName": "Lingering Aroma",
+  "description": "Spreads with contact.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2051
+ },
+ {
+  "constant": "ABILITY_SEED_SOWER",
+  "id": 269,
+  "displayName": "Seed Sower",
+  "description": "Affects terrain when hit.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2058
+ },
+ {
+  "constant": "ABILITY_THERMAL_EXCHANGE",
+  "id": 270,
+  "displayName": "Thermal Exchange",
+  "description": "Fire hits up Attack.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2065
+ },
+ {
+  "constant": "ABILITY_ANGER_SHELL",
+  "id": 271,
+  "displayName": "Anger Shell",
+  "description": "Gets angry at half HP.",
+  "aiRating": 3,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2073
+ },
+ {
+  "constant": "ABILITY_PURIFYING_SALT",
+  "id": 272,
+  "displayName": "Purifying Salt",
+  "description": "Protected by pure salts.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2080
+ },
+ {
+  "constant": "ABILITY_WELL_BAKED_BODY",
+  "id": 273,
+  "displayName": "Well-Baked Body",
+  "description": "Strengthened by Fire.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2088
+ },
+ {
+  "constant": "ABILITY_WIND_RIDER",
+  "id": 274,
+  "displayName": "Wind Rider",
+  "description": "Ups Attack if hit by wind.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2096
+ },
+ {
+  "constant": "ABILITY_GUARD_DOG",
+  "id": 275,
+  "displayName": "Guard Dog",
+  "description": "Cannot be intimidated.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2104
+ },
+ {
+  "constant": "ABILITY_ROCKY_PAYLOAD",
+  "id": 276,
+  "displayName": "Rocky Payload",
+  "description": "Powers up Rock moves.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2112
+ },
+ {
+  "constant": "ABILITY_WIND_POWER",
+  "id": 277,
+  "displayName": "Wind Power",
+  "description": "Gets charged by wind.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2119
+ },
+ {
+  "constant": "ABILITY_ZERO_TO_HERO",
+  "id": 278,
+  "displayName": "Zero to Hero",
+  "description": "Changes form on switch out.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2126
+ },
+ {
+  "constant": "ABILITY_COMMANDER",
+  "id": 279,
+  "displayName": "Commander",
+  "description": "Commands from Dondozo.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2139
+ },
+ {
+  "constant": "ABILITY_ELECTROMORPHOSIS",
+  "id": 280,
+  "displayName": "Electromorphosis",
+  "description": "Gets Charged when hit.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2151
+ },
+ {
+  "constant": "ABILITY_PROTOSYNTHESIS",
+  "id": 281,
+  "displayName": "Protosynthesis",
+  "description": "Sun boosts best stat.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2158
+ },
+ {
+  "constant": "ABILITY_QUARK_DRIVE",
+  "id": 282,
+  "displayName": "Quark Drive",
+  "description": "Elec. field ups best stat.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2169
+ },
+ {
+  "constant": "ABILITY_GOOD_AS_GOLD",
+  "id": 283,
+  "displayName": "Good as Gold",
+  "description": "Avoids status moves.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2180
+ },
+ {
+  "constant": "ABILITY_VESSEL_OF_RUIN",
+  "id": 284,
+  "displayName": "Vessel of Ruin",
+  "description": "Lowers foes' sp. damage.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2188
+ },
+ {
+  "constant": "ABILITY_SWORD_OF_RUIN",
+  "id": 285,
+  "displayName": "Sword of Ruin",
+  "description": "Lowers foes' Defense.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2196
+ },
+ {
+  "constant": "ABILITY_TABLETS_OF_RUIN",
+  "id": 286,
+  "displayName": "Tablets of Ruin",
+  "description": "Lowers foes' damage.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2204
+ },
+ {
+  "constant": "ABILITY_BEADS_OF_RUIN",
+  "id": 287,
+  "displayName": "Beads of Ruin",
+  "description": "Lowers foes' Sp. Defense.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2212
+ },
+ {
+  "constant": "ABILITY_ORICHALCUM_PULSE",
+  "id": 288,
+  "displayName": "Orichalcum Pulse",
+  "description": "Summons sunlight in battle.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2220
+ },
+ {
+  "constant": "ABILITY_HADRON_ENGINE",
+  "id": 289,
+  "displayName": "Hadron Engine",
+  "description": "Field becomes Electric.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2227
+ },
+ {
+  "constant": "ABILITY_OPPORTUNIST",
+  "id": 290,
+  "displayName": "Opportunist",
+  "description": "Copies foe's stat change.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2234
+ },
+ {
+  "constant": "ABILITY_CUD_CHEW",
+  "id": 291,
+  "displayName": "Cud Chew",
+  "description": "Eats a used berry again.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2241
+ },
+ {
+  "constant": "ABILITY_SHARPNESS",
+  "id": 292,
+  "displayName": "Sharpness",
+  "description": "Strengthens slicing moves.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2248
+ },
+ {
+  "constant": "ABILITY_SUPREME_OVERLORD",
+  "id": 293,
+  "displayName": "Supreme Overlord",
+  "description": "Inherits fallen's strength.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2255
+ },
+ {
+  "constant": "ABILITY_COSTAR",
+  "id": 294,
+  "displayName": "Costar",
+  "description": "Copies ally's stat changes.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2262
+ },
+ {
+  "constant": "ABILITY_TOXIC_DEBRIS",
+  "id": 295,
+  "displayName": "Toxic Debris",
+  "description": "Throws poison spikes if hit.",
+  "aiRating": 4,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2269
+ },
+ {
+  "constant": "ABILITY_ARMOR_TAIL",
+  "id": 296,
+  "displayName": "Armor Tail",
+  "description": "Protects from priority.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2276
+ },
+ {
+  "constant": "ABILITY_EARTH_EATER",
+  "id": 297,
+  "displayName": "Earth Eater",
+  "description": "Eats ground to heal HP.",
+  "aiRating": 7,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2284
+ },
+ {
+  "constant": "ABILITY_MYCELIUM_MIGHT",
+  "id": 298,
+  "displayName": "Mycelium Might",
+  "description": "Status moves never fail.",
+  "aiRating": 2,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2292
+ },
+ {
+  "constant": "ABILITY_HOSPITALITY",
+  "id": 299,
+  "displayName": "Hospitality",
+  "description": "Restores ally's HP.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2299
+ },
+ {
+  "constant": "ABILITY_MINDS_EYE",
+  "id": 300,
+  "displayName": "Mind's Eye",
+  "description": "Keen Eye and Scrappy.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2306
+ },
+ {
+  "constant": "ABILITY_EMBODY_ASPECT_TEAL_MASK",
+  "id": 301,
+  "displayName": "Embody Aspect",
+  "description": "Raises Speed.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2314
+ },
+ {
+  "constant": "ABILITY_EMBODY_ASPECT_HEARTHFLAME_MASK",
+  "id": 302,
+  "displayName": "Embody Aspect",
+  "description": "Raises Attack.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2325
+ },
+ {
+  "constant": "ABILITY_EMBODY_ASPECT_WELLSPRING_MASK",
+  "id": 303,
+  "displayName": "Embody Aspect",
+  "description": "Raises Sp. Def.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2336
+ },
+ {
+  "constant": "ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK",
+  "id": 304,
+  "displayName": "Embody Aspect",
+  "description": "Raises Defense.",
+  "aiRating": 6,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2347
+ },
+ {
+  "constant": "ABILITY_TOXIC_CHAIN",
+  "id": 305,
+  "displayName": "Toxic Chain",
+  "description": "Moves can poison.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2358
+ },
+ {
+  "constant": "ABILITY_SUPERSWEET_SYRUP",
+  "id": 306,
+  "displayName": "Supersweet Syrup",
+  "description": "Lowers the foe's Evasion.",
+  "aiRating": 5,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2365
+ },
+ {
+  "constant": "ABILITY_TERA_SHIFT",
+  "id": 307,
+  "displayName": "Tera Shift",
+  "description": "Terastallizes upon entry.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2372
+ },
+ {
+  "constant": "ABILITY_TERA_SHELL",
+  "id": 308,
+  "displayName": "Tera Shell",
+  "description": "Resists all at full HP.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2385
+ },
+ {
+  "constant": "ABILITY_TERAFORM_ZERO",
+  "id": 309,
+  "displayName": "Teraform Zero",
+  "description": "Zeroes weather and terrain.",
+  "aiRating": 10,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2396
+ },
+ {
+  "constant": "ABILITY_POISON_PUPPETEER",
+  "id": 310,
+  "displayName": "Poison Puppeteer",
+  "description": "Confuses poisoned foes.",
+  "aiRating": 8,
+  "isCustom": false,
+  "introducedGeneration": 9,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2406
+ },
+ {
+  "constant": "ABILITY_MEGA_SOL",
+  "id": 311,
+  "displayName": "Mega Sol",
+  "description": "Moves act as if\nunder harsh sunlight.",
+  "aiRating": 8,
+  "isCustom": true,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2416
+ },
+ {
+  "constant": "ABILITY_EELEVATE",
+  "id": 312,
+  "displayName": "Eelevate",
+  "description": "Immune to Ground moves.\nKOs boost its best stat.",
+  "aiRating": 8,
+  "isCustom": true,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2428
+ },
+ {
+  "constant": "ABILITY_SPICY_SPRAY",
+  "id": 313,
+  "displayName": "Spicy Spray",
+  "description": "Once per battle, burns\nthe foe that damages it.",
+  "aiRating": 7,
+  "isCustom": true,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": true,
+   "cantBeOverwritten": true,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2509
+ },
+ {
+  "constant": "ABILITY_ANCIENT_CHIMES",
+  "id": 314,
+  "displayName": "Ancient Chimes",
+  "description": "Not hit by Ground attacks.\nSound moves become Steel.",
+  "aiRating": 7,
+  "isCustom": true,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": true,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2436
+ },
+ {
+  "constant": "ABILITY_DRAGONIZE",
+  "id": 315,
+  "displayName": "Dragonize",
+  "description": "Normal moves become Dragon.",
+  "aiRating": 8,
+  "isCustom": true,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2444
+ },
+ {
+  "constant": "ABILITY_PIERCING_DRILL",
+  "id": 316,
+  "displayName": "Piercing Drill",
+  "description": "Contact moves pierce\nprotection for 1/4 damage.",
+  "aiRating": 6,
+  "isCustom": true,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2451
+ },
+ {
+  "constant": "ABILITY_EMBODY_ASPECT_TEAL_HELD",
+  "id": 317,
+  "displayName": "Embody Aspect",
+  "description": "Defiant. Raises Speed\non switch-in.",
+  "aiRating": 6,
+  "isCustom": true,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2458
+ },
+ {
+  "constant": "ABILITY_EMBODY_ASPECT_WELLSPRING_HELD",
+  "id": 318,
+  "displayName": "Embody Aspect",
+  "description": "Water Absorb. Raises\nSp. Def on switch-in.",
+  "aiRating": 6,
+  "isCustom": true,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2469
+ },
+ {
+  "constant": "ABILITY_EMBODY_ASPECT_HEARTHFLAME_HELD",
+  "id": 319,
+  "displayName": "Embody Aspect",
+  "description": "Mold Breaker. Raises\nAttack on switch-in.",
+  "aiRating": 6,
+  "isCustom": true,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2480
+ },
+ {
+  "constant": "ABILITY_EMBODY_ASPECT_CORNERSTONE_HELD",
+  "id": 320,
+  "displayName": "Embody Aspect",
+  "description": "Sturdy. Raises Defense\non switch-in.",
+  "aiRating": 6,
+  "isCustom": true,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": true,
+   "cantBeSwapped": true,
+   "cantBeTraced": true,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": true
+  },
+  "sourceLine": 2491
+ },
+ {
+  "constant": "ABILITY_FIRE_MANE",
+  "id": 321,
+  "displayName": "Fire Mane",
+  "description": "Ups Fire-type moves.",
+  "aiRating": 6,
+  "isCustom": true,
+  "introducedGeneration": null,
+  "flags": {
+   "cantBeCopied": false,
+   "cantBeSwapped": false,
+   "cantBeTraced": false,
+   "cantBeSuppressed": false,
+   "cantBeOverwritten": false,
+   "breakable": false,
+   "failsOnImposter": false
+  },
+  "sourceLine": 2502
+ }
+]
